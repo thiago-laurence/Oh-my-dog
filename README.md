@@ -1,7 +1,7 @@
 # Oh my dog!
  Proyecto "Oh my dog!" correspondiente a la materia Ingenieria de software 2 - UNLP.
 
-|![Logo Facultad de informática - UNLP](../Documentacion%20de%20proyecto/Logo%20-%20UNLP%20-%20FI.jpg)  | ![Logo "Oh my dog!"](../Documentacion%20de%20proyecto/Logo%20-%20Veterinaria.png)|
+| <image src="https://www.info.unlp.edu.ar/wp-content/uploads/2020/01/cropped-cabeceraweb.jpg" alt="Logo - Facultad de informática UNLP" width="300px"> | <image src="../Documentacion%20de%20proyecto/Logo%20-%20Veterinaria.png" alt="Logo - Oh my dog!" width="100px"> |
 | ------ | -------- |
 ---
 
