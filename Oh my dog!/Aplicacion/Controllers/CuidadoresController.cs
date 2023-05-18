@@ -9,87 +9,87 @@ using Aplicacion.Models;
 
 namespace Aplicacion.Controllers
 {
-    public class Usuarios2Controller : Controller
+    public class CuidadoresController : Controller
     {
-        private readonly OhmydogContext _context;
+        private readonly OhmydogdbContext _context;
 
-        public Usuarios2Controller(OhmydogContext context)
+        public CuidadoresController(OhmydogdbContext context)
         {
             _context = context;
         }
 
-        // GET: Usuarios2
+        // GET: Cuidadores
         public async Task<IActionResult> Index()
         {
-              return _context.Usuarios2s != null ? 
-                          View(await _context.Usuarios2s.ToListAsync()) :
-                          Problem("Entity set 'OhmydogContext.Usuarios2s'  is null.");
+              return _context.Cuidadores != null ? 
+                          View(await _context.Cuidadores.ToListAsync()) :
+                          Problem("Entity set 'OhmydogdbContext.Cuidadores'  is null.");
         }
 
-        // GET: Usuarios2/Details/5
+        // GET: Cuidadores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Usuarios2s == null)
+            if (id == null || _context.Cuidadores == null)
             {
                 return NotFound();
             }
 
-            var usuarios2 = await _context.Usuarios2s
+            var cuidadore = await _context.Cuidadores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuarios2 == null)
+            if (cuidadore == null)
             {
                 return NotFound();
             }
 
-            return View(usuarios2);
+            return View(cuidadore);
         }
 
-        // GET: Usuarios2/Create
+        // GET: Cuidadores/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuarios2/Create
+        // POST: Cuidadores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre")] Usuarios2 usuarios2)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,Ubicacion,HorarioIn,HorarioOut,Foto")] Cuidadore cuidadore)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuarios2);
+                _context.Add(cuidadore);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuarios2);
+            return View(cuidadore);
         }
 
-        // GET: Usuarios2/Edit/5
+        // GET: Cuidadores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Usuarios2s == null)
+            if (id == null || _context.Cuidadores == null)
             {
                 return NotFound();
             }
 
-            var usuarios2 = await _context.Usuarios2s.FindAsync(id);
-            if (usuarios2 == null)
+            var cuidadore = await _context.Cuidadores.FindAsync(id);
+            if (cuidadore == null)
             {
                 return NotFound();
             }
-            return View(usuarios2);
+            return View(cuidadore);
         }
 
-        // POST: Usuarios2/Edit/5
+        // POST: Cuidadores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Usuarios2 usuarios2)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,Ubicacion,HorarioIn,HorarioOut,Foto")] Cuidadore cuidadore)
         {
-            if (id != usuarios2.Id)
+            if (id != cuidadore.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace Aplicacion.Controllers
             {
                 try
                 {
-                    _context.Update(usuarios2);
+                    _context.Update(cuidadore);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!Usuarios2Exists(usuarios2.Id))
+                    if (!CuidadoreExists(cuidadore.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +114,49 @@ namespace Aplicacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuarios2);
+            return View(cuidadore);
         }
 
-        // GET: Usuarios2/Delete/5
+        // GET: Cuidadores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Usuarios2s == null)
+            if (id == null || _context.Cuidadores == null)
             {
                 return NotFound();
             }
 
-            var usuarios2 = await _context.Usuarios2s
+            var cuidadore = await _context.Cuidadores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuarios2 == null)
+            if (cuidadore == null)
             {
                 return NotFound();
             }
 
-            return View(usuarios2);
+            return View(cuidadore);
         }
 
-        // POST: Usuarios2/Delete/5
+        // POST: Cuidadores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Usuarios2s == null)
-            {
-                return Problem("Entity set 'OhmydogContext.Usuarios2s'  is null.");
+            if (_context.Cuidadores == null)
+            {   
+                return Problem("Entity set 'OhmydogdbContext.Cuidadores'  is null.");
             }
-            var usuarios2 = await _context.Usuarios2s.FindAsync(id);
-            if (usuarios2 != null)
+            var cuidadore = await _context.Cuidadores.FindAsync(id);
+            if (cuidadore != null)
             {
-                _context.Usuarios2s.Remove(usuarios2);
+                _context.Cuidadores.Remove(cuidadore);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool Usuarios2Exists(int id)
+        private bool CuidadoreExists(int id)
         {
-          return (_context.Usuarios2s?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Cuidadores?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

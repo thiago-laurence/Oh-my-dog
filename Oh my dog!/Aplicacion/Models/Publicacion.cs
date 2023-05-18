@@ -3,27 +3,19 @@ using System.Collections.Generic;
 
 namespace Aplicacion.Models;
 
-public partial class Usuario
+public partial class Publicacion
 {
     public int Id { get; set; }
 
-    public string Email { get; set; } = null!;
-
-    public string Nombre { get; set; } = null!;
-
-    public string Apellido { get; set; } = null!;
-
-    public string Direccion { get; set; } = null!;
-
-    public string Telefono { get; set; } = null!;
-
     public bool Estado { get; set; }
 
-    public bool Rol { get; set; }
+    public int Tipo { get; set; }
 
-    public string Contrasena { get; set; } = null!;
+    public int IdPerro { get; set; }
 
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
+    public virtual Perro IdPerroNavigation { get; set; } = null!;
+
+    public virtual TipoPublicacion TipoNavigation { get; set; } = null!;
 
     public virtual ICollection<UsuarioAdopcionPublicacion> UsuarioAdopcionPublicacions { get; set; } = new List<UsuarioAdopcionPublicacion>();
 
