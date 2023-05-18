@@ -97,7 +97,7 @@ namespace Aplicacion.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {   
                     _context.Update(cuidadore);
                     await _context.SaveChangesAsync();
                 }
