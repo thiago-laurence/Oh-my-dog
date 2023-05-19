@@ -79,7 +79,7 @@
                                     </td>
                                     <td>@Html.DisplayFor(modelItem => user.Direccion)</td>
                                     <td>
-                                        @if ((bool)user.Estado!)
+                                        @if (user.Estado == 1)
                                         {
                                             <span class="badge text-bg-success">Activo</span>
                                         }else{
@@ -243,8 +243,8 @@
                             </div>-->
                             <div style="display: none;">
                                 <input asp-for="Usuario.Estado" type="text" value="true">
-                                <input asp-for="Usuario.Rol" type="text" value="false">
-                                <input asp-for="Usuario.Contrasena" type="text" value="12345678">
+                                <input asp-for="Usuario.IdRol" type="text" value="false">
+                                <input asp-for="Usuario.Pass" type="text" value="12345678">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -339,8 +339,8 @@
                         </div>
                     </div>
                     <div style="display: none;">
-                        <input asp-for="Usuario.Rol" type="text" value="false">
-                        <input asp-for="Usuario.Contrasena" type="text" value="12345678">
+                        <input asp-for="Usuario.IdRol" type="text" value="false">
+                        <input asp-for="Usuario.Pass" type="text" value="12345678">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
