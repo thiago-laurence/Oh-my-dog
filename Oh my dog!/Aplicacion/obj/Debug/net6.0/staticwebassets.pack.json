@@ -5,12 +5,24 @@
       "PackagePath": "staticwebassets\\Aplicacion.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\mapa.css",
+      "PackagePath": "staticwebassets\\css\\mapa.css"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\opcionesMapa.css",
+      "PackagePath": "staticwebassets\\css\\opcionesMapa.css"
+    },
+    {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\granPaseador.jpg",
+      "PackagePath": "staticwebassets\\img\\granPaseador.jpg"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",

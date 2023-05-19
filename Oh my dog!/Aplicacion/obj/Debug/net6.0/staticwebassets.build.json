@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6XaLBYkGleGEiWyudu8gKBnGrstHPac7QXzgbfHr8n4=",
+  "Hash": "TlZ1vuacTcTVR5c0vUWRnqRCvzPLPbKIVdBwllw3hYE=",
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -51,6 +51,40 @@
       "OriginalItemSpec": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aplicacion.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\mapa.css",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "css/mapa.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\mapa.css"
+    },
+    {
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\opcionesMapa.css",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "css/opcionesMapa.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\opcionesMapa.css"
+    },
+    {
       "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\site.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -83,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\granPaseador.jpg",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/granPaseador.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\granPaseador.jpg"
     },
     {
       "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",

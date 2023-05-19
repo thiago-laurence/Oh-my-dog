@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
+using System.Text.Json;
+
 
 namespace Aplicacion.Controllers
 {
@@ -16,6 +18,14 @@ namespace Aplicacion.Controllers
         public CuidadoresController(OhmydogdbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public string obtenerCuidadores()
+        {
+            return JsonSerializer.Serialize(_context.Cuidadores.ToList());
+
+
         }
 
         // GET: Cuidadores
