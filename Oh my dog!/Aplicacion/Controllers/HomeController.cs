@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -17,8 +18,8 @@ namespace Aplicacion.Controllers
 		{
 			return View();
 		}
-
-		public IActionResult Privacy()
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Privacy()
 		{
 			return View();
 		}
@@ -27,6 +28,11 @@ namespace Aplicacion.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+
+		public ActionResult LogOut()
+		{
+			return RedirectToAction("Index");
 		}
 	}
 }
