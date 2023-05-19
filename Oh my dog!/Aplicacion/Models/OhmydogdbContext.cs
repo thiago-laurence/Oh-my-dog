@@ -27,6 +27,8 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Publicacion> Publicacions { get; set; }
 
+    public virtual DbSet<Rol> Rols { get; set; }
+
     public virtual DbSet<TipoPublicacion> TipoPublicacions { get; set; }
 
     public virtual DbSet<Tratamiento> Tratamientos { get; set; }
@@ -47,7 +49,9 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<VacunaPerro> VacunaPerros { get; set; }
 
-    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; trustservercertificate=true; integrated security=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -160,6 +164,17 @@ public partial class OhmydogdbContext : DbContext
                 .HasConstraintName("FK_Publicacion_TipoPublicacion");
         });
 
+        modelBuilder.Entity<Rol>(entity =>
+        {
+            entity.HasKey(e => e.IdRol).HasName("PK__Rol__2A49584CD2E41696");
+
+            entity.ToTable("Rol");
+
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<TipoPublicacion>(entity =>
         {
             entity.ToTable("TipoPublicacion");
@@ -224,9 +239,6 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.Apellido)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Contrasena)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.Direccion)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -236,9 +248,17 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Pass)
+                .HasMaxLength(250)
+                .IsUnicode(false);
             entity.Property(e => e.Telefono)
                 .HasMaxLength(14)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdRol)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Usuarios_Rol");
         });
 
         modelBuilder.Entity<UsuarioAdopcionPublicacion>(entity =>

@@ -19,9 +19,11 @@ public partial class Usuario
 
     public bool Estado { get; set; }
 
-    public bool Rol { get; set; }
+    public bool IdRol { get; set; }
 
-    public string Contrasena { get; set; } = null!;
+    public string Pass { get; set; } = null!;
+
+    public virtual Rol IdRolNavigation { get; set; } = null!;
 
     public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
 
