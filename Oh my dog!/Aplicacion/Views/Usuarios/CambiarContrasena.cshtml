@@ -1,0 +1,74 @@
+﻿@model Aplicacion.Models.Usuario
+@{
+    ViewData["Title"] = "Cambiar contraseña";
+}
+
+<div class="b-example-divider"></div>
+
+<div class="container-fluid col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <p class="display-5 fw-bold lh-1 mb-3">
+                <i class="fa-solid fa-lock fa-md"></i>
+                Cambiar contraseña
+            </p>
+            <p class="display-6 fw-bold mb-3" style="font-weight: 500!important;">
+                Consejos de seguridad
+            </p>
+            <p class="col-lg-10 fs-5">
+                Además de cuidar a tu perro, también elegimos cuidarte a vos, por eso utilizamos las siguientes medidas de seguridad para 
+                hacer de la utilización del sistema un lugar más seguro.
+            </p>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 8 caracteres.</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 caracter numérico.</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 caracter alfabético.</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 caracter no alfanumérico (por ejemplo -, _, *, &, etc).</a>
+            </div>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5">
+            <form class="p-4 p-md-5 border rounded-3 bg-light">
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingInput" placeholder="Contraseña actual">
+                    <label for="floatingInput">Contraseña actual</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Nueva contraseña">
+                    <label for="floatingPassword">Nueva contraseña</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Repetir contraseña">
+                    <label for="floatingPassword">Repetir nueva contraseña</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="button">Aceptar</button>
+                <hr class="my-4">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="b-example-divider"></div>
+
+<!-- Inicio cambiar contraseña -->
+
+<!-- Modificacion exitosa -->
+<div class="modal fade" id="modalSuccess" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modificación exitosa!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert">
+                    <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
+                    La contraseña ha sido modificada con exito!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin de modal de modificacion de contraseña-->

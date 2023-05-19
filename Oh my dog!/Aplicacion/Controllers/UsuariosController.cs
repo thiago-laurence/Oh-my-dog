@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
+using System.Text.RegularExpressions;
+using Aplicacion.Data;
 
 namespace Aplicacion.Controllers
 {
@@ -19,11 +21,54 @@ namespace Aplicacion.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar, int? numeroPagina, string filtroActual)
         {
-              return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
-                          Problem("Entity set 'OhmydogdbContext.Usuarios'  is null.");
+            if (_context.Usuarios != null)
+            {
+                var usuarios = from usuario in _context.Usuarios select usuario;
+                if (buscar != null)
+                {
+                    numeroPagina = 1;
+                }
+                else
+                {
+                    buscar = filtroActual;
+                }
+                if (!String.IsNullOrEmpty(buscar))
+                {
+                    usuarios = usuarios.Where(u => u.Apellido.Contains(buscar));
+                }
+                ViewData["FiltroActual"] = filtroActual;
+                int cantidadRegistros = 5;
+                UsuarioViewModel modelo = new UsuarioViewModel
+                {
+                    Usuario = new Usuario(),
+                    ListUsuarios = await usuarios.ToListAsync(),
+                    Paginacion = await Paginacion<Usuario>.CrearPaginacion(usuarios.AsNoTracking(), numeroPagina ?? 1, cantidadRegistros)
+                };
+
+                return View(modelo);
+            }
+            return (Problem("Entity set 'OhmydogdbContext.Usuarios'  is null."));
+            
+            //return ( (_context.Usuarios != null) ? View(await _context.Usuarios.ToListAsync()) : Problem("Entity set 'OhmydogdbContext.Usuarios'  is null."));
+        }
+
+        /*public async Task<IActionResult> Index(string buscar)
+        {
+            var usuarios = from usuario in _context.Usuarios select usuario;
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                usuarios = usuarios.Where(u => u.Apellido.Contains(buscar));
+            }
+
+            return (View(await usuarios.ToListAsync()));
+        }*/
+
+        public IActionResult CambiarContrasena()
+        {
+            return (View());
         }
 
         // GET: Usuarios/Details/5
@@ -41,6 +86,7 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
+            //return Json(usuario);
             return View(usuario);
         }
 
@@ -58,15 +104,27 @@ namespace Aplicacion.Controllers
         public async Task<IActionResult> Create([Bind("Id,Email,Nombre,Apellido,Direccion,Telefono,Estado,Rol,Contrasena")] Usuario usuario)
         {
             if (ModelState.IsValid)
-            {
+            {                
+                if (validarEmail(usuario.Email))
+                {
+                    ModelState.AddModelError("Email", "El email ingresado ya está registrado");
+                    //return View(usuario);
+                    return RedirectToAction(nameof(Index));
+                }
+                TempData["RegistroExitoso"] = true;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(usuario);
         }
 
         // GET: Usuarios/Edit/5
+        /*public async Task<ActionResult<Usuario>> getUsuario(int id)
+        {
+            return (await )
+        }*/
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Usuarios == null)
@@ -96,6 +154,12 @@ namespace Aplicacion.Controllers
 
             if (ModelState.IsValid)
             {
+                if (validarEmail(usuario.Email))
+                {
+                    ModelState.AddModelError("Email", "El email ingresado ya está registrado");
+                    return View(usuario);
+                }
+
                 try
                 {
                     _context.Update(usuario);
@@ -157,6 +221,18 @@ namespace Aplicacion.Controllers
         private bool UsuarioExists(int id)
         {
           return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private bool validarEmail(String email)
+        {
+            return (_context.Usuarios?.Any(u => u.Email == email)).GetValueOrDefault();
+        }
+
+        private bool validarContrasena(String pass)
+        {
+            return (
+                    (pass.Length >= 8) && (Regex.IsMatch(pass, @"\d")) && (Regex.IsMatch(pass, @"[a-zA-Z]")) && (Regex.IsMatch(pass, @"\W"))
+                );
         }
     }
 }

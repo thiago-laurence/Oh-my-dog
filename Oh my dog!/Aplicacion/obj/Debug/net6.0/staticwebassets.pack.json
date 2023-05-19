@@ -5,12 +5,28 @@
       "PackagePath": "staticwebassets\\Aplicacion.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",
+      "PackagePath": "staticwebassets\\img\\Logo - Veterinaria.png"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo 2 - Veterinaria.png",
+      "PackagePath": "staticwebassets\\img\\Logo 2 - Veterinaria.png"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
     },
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",
