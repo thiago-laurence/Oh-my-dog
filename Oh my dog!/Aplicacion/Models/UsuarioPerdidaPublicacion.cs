@@ -17,5 +17,5 @@ public partial class UsuarioPerdidaPublicacion
 
     public virtual Publicacion IdPublicacionNavigation { get; set; } = null!;
 
-    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
+    public virtual Usuarios IdUsuarioNavigation { get; set; } = null!;
 }

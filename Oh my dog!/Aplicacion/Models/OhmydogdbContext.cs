@@ -37,7 +37,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Turno> Turnos { get; set; }
 
-    public virtual DbSet<Usuario> Usuarios { get; set; }
+    public virtual DbSet<Usuarios> Usuarios { get; set; }
 
     public virtual DbSet<UsuarioAdopcionPublicacion> UsuarioAdopcionPublicacions { get; set; }
 
@@ -230,7 +230,7 @@ public partial class OhmydogdbContext : DbContext
                 .HasConstraintName("FK_Turnos_Perros");
         });
 
-        modelBuilder.Entity<Usuario>(entity =>
+        modelBuilder.Entity<Usuarios>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC078968375E");
 
