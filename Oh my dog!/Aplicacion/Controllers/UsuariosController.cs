@@ -42,9 +42,9 @@ namespace Aplicacion.Controllers
                 int cantidadRegistros = 5;
                 UsuarioViewModel modelo = new UsuarioViewModel
                 {
-                    Usuario = new Usuarios(),
+                    Usuario = new Usuario(),
                     ListUsuarios = await usuarios.ToListAsync(),
-                    Paginacion = await Paginacion<Usuarios>.CrearPaginacion(usuarios.AsNoTracking(), numeroPagina ?? 1, cantidadRegistros)
+                    Paginacion = await Paginacion<Usuario>.CrearPaginacion(usuarios.AsNoTracking(), numeroPagina ?? 1, cantidadRegistros)
                 };
 
                 return View(modelo);
@@ -101,7 +101,7 @@ namespace Aplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Nombre,Apellido,Direccion,Telefono,Estado,Rol,Contrasena")] Usuarios usuario)
+        public async Task<IActionResult> Create([Bind("Id,Email,Nombre,Apellido,Direccion,Telefono,Estado,Rol,Contrasena")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -145,7 +145,7 @@ namespace Aplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Nombre,Apellido,Direccion,Telefono,Estado,Rol,Contrasena")] Usuarios usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Nombre,Apellido,Direccion,Telefono,Estado,Rol,Contrasena")] Usuario usuario)
         {
             if (id != usuario.Id)
             {

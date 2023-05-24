@@ -3,12 +3,29 @@
 @{
     ViewData["Title"] = "Create";
 }
+<head>
+
+    <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+
+</head>
 
 <h1>Create</h1>
 
 <h4>Cuidadore</h4>
 <hr />
-<div class="row">
+
+
+<div id="agregarCuidador" class="row">
         <div class="container-fluid"
              style="padding-top: 50px; padding-bottom: 50px; padding-left: 200px; padding-right: 200px;">
             <div class="card">
@@ -19,46 +36,78 @@
                     </svg>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <form id="formulario">
+                        <div  class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="Nombre" class="control-label"></label>
-                            <input asp-for="Nombre" class="form-control" />
-                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                            <label class="control-label">Nombre</label>
+                            <input id="nombre" class="form-control" />
+                        <span id="nombre_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Apellido" class="control-label"></label>
-                            <input asp-for="Apellido" class="form-control" />
-                            <span asp-validation-for="Apellido" class="text-danger"></span>
+                            <label  class="control-label">Apellido</label>
+                            <input  id="apellido" class="form-control" />
+                        <span id="apellido_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Email" class="control-label"></label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label  class="control-label">Email</label>
+                            <input  id= "email" class="form-control" />
+                            <span id="email_val" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Ubicacion" class="control-label"></label>
-                            <input asp-for="Ubicacion" class="form-control" />
-                            <span asp-validation-for="Ubicacion" class="text-danger"></span>
+                    <div class="form-group">
+                        <label class="control-label">Direccion</label>
+
+                        <input class="form-control" id="direccion" placeholder="Ej: Calle 35" />
+                        <span id="direccion_val" class="text-danger"></span>
+                    </div>
+                    
+
+                    <div class="form-group d-flex align-content-center justify-content-around">
+                            <div class="form-group">
+                                <label class="control-label">Horario comienzo: </label>
+                              
+                                <input id="inicio" type ="time" class="form-control" />
+                                <span  class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label  class="control-label">Horario finaliza: </label>
+                                <input  type="time" id="fin" class="form-control" />
+                                <span class="text-danger"></span>
+                            </div>
+                        <span id="fechas_val" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="HorarioIn" class="control-label"></label>
-                            <input asp-for="HorarioIn" class="form-control" />
-                            <span asp-validation-for="HorarioIn" class="text-danger"></span>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupFile01">Foto</label>
+                        <input type="file" class="form-control" id="inputGroupFile01">
+                    </div>
+                    <button type="button" class="btn btn-primary" hidden id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
+                        VerMapa
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" id="btnHideModal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body ">
+                                    <div class="container" id="mapcontainer">
+                                        <div id="map"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Cancelar</button>
+                                    <div class="form-group" id="enviarCuidador">
+                                        <input id="cargar" type="button" value="Confirmar" class="btn btn-primary"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="HorarioOut" class="control-label"></label>
-                            <input asp-for="HorarioOut" class="form-control" />
-                            <span asp-validation-for="HorarioOut" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Foto" class="control-label"></label>
-                            <input asp-for="Foto" class="form-control" />
-                            <span asp-validation-for="Foto" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
-                        </div>
+                    </div>
                     </form>
                 </div>
             </div>
@@ -66,10 +115,334 @@
 
 </div>
 
+
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    
+}<script type="text/javascript"
+         src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key="></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+<!--    AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk*/
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+
+    <script type="text/javascript">
+    
+
+
+    function showMessage(message,id) {
+        const output = document.querySelector(id);
+        output.textContent = message;
+    }
+    function checkEmail(email) {
+        
+        const reg = new RegExp( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,"gm")
+        if (!(reg.exec(email))){
+            showMessage("Ingrese un mail válido","#email_val")
+            return false;
+        }else
+        {
+            showMessage("","#email_val")
+            return true;
+        }
+
+    }
+    function checkApellido(apellido) {
+        const reg = new RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u, "gm");
+        if (!(reg.exec(apellido)))
+        {
+            showMessage("Ingrese un apellido válido","#apellido_val");
+            return false;
+        }else
+        {
+            showMessage("", "#apellido_val");
+            return true;
+        }
+    }
+
+    function checkNombre(nombre) {
+        const reg = new RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u, "gm");
+        if (!(reg.exec(nombre)))
+            {
+            showMessage("Ingrese un nombre válido", "#nombre_val");
+            return false;
+        } else {
+            
+            showMessage("", "#nombre_val");
+            return true;
+        }
+    }
+
+    function checkDireccion(direccion)
+    {   
+        if (direccion==""){
+            showMessage("Ingese una direccion valida","#direccion_val");
+            return false;
+        }
+             else {
+
+        showMessage("", "#direccion_val");
+        return true;
+    }
+    }
+
+    function checkFechas(inicio,fin) {
+        if (inicio=='' || fin=='')
+            return false;
+        if (inicio >=fin) {
+            showMessage("Ingese un rango de fechas validas", "#fechas_val");
+            return false;
+        }
+        else {
+            showMessage("", "#fechas_val");
+            return true;
+        }
+    }
+
+    
+    
+
+    
+    function init() {
+        const element_email = document.getElementById('email');
+        const element_nombre= document.getElementById('nombre');
+        const element_apellido= document.getElementById('apellido');
+        const element_direccion = document.getElementById('direccion');
+        const element_inicio = document.getElementById('inicio');
+        const element_fin = document.getElementById('fin');
+        
+        var mapOptions = {
+            center: [-34.9, -57.9597539],
+            zoom: 13,
+            zoomControl: true
+        }
+
+        var map = new L.map('map', mapOptions);
+
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        map.addLayer(layer);
+
+        var customIcon = {
+            iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
+            iconSize: [40, 40],
+        }
+
+
+        //let myIcon = L.divIcon();
+
+        var myIcon = L.icon(customIcon);
+        var marker;
+        var iconOptions = {
+            title: "Lautaro",
+            draggable: false,
+            icon: myIcon
+        }
+        var latitude;
+        var longitude;
+
+
+        google.maps.event.addDomListener(window, 'load', function () {
+
+
+
+
+
+            var places = new google.maps.places.Autocomplete(document.getElementById('direccion'));
+
+            google.maps.event.addListener(places, 'place_changed', function () {
+
+                var place = places.getPlace();
+                latitude = place.geometry.location.lat();
+                longitude = place.geometry.location.lng();
+                
+                
+            });
+        });
+
+
+
+        element_email.addEventListener(
+            'blur',
+            function(){
+                
+                checkEmail(element_email.value);
+            }
+        );
+            element_nombre.addEventListener(
+                'blur',
+                function () {
+
+                    checkNombre(element_nombre.value);
+                }
+            );
+            element_apellido.addEventListener(
+                'blur',
+                function () {
+
+                    checkApellido(element_apellido.value);
+                }
+            );
+            element_direccion.addEventListener(
+                'blur',
+                function () {
+
+                    checkDireccion(element_direccion.value);
+                }
+            );
+
+
+        $("#btnShowModal").click(function () {
+            var _cuidador = {};
+         
+         
+            _cuidador.Nombre = $("#nombre").val();
+            _cuidador.Apellido = $("#apellido").val();
+            _cuidador.Email = $("#email").val();
+            _cuidador.HorarioIN = $("#inicio").val();
+            _cuidador.HorarioOUT = $("#fin").val();
+            _cuidador.Foto =null;
+            _cuidador.Latitud = $("#email").val();
+            _cuidador.Longitud = $("#email").val();
+            _cuidador.Ubicacion= $("#direccion").val();
+            
+            
+            $.ajax({
+                type: "POST",
+                url: "/Cuidadores/existeCuidador",
+                data: _cuidador,
+                
+                dataType: "json",
+                success: function (r) {
+                    if (r) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'El paseador ya se encuentra en la zona',
+                           // html: '<img width="250" height="200" src="/img/AdobeStock_33953457.svg">',
+                            imageUrl: "/img/AdobeStock_33953457.svg",
+                            imageHeight: 300,
+                        })
+                        
+                    } else {
+                        marker = new L.Marker([-33.2121,55.555], iconOptions);
+                        marker.addTo(map);
+                        map.panTo(new L.LatLng(-33.2121, 55.555));
+                        $("#exampleModalCenter").modal('show');
+                        setTimeout(function () { map.invalidateSize() }, 400);
+                    }
+                }
+            });
+        });
+           
+
+
+
+        $("#btnHideModal").click(function () {
+            $("#exampleModalCenter").modal('hide');
+            if (map.hasLayer(marker)) {
+                map.removeLayer(marker);
+            }
+        });
+        $("#btnCloseModal").click(function () {
+            $("#exampleModalCenter").modal('hide');
+            if (map.hasLayer(marker)) {
+                map.removeLayer(marker);
+            }
+        });
+       
+            $('#cargar').on('click', function (event) {
+               
+         
+            
+
+
+            
+            var nombre = $("#nombre").val();
+            var apellido = $("#apellido").val();
+            var email = $("#email").val();
+            var horarioIN = $("#inicio").val();
+            var horarioOUT = $("#fin").val();
+            var foto = null;
+            var latitud = $("#email").val();
+            var longitud = $("#email").val();
+            var ubicacion = $("#direccion").val();
+
+
+            var jsonData = {
+                
+                Nombre: nombre,
+                Apellido: apellido,
+                Email: email,
+                HorarioIN: horarioIN,
+                HorarioOUT: horarioOUT,
+                Foto: foto,
+                Latitud: latitud,
+                Longitud: longitud,
+                Ubicacion: ubicacion,
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Cuidadores/Insertar",
+                data: jsonData,
+                dataType: "json",
+                success: function (r) {
+                    if (r) {
+                        
+                        Swal.fire({
+                            imageUrl: '/img/AdobeStock_262214231.svg',
+                            imageHeight: 300,
+                            title: 'Felicitaciones!',
+                            text: 'El cuidador se ha publicado exitosamente',
+                        })
+                        var url = '@Url.Action("Index", "Cuidadores")';
+                        window.location.href = url;
+                    } 
+                }
+            });
+        });
+    
+      
+
+    $(document).on("keypress", 'form', function (e) {
+        var code = e.keyCode || e.which;
+        console.log(code);
+        if (code == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+        $('#formulario').on("mouseup keydown", function () {
+            var nombreInput = document.getElementById('nombre').value;
+            var direccionInput = document.getElementById('direccion').value;
+            var apellidoInput = document.getElementById('apellido').value;
+            var emailInput = document.getElementById('email').value;
+            var inicioInput = document.getElementById('inicio').value;
+            var finInput = document.getElementById('fin').value;
+            if (!((nombreInput=='') || (apellidoInput=='')
+                || (emailInput=='') || (direccionInput=='') || (inicioInput=='') || ( finInput==''))) {
+            if  (checkNombre(nombreInput) && checkApellido(apellidoInput)
+                && checkEmail(emailInput) && checkDireccion(direccionInput) && checkFechas(inicioInput, finInput)) {   
+                document.getElementById('btnShowModal').removeAttribute("hidden");
+            } else {
+                
+                document.getElementById('btnShowModal').setAttribute("hidden", null);
+            }
+        }
+        });
+    
+        }
+    
+    document.addEventListener("DOMContentLoaded", init);
+
+    
+
+    </script>
+

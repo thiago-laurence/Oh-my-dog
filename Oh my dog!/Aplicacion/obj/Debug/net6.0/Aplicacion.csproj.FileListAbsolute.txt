@@ -288,3 +288,6 @@ C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\
 C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\scopedcss\Views\Usuarios\CambiarContrasena.cshtml.rz.scp.css
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\GoogleMaps.LocationServices.dll
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Microsoft.Extensions.PlatformAbstractions.dll
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Nancy.dll

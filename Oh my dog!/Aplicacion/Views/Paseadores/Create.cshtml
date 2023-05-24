@@ -1,27 +1,17 @@
-﻿@model Aplicacion.Models.Cuidadore
+﻿@model Aplicacion.Models.Paseadore
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
-<h4>Cuidadore</h4>
+<h4>Paseadore</h4>
 <hr />
 <div class="row">
-    <div class="container-fluid"
-         style="padding-top: 50px; padding-bottom: 50px; padding-left: 200px; padding-right: 200px;">
-        <div class="card">
-            <div class="card-header text-center">
-                <h2>Iniciar sesión</h2>
-                <svg class="bi" width="40px" height="40px">
-                    <use xlink:href="#people-circle" />
-                </svg>
-            </div>
-            <div class="card-body">
-                <form asp-action="Edit">
+    <div class="col-md-4">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
@@ -37,7 +27,16 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            
+            <div class="form-group">
+                <label asp-for="Foto" class="control-label"></label>
+                <input asp-for="Foto" class="form-control" />
+                <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ubicacion" class="control-label"></label>
+                <input asp-for="Ubicacion" class="form-control" />
+                <span asp-validation-for="Ubicacion" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="HorarioIn" class="control-label"></label>
                 <input asp-for="HorarioIn" class="form-control" />
@@ -49,19 +48,22 @@
                 <span asp-validation-for="HorarioOut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Foto" class="control-label"></label>
-                <input asp-for="Foto" class="form-control" />
-                <span asp-validation-for="Foto" class="text-danger"></span>
+                <label asp-for="Latitud" class="control-label"></label>
+                <input asp-for="Latitud" class="form-control" />
+                <span asp-validation-for="Latitud" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="Longitud" class="control-label"></label>
+                <input asp-for="Longitud" class="form-control" />
+                <span asp-validation-for="Longitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-            </div>
-        </div>
     </div>
-
 </div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

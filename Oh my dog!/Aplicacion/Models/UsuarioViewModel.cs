@@ -3,9 +3,9 @@ using System;
 namespace Aplicacion.Models;
 public class UsuarioViewModel
 {
-    public IEnumerable<Usuarios> ListUsuarios { get; set; }
+    public IEnumerable<Usuario> ListUsuarios { get; set; }
 
-    public Usuarios Usuario { get; set; }
-    public Paginacion<Usuarios> Paginacion { get; set; } 
+    public Usuario Usuario { get; set; }
+    public Paginacion<Usuario> Paginacion { get; set; } 
 
 }

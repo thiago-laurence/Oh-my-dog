@@ -20,4 +20,8 @@ public partial class Paseadore
     public TimeSpan HorarioIn { get; set; }
 
     public TimeSpan HorarioOut { get; set; }
+
+    public string Latitud { get; set; } = null!;
+
+    public string Longitud { get; set; } = null!;
 }

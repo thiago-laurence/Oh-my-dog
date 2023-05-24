@@ -17,7 +17,7 @@ public partial class Turno
 
     public int Perro { get; set; }
 
-    public virtual Usuarios DuenoNavigation { get; set; } = null!;
+    public virtual Usuario DuenoNavigation { get; set; } = null!;
 
     public virtual EstadoTurno EstadoNavigation { get; set; } = null!;
 

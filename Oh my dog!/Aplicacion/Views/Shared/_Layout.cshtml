@@ -72,8 +72,8 @@
                         Servicios
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="Cuidadores_Veterinaria.html">Cuidadores</a></li>
-                        <li><a class="dropdown-item" href="#">Paseadores</a></li>
+                        <li><a class="dropdown-item" asp-controller="Cuidadores" asp-action="Index" >Cuidadores</a></li>
+                        <li><a class="dropdown-item" asp-controller="Paseadores" asp-action="Index">Paseadores</a></li>
                     </ul>
                 </li>
                 @if (User.Identity.IsAuthenticated)

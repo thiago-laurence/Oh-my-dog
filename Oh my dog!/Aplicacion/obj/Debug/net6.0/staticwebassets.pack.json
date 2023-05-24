@@ -9,8 +9,12 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\mapa.css",
-      "PackagePath": "staticwebassets\\css\\mapa.css"
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\map.css",
+      "PackagePath": "staticwebassets\\css\\map.css"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\modalMap.css",
+      "PackagePath": "staticwebassets\\css\\modalMap.css"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\opcionesMapa.css",
@@ -23,6 +27,18 @@
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1314467-ff9800.svg",
+      "PackagePath": "staticwebassets\\img\\1314467-ff9800.svg"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\AdobeStock_262214231.svg",
+      "PackagePath": "staticwebassets\\img\\AdobeStock_262214231.svg"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\AdobeStock_33953457.svg",
+      "PackagePath": "staticwebassets\\img\\AdobeStock_33953457.svg"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",

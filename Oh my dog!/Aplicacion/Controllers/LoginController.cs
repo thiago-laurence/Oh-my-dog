@@ -20,9 +20,9 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Usuarios _usuario)
+        public async Task<IActionResult> Index(Usuario _usuario)
         {
-            Usuarios usuario = null;
+            Usuario usuario = null;
             usuario = this.validarUsuario(_usuario.Email, _usuario.Pass);
             if (usuario != null)
             {
@@ -53,9 +53,9 @@ namespace Aplicacion.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public Usuarios validarUsuario(string email, string password)
+        public Usuario validarUsuario(string email, string password)
         {
-            Usuarios user = new Usuarios();
+            Usuario user = new Usuario();
             user = _context.Usuarios.Where(u => u.Email == email && u.Pass == password).FirstOrDefault();
             return user;
 

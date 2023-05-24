@@ -5,7 +5,7 @@
 }
 <head>
     <link rel="stylesheet" href="~/css/opcionesMapa.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/mapa.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
@@ -25,16 +25,19 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Index</a>
+    <a asp-action="Create">Create New</a>
 </p>
+<div id="mostrarCargar">
+<div class="container-fluid">
 <div id="map"></div>
+</div>
 @foreach (var item in Model){
 <div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
 
 
 
                 <div class="d-flex justify-content-center">
-                <img src="../img/granPaseador.jpg" class="align-self-center  w-50" alt="1era img carousel">
+                <img src="@item.Foto" class="align-self-center  w-50" alt="1era img carousel">
                 </div>
 
 
@@ -47,12 +50,27 @@
                     </div>
                 </div>
                 }
-    @section Scripts{
+    
+                
+ </div>
+                @section Scripts{
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>     
-
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    
                     <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
-    <script> 
+
+    
+                    
+                    
+                    
+                    
+                    
+                    
+<script> 
+
+
+
+
 
 let mapOptions = {
     center: [-34.9, -57.9597539],
@@ -75,11 +93,7 @@ let customIcon = {
 //let myIcon = L.divIcon();
 
     let myIcon = L.icon(customIcon);
-    
-
-
-      
-            $.ajax({  
+                $.ajax({  
                 type: "GET",  
                 url: 'Cuidadores/obtenerCuidadores',  
                 data: {},  
@@ -94,33 +108,16 @@ let customIcon = {
                                 title: cuidador.Nombre,
                                 draggable: false,
                                 icon: myIcon
-                            }
-                    $.ajax({
-                        type: "GET",
-                        url: "https://nominatim.openstreetmap.org/search?addresdetails=1&q=" + cuidador.Ubicacion +"&format=json&limit=1",
-                        data: {},
-                        datatype: "json",
-
-                        success: function (data) {
-                            
-                            
-                            let marker = new L.Marker([data[0].lat, data[0].lon], iconOptions);
+                                }
+                            let marker = new L.Marker([cuidador.Latitud, cuidador.Longitud], iconOptions);
                             marker.addTo(map);
                             marker.bindPopup(document.getElementById(cuidador.Id).innerHTML);
+                        });
                         },
                         failure: function (jqXHR, textStatus, errorThrown) {
                             alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
                         }
                     });
-                                     
-                             valor+=0.009
-                                                           
-                    });  
-                },
-                failure: function (jqXHR, textStatus, errorThrown) {
-                    alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
-                }
-            }); 
-          
+     
     </script>
     }

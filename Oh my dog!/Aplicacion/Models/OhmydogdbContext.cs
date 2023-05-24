@@ -37,7 +37,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Turno> Turnos { get; set; }
 
-    public virtual DbSet<Usuarios> Usuarios { get; set; }
+    public virtual DbSet<Usuario> Usuarios { get; set; }
 
     public virtual DbSet<UsuarioAdopcionPublicacion> UsuarioAdopcionPublicacions { get; set; }
 
@@ -59,7 +59,7 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Cuidadore>(entity =>
         {
-            entity.HasIndex(e => new { e.Ubicacion, e.Email }, "IX_Cuidadores").IsUnique();
+            entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Cuidadores").IsUnique();
 
             entity.Property(e => e.Apellido)
                 .HasMaxLength(50)
@@ -76,11 +76,17 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.HorarioOut)
                 .HasPrecision(0)
                 .HasColumnName("HorarioOUT");
+            entity.Property(e => e.Latitud)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Longitud)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Ubicacion)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsUnicode(false);
         });
 
@@ -123,6 +129,12 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.HorarioOut)
                 .HasPrecision(0)
                 .HasColumnName("HorarioOUT");
+            entity.Property(e => e.Latitud)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Longitud)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -230,7 +242,7 @@ public partial class OhmydogdbContext : DbContext
                 .HasConstraintName("FK_Turnos_Perros");
         });
 
-        modelBuilder.Entity<Usuarios>(entity =>
+        modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC078968375E");
 
