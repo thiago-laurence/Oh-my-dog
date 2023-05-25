@@ -5,42 +5,60 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Inicio de sesion</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="theme-color" content="#7952b3">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+    </style>
+    <link href="~/css/loginStyles.css" rel="stylesheet">
 </head>
-<body>
 
-    @*------ GOOGLEAR ====> form bootstrap 5 ----------------*@
-
-    <div class="row mt-5">
-        <div class="col-sm-4 offset-sm-4">
-
-            <form asp-controller="Login" asp-action="Index" method="post">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" asp-for="Email">
-                    @*<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>*@
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" asp-for="Pass">
-                </div>
-                @* <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>*@
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-
-
-        </div>
-    </div>
-
-
-
+<body class="text-center">
+    <main class="form-signin">
+        <form asp-controller="Login" asp-action="Index" method="post">
+            <img class="mb-4" src="~/img/Logo - Veterinaria.png" alt="" width="82" height="95">
+            <h1 class="h3 mb-3 fw-normal">Inicio de sesion</h1>
+            <div class="form-floating">
+                <input required type="email" class="form-control" asp-for="Email" id="floatingInput" placeholder="ejemplo@example.com">
+                <label for="floatingInput">Correo electrónico</label>
+            </div>
+            <div class="form-floating">
+                <input required minlength="8" type="password" class="form-control" asp-for="Pass" id="floatingPassword" placeholder="Contraseña">
+                <label for="floatingPassword">Contraseña</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
+        </form>
+    </main>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            var msjArray = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Message));
+            msjArray = msjArray.split(',');
+            var msjTitle = msjArray[0];
+            var msjText = msjArray[1];
+            Swal.fire({
+                icon: 'warning',
+                title: msjTitle,
+                text: msjText
+            })
+        </script>
+    }
 </body>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

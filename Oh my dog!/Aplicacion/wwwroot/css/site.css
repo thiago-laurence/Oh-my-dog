@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.carousel-image 
+{
+    height: 60rem;
+}

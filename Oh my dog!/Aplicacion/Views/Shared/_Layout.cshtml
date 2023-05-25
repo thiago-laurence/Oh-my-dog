@@ -39,6 +39,7 @@
             </div>
         </nav>
     </header>-->
+    
 
     <!--Inicio Header Veterinario-->
     <div class="container-fluid">
@@ -86,12 +87,45 @@
                     </li>
                 }
                 <li>
-                    <a href="#" class="nav-link px-2 link-dark">
-                        <i class="fa-solid fa-envelope fa-xl" style="color: #000000;"></i>
+                    <a href="#" class="nav-link px-2 link-dark" id="openModal">
+                        <i type="button" class="fa-solid fa-envelope fa-xl btn" style="color: #000000;" data-bs-toggle="modal" data-bs-target="#modalEnviarMensaje"></i>
                         Contacto
                     </a>
+                        
                 </li>
             </ul>
+            <!-- Modal -->
+            <div class="modal fade" id="modalEnviarMensaje" tabindex="-1" aria-labelledby="modalEnviarMensajeLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEnviarMensajeLabel">Enviar Mensaje</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form asp-controller="Contacto" asp-action="EnviarCorreo" method="post">
+                                <div class="mb-3">
+                                    <label for="remitente" class="form-label">Remitente:</label>
+                                    <input type="email" class="form-control" id="remitente" name="remitente" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="destinatario" class="form-label">Destinatario:</label>
+                                    <input type="email" class="form-control" id="destinatario" name="destinatario" readonly required value="ohmydoggonet@outlook.es">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="asunto" class="form-label">Asunto:</label>
+                                    <input type="text" class="form-control" id="asunto" name="asunto" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contenido" class="form-label">Contenido:</label>
+                                    <textarea class="form-control" id="contenido" name="contenido" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="col-md-3 text-center">
@@ -200,11 +234,17 @@
             &copy; 2023 - Aplicacion - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>-->
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
     <script src="~/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $('#openModal').click(function () {
+                $('#modalEnviarMensaje').modal('show');
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

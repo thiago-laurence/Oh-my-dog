@@ -22,10 +22,16 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(Usuarios _usuario)
         {
+            ViewBag.Message = "";
             Usuarios usuario = null;
             usuario = this.validarUsuario(_usuario.Email, _usuario.Pass);
             if (usuario != null)
             {
+                if (usuario.Estado == 0) 
+                {
+                    ViewBag.Message = "El usuario esta baneado, por favor visite la veterinaria o pongase en contacto a traves de ohmydog@gmail.com";
+                    return View();
+                }
                 Rol rolUser = new Rol();
                 rolUser = _context.Rols.Where(r => r.IdRol == usuario.IdRol).FirstOrDefault();
                 // CONFIGURACION DE LA AUTENTICACION
@@ -43,7 +49,7 @@ namespace Aplicacion.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-
+            ViewBag.Message = "No se pudo iniciar sesion, Usuario o contraseña invalido";
             return View();
         }
 
