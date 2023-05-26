@@ -10,10 +10,9 @@
 }
 
 .leaflet-popup-content-wrapper {
-    width:400px;
-    height:400px;
-    display:flex;
-    flex-direction: column;
+    width:auto;
+    height:auto;
+    
     align-items:center;
     justify-content:center;
 }

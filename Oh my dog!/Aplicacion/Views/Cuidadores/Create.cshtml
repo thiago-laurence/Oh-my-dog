@@ -19,23 +19,18 @@
 
 </head>
 
-<h1>Create</h1>
-
-<h4>Cuidadore</h4>
-<hr />
-
 
 <div id="agregarCuidador" class="row">
         <div class="container-fluid"
              style="padding-top: 50px; padding-bottom: 50px; padding-left: 200px; padding-right: 200px;">
             <div class="card">
                 <div class="card-header text-center">
-                    <h2>Iniciar sesión</h2>
+                    <h2>Publicar cuidador</h2>
                     <svg class="bi" width="40px" height="40px">
                         <use xlink:href="#people-circle" />
                     </svg>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="tarjeta">
                     <form id="formulario">
                         <div  class="text-danger"></div>
                         <div class="form-group">
@@ -54,14 +49,14 @@
                             <span id="email_val" class="text-danger"></span>
                         </div>
                     <div class="form-group">
-                        <label class="control-label">Direccion</label>
+                        <label class="control-label">Ubicacion</label>
 
                         <input class="form-control" id="direccion" placeholder="Ej: Calle 35" />
                         <span id="direccion_val" class="text-danger"></span>
                     </div>
                     
-
-                    <div class="form-group d-flex align-content-center justify-content-around">
+                    <div>
+                    <div class="form-group d-flex align-content-center justify-content-evenly">
                             <div class="form-group">
                                 <label class="control-label">Horario comienzo: </label>
                               
@@ -73,12 +68,15 @@
                                 <input  type="time" id="fin" class="form-control" />
                                 <span class="text-danger"></span>
                             </div>
-                        <span id="fechas_val" class="text-danger"></span>
+                        
+                            </div>
+                        <div class="text-center">
+                            <span class="text-danger" id="fechas_val"></span>
                         </div>
-
+                    </div>
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupFile01">Foto</label>
-                        <input type="file" class="form-control" id="inputGroupFile01">
+                        <label class="input-group-text" for="upload">Foto</label>
+                        <input type="file" class="form-control" id="upload">
                     </div>
                     <button type="button" class="btn btn-primary" hidden id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
                         VerMapa
@@ -308,7 +306,7 @@
             _cuidador.Email = $("#email").val();
             _cuidador.HorarioIN = $("#inicio").val();
             _cuidador.HorarioOUT = $("#fin").val();
-            _cuidador.Foto =null;
+            _cuidador.Foto = $("#upload").val();
             _cuidador.Latitud = $("#email").val();
             _cuidador.Longitud = $("#email").val();
             _cuidador.Ubicacion= $("#direccion").val();
@@ -363,13 +361,21 @@
             
 
 
-            
+            var fullPath = document.getElementById('upload').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+                
+            }
             var nombre = $("#nombre").val();
             var apellido = $("#apellido").val();
             var email = $("#email").val();
             var horarioIN = $("#inicio").val();
             var horarioOUT = $("#fin").val();
-            var foto = null;
+            var foto = '/img/'+$('#upload').val().replace(/C:\\fakepath\\/i, '');
             var latitud = $("#email").val();
             var longitud = $("#email").val();
             var ubicacion = $("#direccion").val();
@@ -394,15 +400,25 @@
                 dataType: "json",
                 success: function (r) {
                     if (r) {
-                        
+
                         Swal.fire({
                             imageUrl: '/img/AdobeStock_262214231.svg',
                             imageHeight: 300,
                             title: 'Felicitaciones!',
                             text: 'El cuidador se ha publicado exitosamente',
+                            timer: 5000,
+                            timerProgressBar: true
                         })
-                        var url = '@Url.Action("Index", "Cuidadores")';
-                        window.location.href = url;
+                            .then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    console.log('I was closed by the timer')
+                                }
+
+                                var url = '@Url.Action("Index", "Cuidadores")';
+                                window.location.href = url;
+                            })
+                        
                     } 
                 }
             });

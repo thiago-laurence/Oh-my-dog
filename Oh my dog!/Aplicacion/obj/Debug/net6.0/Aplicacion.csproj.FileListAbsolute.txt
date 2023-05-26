@@ -291,3 +291,4 @@ C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\
 C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\GoogleMaps.LocationServices.dll
 C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Microsoft.Extensions.PlatformAbstractions.dll
 C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Nancy.dll
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.csproj.ResolveComReference.cache

@@ -6,9 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
+using System.Web;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Nancy.Json;
+using Nancy;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.Net.Mail;
+using System.Net;
 
 namespace Aplicacion.Controllers
 {
@@ -57,13 +70,15 @@ namespace Aplicacion.Controllers
 
         public async Task<IActionResult> Insertar(Cuidadore cuidadore)
             {
-
+            
+            
             if (ModelState.IsValid)
             {
                 _context.Add(cuidadore);
                 await _context.SaveChangesAsync();
                 return Json(true) ;
             }
+
             return Json(false);
         }
         /*_context.Add(cuidadore);
@@ -196,6 +211,26 @@ namespace Aplicacion.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+      
+
+
+
+        public async Task<IActionResult> SendEmail(string origen, string destino, string titulo, string mensaje)
+        {
+            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("753b469e9e376d", "06af1e23c346ae"),
+                EnableSsl = true
+            };
+            client.Send(origen, destino, titulo, mensaje);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+
 
         private bool CuidadoreExists(int id)
         {

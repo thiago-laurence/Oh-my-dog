@@ -41,12 +41,20 @@
       "PackagePath": "staticwebassets\\img\\AdobeStock_33953457.svg"
     },
     {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Cesar.jpg",
+      "PackagePath": "staticwebassets\\img\\Cesar.jpg"
+    },
+    {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",
       "PackagePath": "staticwebassets\\img\\Logo - Veterinaria.png"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo 2 - Veterinaria.png",
       "PackagePath": "staticwebassets\\img\\Logo 2 - Veterinaria.png"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\fondo_formulario.svg",
+      "PackagePath": "staticwebassets\\img\\fondo_formulario.svg"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\granPaseador.jpg",

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Aplicacion.Models.Cuidadore>
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Aplicacion.Models.Cuidadore>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,38 +23,135 @@
 
 
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div id="mostrarCargar">
-<div class="container-fluid">
-<div id="map"></div>
-</div>
-@foreach (var item in Model){
-<div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
+ @if (User.Identity.IsAuthenticated)
+   { 
+        @if (User.IsInRole("Administrador"))
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <div class="container-fluid">
+            <div id="map"></div>
+        </div>
+            @foreach (var item in Model)
+            {
+            <div id="@item.Id"  class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
+                
+
+                    
+                    <div class="d-flex justify-content-center">
+                        <img src="@item.Foto" class="align-self-center w-75" alt="1era img carousel">
+                    </div>
 
 
+                    <div class="card-body text-center m-3">
 
-                <div class="d-flex justify-content-center">
-                <img src="@item.Foto" class="align-self-center  w-50" alt="1era img carousel">
+                    <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
+                    <div class="d-flex justify-content-evenly">
+
+                        <button type="button" class="btn btn-primary" onclick="openModal()" data-toggle="modal" data-target="#exampleModalCenter">
+                            Launch demo modal
+                        </button>
+
+
+                        <!-- Modal -->
+                        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+
+                        
+                        
+
+                    <a class="m-2  btn  btn-danger" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    </div>
                 </div>
+                </div>
+            }
+
+        }
+        else
+        {
+        <div class="container-fluid">
+            <div id="map"></div>
+        </div>
+            @foreach (var item in Model)
+            {
+                <div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
+
+
+
+                    <div class="d-flex justify-content-center">
+                        <img src="@item.Foto" class="align-self-center w-75" alt="1era img carousel">
+                    </div>
 
 
                     <div class="card-body text-center container-fluid">
 
-                    <h5 class="card-title">@item.Nombre @item.Apellido</h5>
-                    <p class="card-text">Soy el paseador mas bueno del condado. Contactame!</p>
-                    <a href="#" class="btn btn-primary opcionContacto">Contactar</a>
-                            <a class="btn  btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <h5 class="card-title">@item.Nombre @item.Apellido</h5>
+
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="openModal()" data-target="#exampleModalCenter">
+                        Launch demo modal
+                    </button>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- Modal -->
+
+
+
+
+
+
                 </div>
-                }
-    
-                
- </div>
-                @section Scripts{
+                </div>
+            }
+        }
+
+    }else
+{
+    <div class="container d-flex align-items-center justify-content-center">
+        <img class="w-50 h-50"src="/img/AdobeStock_33953457.svg" />
+       </div>
+    }
+    @section Scripts{
         <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
             integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     
@@ -66,11 +164,9 @@
                     
                     
                     
-<script> 
+<script>
 
-
-
-
+      
 
 let mapOptions = {
     center: [-34.9, -57.9597539],
@@ -84,8 +180,8 @@ let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
 map.addLayer(layer);
 
 let customIcon = {
-    iconUrl: "dog.svg",
-    iconSize: [75, 75],
+            iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
+    iconSize: [30, 30],
 
 }
    
@@ -109,15 +205,32 @@ let customIcon = {
                                 draggable: false,
                                 icon: myIcon
                                 }
-                            let marker = new L.Marker([cuidador.Latitud, cuidador.Longitud], iconOptions);
+                        let marker = new L.Marker([-34.9, -57.9597539], iconOptions);
                             marker.addTo(map);
-                            marker.bindPopup(document.getElementById(cuidador.Id).innerHTML);
+                    marker.bindPopup(document.getElementById(cuidador.Id).innerHTML, { maxWidth: "auto",
+                    width: "250"});
                         });
                         },
                         failure: function (jqXHR, textStatus, errorThrown) {
                             alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
                         }
                     });
+
+        function openModal() {
+            map.closePopup();
+            $("#exampleModalCenter").appendTo("body").modal("show");
+        }
+     
+
+        function closeModal(){
+            $("body>#exampleModalCenter").remove();
+            $("#exampleModalCenter").modal("hide");
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        }   
+          
+
+          
      
     </script>
     }
