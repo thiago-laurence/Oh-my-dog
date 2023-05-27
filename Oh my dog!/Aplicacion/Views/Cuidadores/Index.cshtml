@@ -71,12 +71,15 @@
             @foreach (var item in Model)
             {
             <div id="@item.Id"  class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
-                
 
-                    
+
+
+                @if (item.Foto != null)
+                {
                     <div class="d-flex justify-content-center">
                         <img src="@item.Foto" class="align-self-center w-50" alt="1era img carousel">
                     </div>
+                }
 
 
                     <div class="card-body text-center m-3">
@@ -161,9 +164,12 @@
 
 
 
+                @if (item.Foto != null)
+                {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Foto" class="align-self-center w-75" alt="1era img carousel">
+                        <img src="@item.Foto" class="align-self-center w-50" alt="1era img carousel">
                     </div>
+                }
 
 
                     <div class="card-body text-center container-fluid">
