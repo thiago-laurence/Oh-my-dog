@@ -1,15 +1,19 @@
 ﻿@model Aplicacion.Models.Cuidadore
 
 @{
+    Layout = null;
     ViewData["Title"] = "Create";
 }
 <head>
 
     <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
-
+        <link rel="stylesheet" href="~/css/bodyCreate.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Aplicacion.styles.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
@@ -20,38 +24,32 @@
 </head>
 
 
-<div id="agregarCuidador" class="row">
-        <div class="container-fluid"
-             style="padding-top: 50px; padding-bottom: 50px; padding-left: 200px; padding-right: 200px;">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h2>Publicar cuidador</h2>
-                    <svg class="bi" width="40px" height="40px">
-                        <use xlink:href="#people-circle" />
-                    </svg>
-                </div>
-                <div class="card-body" id="tarjeta">
-                    <form id="formulario">
+<div id="agregarCuidador" class="row no-border">
+       
+            <div class="card no-border">
+                
+                <div class="card-body no-border" id="tarjeta">
+            <form id="formulario" class="no-border"autocomplete="off">
                         <div  class="text-danger"></div>
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input id="nombre" class="form-control" />
+                    <input id="nombre" autocomplete="off"  class="form-control" />
                         <span id="nombre_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Apellido</label>
-                            <input  id="apellido" class="form-control" />
+                    <input id="apellido" autocomplete="off" class="form-control" />
                         <span id="apellido_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Email</label>
-                            <input  id= "email" class="form-control" />
+                    <input id="email" autocomplete="off" class="form-control" />
                             <span id="email_val" class="text-danger"></span>
                         </div>
                     <div class="form-group">
                         <label class="control-label">Ubicacion</label>
 
-                        <input class="form-control" id="direccion" placeholder="Ej: Calle 35" />
+                    <input class="form-control" autocomplete="off"  id="direccion" placeholder="Ej: Calle 35" />
                         <span id="direccion_val" class="text-danger"></span>
                     </div>
                     
@@ -59,13 +57,13 @@
                     <div class="form-group d-flex align-content-center justify-content-evenly">
                             <div class="form-group">
                                 <label class="control-label">Horario comienzo: </label>
-                              
-                                <input id="inicio" type ="time" class="form-control" />
+
+                            <input id="inicio" type="time" autocomplete="off" class="form-control" />
                                 <span  class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label  class="control-label">Horario finaliza: </label>
-                                <input  type="time" id="fin" class="form-control" />
+                            <input autocomplete="off" type="time" id="fin" class="form-control" />
                                 <span class="text-danger"></span>
                             </div>
                         
@@ -78,8 +76,8 @@
                         <label class="input-group-text" for="upload">Foto</label>
                         <input type="file" class="form-control" id="upload">
                     </div>
-                    <button type="button" class="btn btn-primary" hidden id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
-                        VerMapa
+                    <button type="button" class="btn btn-primary" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
+                        Publicar
                     </button>
 
                     <!-- Modal -->
@@ -87,14 +85,11 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" id="btnHideModal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                   
                                 </div>
-                                <div class="modal-body ">
-                                    <div class="container" id="mapcontainer">
-                                        <div id="map"></div>
+                                <div class="modal-body "style="height:300px;">
+                                <div class="container"  id="mapcontainer">
+                                    <div id="map" style="height:250px;"></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -111,19 +106,14 @@
             </div>
         </div>
 
-</div>
 
 
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
 }<script type="text/javascript"
-         src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key="></script>
+         src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk"></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
             integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -131,7 +121,10 @@
     <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
 <!--    AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk*/
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
     
 
@@ -238,14 +231,10 @@
 
         var myIcon = L.icon(customIcon);
         var marker;
-        var iconOptions = {
-            title: "Lautaro",
-            draggable: false,
-            icon: myIcon
-        }
+        
         var latitude;
         var longitude;
-
+        var puedo;
 
         google.maps.event.addDomListener(window, 'load', function () {
 
@@ -260,8 +249,8 @@
                 var place = places.getPlace();
                 latitude = place.geometry.location.lat();
                 longitude = place.geometry.location.lng();
-                
-                
+                puedo = true;
+
             });
         });
 
@@ -296,23 +285,26 @@
                 }
             );
 
-
+    var valor;
         $("#btnShowModal").click(function () {
+            showMessage("Ingese una direccion valida", "#direccion_val");
             var _cuidador = {};
          
-         
+            _cuidador.Id=0;
             _cuidador.Nombre = $("#nombre").val();
             _cuidador.Apellido = $("#apellido").val();
             _cuidador.Email = $("#email").val();
             _cuidador.HorarioIN = $("#inicio").val();
             _cuidador.HorarioOUT = $("#fin").val();
             _cuidador.Foto = $("#upload").val();
-            _cuidador.Latitud = $("#email").val();
-            _cuidador.Longitud = $("#email").val();
-            _cuidador.Ubicacion= $("#direccion").val();
             
-            
-            $.ajax({
+            function controlarUbicacion(){
+            if (puedo){
+                _cuidador.Latitud = latitude;
+                _cuidador.Longitud = longitude;
+                _cuidador.Ubicacion = $("#direccion").val();
+                
+                $.ajax({
                 type: "POST",
                 url: "/Cuidadores/existeCuidador",
                 data: _cuidador,
@@ -320,23 +312,56 @@
                 dataType: "json",
                 success: function (r) {
                     if (r) {
+                        showMessage("", "#direccion_val");
                         Swal.fire({
                             title: 'Error',
                             text: 'El paseador ya se encuentra en la zona',
                            // html: '<img width="250" height="200" src="/img/AdobeStock_33953457.svg">',
                             imageUrl: "/img/AdobeStock_33953457.svg",
-                            imageHeight: 300,
+                            imageHeight: 155,
                         })
-                        
+                       puedo=false;
+                     
+                     
                     } else {
-                        marker = new L.Marker([-33.2121,55.555], iconOptions);
+                        var iconOptions = {
+                            title: _cuidador.Nombre,
+                            draggable: false,
+                            icon: myIcon
+                        }
+                        showMessage("", "#direccion_val");
+                        marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
                         marker.addTo(map);
-                        map.panTo(new L.LatLng(-33.2121, 55.555));
+                        map.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
                         $("#exampleModalCenter").modal('show');
                         setTimeout(function () { map.invalidateSize() }, 400);
+                        puedo=false;
+                        
+                            
                     }
                 }
             });
+            };
+            }
+            function obtenerPosicion() {
+                geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({
+                    address: $("#direccion").val()
+                }, (results, status) => {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        latitude = (results[0].geometry.location.lat());
+                        longitude = (results[0].geometry.location.lng());
+                        controlarUbicacion();
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+
+            }
+
+            obtenerPosicion();
+
         });
            
 
@@ -348,6 +373,7 @@
                 map.removeLayer(marker);
             }
         });
+
         $("#btnCloseModal").click(function () {
             $("#exampleModalCenter").modal('hide');
             if (map.hasLayer(marker)) {
@@ -375,14 +401,18 @@
             var email = $("#email").val();
             var horarioIN = $("#inicio").val();
             var horarioOUT = $("#fin").val();
-            var foto = '/img/'+$('#upload').val().replace(/C:\\fakepath\\/i, '');
-            var latitud = $("#email").val();
-            var longitud = $("#email").val();
+             var foto;
+            if ($('#upload').val())
+           {
+             foto = '/img/'+$('#upload').val().replace(/C:\\fakepath\\/i, '');
+            }
+            var latitud = latitude;
+            var longitud = longitude;
             var ubicacion = $("#direccion").val();
 
 
             var jsonData = {
-                
+                Id:0,
                 Nombre: nombre,
                 Apellido: apellido,
                 Email: email,
@@ -403,7 +433,7 @@
 
                         Swal.fire({
                             imageUrl: '/img/AdobeStock_262214231.svg',
-                            imageHeight: 300,
+                            imageHeight: 155,
                             title: 'Felicitaciones!',
                             text: 'El cuidador se ha publicado exitosamente',
                             timer: 5000,
@@ -415,8 +445,7 @@
                                     console.log('I was closed by the timer')
                                 }
 
-                                var url = '@Url.Action("Index", "Cuidadores")';
-                                window.location.href = url;
+                                window.parent.closeCargar();
                             })
                         
                     } 
@@ -446,10 +475,10 @@
                 || (emailInput=='') || (direccionInput=='') || (inicioInput=='') || ( finInput==''))) {
             if  (checkNombre(nombreInput) && checkApellido(apellidoInput)
                 && checkEmail(emailInput) && checkDireccion(direccionInput) && checkFechas(inicioInput, finInput)) {   
-                document.getElementById('btnShowModal').removeAttribute("hidden");
+                document.getElementById('btnShowModal').removeAttribute("disabled");
             } else {
                 
-                document.getElementById('btnShowModal').setAttribute("hidden", null);
+                document.getElementById('btnShowModal').setAttribute("disabled", null);
             }
         }
         });

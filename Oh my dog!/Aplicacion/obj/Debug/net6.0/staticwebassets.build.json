@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9pKXMldcHfz03RUAQJCZs6HclthE+y7E+78Mh2DJtGA=",
+  "Hash": "W9GhoYHttXmsYeXffxxbzUZIJtMeQFKL03N0czE4qMU=",
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -51,6 +51,23 @@
       "OriginalItemSpec": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aplicacion.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bodyCreate.css",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "css/bodyCreate.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\bodyCreate.css"
+    },
+    {
       "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -66,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\IndexCuid.css",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "css/IndexCuid.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\IndexCuid.css"
     },
     {
       "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\map.css",

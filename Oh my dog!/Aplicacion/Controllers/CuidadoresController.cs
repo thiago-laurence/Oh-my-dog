@@ -22,12 +22,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.Extensions.Options;
 
 namespace Aplicacion.Controllers
 {
     public class CuidadoresController : Controller
     {
         private readonly OhmydogdbContext _context;
+
 
         public CuidadoresController(OhmydogdbContext context)
         {
@@ -66,20 +68,20 @@ namespace Aplicacion.Controllers
             return View();
         }
 
+
         [HttpPost]
-
         public async Task<IActionResult> Insertar(Cuidadore cuidadore)
-            {
-            
-            
-            if (ModelState.IsValid)
-            {
-                _context.Add(cuidadore);
-                await _context.SaveChangesAsync();
-                return Json(true) ;
-            }
+        {
 
-            return Json(false);
+            
+           
+               
+               
+                    _context.Cuidadores.Add(cuidadore);
+                    await _context.SaveChangesAsync();
+                    return Json(true);
+           
+            
         }
         /*_context.Add(cuidadore);
                 await _context.SaveChangesAsync();
@@ -172,11 +174,68 @@ namespace Aplicacion.Controllers
 
             return View(cuidadore);
         }
+
+
+
+        public async Task<IActionResult> Modificar(int id)
+        {
+            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
+    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
+    .Options;
+            using (var _context = new OhmydogdbContext(contextOptions))
+            {
+
+
+
+                if (id == null || _context.Cuidadores == null)
+                {
+                    return NotFound();
+                }
+
+                var cuidadore = await _context.Cuidadores
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (cuidadore == null)
+                {
+                    return NotFound();
+                }
+
+                return View(cuidadore);
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> ModificarFinal(Cuidadore cuidador)
+        {
+
+
+            var borrado = _context.Cuidadores.FirstOrDefault(m => m.Id == cuidador.Id); 
+                _context.Cuidadores.Remove(borrado);
+                _context.Cuidadores.Add(cuidador);
+                await _context.SaveChangesAsync();
+                int lastProductId = _context.Cuidadores.Max(item => item.Id);
+                return Json(lastProductId);
+
+
+            
+
+
+
+        }
+
         [HttpGet]
         public string obtenerCuidadores()
         {
-            return JsonSerializer.Serialize(_context.Cuidadores.ToList());
 
+            var contextOptions= new DbContextOptionsBuilder<OhmydogdbContext>()
+    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
+    .Options;
+            using (var db = new OhmydogdbContext(contextOptions))
+            {
+
+                return JsonSerializer.Serialize(db.Cuidadores.ToList());
+            }
         }
 
         [HttpPost]
@@ -194,8 +253,27 @@ namespace Aplicacion.Controllers
             return Json(false);
         }
         // POST: Cuidadores/Delete/5
+
+        [HttpPost]
+        public async Task<ActionResult> borrarCuidador(int id)
+        {
+            var contextOptions =new DbContextOptionsBuilder<OhmydogdbContext>()
+    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
+    .Options;
+            using (var db = new OhmydogdbContext(contextOptions))
+            {   
+                var cuidador = await db.Cuidadores.FirstOrDefaultAsync(m => m.Id == id);
+                db.Cuidadores.Remove(cuidador);
+                await db.SaveChangesAsync();
+                return Json(true);
+            }
+            
+        }
+
+
+
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Cuidadores == null)

@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Modificar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xNb2RpZmljYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/_ContactarCuidador.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xfQ29udGFjdGFyQ3VpZGFkb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -50,26 +54,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Create.cshtml]

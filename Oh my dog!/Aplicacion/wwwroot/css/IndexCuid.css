@@ -1,0 +1,19 @@
+﻿.no-border {
+    border: 0;
+    border-bottom: 0 none;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+
+modal-content {
+    border: 0;
+    border-bottom: 0 none;
+    box-shadow: none;
+}
+
+.modal-header {
+    border-bottom: 0 none;
+}
+
+.modal-footer {
+    border-top: 0 none;
+}

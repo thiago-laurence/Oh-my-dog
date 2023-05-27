@@ -21,7 +21,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
 
-    public virtual DbSet<Paseadore> Paseadores { get; set; }
+
 
     public virtual DbSet<Perro> Perros { get; set; }
 
@@ -59,7 +59,7 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Cuidadore>(entity =>
         {
-            entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Cuidadores").IsUnique();
+            entity.HasIndex(e => new { e.Ubicacion, e.Email }, "IX_Cuidadores");
 
             entity.Property(e => e.Apellido)
                 .HasMaxLength(50)
@@ -110,7 +110,7 @@ public partial class OhmydogdbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Paseadore>(entity =>
+        modelBuilder.Entity<Cuidadore>(entity =>
         {
             entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Paseadores").IsUnique();
 

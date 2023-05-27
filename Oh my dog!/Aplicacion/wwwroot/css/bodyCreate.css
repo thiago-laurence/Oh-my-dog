@@ -1,0 +1,30 @@
+﻿body {
+    background-image: url(../img/fondo_formulario.svg);
+    background-size: contain;
+    border:0;
+    box-shadow:0;
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 0px solid rgba(0, 0, 0, 0.1);
+}
+.no-border {
+    border: 0;
+    border-bottom:0 none;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+
+modal-content {
+    border: 0;
+    border-bottom: 0 none;
+    box-shadow: none;
+}
+.modal-header {
+    border-bottom: 0 none;
+}
+
+.modal-footer {
+    border-top: 0 none;
+}

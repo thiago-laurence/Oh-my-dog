@@ -1,0 +1,500 @@
+﻿@model Aplicacion.Models.Cuidadore
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Create";
+}
+<head>
+
+    <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bodyCreate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Aplicacion.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+
+</head>
+
+
+<div id="agregarCuidador" class="row no-border">
+
+    <div class="card no-border">
+
+        <div class="card-body no-border" id="tarjeta">
+            <form id="formulario" class="no-border" autocomplete="off">
+                <div class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input id="nombre" autocomplete="off" value="@Model.Nombre" class="form-control" />
+                    <span id="nombre_val" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Apellido</label>
+                    <input id="apellido" autocomplete="off" class="form-control" value="@Model.Apellido"/>
+                    <span id="apellido_val" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input id="email" autocomplete="off" class="form-control" value="@Model.Email"/>
+                    <span id="email_val" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Ubicacion</label>
+
+                    <input class="form-control" autocomplete="off" id="direccion" value="@Model.Ubicacion" placeholder="Ej: Calle 35" />
+                    <span id="direccion_val" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <div class="form-group d-flex align-content-center justify-content-evenly">
+                        <div class="form-group">
+                            <label class="control-label">Horario comienzo: </label>
+
+                            <input id="inicio" type="time" autocomplete="off" class="form-control" value="@Model.HorarioIn"/>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Horario finaliza: </label>
+                            <input autocomplete="off" type="time" id="fin" class="form-control" value="@Model.HorarioOut"/>
+                            <span class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="text-center">
+                        <span class="text-danger" id="fechas_val"></span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="upload" value="" >Foto</label>
+                    <input type="file" class="form-control" id="upload">
+                </div>
+                <button type="button" class="btn btn-primary" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
+                    Modificar
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            </div>
+                            <div class="modal-body " style="height:300px;">
+                                <div class="container" id="mapcontainer">
+                                    <div id="map" style="height:250px;"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Cancelar</button>
+                                <div class="form-group" id="enviarCuidador">
+                                    <input id="cargar" type="button" value="Confirmar" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}<script type="text/javascript"
+         src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk"></script>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+<!--    AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk*/
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script type="text/javascript">
+
+
+
+    function showMessage(message, id) {
+        const output = document.querySelector(id);
+        output.textContent = message;
+    }
+    function checkEmail(email) {
+
+        const reg = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "gm")
+        if (!(reg.exec(email))) {
+            showMessage("Ingrese un mail válido", "#email_val")
+            return false;
+        } else {
+            showMessage("", "#email_val")
+            return true;
+        }
+
+    }
+    function checkApellido(apellido) {
+        const reg = new RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u, "gm");
+        if (!(reg.exec(apellido))) {
+            showMessage("Ingrese un apellido válido", "#apellido_val");
+            return false;
+        } else {
+            showMessage("", "#apellido_val");
+            return true;
+        }
+    }
+
+    function checkNombre(nombre) {
+        const reg = new RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u, "gm");
+        if (!(reg.exec(nombre))) {
+            showMessage("Ingrese un nombre válido", "#nombre_val");
+            return false;
+        } else {
+
+            showMessage("", "#nombre_val");
+            return true;
+        }
+    }
+
+    function checkDireccion(direccion) {
+        if (direccion == "") {
+            showMessage("Ingese una direccion valida", "#direccion_val");
+            return false;
+        }
+        else {
+
+            showMessage("", "#direccion_val");
+            return true;
+        }
+    }
+
+    function checkFechas(inicio, fin) {
+        if (inicio == '' || fin == '')
+            return false;
+        if (inicio >= fin) {
+            showMessage("Ingese un rango de fechas validas", "#fechas_val");
+            return false;
+        }
+        else {
+            showMessage("", "#fechas_val");
+            return true;
+        }
+    }
+
+
+
+
+
+    function init() {
+        const element_email = document.getElementById('email');
+        const element_nombre = document.getElementById('nombre');
+        const element_apellido = document.getElementById('apellido');
+        const element_direccion = document.getElementById('direccion');
+        const element_inicio = document.getElementById('inicio');
+        const element_fin = document.getElementById('fin');
+
+        var mapOptions = {
+            center: [-34.9, -57.9597539],
+            zoom: 13,
+            zoomControl: true
+        }
+
+        var map = new L.map('map', mapOptions);
+
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        map.addLayer(layer);
+
+        var customIcon = {
+            iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
+            iconSize: [40, 40],
+        }
+
+
+        //let myIcon = L.divIcon();
+
+        var myIcon = L.icon(customIcon);
+        var marker;
+        geocoder = new google.maps.Geocoder();
+        var latitude="@Model.Latitud";
+        var longitude="@Model.Longitud";
+
+        
+        var puedo= true;
+        google.maps.event.addDomListener(window, 'load', function () {
+
+
+
+
+
+            var places = new google.maps.places.Autocomplete(document.getElementById('direccion'));
+
+            
+        });
+
+
+
+        element_email.addEventListener(
+            'blur',
+            function () {
+
+                checkEmail(element_email.value);
+            }
+        );
+        element_nombre.addEventListener(
+            'blur',
+            function () {
+
+                checkNombre(element_nombre.value);
+            }
+        );
+        element_apellido.addEventListener(
+            'blur',
+            function () {
+
+                checkApellido(element_apellido.value);
+            }
+        );
+        element_direccion.addEventListener(
+            'blur',
+            function () {
+
+                checkDireccion(element_direccion.value);
+            }
+        );
+
+
+        $("#btnShowModal").click(function () {
+            var _cuidador = {};
+            var fullPath = document.getElementById('upload').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+
+            }
+
+            _cuidador.Nombre = $("#nombre").val();
+            _cuidador.Apellido = $("#apellido").val();
+            _cuidador.Email = $("#email").val();
+            _cuidador.HorarioIN = $("#inicio").val();
+            _cuidador.HorarioOUT = $("#fin").val();
+            _cuidador.Foto = "@Model.Foto";
+            
+            function controlarUbicacion() {
+                _cuidador.Latitud = latitude;
+                _cuidador.Longitud = longitude;
+
+                _cuidador.Ubicacion = $("#direccion").val();
+
+                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Model.Ubicacion")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Cuidadores/existeCuidador",
+                        data: _cuidador,
+
+                        dataType: "json",
+                        success: function (r) {
+                            if (r) {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'El paseador ya se encuentra en la zona',
+                                    // html: '<img width="250" height="200" src="/img/AdobeStock_33953457.svg">',
+                                    imageUrl: "/img/AdobeStock_33953457.svg",
+                                    imageHeight: 155,
+                                })
+
+
+                            } else {
+                                var iconOptions = {
+                                    title: _cuidador.Nombre,
+                                    draggable: false,
+                                    icon: myIcon
+                                }
+                                marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
+                                marker.addTo(map);
+                                map.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                                $("#exampleModalCenter").modal('show');
+                                setTimeout(function () { map.invalidateSize() }, 400);
+
+                            }
+                        }
+                    });
+                } else {
+                    var iconOptions = {
+                        title: _cuidador.Nombre,
+                        draggable: false,
+                        icon: myIcon
+                    }
+                    marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
+                    marker.addTo(map);
+                    map.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                    $("#exampleModalCenter").modal('show');
+                    setTimeout(function () { map.invalidateSize() }, 400);
+                    puedo = false;
+
+                }
+
+            }
+            
+            function obtenerPosicion(){
+                    geocoder = new google.maps.Geocoder();
+
+                    geocoder.geocode({
+                    address: $("#direccion").val()
+                    }, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                latitude=(results[0].geometry.location.lat());
+                longitude=(results[0].geometry.location.lng());
+                        controlarUbicacion();
+                    }    else {
+                alert('Geocode was not successful for the following reason: ' + status);
+                }
+                });
+                
+            }
+          
+            obtenerPosicion();
+            
+        });
+
+
+    
+
+        $("#btnHideModal").click(function () {
+            $("#exampleModalCenter").modal('hide');
+            if (map.hasLayer(marker)) {
+                map.removeLayer(marker);
+            }
+        });
+        $("#btnCloseModal").click(function () {
+            $("#exampleModalCenter").modal('hide');
+            if (map.hasLayer(marker)) {
+                map.removeLayer(marker);
+            }
+        });
+
+        $('#cargar').on('click', function (event) {
+
+
+
+
+
+            var fullPath = document.getElementById('upload').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+
+            }
+            var nombre = $("#nombre").val();
+            var apellido = $("#apellido").val();
+            var email = $("#email").val();
+            var horarioIN = $("#inicio").val();
+            var horarioOUT = $("#fin").val();
+            var foto = "@Model.Foto";
+            if ($("#foto").val())
+            var foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
+            
+            var latitud = latitude;
+            var longitud = longitude;
+            var ubicacion = $("#direccion").val();
+
+               
+               var jsonData = {
+                
+                Id:@Model.Id,
+                Nombre: nombre,
+                Apellido: apellido,
+                Email: email,
+                HorarioIN: horarioIN,
+                HorarioOUT: horarioOUT,
+                Foto: foto,
+                Latitud: latitud,
+                Longitud: longitud,
+                Ubicacion: ubicacion,
+            };
+            
+            $.ajax({
+                type: "POST",
+                url: "/Cuidadores/ModificarFinal",
+                data: jsonData,
+                dataType: "json",
+                success: function (r) {
+                    
+
+                        Swal.fire({
+                            imageUrl: '/img/AdobeStock_262214231.svg',
+                            imageHeight: 155,
+                            title: 'Felicitaciones!',
+                            text: 'El cuidador se ha modificado exitosamente',
+                            timer: 5000,
+                            timerProgressBar: true
+                        })
+                            .then((result) => {
+                                /* Read more about handling dismissals below */
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    console.log('I was closed by the timer')
+                                }
+                            window.parent.closeModificarMod();
+                            })
+
+                    
+                }
+            });
+        });
+
+
+
+        $(document).on("keypress", 'form', function (e) {
+            var code = e.keyCode || e.which;
+            console.log(code);
+            if (code == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        $('#formulario').on("mouseup keydown", function () {
+            var nombreInput = document.getElementById('nombre').value;
+            var direccionInput = document.getElementById('direccion').value;
+            var apellidoInput = document.getElementById('apellido').value;
+            var emailInput = document.getElementById('email').value;
+            var inicioInput = document.getElementById('inicio').value;
+            var finInput = document.getElementById('fin').value;
+            if (!((nombreInput == '') || (apellidoInput == '')
+                || (emailInput == '') || (direccionInput == '') || (inicioInput == '') || (finInput == ''))) {
+                if (checkNombre(nombreInput) && checkApellido(apellidoInput)
+                    && checkEmail(emailInput) && checkDireccion(direccionInput) && checkFechas(inicioInput, finInput)) {
+                    document.getElementById('btnShowModal').removeAttribute("disabled");
+                } else {
+
+                    document.getElementById('btnShowModal').setAttribute("disabled", null);
+                }
+            }
+        });
+
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+
+
+
+</script>
+

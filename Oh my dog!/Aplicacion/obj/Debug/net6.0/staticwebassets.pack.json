@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Aplicacion.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\IndexCuid.css",
+      "PackagePath": "staticwebassets\\css\\IndexCuid.css"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bodyCreate.css",
+      "PackagePath": "staticwebassets\\css\\bodyCreate.css"
+    },
+    {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
