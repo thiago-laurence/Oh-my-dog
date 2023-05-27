@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
+using System.Net.Mail;
+using System.Net;
+using System.Text.Json;
 
 namespace Aplicacion.Controllers
 {
@@ -17,13 +20,11 @@ namespace Aplicacion.Controllers
         {
             _context = context;
         }
-
-        // GET: Paseadores
         public async Task<IActionResult> Index()
         {
-              return _context.Paseadores != null ? 
-                          View(await _context.Paseadores.ToListAsync()) :
-                          Problem("Entity set 'OhmydogdbContext.Paseadores'  is null.");
+            return _context.Paseadores != null ?
+                        View(await _context.Paseadores.ToListAsync()) :
+                        Problem("Entity set 'OhmydogdbContext.Paseadores'  is null.");
         }
 
         // GET: Paseadores/Details/5
@@ -50,12 +51,36 @@ namespace Aplicacion.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Insertar(Paseadore paseadore)
+        {
+
+
+            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
+    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
+    .Options;
+
+            using (var _context = new OhmydogdbContext(contextOptions)) { 
+                _context.Paseadores.Add(paseadore);
+            await _context.SaveChangesAsync();
+            return Json(true);
+            }
+
+        }
+        /*_context.Add(paseadore);
+                await _context.SaveChangesAsync();
+                return Json(true);
+            
+            
+        }*/
+
         // POST: Paseadores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,Foto,Ubicacion,HorarioIn,HorarioOut,Latitud,Longitud")] Paseadore paseadore)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,HorarioIn,HorarioOut,Foto,Latitud,Longitud,Ubicacion")] Paseadore paseadore)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +112,7 @@ namespace Aplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,Foto,Ubicacion,HorarioIn,HorarioOut,Latitud,Longitud")] Paseadore paseadore)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,HorarioIn,HorarioOut,Foto,Latitud,Longitud,Ubicacion")] Paseadore paseadore)
         {
             if (id != paseadore.Id)
             {
@@ -135,9 +160,102 @@ namespace Aplicacion.Controllers
             return View(paseadore);
         }
 
+
+
+        public async Task<IActionResult> Modificar(int id)
+        {
+            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
+    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
+    .Options;
+            using (var _context = new OhmydogdbContext(contextOptions))
+            {
+
+
+
+                if (id == null || _context.Paseadores == null)
+                {
+                    return NotFound();
+                }
+
+                var paseadore = await _context.Paseadores
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (paseadore == null)
+                {
+                    return NotFound();
+                }
+
+                return View(paseadore);
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> ModificarFinal(Paseadore paseador)
+        {
+
+
+            var borrado = _context.Paseadores.FirstOrDefault(m => m.Id == paseador.Id);
+            _context.Paseadores.Remove(borrado);
+            _context.Paseadores.Add(paseador);
+            await _context.SaveChangesAsync();
+            int lastProductId = _context.Paseadores.Max(item => item.Id);
+            return Json(lastProductId);
+
+
+
+
+
+
+        }
+
+        [HttpGet]
+        public string obtenerPaseadores()
+        {
+
+
+
+
+            return JsonSerializer.Serialize(_context.Paseadores.ToList());
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> existePaseador(Paseadore paseador)
+        {
+
+            Paseadore _paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Email == paseador.Email && m.Ubicacion == paseador.Ubicacion);
+
+            if (_paseador != null)
+            {
+                return Json(true);
+            }
+
+
+            return Json(false);
+        }
         // POST: Paseadores/Delete/5
+
+        [HttpPost]
+        public async Task<ActionResult> borrarPaseador(int id)
+        {
+            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
+    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
+    .Options;
+            using (var db = new OhmydogdbContext(contextOptions))
+            {
+                var paseador = await db.Paseadores.FirstOrDefaultAsync(m => m.Id == id);
+                db.Paseadores.Remove(paseador);
+                await db.SaveChangesAsync();
+                return Json(true);
+            }
+
+        }
+
+
+
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Paseadores == null)
@@ -149,14 +267,34 @@ namespace Aplicacion.Controllers
             {
                 _context.Paseadores.Remove(paseadore);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+
+
+
+
+
+        public async Task<IActionResult> SendEmail(string origen, string destino, string titulo, string mensaje)
+        {
+            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("753b469e9e376d", "06af1e23c346ae"),
+                EnableSsl = true
+            };
+            client.Send(origen, destino, titulo, mensaje);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+
+
         private bool PaseadoreExists(int id)
         {
-          return (_context.Paseadores?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Paseadores?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

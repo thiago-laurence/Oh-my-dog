@@ -1,4 +1,4 @@
-﻿@model Aplicacion.Models.Cuidadore
+﻿@model Aplicacion.Models.Paseadore
 
 @{
     Layout = null;
@@ -291,20 +291,22 @@
             _cuidador.Nombre = $("#nombre").val();
             _cuidador.Apellido = $("#apellido").val();
             _cuidador.Email = $("#email").val();
+            _cuidador.Foto = "@Model.Foto";
+            _cuidador.Ubicacion = $("#direccion").val();
             _cuidador.HorarioIN = $("#inicio").val();
             _cuidador.HorarioOUT = $("#fin").val();
-            _cuidador.Foto = "@Model.Foto";
+            
             
             function controlarUbicacion() {
                 _cuidador.Latitud = latitude;
                 _cuidador.Longitud = longitude;
 
-                _cuidador.Ubicacion = $("#direccion").val();
+                
 
                 if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Model.Ubicacion")) {
                     $.ajax({
                         type: "POST",
-                        url: "/Cuidadores/existeCuidador",
+                        url: "/Paseadores/existePaseador",
                         data: _cuidador,
 
                         dataType: "json",
@@ -404,16 +406,17 @@
             var nombre = $("#nombre").val();
             var apellido = $("#apellido").val();
             var email = $("#email").val();
+            var foto = "@Model.Foto";
+             if ($("#upload").val())
+             foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
+            var ubicacion = $("#direccion").val();
             var horarioIN = $("#inicio").val();
             var horarioOUT = $("#fin").val();
-            var foto = "@Model.Foto";
-            if ($("#upload").val())
-            var foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
             
+           
             var latitud = latitude;
             var longitud = longitude;
-            var ubicacion = $("#direccion").val();
-
+            
                
                var jsonData = {
                 
@@ -421,17 +424,19 @@
                 Nombre: nombre,
                 Apellido: apellido,
                 Email: email,
+                Foto: foto,
+                Ubicacion: ubicacion,
                 HorarioIN: horarioIN,
                 HorarioOUT: horarioOUT,
-                Foto: foto,
+                
                 Latitud: latitud,
                 Longitud: longitud,
-                Ubicacion: ubicacion,
+                
             };
             
             $.ajax({
                 type: "POST",
-                url: "/Cuidadores/ModificarFinal",
+                url: "/Paseadores/ModificarFinal",
                 data: jsonData,
                 dataType: "json",
                 success: function (r) {

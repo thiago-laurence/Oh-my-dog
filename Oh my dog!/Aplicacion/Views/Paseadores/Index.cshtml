@@ -1,83 +1,389 @@
-﻿@model IEnumerable<Aplicacion.Models.Paseadore>
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Aplicacion.Models.Paseadore>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/opcionesMapa.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/IndexCuid.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Foto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ubicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HorarioIn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HorarioOut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitud)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitud)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Foto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ubicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HorarioIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HorarioOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitud)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitud)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    
+   <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"
+
+/>
+
+</head>
+
+
+
+
+ @if (User.Identity.IsAuthenticated)
+   { 
+        @if (User.IsInRole("Administrador"))
+    {
+        <div class="container-fluid">
+            <div id="map"></div>
+
+           
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" id="cargar" data-toggle="modal" onclick="cargarCuidador()" data-target="#modalCargar">
+                Publicar cuidador
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade no-border" data-keyboard="false" data-backdrop="static"id="createCuidadorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden=" true">
+                <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
+                    <div class="modal-content">
+                        <div class="" style="height:530px;">
+                            <button type="button" class="close" onclick="closeCargarCuidador()" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                           
+
+                            <iframe class="no-border" src="https://localhost:7035/Paseadores/Create" scrolling="no" style="height:100%;width:100%"></iframe>
+                        </div>
+                        
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        
+        
+        </div>
+            @foreach (var item in Model)
+            {
+            <div id="@item.Id"  class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
+                
+
+                    
+                    <div class="d-flex justify-content-center">
+                        <img src="@item.Foto" class="align-self-center w-50" alt="1era img carousel">
+                    </div>
+
+
+                    <div class="card-body text-center m-3">
+
+                    <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
+                    <div class="d-flex justify-content-evenly">
+
+                        <button type="button" class="m-2 btn btn-primary" onclick="openContactar()" data-toggle="modal" data-target="#exampleModalCenter">
+                            Contactar
+                        </button>
+
+
+                        <!-- Modal -->
+                        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" onclick="closeContactar()" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" onclick="closeContactar()" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="m-2 btn btn-primary" id="modificar" data-toggle="modal" onclick="modificarCuidador()" data-target="#modalCargar">
+                            Modificar
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade no-border" id="modificarCuidadorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden=" true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="" style="height:530px;">
+                                        <button type="button" class="close" data-dismiss="modal" onclick="closeModificarModal()" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+
+
+                                        <iframe id="modificarFrame" class="no-border" src="https://localhost:7035/Paseadores/Modificar/@item.Id" scrolling="no" style="height:100%;width:100%"></iframe>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        
+
+
+                    
+
+                    <button class="m-2  btn  btn-danger" id="eliminarBoton" onclick="eliminarCuidador(@item.Id)">Eliminar</button>
+                        
+                        
+                     
+                </div>
+                </div>
+
+            }
+
+        }
+        else
+        {
+        <div class="container-fluid">
+            <div id="map"></div>
+        </div>
+            @foreach (var item in Model)
+            {
+                <div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
+
+
+
+                    <div class="d-flex justify-content-center">
+                        <img src="@item.Foto" class="align-self-center w-75" alt="1era img carousel">
+                    </div>
+
+
+                    <div class="card-body text-center container-fluid">
+
+                        <h5 class="card-title">@item.Nombre @item.Apellido</h5>
+
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="openContactar()" data-target="#exampleModalCenter">
+                        Launch demo modal
+                    </button>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+
+
+
+
+
+
+                </div>
+                </div>
+            }
+        }
+
+    }else
+{
+    <div class="container d-flex align-items-center justify-content-center">
+        <img class="w-50 h-50"src="/img/AdobeStock_33953457.svg" />
+       </div>
+    }
+    @section Scripts{
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    
+                    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    
+                    
+                    
+                    
+                    
+<script>
+
+      
+
+let mapOptions = {
+    center: [-34.9, -57.9597539],
+    zoom: 13,
+    zoomControl: true
 }
-    </tbody>
-</table>
+
+let map = new L.map('map', mapOptions);
+
+let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+map.addLayer(layer);
+
+let customIcon = {
+            iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
+    iconSize: [30, 30],
+
+}
+   
+
+//let myIcon = L.divIcon();
+
+    let myIcon = L.icon(customIcon);
+                $.ajax({  
+                type: "GET",
+            url: '/Paseadores/obtenerPaseadores',
+            data: {},  
+                dataType: "json",  
+             
+                success: function (response) {
+                
+                // Looping over emloyee list and display it  
+                    $.each(response, function (index, cuidador) {  
+
+                                let iconOptions = {
+                                title: cuidador.Nombre,
+                                draggable: false,
+                                icon: myIcon
+                                }
+                        let marker = new L.Marker([cuidador.Latitud, cuidador.Longitud], iconOptions);
+                            marker.addTo(map);
+                    marker.bindPopup(document.getElementById(cuidador.Id).innerHTML, { maxWidth: "auto",
+                    width: "250"});
+                        });
+                        },
+                        failure: function (jqXHR, textStatus, errorThrown) {
+                            alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+                        }
+                    });
+
+
+
+        
+        function cargarCuidador() {
+            
+            $("#createCuidadorModal").modal("show");
+           
+        }
+
+        function modificarCuidador() {
+            
+            $("#modificarCuidadorModal").appendTo("body").modal("show");
+            
+        }
+
+        function openContactar() {
+            map.closePopup();
+            
+            $("#exampleModalCenter").appendTo("body").modal("show");
+            
+        }
+        
+        function closeModificarModal(){
+            $("body>#modificarCuidadorModal").remove();
+            
+            $("#modificarCuidadorModal").modal("hide");
+            
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            
+        }
+
+        window.closeModificarMod =function(){
+            var url = '@Url.Action("Index", "Paseadores")';
+            window.location.href = url;
+            $("body>#modificarCuidadorModal").remove();
+
+            $("#modificarCuidadorModal").modal("hide");
+
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            
+
+        }
+
+
+        window.closeCargar = function () {
+            $("#createCuidadorModal").modal("hide");
+            location.reload();
+
+        };
+
+        function closeCargarCuidador(){
+
+            $("#createCuidadorModal").modal("hide");
+            
+        }
+
+        function closeContactar(){
+            $("body>#exampleModalCenter").remove();
+            $("#exampleModalCenter").modal("hide");
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            
+        }
+
+        function eliminarCuidador(id_borrar){
+                Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Paseadores/borrarPaseador",
+                        data: { id: id_borrar },
+                        dataType: "json",
+                        success: function (r) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        var url = '@Url.Action("Index", "Paseadores")';
+                        window.location.href = url;
+
+                        }
+                    });
+          }
+        })
+
+
+
+        }
+
+
+        
+
+        
+     
+    </script>
+    }
