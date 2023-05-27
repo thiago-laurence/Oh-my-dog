@@ -21,7 +21,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
 
-
+    public virtual DbSet<Paseadore> Paseadores { get; set; }
 
     public virtual DbSet<Perro> Perros { get; set; }
 
@@ -51,7 +51,7 @@ public partial class OhmydogdbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; trustservercertificate=true; integrated security=true;");
+        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb;trustservercertificate=true; integrated security=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -110,7 +110,7 @@ public partial class OhmydogdbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Cuidadore>(entity =>
+        modelBuilder.Entity<Paseadore>(entity =>
         {
             entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Paseadores").IsUnique();
 
