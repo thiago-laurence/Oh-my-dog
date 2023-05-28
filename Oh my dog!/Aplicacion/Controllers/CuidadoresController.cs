@@ -70,6 +70,14 @@ namespace Aplicacion.Controllers
             return View();
         }
 
+        public IActionResult CorreoExitoso()
+        {
+            return View();
+        }
+
+
+
+
 
         [HttpPost]
         public async Task<IActionResult> Insertar(Cuidadore cuidadore)
@@ -297,15 +305,16 @@ namespace Aplicacion.Controllers
 
 
 
-        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destino)
+      [HttpPost]
+        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destinatario)
         {
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("", remitente)); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
+                message.From.Add(new MailboxAddress("", "ohmydog_oficial@outlook.es")); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
                 message.To.Add(new MailboxAddress("", "lautaromoller345@gmail.com")); // Correo de destino
                 message.Subject = asunto;
-
+                contenido = contenido + "<br/>" + "<br/>" + "<br/>" + "Te dejo mi mail: " + remitente;
                 var bodyBuilder = new BodyBuilder();
                 bodyBuilder.HtmlBody = contenido;
                 message.Body = bodyBuilder.ToMessageBody();
@@ -318,7 +327,7 @@ namespace Aplicacion.Controllers
                     client.Disconnect(true);
                 }
 
-                return RedirectToAction("Index", "Home"); // o redirige a la página que desees después de enviar el correo electrónico
+                return RedirectToAction("CorreoExitoso", "Cuidadores"); // o redirige a la página que desees después de enviar el correo electrónico
             }
             catch (Exception ex)
             {
@@ -326,7 +335,6 @@ namespace Aplicacion.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-
 
 
 

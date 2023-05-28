@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
 @model IEnumerable<Aplicacion.Models.Paseadore>
 
 @{
@@ -86,6 +87,8 @@
                     <div class="card-body text-center m-3">
 
                     <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
+                    <span>
+                        Inicio: @item.HorarioIn   Fin: @item.HorarioOut <span />
                     <div class="d-flex justify-content-evenly">
 
                         
@@ -142,17 +145,18 @@
                 @if (item.Foto != null)
                 {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Nombre" class="align-self-center w-75" alt="1era img carousel">
+                        <img src="@item.Foto" class="align-self-center w-75" alt="1era img carousel">
                     </div>
                 }
 
                     <div class="card-body text-center container-fluid">
 
                         <h5 class="card-title">@item.Nombre @item.Apellido</h5>
-
+                    <span>
+                        Inicio: @item.HorarioIn   Fin: @item.HorarioOut <span />
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" onclick="openContactar()" data-target="#exampleModalCenter">
-                        Launch demo modal
+                        Contactar
                     </button>
 
 
@@ -162,17 +166,33 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeContactarModal()">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    <form asp-controller="Paseadores" asp-action="EnviarCorreo" method="post" id="formContacto">
+                                        <div class="mb-3">
+                                            <label for="remitente" class="form-label">Remitente:</label>
+                                            <input type="email" class="form-control" id="remitente" name="remitente" readonly required value="@User.FindFirstValue("Email")">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="destinatario" class="form-label">Destinatario:</label>
+                                            <input type="email" class="form-control" id="destinatario" name="destinatario" readonly required value="@item.Email">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="asunto" class="form-label">Asunto:</label>
+                                            <input type="text" class="form-control" id="asunto" name="asunto" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="contenido" class="form-label">Contenido:</label>
+                                            <textarea class="form-control" id="contenido" name="contenido" required></textarea>
+                                        </div>
+                                        
+                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                    </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -213,6 +233,54 @@
 
         var mapOptions;
         var map;
+
+
+        function mostrarPaseadores() {
+            let customIcon = {
+                iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
+                iconSize: [30, 30],
+
+            }
+
+
+            //let myIcon = L.divIcon();
+
+            let myIcon = L.icon(customIcon);
+            $.ajax({
+                type: "GET",
+                url: 'Paseadores/obtenerPaseadores',
+                data: {},
+                dataType: "json",
+
+                success: function (response) {
+
+                    // Looping over emloyee list and display it
+                    $.each(response, function (index, cuidador) {
+
+                        let iconOptions = {
+                            title: cuidador.Nombre,
+                            draggable: false,
+                            icon: myIcon
+                        }
+                        let marker = new L.Marker([cuidador.Latitud, cuidador.Longitud], iconOptions);
+                        marker.addTo(map);
+                        marker.bindPopup(document.getElementById(cuidador.Id).innerHTML, {
+                            maxWidth: "auto",
+                            width: "250"
+                        });
+                    });
+                },
+                failure: function (jqXHR, textStatus, errorThrown) {
+                    alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+                }
+            });
+
+
+        }
+        
+        
+        
+        
         const options = {
             enableHighAccuracy: true,
 
@@ -238,6 +306,7 @@
             }
             configurarMapa();
             L.control.locate().addTo(map);
+            mostrarPaseadores();
         }
 
         function error(err) {
@@ -247,6 +316,7 @@
                 zoomControl: true
             }
             configurarMapa();
+            mostrarPaseadores();
         }
 
         navigator.geolocation.getCurrentPosition(success, error, options);
@@ -256,44 +326,6 @@
 
 
 
-        let customIcon = {
-            iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
-            iconSize: [30, 30],
-
-        }
-
-
-        //let myIcon = L.divIcon();
-
-        let myIcon = L.icon(customIcon);
-
-
-                $.ajax({  
-                type: "GET",
-            url: '/Paseadores/obtenerPaseadores',
-            data: {},  
-                dataType: "json",  
-             
-                success: function (response) {
-                
-                // Looping over emloyee list and display it  
-                    $.each(response, function (index, cuidador) {  
-
-                                let iconOptions = {
-                                title: cuidador.Nombre,
-                                draggable: false,
-                                icon: myIcon
-                                }
-                        let marker = new L.Marker([cuidador.Latitud, cuidador.Longitud], iconOptions);
-                            marker.addTo(map);
-                    marker.bindPopup(document.getElementById(cuidador.Id).innerHTML, { maxWidth: "auto",
-                    width: "250"});
-                        });
-                        },
-                        failure: function (jqXHR, textStatus, errorThrown) {
-                            alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
-                        }
-                    });
 
 
 
@@ -320,7 +352,17 @@
             $("#exampleModalCenter").appendTo("body").modal("show");
             
         }
-        
+
+        function closeContactarModal() {
+            $("body>#exampleModalCenter").remove();
+
+            $("#exampleModalCenter").modal("hide");
+
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+
+        }
+
         function closeModificarModal(){
             $("body>#modificarCuidadorModal").remove();
             
@@ -357,14 +399,7 @@
             
         }
 
-        function closeContactar(){
-            $("body>#exampleModalCenter").remove();
-            $("#exampleModalCenter").modal("hide");
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-            
-        }
-
+        
         function eliminarCuidador(id_borrar){
                 Swal.fire({
           title: '¿Está seguro?',

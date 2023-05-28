@@ -11,6 +11,7 @@ using System.Net;
 using System.Text.Json;
 using MailKit.Security;
 using MimeKit;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace Aplicacion.Controllers
 {
@@ -274,6 +275,10 @@ namespace Aplicacion.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult CorreoExitoso()
+        {
+            return View();
+        }
 
 
 
@@ -289,16 +294,16 @@ namespace Aplicacion.Controllers
             client.Send(origen, destino, titulo, mensaje);
             return RedirectToAction(nameof(Index));
         }
-
-        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destino)
+        [HttpPost]
+        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destinatario)
         {
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("", remitente)); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
+                message.From.Add(new MailboxAddress("", "ohmydog_oficial@outlook.es")); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
                 message.To.Add(new MailboxAddress("", "lautaromoller345@gmail.com")); // Correo de destino
                 message.Subject = asunto;
-
+                contenido = contenido + "<br/>"+ "<br/>"+ "<br/>" + "Te dejo mi mail: " + remitente;
                 var bodyBuilder = new BodyBuilder();
                 bodyBuilder.HtmlBody = contenido;
                 message.Body = bodyBuilder.ToMessageBody();
@@ -311,7 +316,7 @@ namespace Aplicacion.Controllers
                     client.Disconnect(true);
                 }
 
-                return RedirectToAction("Index", "Home"); // o redirige a la página que desees después de enviar el correo electrónico
+                return RedirectToAction("CorreoExitoso", "Paseadores"); // o redirige a la página que desees después de enviar el correo electrónico
             }
             catch (Exception ex)
             {
