@@ -29,27 +29,27 @@
             <div class="card no-border">
                 
                 <div class="card-body no-border" id="tarjeta">
-            <form id="formulario" class="no-border"autocomplete="off">
+            <form id="formulario" class="no-border"autocomplete="false">
                         <div  class="text-danger"></div>
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                    <input id="nombre" autocomplete="off"  class="form-control" />
+                    <input type="text" id="nombre" autocomplete="false"  class="form-control" />
                         <span id="nombre_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Apellido</label>
-                    <input id="apellido" autocomplete="off" class="form-control" />
+                    <input type="text" id="apellido" autocomplete="false" class="form-control" />
                         <span id="apellido_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Email</label>
-                    <input id="email" autocomplete="off" class="form-control" />
+                    <input type="text" id="email" autocomplete="false" class="form-control" />
                             <span id="email_val" class="text-danger"></span>
                         </div>
                     <div class="form-group">
                         <label class="control-label">Ubicacion</label>
 
-                    <input class="form-control" autocomplete="off"  id="direccion" placeholder="Ej: Calle 35" />
+                    <input  class="form-control" autocomplete="false"  id="direccion" placeholder="Ej: Calle 35" />
                         <span id="direccion_val" class="text-danger"></span>
                     </div>
                     
@@ -236,24 +236,74 @@
         var longitude;
         var puedo;
 
-        google.maps.event.addDomListener(window, 'load', function () {
 
 
 
 
 
-            var places = new google.maps.places.Autocomplete(document.getElementById('direccion'));
 
-            google.maps.event.addListener(places, 'place_changed', function () {
 
-                var place = places.getPlace();
-                latitude = place.geometry.location.lat();
-                longitude = place.geometry.location.lng();
-                puedo = true;
+        var pac_input = document.getElementById('direccion');
 
-            });
+
+
+
+
+
+        (function pacSelectFirst(input) {
+            // store the original event binding function
+            var _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
+
+            function addEventListenerWrapper(type, listener) {
+                // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+                // and then trigger the original listener.
+
+                if (type == "keydown" || type == "blur") {
+
+                    var orig_listener = listener;
+                    listener = function (event) {
+                        var suggestion_selected = $(".pac-item-selected").length > 0;
+                        var keyCode = event.keyCode || event.which;
+                        if ((keyCode === 13 || keyCode === 9) && !suggestion_selected) {
+                            var simulated_downarrow = $.Event("keydown", {
+                                keyCode: 40,
+                                which: 40
+                            });
+                            orig_listener.apply(input, [simulated_downarrow]);
+                        } else if (event.type === 'blur' && $(".pac-container .pac-item:first-child").text() != "") {
+
+                            pac_input.value =
+                                $(".pac-container .pac-item:first-child").text();
+                            // $(".pac-container").delegate(".pac-item:first-child","click",function(){
+                            //  console.log("success");
+                            // });
+
+                            $(".pac-container .pac-item:first-child").bind('click', function () {
+                                console.log("click");
+                            });
+
+                        }
+                        orig_listener.apply(input, [event]);
+                    };
+                }
+
+                // add the modified listener
+                _addEventListener.apply(input, [type, listener]);
+            }
+
+            if (input.addEventListener)
+                input.addEventListener = addEventListenerWrapper;
+            else if (input.attachEvent)
+                input.attachEvent = addEventListenerWrapper;
+
+        })(pac_input);
+
+
+        $(function () {
+            var autocomplete = new google.maps.places.Autocomplete(pac_input);
+
+
         });
-
 
 
         element_email.addEventListener(
@@ -285,7 +335,7 @@
                 }
             );
 
-    var valor;
+    var puedo=true;
         $("#btnShowModal").click(function () {
             showMessage("Ingese una direccion valida", "#direccion_val");
             var _cuidador = {};
@@ -301,6 +351,7 @@
             
             function controlarUbicacion(){
             if (puedo){
+                
                 _cuidador.Latitud = latitude;
                 _cuidador.Longitud = longitude;
                
@@ -344,6 +395,7 @@
             };
             }
             function obtenerPosicion() {
+                
                 geocoder = new google.maps.Geocoder();
 
                 geocoder.geocode({
@@ -354,6 +406,7 @@
                         longitude = (results[0].geometry.location.lng());
                         controlarUbicacion();
                     }
+                    
                 });
 
             }
@@ -397,8 +450,8 @@
             var nombre = $("#nombre").val();
             var apellido = $("#apellido").val();
             var email = $("#email").val();
-            var foto = $("#foto").val();
-             if ($("#foto").val())
+            var foto = $("#upload").val();
+             if ($("#upload").val())
              foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
             var ubicacion = $("#direccion").val();
             var horarioIN = $("#inicio").val();
