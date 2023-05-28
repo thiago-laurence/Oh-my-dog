@@ -190,11 +190,7 @@ namespace Aplicacion.Controllers
 
         public async Task<IActionResult> Modificar(int id)
         {
-            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
-    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
-    .Options;
-            using (var _context = new OhmydogdbContext(contextOptions))
-            {
+            
 
 
 
@@ -211,7 +207,7 @@ namespace Aplicacion.Controllers
                 }
 
                 return View(cuidadore);
-            }
+            
         }
 
 
@@ -235,14 +231,10 @@ namespace Aplicacion.Controllers
         public string obtenerCuidadores()
         {
 
-            var contextOptions= new DbContextOptionsBuilder<OhmydogdbContext>()
-    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
-    .Options;
-            using (var db = new OhmydogdbContext(contextOptions))
-            {
+            
 
-                return JsonSerializer.Serialize(db.Cuidadores.ToList());
-            }
+                return JsonSerializer.Serialize(_context.Cuidadores.ToList());
+            
         }
 
         [HttpPost]
@@ -264,16 +256,12 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public async Task<ActionResult> borrarCuidador(int id)
         {
-            var contextOptions =new DbContextOptionsBuilder<OhmydogdbContext>()
-    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
-    .Options;
-            using (var db = new OhmydogdbContext(contextOptions))
-            {   
-                var cuidador = await db.Cuidadores.FirstOrDefaultAsync(m => m.Id == id);
-                db.Cuidadores.Remove(cuidador);
-                await db.SaveChangesAsync();
+           
+                var cuidador = await _context.Cuidadores.FirstOrDefaultAsync(m => m.Id == id);
+                _context.Cuidadores.Remove(cuidador);
+                await _context.SaveChangesAsync();
                 return Json(true);
-            }
+            
             
         }
 

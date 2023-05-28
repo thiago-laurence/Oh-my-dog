@@ -62,15 +62,11 @@ namespace Aplicacion.Controllers
         {
 
 
-            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
-    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
-    .Options;
-
-            using (var _context = new OhmydogdbContext(contextOptions)) { 
+            
                 _context.Paseadores.Add(paseadore);
             await _context.SaveChangesAsync();
             return Json(true);
-            }
+            
 
         }
         /*_context.Add(paseadore);
@@ -271,16 +267,12 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public async Task<ActionResult> borrarPaseador(int id)
         {
-            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
-    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
-    .Options;
-            using (var db = new OhmydogdbContext(contextOptions))
-            {
-                var paseador = await db.Paseadores.FirstOrDefaultAsync(m => m.Id == id);
-                db.Paseadores.Remove(paseador);
-                await db.SaveChangesAsync();
+            
+                var paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Id == id);
+                _context.Paseadores.Remove(paseador);
+                await _context.SaveChangesAsync();
                 return Json(true);
-            }
+            
 
         }
 
