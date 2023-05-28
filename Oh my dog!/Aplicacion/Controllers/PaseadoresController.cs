@@ -9,9 +9,11 @@ using Aplicacion.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Text.Json;
+
 using MailKit.Security;
 using MimeKit;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace Aplicacion.Controllers
 {
@@ -162,8 +164,35 @@ namespace Aplicacion.Controllers
 
             return View(paseadore);
         }
+        [HttpPost]
+        public async Task<ActionResult> uploadFile()
+        {
+            string result = string.Empty;
+            IFormFile archivo = Request.Form.Files.First();
+            string fileName = archivo.Name;
+            string imagePath = getActualPath(fileName);
+            try
+            {
+                if (System.IO.File.Exists(imagePath))
+                {
 
+                    System.IO.File.Delete(imagePath);
+                }
+                using (FileStream stream = System.IO.File.Create(imagePath)){
+                    await archivo.CopyToAsync(stream);
+                    result = "pass";
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return Json(result);
+        }
 
+        public String getActualPath(String filename)
+        {
+            return Path.Combine(Path.GetFullPath("wwwroot")+"\\img", filename);
+        }
 
         public async Task<IActionResult> Modificar(int id)
         {

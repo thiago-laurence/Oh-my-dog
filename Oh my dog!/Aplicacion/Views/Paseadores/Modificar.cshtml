@@ -33,23 +33,23 @@
                 <div class="text-danger"></div>
                 <div class="form-group">
                     <label class="control-label">Nombre</label>
-                    <input type="text" id="nombre" autocomplete="false" value="@Model.Nombre" class="form-control" />
+                    <input type="text" id="nombre" maxlength="100" autocomplete="false" value="@Model.Nombre" class="form-control" />
                     <span id="nombre_val" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Apellido</label>
-                    <input type ="text" id="apellido" autocomplete="false" class="form-control" value="@Model.Apellido" />
+                    <input type="text" id="apellido" maxlength="100" autocomplete="false" class="form-control" value="@Model.Apellido" />
                     <span id="apellido_val" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Email</label>
-                    <input type="text" id="email" autocomplete="false" class="form-control" value="@Model.Email" />
+                    <input type="text" id="email" maxlength="300" autocomplete="false" class="form-control" value="@Model.Email" />
                     <span id="email_val" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Ubicacion</label>
 
-                    <input class="form-control" autocomplete="false" id="direccion" value="@Model.Ubicacion" placeholder="Ej: Calle 35" />
+                    <input class="form-control" autocomplete="false" id="direccion" value="@Model.Ubicacion" maxlength="200" placeholder="Ej: Calle 35" />
                     <span id="direccion_val" class="text-danger"></span>
                 </div>
 
@@ -74,7 +74,11 @@
                 </div>
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="upload" value="" >Foto</label>
-                    <input type="file" class="form-control" id="upload">
+                    <input type="file" class="form-control" accept=".jpg,.jpeg,.png" onchange="validateFileType()" id="upload">
+                    ´
+                </div>
+                <div>
+                    <span class="text-danger" id="foto_val"></span>
                 </div>
                 <button type="button" class="btn btn-primary" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
                     Modificar
@@ -154,6 +158,19 @@
         } else {
             showMessage("", "#apellido_val");
             return true;
+        }
+    }
+
+    let file = document.getElementById("upload");
+    function validateFileType() {
+        var fileName = file.value,
+            idxDot = fileName.lastIndexOf(".") + 1,
+            extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+            showMessage("", "#foto_val");
+        } else {
+            showMessage("La foto ingresada no es válida", "#foto_val");
+            file.value = "";  // Reset the input so no files are uploaded
         }
     }
 
@@ -461,8 +478,29 @@
             var apellido = $("#apellido").val();
             var email = $("#email").val();
             var foto = "@Model.Foto";
-             if ($("#upload").val())
+             if ($("#upload").val()){
              foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
+                var fileUpload = $("#upload").get(0);
+                var files = fileUpload.files;
+
+                var fileData = new FormData();
+
+                fileData.append(files[0].name, files[0]);
+
+                $.ajax({
+                    url: '/Paseadores/uploadFile',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                       
+                    }
+                });
+
+             }
             var ubicacion = $("#direccion").val();
             var horarioIN = $("#inicio").val();
             var horarioOUT = $("#fin").val();

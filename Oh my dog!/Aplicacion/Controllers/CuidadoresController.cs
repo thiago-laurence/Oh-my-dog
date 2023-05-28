@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using System.Web;
 using System.Text.Json;
+using System.IO;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Nancy.Json;
 using Nancy;
@@ -17,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Mail;
 using System.Net;
-using System.IO;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
@@ -25,7 +26,7 @@ using System.Net;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MailKit.Security;
-
+using System.IO;
 namespace Aplicacion.Controllers
 {
     public class CuidadoresController : Controller
@@ -228,10 +229,6 @@ namespace Aplicacion.Controllers
                 return Json(lastProductId);
 
 
-            
-
-
-
         }
 
         [HttpGet]
@@ -336,8 +333,34 @@ namespace Aplicacion.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> uploadFile()
+        {
+            string result = string.Empty;
+            IFormFile archivo = Request.Form.Files.First();
+            string fileName = archivo.Name;
+            string imagePath = getActualPath(fileName);
+            try { 
+            if (System.IO.File.Exists(imagePath))
+            {
 
+                System.IO.File.Delete(imagePath);
+            }
+                using (FileStream stream = System.IO.File.Create(imagePath))
+                {
+                    await archivo.CopyToAsync(stream);
+                    result = "pass";
+                }
+            }catch (Exception ex)
+            {
+            }
+            return Json(result);
+        }
 
+        public String getActualPath(String filename)
+        {
+            return Path.Combine(Path.GetFullPath("wwwroot") + "\\img", filename);
+        }
 
         private bool CuidadoreExists(int id)
         {

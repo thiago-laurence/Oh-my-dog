@@ -33,17 +33,17 @@
                         <div  class="text-danger"></div>
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                    <input type="text" id="nombre" autocomplete="false"  class="form-control" />
+                    <input type="text" id="nombre" autocomplete="false" maxlength="100" class="form-control" />
                         <span id="nombre_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Apellido</label>
-                    <input type="text" id="apellido" autocomplete="false" class="form-control" />
+                    <input type="text" id="apellido" autocomplete="false" maxlength="100" class="form-control" />
                         <span id="apellido_val" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label  class="control-label">Email</label>
-                    <input type="text" id="email" autocomplete="false" class="form-control" />
+                    <input type="text" id="email" maxlength="300" autocomplete="false" class="form-control" />
                             <span id="email_val" class="text-danger"></span>
                         </div>
                     <div class="form-group">
@@ -74,8 +74,12 @@
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="upload">Foto</label>
-                        <input type="file" class="form-control" id="upload">
-                    </div>
+                    <input type="file" accept=".jpg,.jpeg,.png" onchange="validateFileType()" class="form-control" id="upload">
+                    
+                </div>
+                <div>
+                    <span class="text-danger" id="foto_val"></span>
+                </div>
                     <button type="button" class="btn btn-primary" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
                         Publicar
                     </button>
@@ -146,6 +150,20 @@
         }
 
     }
+
+    let file = document.getElementById("upload");
+    function validateFileType() {
+        var fileName = file.value,
+            idxDot = fileName.lastIndexOf(".") + 1,
+            extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+            showMessage("", "#foto_val");
+        } else {
+            showMessage("La foto ingresada no es válida", "#foto_val");
+            file.value = "";  // Reset the input so no files are uploaded
+        }
+    }
+
     function checkApellido(apellido) {
         const reg = new RegExp(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u, "gm");
         if (!(reg.exec(apellido)))
@@ -451,8 +469,35 @@
             var apellido = $("#apellido").val();
             var email = $("#email").val();
             var foto = $("#upload").val();
-             if ($("#upload").val())
+             if ($("#upload").val()){
              foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
+                {
+                    foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
+                    var fileUpload = $("#upload").get(0);
+                    var files = fileUpload.files;
+
+                    var fileData = new FormData();
+
+                    fileData.append(files[0].name, files[0]);
+
+                    $.ajax({
+                        url: '/Paseadores/uploadFile',
+                        type: 'post',
+                        datatype: 'json',
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        data: fileData,
+                        success: function (response) {
+                            
+                        }
+                    });
+
+
+                }
+             
+             
+             }
             var ubicacion = $("#direccion").val();
             var horarioIN = $("#inicio").val();
             var horarioOUT = $("#fin").val();

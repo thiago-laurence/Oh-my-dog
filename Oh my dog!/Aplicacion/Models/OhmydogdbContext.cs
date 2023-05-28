@@ -51,7 +51,7 @@ public partial class OhmydogdbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("server=localhost;database=ohmydogdb;trustservercertificate=true;integrated security=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -62,10 +62,10 @@ public partial class OhmydogdbContext : DbContext
             entity.HasIndex(e => new { e.Ubicacion, e.Email }, "IX_Cuidadores");
 
             entity.Property(e => e.Apellido)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
-                .HasMaxLength(50)
+                .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.Foto)
                 .HasMaxLength(100)
@@ -83,7 +83,7 @@ public partial class OhmydogdbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Ubicacion)
                 .HasMaxLength(200)
@@ -115,10 +115,10 @@ public partial class OhmydogdbContext : DbContext
             entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Paseadores").IsUnique();
 
             entity.Property(e => e.Apellido)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
-                .HasMaxLength(50)
+                .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.Foto)
                 .HasMaxLength(100)
@@ -136,7 +136,7 @@ public partial class OhmydogdbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Ubicacion)
                 .HasMaxLength(200)
