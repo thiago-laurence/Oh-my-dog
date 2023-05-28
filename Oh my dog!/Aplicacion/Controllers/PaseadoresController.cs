@@ -9,6 +9,8 @@ using Aplicacion.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Text.Json;
+using MailKit.Security;
+using MimeKit;
 
 namespace Aplicacion.Controllers
 {
@@ -288,7 +290,35 @@ namespace Aplicacion.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destino)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("", remitente)); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
+                message.To.Add(new MailboxAddress("", "lautaromoller345@gmail.com")); // Correo de destino
+                message.Subject = asunto;
 
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = contenido;
+                message.Body = bodyBuilder.ToMessageBody();
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                    client.Authenticate("ohmydog_oficial@outlook.es", "zKbP.-6rQT:i4JE");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+
+                return RedirectToAction("Index", "Home"); // o redirige a la página que desees después de enviar el correo electrónico
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores aquí
+                return RedirectToAction("Error", "Home");
+            }
+        }
 
 
 

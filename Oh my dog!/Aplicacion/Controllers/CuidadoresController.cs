@@ -23,6 +23,8 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.Extensions.Options;
+using MimeKit;
+using MailKit.Security;
 
 namespace Aplicacion.Controllers
 {
@@ -291,19 +293,38 @@ namespace Aplicacion.Controllers
         }
 
 
-      
 
 
 
-        public async Task<IActionResult> SendEmail(string origen, string destino, string titulo, string mensaje)
+
+        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destino)
         {
-            var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
+            try
             {
-                Credentials = new NetworkCredential("753b469e9e376d", "06af1e23c346ae"),
-                EnableSsl = true
-            };
-            client.Send(origen, destino, titulo, mensaje);
-            return RedirectToAction(nameof(Index));
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("", remitente)); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
+                message.To.Add(new MailboxAddress("", "lautaromoller345@gmail.com")); // Correo de destino
+                message.Subject = asunto;
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = contenido;
+                message.Body = bodyBuilder.ToMessageBody();
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+                    client.Authenticate("ohmydog_oficial@outlook.es", "zKbP.-6rQT:i4JE");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+
+                return RedirectToAction("Index", "Home"); // o redirige a la página que desees después de enviar el correo electrónico
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores aquí
+                return RedirectToAction("Error", "Home");
+            }
         }
 
 
