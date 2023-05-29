@@ -1,6 +1,6 @@
 ﻿body {
     background-image: url(../img/fondo_formulario.svg);
-    background-size: contain;
+    background-size: cover;
     border:0;
     box-shadow:0;
 }
