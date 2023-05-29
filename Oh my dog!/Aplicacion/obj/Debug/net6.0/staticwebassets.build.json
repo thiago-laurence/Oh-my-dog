@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xhVfM0nmLSCg9nGKpoMqa/RNY9NtefRpUi2n5yBTYzI=",
+  "Hash": "364axmWKq5z465eXk+iZlr2/y/uddYbJKgUWVY3JNtU=",
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -168,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\carousel-3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\huella_icon.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/huella_icon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\huella_icon.png"
     },
     {
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",

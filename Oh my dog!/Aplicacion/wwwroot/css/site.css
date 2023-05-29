@@ -21,3 +21,13 @@ body {
 {
     height: 60rem;
 }
+
+.spinner {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.spinner.show {
+    display: block;
+}

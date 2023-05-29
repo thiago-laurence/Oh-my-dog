@@ -103,7 +103,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form asp-controller="Contacto" asp-action="EnviarCorreo" method="post">
+                            <form asp-controller="Contacto" asp-action="EnviarCorreo" method="post" id="formContacto">
                                 <div class="mb-3">
                                     <label for="remitente" class="form-label">Remitente:</label>
                                     <input type="email" class="form-control" id="remitente" name="remitente" required>
@@ -119,6 +119,11 @@
                                 <div class="mb-3">
                                     <label for="contenido" class="form-label">Contenido:</label>
                                     <textarea class="form-control" id="contenido" name="contenido" required></textarea>
+                                </div>
+                                <div class="spinner">
+                                    <div class="spinner-border text-success" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Enviar</button>
                             </form>
@@ -243,6 +248,26 @@
             $('#openModal').click(function () {
                 $('#modalEnviarMensaje').modal('show');
             });
+        });
+    </script>
+    <script>
+        document.getElementById("formContacto").addEventListener("submit", function (event) {
+            // Prevenir que el formulario se envíe de forma predeterminada
+            event.preventDefault();
+
+            // Mostrar el spinner
+            document.querySelector(".spinner").classList.add("show");
+
+            // Simular una petición asíncrona (por ejemplo, una llamada AJAX)
+            setTimeout(function () {
+                // Aquí puedes realizar las acciones que necesites con los datos enviados
+
+                // Ocultar el spinner
+                document.querySelector(".spinner").classList.remove("show");
+
+                // Restablecer el formulario
+                document.getElementById("formContacto").reset();
+            }, 2000); // Simulando una respuesta después de 2 segundos (puedes ajustar el valor según tus necesidades)
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)

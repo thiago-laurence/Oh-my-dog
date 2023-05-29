@@ -46,7 +46,7 @@
         </form>
     </main>
     @if (ViewBag.Message != null)
-    {
+    {   
         <script type="text/javascript">
             var msjArray = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Message));
             msjArray = msjArray.split(',');
@@ -56,9 +56,18 @@
                 icon: 'warning',
                 title: msjTitle,
                 text: msjText
-            })
+            });
         </script>
     }
+    <script type="text/javascript">
+        function DisableBackButton() {
+            window.history.forward();
+        }
+        setTimeout("DisableBackButton()", 0);
+        window.onunload = function () {
+            null
+        };
+    </script>
 </body>
 
 </html>
