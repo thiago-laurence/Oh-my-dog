@@ -9,5 +9,6 @@
 }
 #tarjeta {
     background-image: url(../img/fondo_formulario.svg);
-    background-size:contain;
+    background-size: cover;
+    ;
 }

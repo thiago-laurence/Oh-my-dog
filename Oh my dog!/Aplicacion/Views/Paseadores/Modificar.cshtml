@@ -26,27 +26,25 @@
 
 <div id="agregarCuidador" class="row no-border">
 
-    <div class="card no-border">
-
-        <div class="card-body no-border" id="tarjeta">
-            <form id="formulario" class="no-border m-2" autocomplete="false">
+  
+            <form id="formulario" class="no-border " autocomplete="false">
                 <div class="text-danger"></div>
-                <div class="form-group">
+                <div class="form-group m-2">
                     <label class="control-label">Nombre</label>
                     <input type="text" id="nombre" maxlength="100" autocomplete="false" value="@Model.Nombre" class="form-control" />
                     <span id="nombre_val" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group m-2">
                     <label class="control-label">Apellido</label>
                     <input type="text" id="apellido" maxlength="100" autocomplete="false" class="form-control" value="@Model.Apellido" />
                     <span id="apellido_val" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group m-2">
                     <label class="control-label">Email</label>
                     <input type="text" id="email" maxlength="300" autocomplete="false" class="form-control" value="@Model.Email" />
                     <span id="email_val" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group m-2">
                     <label class="control-label">Ubicacion</label>
 
                     <input class="form-control" autocomplete="false" id="direccion" value="@Model.Ubicacion" maxlength="200" placeholder="Ej: Calle 35" />
@@ -54,7 +52,7 @@
                 </div>
 
                 <div>
-                    <div class="form-group d-flex align-content-center justify-content-evenly">
+                    <div class="form-group d-flex align-content-center justify-content-evenly m-2">
                         <div class="form-group">
                             <label class="control-label">Horario comienzo: </label>
 
@@ -72,7 +70,7 @@
                         <span class="text-danger" id="fechas_val"></span>
                     </div>
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group m-1">
                     <label class="input-group-text" for="upload" value="" >Foto</label>
                     <input type="file" class="form-control" accept=".jpg,.jpeg,.png" onchange="validateFileType()" id="upload">
                     ´
@@ -80,7 +78,7 @@
                 <div>
                     <span class="text-danger" id="foto_val"></span>
                 </div>
-                <button type="button" class="btn btn-primary" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" class="btn btn-primary m-2" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
                     Modificar
                 </button>
 
@@ -106,8 +104,7 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>
+   
 
 
 
@@ -573,6 +570,7 @@
             var emailInput = document.getElementById('email').value;
             var inicioInput = document.getElementById('inicio').value;
             var finInput = document.getElementById('fin').value;
+            (checkFechas(inicioInput, finInput));
             if (!((nombreInput == '') || (apellidoInput == '')
                 || (emailInput == '') || (direccionInput == '') || (inicioInput == '') || (finInput == ''))) {
                 if (checkNombre(nombreInput) && checkApellido(apellidoInput)
