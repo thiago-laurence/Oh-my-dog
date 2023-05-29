@@ -51,7 +51,7 @@ public partial class OhmydogdbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=localhost;database=ohmydogdb;trustservercertificate=true;integrated security=true;");
+        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; trustservercertificate=true; integrated security=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -105,6 +105,7 @@ public partial class OhmydogdbContext : DbContext
         {
             entity.ToTable("EstadoTurno");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Estado)
                 .HasMaxLength(20)
                 .IsUnicode(false);
@@ -112,7 +113,7 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Paseadore>(entity =>
         {
-            entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Paseadores").IsUnique();
+            entity.HasIndex(e => new { e.Email, e.Ubicacion }, "IX_Paseadores");
 
             entity.Property(e => e.Apellido)
                 .HasMaxLength(100)
@@ -126,9 +127,7 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.HorarioIn)
                 .HasPrecision(0)
                 .HasColumnName("HorarioIN");
-            entity.Property(e => e.HorarioOut)
-                .HasPrecision(0)
-                .HasColumnName("HorarioOUT");
+            entity.Property(e => e.HorarioOut).HasPrecision(0);
             entity.Property(e => e.Latitud)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -145,6 +144,7 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Perro>(entity =>
         {
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Color)
                 .HasMaxLength(10)
                 .IsUnicode(false);
@@ -178,10 +178,11 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Rol>(entity =>
         {
-            entity.HasKey(e => e.IdRol).HasName("PK__Rol__2A49584CD2E41696");
+            entity.HasKey(e => e.IdRol).HasName("PK__Rol__2A49584C2F1A143A");
 
             entity.ToTable("Rol");
 
+            entity.Property(e => e.IdRol).ValueGeneratedNever();
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -191,6 +192,7 @@ public partial class OhmydogdbContext : DbContext
         {
             entity.ToTable("TipoPublicacion");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Nombre)
                 .HasMaxLength(20)
                 .IsUnicode(false);
@@ -208,6 +210,7 @@ public partial class OhmydogdbContext : DbContext
         {
             entity.ToTable("TratamientoPerro");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Fecha).HasColumnType("date");
             entity.Property(e => e.Observaciones)
                 .HasMaxLength(50)
@@ -224,14 +227,11 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Turno>(entity =>
         {
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Fecha).HasColumnType("date");
             entity.Property(e => e.Motivo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.DuenoNavigation).WithMany(p => p.Turnos)
-                .HasForeignKey(d => d.Dueno)
-                .HasConstraintName("FK_Turnos_Usuarios");
 
             entity.HasOne(d => d.EstadoNavigation).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.Estado)
@@ -244,39 +244,37 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC078968375E");
-
-            entity.HasIndex(e => e.Email, "IX_Usuarios").IsUnique();
+            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC076CD730FD");
 
             entity.Property(e => e.Apellido)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Direccion)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Pass)
                 .HasMaxLength(250)
                 .IsUnicode(false);
             entity.Property(e => e.Telefono)
-                .HasMaxLength(14)
+                .HasMaxLength(10)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.IdRol)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Usuarios_Rol");
+                .HasConstraintName("FK__Usuarios__IdRol__5BE2A6F2");
         });
 
         modelBuilder.Entity<UsuarioAdopcionPublicacion>(entity =>
         {
             entity.ToTable("UsuarioAdopcionPublicacion");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -284,16 +282,13 @@ public partial class OhmydogdbContext : DbContext
             entity.HasOne(d => d.IdPublicacionNavigation).WithMany(p => p.UsuarioAdopcionPublicacions)
                 .HasForeignKey(d => d.IdPublicacion)
                 .HasConstraintName("FK_UsuarioAdopcionPublicacion_Publicacion");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.UsuarioAdopcionPublicacions)
-                .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK_UsuarioAdopcionPublicacion_Usuarios");
         });
 
         modelBuilder.Entity<UsuarioColectaPublicacion>(entity =>
         {
             entity.ToTable("UsuarioColectaPublicacion");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Motivo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -304,16 +299,13 @@ public partial class OhmydogdbContext : DbContext
             entity.HasOne(d => d.IdPublicacionNavigation).WithMany(p => p.UsuarioColectaPublicacions)
                 .HasForeignKey(d => d.IdPublicacion)
                 .HasConstraintName("FK_UsuarioColectaPublicacion_Publicacion");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.UsuarioColectaPublicacions)
-                .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK_UsuarioColectaPublicacion_Usuarios");
         });
 
         modelBuilder.Entity<UsuarioPerdidaPublicacion>(entity =>
         {
             entity.ToTable("UsuarioPerdidaPublicacion");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -322,14 +314,11 @@ public partial class OhmydogdbContext : DbContext
             entity.HasOne(d => d.IdPublicacionNavigation).WithMany(p => p.UsuarioPerdidaPublicacions)
                 .HasForeignKey(d => d.IdPublicacion)
                 .HasConstraintName("FK_UsuarioPerdidaPublicacion_Publicacion");
-
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.UsuarioPerdidaPublicacions)
-                .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK_UsuarioPerdidaPublicacion_UsuarioPerdidaPublicacion");
         });
 
         modelBuilder.Entity<Vacuna>(entity =>
         {
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Vacuna1)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -340,6 +329,7 @@ public partial class OhmydogdbContext : DbContext
         {
             entity.ToTable("VacunaPerro");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Dosis)
                 .HasMaxLength(10)
                 .IsUnicode(false);

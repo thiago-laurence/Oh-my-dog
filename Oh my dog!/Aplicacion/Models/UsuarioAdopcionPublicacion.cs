@@ -14,6 +14,4 @@ public partial class UsuarioAdopcionPublicacion
     public string Descripcion { get; set; } = null!;
 
     public virtual Publicacion IdPublicacionNavigation { get; set; } = null!;
-
-    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
 }

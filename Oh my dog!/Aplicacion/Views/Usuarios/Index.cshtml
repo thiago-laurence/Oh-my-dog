@@ -45,10 +45,12 @@
                         <thead class="bg-light">
                             @if (Model.ListUsuarios.Count() == 0)
                             {
-                                    <div class="text-center alert alert-info" role="alert">
-                                        <h3>Aún no hay clientes registrados!</h3>
-                                    </div>
-                            }else{
+                                <div class="text-center alert alert-info" role="alert">
+                                    <h3>Aún no hay clientes registrados!</h3>
+                                </div>
+                            }
+                            else
+                            {
                                 <tr>
                                     <th>@Html.DisplayNameFor(model => Model.Usuario.Nombre)</th>
                                     <th>@Html.DisplayNameFor(model => Model.Usuario.Telefono)</th>
@@ -59,7 +61,7 @@
                             }
                         </thead>
                         <tbody>
-                            @foreach(var user in Model.ListUsuarios)
+                            @foreach (var user in Model.ListUsuarios)
                             {
                                 <tr>
                                     <td>
@@ -79,10 +81,12 @@
                                     </td>
                                     <td>@Html.DisplayFor(modelItem => user.Direccion)</td>
                                     <td>
-                                        @if (user.Estado == true)
+                                        @if (user.Estado == 1)
                                         {
                                             <span class="badge text-bg-success">Activo</span>
-                                        }else{
+                                        }
+                                        else
+                                        {
                                             <span class="badge text-bg-danger">Baneado</span>
                                         }
                                     </td>
@@ -139,10 +143,10 @@
                 <a class="btn btn-primary" @anteriorDeshabilitado asp-action="Index" asp-route-NumeroPagina="@(Model.Paginacion.PaginaInicio - 1)" asp-route-filtroActual="@ViewData["FiltroActual"]">
                     Anterior
                 </a>
-                @for(var i = 1; i <= Model.Paginacion.PaginasTotales; i++)
-                {
-                    //var paginaActiva = 
-                }
+        @for (var i = 1; i <= Model.Paginacion.PaginasTotales; i++)
+        {
+            //var paginaActiva =
+        }
             </div>-->
             <div class="col-2">
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#nuevoCliente">
@@ -159,115 +163,114 @@
     </div>
 </div>
 
-    <!--Inicio de modales-->
-        <!--Inicio de modal de nuevo de clientes-->
-        <div class="modal fade" id="nuevoCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                            <i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
-                            Nuevo cliente
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!--Inicio de modales-->
+<!--Inicio de modal de nuevo de clientes-->
+<div class="modal fade" id="nuevoCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
+                    Nuevo cliente
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" id="Form" class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-12">
+                        <label for="validationCustomUsername" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                            <input asp-for="Usuario.Email" type="email" class="form-control" id="validationCustom01" aria-describedby="inputGroupPrepend" required>
+                            <span asp-validation-for="Usuario.Email" class="text-danger"></span>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingrese un email!
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form asp-action="Create" id="Form" class="row g-3 needs-validation" novalidate>
-                            <div class="col-md-12">
-                                <label for="validationCustomUsername" class="form-label">Email</label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="inputGroupPrepend">@@</span>
-                                    <input asp-for="Usuario.Email" type="email" class="form-control" id="validationCustom01" aria-describedby="inputGroupPrepend" required>
-                                    <span asp-validation-for="Usuario.Email" class="text-danger"></span>
-                                    <div class="valid-feedback">
-                                        Bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Ingrese un email!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom01" class="form-label">Nombre</label>
-                                <input asp-for="Usuario.Nombre" type="text" class="form-control" id="validationCustom01" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingrese un nombre!
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom02" class="form-label">Apellido</label>
-                                <input asp-for="Usuario.Apellido" type="text" class="form-control" id="validationCustom02" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingresa un apellido!
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom02" class="form-label">Dirección</label>
-                                <input asp-for="Usuario.Direccion" type="text" class="form-control" id="validationCustom02" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingresa una dirección!
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom03" class="form-label">Telefono</label>
-                                <input asp-for="Usuario.Telefono" type="text" class="form-control" id="validationCustom03" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingresa un número de telefono!
-                                </div>
-                            </div>
-                            <!--<div class="col-md-4">
-                                <label for="validationCustom04" class="form-label">Estado</label>
-                                <select asp-for="Usuario.Estado" class="form-select" id="validationCustom04" required>
-                                    <option selected disabled value="">Elige...</option>
-                                    <option value="true">Activo</option>
-                                    <option value="false">Baneado</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Por favor selecciona un estado!
-                                </div>
-                            </div>-->
-                            <div style="display: none;">
-                                <input asp-for="Usuario.Estado" type="text" value="true">
-                                <input asp-for="Usuario.IdRol" type="text" value="false">
-                                <input asp-for="Usuario.Pass" type="text" value="12345678">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button asp-action="Create" type="submit" class="btn btn-primary">Aceptar</button>
-                            </div>
-                        </form>
+                    <div class="col-md-6">
+                        <label for="validationCustom01" class="form-label">Nombre</label>
+                        <input asp-for="Usuario.Nombre" type="text" class="form-control" id="validationCustom01" required>
+                        <div class="valid-feedback">
+                            Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre!
+                        </div>
                     </div>
-                </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom02" class="form-label">Apellido</label>
+                        <input asp-for="Usuario.Apellido" type="text" class="form-control" id="validationCustom02" required>
+                        <div class="valid-feedback">
+                            Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            Ingresa un apellido!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom02" class="form-label">Dirección</label>
+                        <input asp-for="Usuario.Direccion" type="text" class="form-control" id="validationCustom02" required>
+                        <div class="valid-feedback">
+                            Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            Ingresa una dirección!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom03" class="form-label">Telefono</label>
+                        <input asp-for="Usuario.Telefono" type="text" class="form-control" id="validationCustom03" required>
+                        <div class="valid-feedback">
+                            Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            Ingresa un número de telefono!
+                        </div>
+                    </div>
+                    <!--<div class="col-md-4">
+                        <label for="validationCustom04" class="form-label">Estado</label>
+                        <select asp-for="Usuario.Estado" class="form-select" id="validationCustom04" required>
+                            <option selected disabled value="">Elige...</option>
+                            <option value="true">Activo</option>
+                            <option value="false">Baneado</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            Por favor selecciona un estado!
+                        </div>
+                    </div>-->
+                    <div style="display: none;">
+                        <input asp-for="Usuario.Estado" type="text" value="true">
+                        <input asp-for="Usuario.IdRol" type="text" value="false">
+                        <input asp-for="Usuario.Pass" type="text" value="12345678">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button asp-action="Create" type="submit" class="btn btn-primary">Aceptar</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <!--Fin de modal de nuevo de clientes-->
-
-        <!--Inicio de modal de modificacion de clientes-->
-        <div class="modal fade" id="modificarCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                            <i class="fa-solid fa-user-pen fa-xl" style="color: #000000;"></i>
-                            Editar cliente
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+    </div>
+</div>
+<!--Fin de modal de nuevo de clientes-->
+<!--Inicio de modal de modificacion de clientes-->
+<div class="modal fade" id="modificarCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-user-pen fa-xl" style="color: #000000;"></i>
+                    Editar cliente
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
                 <form asp-action="Create" class="row g-3 needs-validation" novalidate id="modificarCliente">
                     <div class="col-md-12">
@@ -348,54 +351,52 @@
                     </div>
                 </form>
             </div>
-                </div>
-            </div>
         </div>
-        <!--Fin de modal de modificacion de clientes-->
-
-        <!-- Adicion exitosa -->
-        <div class="modal fade" id="modalSuccessNuevoCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
+    </div>
+</div>
+<!--Fin de modal de modificacion de clientes-->
+<!-- Adicion exitosa -->
+<div class="modal fade" id="modalSuccessNuevoCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Nuevo cliente registrado!</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-success" role="alert">
-                  <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
-                  Un nuevo cliente ha sido registrado con éxito!
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-              </div>
             </div>
-          </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert">
+                    <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
+                    Un nuevo cliente ha sido registrado con éxito!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
         </div>
-        <!-- Modificacion exitosa -->
-        <div class="modal fade" id="modalSuccessModificarCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
+    </div>
+</div>
+<!-- Modificacion exitosa -->
+<div class="modal fade" id="modalSuccessModificarCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Cliente modificado!</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-success" role="alert">
-                  <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
-                  La información del cliente ha sido modificada con éxito!
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-              </div>
             </div>
-          </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert">
+                    <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
+                    La información del cliente ha sido modificada con éxito!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
         </div>
-      
-    <!--Fin de modales-->
-      
+    </div>
+</div>
+
+<!--Fin de modales-->
 <!-- Fin Clientes -->
 <div class="b-example-divider"></div>
 
@@ -415,7 +416,7 @@
                         event.preventDefault()
                         event.stopPropagation()
                     }
-                    
+
                     form.classList.add('was-validated')
                 }, false)
             })

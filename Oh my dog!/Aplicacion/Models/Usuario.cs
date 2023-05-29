@@ -13,23 +13,15 @@ public partial class Usuario
 
     public string Apellido { get; set; } = null!;
 
-    public string Direccion { get; set; } = null!;
-
     public string Telefono { get; set; } = null!;
 
-    public bool Estado { get; set; }
+    public string Direccion { get; set; } = null!;
 
-    public bool IdRol { get; set; }
+    public int Estado { get; set; }
+
+    public int? IdRol { get; set; }
 
     public string Pass { get; set; } = null!;
 
-    public virtual Rol IdRolNavigation { get; set; } = null!;
-
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
-
-    public virtual ICollection<UsuarioAdopcionPublicacion> UsuarioAdopcionPublicacions { get; set; } = new List<UsuarioAdopcionPublicacion>();
-
-    public virtual ICollection<UsuarioColectaPublicacion> UsuarioColectaPublicacions { get; set; } = new List<UsuarioColectaPublicacion>();
-
-    public virtual ICollection<UsuarioPerdidaPublicacion> UsuarioPerdidaPublicacions { get; set; } = new List<UsuarioPerdidaPublicacion>();
+    public virtual Rol? IdRolNavigation { get; set; }
 }

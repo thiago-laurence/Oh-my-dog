@@ -16,6 +16,4 @@ public partial class UsuarioPerdidaPublicacion
     public DateTime Fecha { get; set; }
 
     public virtual Publicacion IdPublicacionNavigation { get; set; } = null!;
-
-    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
 }
