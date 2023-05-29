@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    Swal.fire({
+                        icon: 'success',
+
+                        title: '¡Enviado!',
+                        text: 'Se ha enviado el mail de contacto',
+                        timer: 5000,
+                        timerProgressBar: true
+                    })
+                        .then((result) => {
+                            /* Read more about handling dismissals below */
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+
+                            var url = '@Url.Action("Index", "Paseadores")';
+                            window.location.href = url;
+                        })
+
+</script>

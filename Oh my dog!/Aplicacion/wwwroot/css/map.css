@@ -1,0 +1,13 @@
+﻿#map{
+   width:100%;
+   
+    margin:auto;
+}
+.leaflet-container {
+    width: 100wh;
+    height: 75vh;
+}
+#tarjeta {
+    background-image: url(../img/fondo_formulario.svg);
+    background-size:contain;
+}

@@ -1,0 +1,67 @@
+.footer_container {
+    background-color: rgb(53, 11, 34);
+    min-height: 70px;
+
+}
+
+.navbar-collapse {
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.leaflet-popup-content-wrapper {
+    width:auto;
+    height:auto;
+    
+    align-items:center;
+    justify-content:center;
+}
+.leaflet-popup-content{
+    text-align: center;
+}
+
+.card {
+    max-width: 50px;
+}
+
+.opcionContacto {
+    color: black !important;
+    background-color: rgb(0, 100, 255);
+}
+
+.opcionContacto:hover {
+    background-color: rgb(0,
+            0,
+            255,
+            0.5);
+    color: white !important;
+}
+
+.opcionEliminar {
+    color: black !important;
+    background-color: rgb(200, 0, 0);
+}
+
+.opcionEliminar:hover {
+    background-color: rgb(255,
+            0,
+            0);
+    color: white !important;
+}
+
+
+.card-text {
+    font-size: 15px;
+
+    text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-brand {
+        display: none;
+    }
+
+    .barra {
+        margin-top: 8px;
+    }
+}
