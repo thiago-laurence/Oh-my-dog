@@ -10,7 +10,8 @@ namespace Aplicacion.Controllers
     public class LoginController : Controller
     {
         private readonly OhmydogdbContext _context;
-        public LoginController(OhmydogdbContext context) { 
+        public LoginController(OhmydogdbContext context)
+        {
             _context = context;
         }
         public IActionResult Index()
@@ -19,11 +20,18 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Usuario _usuario)
+        public async Task<IActionResult> Index(Usuarios _usuario)
         {
-            Usuario usuario = null;
+            ViewBag.Message = "";
+            Usuarios usuario = null;
             usuario = this.validarUsuario(_usuario.Email, _usuario.Pass);
-            if (usuario != null) {
+            if (usuario != null)
+            {
+                if (usuario.Estado == 0) 
+                {
+                    ViewBag.Message = "El usuario esta baneado, por favor visite la veterinaria o pongase en contacto a traves de ohmydog@gmail.com";
+                    return View();
+                }
                 Rol rolUser = new Rol();
                 rolUser = _context.Rols.Where(r => r.IdRol == usuario.IdRol).FirstOrDefault();
                 // CONFIGURACION DE LA AUTENTICACION
@@ -32,27 +40,28 @@ namespace Aplicacion.Controllers
                     new Claim(ClaimTypes.Name, usuario.Nombre),
                     new Claim("Email", usuario.Email),
                 };
-                
+
                 claims.Add(new Claim(ClaimTypes.Role, rolUser.Descripcion));
-                
+
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
-            
+            ViewBag.Message = "No se pudo iniciar sesion, Usuario o contraseña invalido";
             return View();
         }
 
-        public async Task<IActionResult> LogOut() 
+        public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index","Home");
-        }    
+            return RedirectToAction("Index", "Home");
+        }
 
-        public Usuario validarUsuario(string email, string password) {
-            Usuario user = new Usuario();
+        public Usuarios validarUsuario(string email, string password)
+        {
+            Usuarios user = new Usuarios();
             user = _context.Usuarios.Where(u => u.Email == email && u.Pass == password).FirstOrDefault();
             return user;
 
