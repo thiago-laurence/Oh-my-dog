@@ -583,3 +583,14 @@ C:\Users\Fede\Documents\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\
 C:\Users\Fede\Documents\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\MimeKit.dll
 C:\Users\Fede\Documents\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Fede\Documents\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.csproj.AssemblyReference.cache
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.AssemblyInfoInputs.cache
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.AssemblyInfo.cs
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.RazorAssemblyInfo.cache
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.RazorAssemblyInfo.cs
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.dll
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\refint\Aplicacion.dll
+C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.pdb
