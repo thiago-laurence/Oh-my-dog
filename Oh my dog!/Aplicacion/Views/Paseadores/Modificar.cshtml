@@ -20,7 +20,8 @@
 
     <link rel="stylesheet"
           href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
-
+    
+        <meta charset="UTF-8">
 </head>
 
 
@@ -374,7 +375,7 @@
 
                 
 
-                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Model.Ubicacion")) {
+                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Html.Raw(Model.Ubicacion))" {
                     $.ajax({
                         type: "POST",
                         url: "/Paseadores/existePaseador",

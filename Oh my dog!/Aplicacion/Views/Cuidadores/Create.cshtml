@@ -20,6 +20,8 @@
 
     <link rel="stylesheet"
           href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+    
+        <meta charset="UTF-8">
 
 </head>
 
@@ -371,7 +373,7 @@
                 _cuidador.Latitud = latitude;
                 _cuidador.Longitud = longitude;
                 _cuidador.Ubicacion = $("#direccion").val();
-                
+                alert(_cuidador.Ubicacion)
                 $.ajax({
                 type: "POST",
                 url: "/Cuidadores/existeCuidador",

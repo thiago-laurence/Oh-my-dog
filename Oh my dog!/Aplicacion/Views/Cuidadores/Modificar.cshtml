@@ -20,6 +20,8 @@
 
     <link rel="stylesheet"
           href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+    
+        <meta charset="UTF-8">
 
 </head>
 
@@ -49,7 +51,7 @@
                 <div class="form-group">
                     <label class="control-label">Ubicacion</label>
 
-                    <input class="form-control" autocomplete="false" id="direccion" value="@Model.Ubicacion" placeholder="Ej: Calle 35" />
+                    <input class="form-control" autocomplete="false" id="direccion" value="@Html.Raw(Model.Ubicacion))" placeholder="Ej: Calle 35" />
                     <span id="direccion_val" class="text-danger"></span>
                 </div>
 
@@ -376,8 +378,8 @@
                 _cuidador.Longitud = longitude;
 
                 _cuidador.Ubicacion = $("#direccion").val();
-
-                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Model.Ubicacion")) {
+                
+                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Html.Raw(Model.Ubicacion)")) {
                     $.ajax({
                         type: "POST",
                         url: "/Cuidadores/existeCuidador",
@@ -386,6 +388,7 @@
                         dataType: "json",
                         success: function (r) {
                             if (r) {
+                                
                                 Swal.fire({
                                     title: 'Error',
                                     text: 'El cuidador ya se encuentra en la zona',
