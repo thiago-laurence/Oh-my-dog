@@ -31,23 +31,23 @@
                 <div class="text-danger"></div>
                 <div class="form-group m-2">
                     <label class="control-label">Nombre</label>
-                    <input type="text" id="nombre" maxlength="100" autocomplete="false" value="@Model.Nombre" class="form-control" />
+            <input type="text" id="nombre" maxlength="100" autocomplete="false" value="@Html.Raw(Model.Nombre)" class="form-control" />
                     <span id="nombre_val" class="text-danger"></span>
                 </div>
                 <div class="form-group m-2">
                     <label class="control-label">Apellido</label>
-                    <input type="text" id="apellido" maxlength="100" autocomplete="false" class="form-control" value="@Model.Apellido" />
+            <input type="text" id="apellido" maxlength="100" autocomplete="false" class="form-control" value="@Html.Raw(Model.Apellido)" />
                     <span id="apellido_val" class="text-danger"></span>
                 </div>
                 <div class="form-group m-2">
                     <label class="control-label">Email</label>
-                    <input type="text" id="email" maxlength="300" autocomplete="false" class="form-control" value="@Model.Email" />
+            <input type="text" id="email" maxlength="300" autocomplete="false" class="form-control" value="@Html.Raw(Model.Email)" />
                     <span id="email_val" class="text-danger"></span>
                 </div>
                 <div class="form-group m-2">
                     <label class="control-label">Direccion</label>
 
-                    <input class="form-control" autocomplete="false" id="direccion" value="@Model.Ubicacion" maxlength="200" placeholder="Ej: Calle 35" />
+            <input class="form-control" autocomplete="false" id="direccion" value="@Html.Raw(Model.Ubicacion)" maxlength="200" placeholder="Ej: Calle 35" />
                     <span id="direccion_val" class="text-danger"></span>
                 </div>
 
@@ -56,12 +56,12 @@
                         <div class="form-group">
                             <label class="control-label">Horario comienzo: </label>
 
-                            <input id="inicio" type="time" autocomplete="off" class="form-control" value="@Model.HorarioIn"/>
+                    <input id="inicio" type="time" autocomplete="off" class="form-control" value="@Html.Raw(Model.HorarioIn)" />
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Horario finaliza: </label>
-                            <input autocomplete="off" type="time" id="fin" class="form-control" value="@Model.HorarioOut"/>
+                    <input autocomplete="off" type="time" id="fin" class="form-control" value="@Html.Raw(Model.HorarioOut)" />
                             <span class="text-danger"></span>
                         </div>
 
@@ -242,8 +242,8 @@
         var myIcon = L.icon(customIcon);
         var marker;
         geocoder = new google.maps.Geocoder();
-        var latitude="@Model.Latitud";
-        var longitude="@Model.Longitud";
+        var latitude = "@Html.Raw(Model.Latitud)";
+        var longitude = "@Html.Raw(Model.Longitud)";
 
         
         var puedo= true;
@@ -359,7 +359,7 @@
             _cuidador.Nombre = $("#nombre").val();
             _cuidador.Apellido = $("#apellido").val();
             _cuidador.Email = $("#email").val();
-            _cuidador.Foto = "@Model.Foto";
+            _cuidador.Foto = "@Html.Raw(Model.Foto)"
             _cuidador.Ubicacion = $("#direccion").val();
             _cuidador.HorarioIN = $("#inicio").val();
             _cuidador.HorarioOUT = $("#fin").val();
@@ -371,7 +371,7 @@
 
                 
 
-                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Model.Ubicacion")) {
+                if ((_cuidador.Email != "@Html.Raw(Model.Email)") || (_cuidador.Ubicacion != "@Html.Raw(Model.Ubicacion)")) {
                     $.ajax({
                         type: "POST",
                         url: "/Paseadores/existePaseador",
@@ -474,7 +474,7 @@
             var nombre = $("#nombre").val();
             var apellido = $("#apellido").val();
             var email = $("#email").val();
-            var foto = "@Model.Foto";
+            var foto = "@Html.Raw(Model.Foto)"
              if ($("#upload").val()){
              foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
                 var fileUpload = $("#upload").get(0);

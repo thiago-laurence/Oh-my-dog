@@ -31,23 +31,23 @@
                 <div class="text-danger"></div>
                 <div class="form-group m-2">
                     <label class="control-label">Nombre</label>
-                    <input type="text" id="nombre" autocomplete="false" value="@Model.Nombre" maxlength="100" class="form-control" />
+            <input type="text" id="nombre" autocomplete="false" value="@Html.Raw(Model.Nombre)" maxlength="100" class="form-control" />
                     <span id="nombre_val" class="text-danger"></span>
                 </div>
                 <div class="form-group m-2">
                     <label class="control-label">Apellido</label>
-                    <input type="text" id="apellido" autocomplete="false" maxlength="100" class="form-control" value="@Model.Apellido" />
+            <input type="text" id="apellido" autocomplete="false" maxlength="100" class="form-control" value="@Html.Raw(Model.Apellido)" />
                     <span id="apellido_val" class="text-danger"></span>
                 </div>
                 <div class="form-group m-2">
                     <label class="control-label">Email</label>
-                    <input type="text" id="email" autocomplete="false" maxlength="300" class="form-control" value="@Model.Email" />
+            <input type="text" id="email" autocomplete="false" maxlength="300" class="form-control" value="@Html.Raw(Model.Email)" />
                     <span id="email_val" class="text-danger"></span>
                 </div>
                 <div class="form-group m-2">
                     <label class="control-label">Direccion</label>
 
-                    <input class="form-control" autocomplete="false" id="direccion" value="@Model.Ubicacion" placeholder="Ej: Calle 35" />
+            <input class="form-control" autocomplete="false" id="direccion" value="@Html.Raw(Model.Ubicacion)" placeholder="Ej: Calle 35" />
                     <span id="direccion_val" class="text-danger"></span>
                 </div>
 
@@ -56,12 +56,12 @@
                         <div class="form-group">
                             <label class="control-label">Horario comienzo: </label>
 
-                            <input id="inicio" type="time" autocomplete="off" class="form-control" value="@Model.HorarioIn"/>
+                    <input id="inicio" type="time" autocomplete="off" class="form-control" value="@Html.Raw(Model.HorarioIn)" />
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Horario finaliza: </label>
-                            <input autocomplete="off" type="time" id="fin" class="form-control" value="@Model.HorarioOut"/>
+                    <input autocomplete="off" type="time" id="fin" class="form-control" value="@Html.Raw(Model.HorarioOut)" />
                             <span class="text-danger"></span>
                         </div>
 
@@ -366,7 +366,7 @@
             _cuidador.Email = $("#email").val();
             _cuidador.HorarioIN = $("#inicio").val();
             _cuidador.HorarioOUT = $("#fin").val();
-            _cuidador.Foto = "@Model.Foto";
+            _cuidador.Foto = "@Html.Raw(Model.Foto)";
             
             function controlarUbicacion() {
                 _cuidador.Latitud = latitude;
@@ -374,7 +374,7 @@
 
                 _cuidador.Ubicacion = $("#direccion").val();
 
-                if ((_cuidador.Email != "@Model.Email") || (_cuidador.Ubicacion != "@Model.Ubicacion")) {
+                if ((_cuidador.Email != "@Html.Raw(Model.Email)") || (_cuidador.Ubicacion != "@Html.Raw(Model.Ubicacion)")) {
                     $.ajax({
                         type: "POST",
                         url: "/Cuidadores/existeCuidador",
@@ -479,7 +479,7 @@
             var email = $("#email").val();
             var horarioIN = $("#inicio").val();
             var horarioOUT = $("#fin").val();
-            var foto = "@Model.Foto";
+            var foto = "@Html.Raw(Model.Foto)";
             if ($("#upload").val())
             {
             var foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
