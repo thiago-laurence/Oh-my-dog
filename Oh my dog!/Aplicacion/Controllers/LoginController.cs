@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using System.Diagnostics.Contracts;
 
 namespace Aplicacion.Controllers
 {
@@ -16,40 +17,47 @@ namespace Aplicacion.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+			if (User.Identity!.IsAuthenticated)
+            {
+				return RedirectToAction("Index", "Home");
+			}
+			return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(Usuarios _usuario)
         {
-            ViewBag.Message = "";
-            Usuarios usuario = null;
-            usuario = this.validarUsuario(_usuario.Email, _usuario.Pass);
+            Usuarios? usuario = null;
+            usuario = _context.Usuarios.Where(u => (u.Email == _usuario.Email) && (u.Pass == _usuario.Pass)).FirstOrDefault();
             if (usuario != null)
             {
-                if (usuario.Estado == 0) 
+                if (usuario.Estado == 0)
                 {
-                    ViewBag.Message = "El usuario esta baneado, por favor visite la veterinaria o pongase en contacto a traves de ohmydog@gmail.com";
+                    ViewBag.Message = "El usuario está baneado!. Por favor visite la veterinaria o póngase en contacto a través de ohmydog@gmail.com";
                     return View();
                 }
-                Rol rolUser = new Rol();
-                rolUser = _context.Rols.Where(r => r.IdRol == usuario.IdRol).FirstOrDefault();
+
+                Rol? rolUser = new Rol();
+                rolUser = _context.Rols.Where(r => r.IdRol == usuario!.IdRol).FirstOrDefault();
+
                 // CONFIGURACION DE LA AUTENTICACION
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, usuario.Nombre),
                     new Claim("Email", usuario.Email),
+                    new Claim("New", (usuario.Pass[0] == '?') ? "true" : "false")
                 };
 
-                claims.Add(new Claim(ClaimTypes.Role, rolUser.Descripcion));
+                claims.Add(new Claim(ClaimTypes.Role, rolUser!.Descripcion));
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
+                
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.Message = "No se pudo iniciar sesion, Usuario o contraseña invalido";
+
+            ViewBag.Message = "Error al iniciar sesión, el email o contraseña son incorrectos!";
             return View();
         }
 
@@ -59,11 +67,11 @@ namespace Aplicacion.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public Usuarios validarUsuario(string email, string password)
+        public Usuarios? validarUsuario(string email, string password)
         {
-            Usuarios user = new Usuarios();
+            Usuarios? user = new Usuarios();
             user = _context.Usuarios.Where(u => u.Email == email && u.Pass == password).FirstOrDefault();
-            return user;
+            return (user);
 
         }
 

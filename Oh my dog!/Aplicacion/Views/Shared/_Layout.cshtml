@@ -15,152 +15,219 @@
     <script src="https://kit.fontawesome.com/a043b2893b.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!--<header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Aplicacion</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Clientes</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>-->
-    
 
     <!--Inicio Header Veterinario-->
     <div class="container-fluid">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <img class="bi me-2" src="~/img/Logo - Veterinaria.png" width="100" height="80">
-            </a>
-
-            <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 link-light active" aria-current="page">
-                        <i class="fa-solid fa-house fa-lg" style="color: #ffffff;"></i>
-                        Inicio
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
-                        Publicaciones
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Adopciones</a></li>
-                        <li><a class="dropdown-item" href="#">Perdidas</a></li>
-                        <li><a class="dropdown-item" href="#">Colectas</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
-                        Servicios
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="Cuidadores">Cuidadores</a></li>
-                        <li><a class="dropdown-item" href="Paseadores">Paseadores</a></li>
-                    </ul>
-                </li>
-                @if (User.Identity.IsAuthenticated)
-                {
+        @if (User.Claims.FirstOrDefault(c => c.Type == "New")?.Value == "true"){ // Si el usuario es "nuevo" se inhabilitan el acceso a las funcionalidades, se obliga a cambiar la contrasena.
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <a class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                    <img class="bi me-2" src="~/img/Logo - Veterinaria.png" width="100" height="80">
+                </a>
+                <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li>
-                        <a href="#" class="nav-link px-2 link-dark">
-                            <i class="fa-solid fa-heart" style="color: #000000;"></i>
-                            TinderDog
+                        <a class="nav-link px-2 link-dark" aria-current="page">
+                            <i class="fa-solid fa-house fa-lg" style="color: #000000"></i>
+                            Inicio
                         </a>
                     </li>
-                }
-                <li>
-                    <a href="#" class="nav-link px-2 link-dark" id="openModal">
-                        <i type="button" class="fa-solid fa-envelope fa-xl btn" style="color: #000000;" data-bs-toggle="modal" data-bs-target="#modalEnviarMensaje"></i>
-                        Contacto
-                    </a>
-                        
-                </li>
-            </ul>
-            <!-- Modal -->
-            <div class="modal fade" id="modalEnviarMensaje" tabindex="-1" aria-labelledby="modalEnviarMensajeLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalEnviarMensajeLabel">Enviar Mensaje</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form asp-controller="Contacto" asp-action="EnviarCorreo" method="post" id="formContacto">
-                                <div class="mb-3">
-                                    <label for="remitente" class="form-label">Remitente:</label>
-                                    <input type="email" class="form-control" id="remitente" name="remitente" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="destinatario" class="form-label">Destinatario:</label>
-                                    <input type="email" class="form-control" id="destinatario" name="destinatario" readonly required value="ohmydoggonet@outlook.es">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="asunto" class="form-label">Asunto:</label>
-                                    <input type="text" class="form-control" id="asunto" name="asunto" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="contenido" class="form-label">Contenido:</label>
-                                    <textarea class="form-control" id="contenido" name="contenido" required></textarea>
-                                </div>
-                                <div class="spinner">
-                                    <div class="spinner-border text-success" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Enviar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="col-md-3 text-center">
-                    <div class="dropdown-center">
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            @User.Identity.Name
-                            <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
+                    <!--
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
+                            Publicaciones
                         </a>
-                        <ul class="dropdown-menu text-small">
-                            @if (User.IsInRole("Administrador"))
-                            {
-                                <li><a class="dropdown-item active" asp-area="" asp-controller="Usuarios" asp-action="Index">Clientes</a></li>
-                            }
-                            <li><a class="dropdown-item" href="#">Calendario</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">Cambiar contraseña</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogOut">Cerrar sesión</a></li>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Adopciones</a></li>
+                            <li><a class="dropdown-item" href="#">Perdidas</a></li>
+                            <li><a class="dropdown-item" href="#">Colectas</a></li>
                         </ul>
+                    </li>
+                    -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
+                            Servicios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item">Cuidadores</a></li>
+                            <li><a class="dropdown-item">Paseadores</a></li>
+                        </ul>
+                    </li>
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <!--
+                        <li>
+                            <a href="#" class="nav-link px-2 link-dark">
+                                <i class="fa-solid fa-heart" style="color: #000000;"></i>
+                                TinderDog
+                            </a>
+                        </li>
+                                -->
+                    }
+                    <!--<li>
+                        <a class="nav-link px-2 link-dark">
+                            <i class="fa-solid fa-envelope fa-xl" style="color: #000000;"></i>
+                            Contacto
+                        </a>
+                    </li>-->
+                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-3 text-center">
+                        <div class="dropdown-center">
+                                <a href="#" class="d-block link-dark text-decoration-none fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 20px">
+                                @User.Identity.Name
+                                <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
+                            </a>
+                            <ul class="dropdown-menu text-small">
+                                @if (User.IsInRole("Administrador"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item">
+                                            <i class="fa-solid fa-users" style="color: #000000;"></i>
+                                            Clientes
+                                        </a>
+                                    </li>
+                                }
+                                <!--<li>
+                                    <a class="dropdown-item">
+                                        Calendario
+                                    </a>
+                                </li>-->
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item active" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
+                                        <i class="fa-solid fa-lock fa-md" style="color: #000000;"></i>
+                                        Cambiar contraseña
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogOut">
+                                        <i class="fa-solid fa-right-from-bracket fa-md" style="color: #000000;"></i>
+                                        Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="col-md-3">
-                    <a class="btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">
-                        Iniciar sesión
-                    </a>
-                </div>
-            }
-        </header>
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <a class="btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">
+                            <i class="fa-solid fa-right-to-bracket fa-lg" style="color: #ffffff;"></i>
+                            Iniciar sesión
+                        </a>
+                    </div>
+                }
+            </header>
+        }
+        else{ // Si el usuario no es un usuario nuevo, se permite el acceso a las funcionalidades.
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                    <img class="bi me-2" src="~/img/Logo - Veterinaria.png" width="100" height="80">
+                </a>
+                <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 @((ViewBag.ActiveView == "Home") ? "link-light active" : "link-dark")" aria-current="page">
+                            <i class="fa-solid fa-house fa-lg" style="color: #@((ViewBag.ActiveView == "Home") ? "ffffff" : "000000")"></i>
+                            Inicio
+                        </a>
+                    </li>
+                    <!--
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
+                            Publicaciones
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Adopciones</a></li>
+                            <li><a class="dropdown-item" href="#">Perdidas</a></li>
+                            <li><a class="dropdown-item" href="#">Colectas</a></li>
+                        </ul>
+                    </li>
+                    -->
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
+                                Servicios
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")" href="Cuidadores">Cuidadores</a></li>
+                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")" href="Paseadores">Paseadores</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <!--
+                        <li>
+                            <a href="#" class="nav-link px-2 link-dark">
+                                <i class="fa-solid fa-heart" style="color: #000000;"></i>
+                                TinderDog
+                            </a>
+                        </li>
+                        -->
+                    }
+                    <!--<li>
+                        <a class="nav-link px-2 link-dark">
+                            <i class="fa-solid fa-envelope fa-xl" style="color: #000000;"></i>
+                            Contacto
+                        </a>
+                    </li>-->
+                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-3 text-center">
+                        <div class="dropdown-center">
+                            <a href="#" class="d-block link-dark text-decoration-none fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 20px">
+                                @User.Identity.Name
+                                <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
+                            </a>
+                            <ul class="dropdown-menu text-small">
+                                @if (User.IsInRole("Administrador"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item @((ViewBag.ActiveView == "IndexClientes") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="Index">
+                                            <i class="fa-solid fa-users fa-md" style="color: #@((ViewBag.ActiveView == "IndexClientes") ? "ffffff" : "000000")"></i>
+                                            Clientes
+                                        </a>
+                                    </li>
+                                }
+                                <!--<li>
+                                    <a class="dropdown-item @((ViewBag.ActiveView == "Calendario") ? "active" : "")" asp-area="" asp-controller="Calendario" asp-action="Index">
+                                        Calendario
+                                    </a>
+                                </li>-->
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item @((ViewBag.ActiveView == "CambiarContrasena") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
+                                        <i class="fa-solid fa-lock fa-md" style="color: #@((ViewBag.ActiveView == "CambiarContrasena") ? "ffffff" : "000000")"></i>
+                                        Cambiar contraseña
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogOut">
+                                        <i class="fa-solid fa-right-from-bracket fa-md" style="color: #000000;"></i>
+                                        Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <a class="btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">
+                            <i class="fa-solid fa-right-to-bracket fa-lg" style="color: #ffffff;"></i>
+                            Iniciar sesión
+                        </a>
+                    </div>
+                }
+            </header>
+        }
     </div>
     <!--Fin Header Veterinario-->
 
@@ -171,35 +238,33 @@
     </div>
 
     <!--Inicio del Footer-->
-    <div class="container-fluid" style="background-color: #faf4e8; padding-left: 0px !important; padding-right: 0px !important">
-        <div class="container-fluid">
+    <div class="container-fluid" style="position: absolute; background-color: #faf4e8; padding-left: 0px !important; padding-right: 0px !important">
+        <div class="container">
             <footer class="py-5">
                 <div class="row">
                     <div class="col-6 col-md-2 mb-3">
                         <h5>Publicaciones</h5>
                         <ul class="nav flex-column">
-                            <li class="nav-item mb-2">Adopciones</li>
-                            <li class="nav-item mb-2">Perdidas</li>
-                            <li class="nav-item mb-2">Colectas</li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Adopciones</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Perdidas</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Colectas</a></li>
                         </ul>
                     </div>
 
                     <div class="col-6 col-md-2 mb-3">
                         <h5>Servicios</h5>
                         <ul class="nav flex-column">
-                            <li class="nav-item mb-2">Tratamientos</li>
-                            <li class="nav-item mb-2">Vacunaciones</li>
-                            <li class="nav-item mb-2">Paseadores</li>
-                            <li class="nav-item mb-2">Cuidadores</li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Paseadores</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Cuidadores</a></li>
                         </ul>
                     </div>
 
                     <div class="col-6 col-md-2 mb-3">
                         <h5>Horarios de atención</h5>
                         <ul class="nav flex-column">
-                            <li class="nav-item mb-2">Lunes a viernes de 8 a 13 - 17 a 20</li>
-                            <li class="nav-item mb-2">Sábado de 8 a 13</li>
-                            <li class="nav-item mb-2">Guardias las 24 hs.</li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Lunes a viernes de 8 a 13 - 17 a 20</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Sábado de 8 a 13</a></li>
+                            <li class="nav-item mb-2"><a class="nav-link p-0 text-muted">Guardias las 24 hs.</a></li>
                         </ul>
                     </div>
 
@@ -218,10 +283,15 @@
         <div class="container-fluid" style="background-color: #67b1c4;">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="margin-bottom: 0px !important;">
                 <div class="col-md-4 d-flex align-items-center">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                        <img src="~/img/Logo 2 - Veterinaria.png" width="20%">
-                    </a>
-
+                    @if (User.Claims.FirstOrDefault(c => c.Type == "New")?.Value == "true"){
+                        <a class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                            <img src="~/img/Logo 2 - Veterinaria.png" width="20%">
+                        </a>
+                    }else{
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                            <img src="~/img/Logo 2 - Veterinaria.png" width="20%">
+                        </a>
+                    }
                 </div>
                 <span class="mb-3 mb-md-0 text-black">&copy; 2023 LEM Software Dev.</span>
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
@@ -234,42 +304,11 @@
     </div>
     <!--Fin del Footer-->
 
-    <!--<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Aplicacion - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
     <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        $(document).ready(function () {
-            $('#openModal').click(function () {
-                $('#modalEnviarMensaje').modal('show');
-            });
-        });
-    </script>
-    <script>
-        document.getElementById("formContacto").addEventListener("submit", function (event) {
-            // Prevenir que el formulario se envíe de forma predeterminada
-            event.preventDefault();
-
-            // Mostrar el spinner
-            document.querySelector(".spinner").classList.add("show");
-
-            // Simular una petición asíncrona (por ejemplo, una llamada AJAX)
-            setTimeout(function () {
-                // Aquí puedes realizar las acciones que necesites con los datos enviados
-
-                // Ocultar el spinner
-                document.querySelector(".spinner").classList.remove("show");
-
-                // Restablecer el formulario
-                document.getElementById("formContacto").reset();
-            }, 2000); // Simulando una respuesta después de 2 segundos (puedes ajustar el valor según tus necesidades)
-        });
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

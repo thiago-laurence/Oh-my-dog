@@ -1,0 +1,130 @@
+﻿@model Aplicacion.Models.UsuarioViewModel
+@{
+    var anteriorDeshabilitado = !Model.Paginacion.PaginasAnteriores ? "disabled" : "";
+    var siguienteDeshabilitado = !Model.Paginacion.PaginasSiguientes ? "disabled" : "";
+    var filtroActual = "";
+}
+<br>
+<br>
+<div class="container-fluid border shadow-lg">
+    <div class="row">
+        <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+            <div class="table-responsive">
+                <table class="table table-hover" style="margin-bottom: 0px;">
+                    <thead class="bg-light">
+                        @if (Model.Paginacion.Count() == 0)
+                        {
+                            <div class="text-center alert alert-info" role="alert">
+                                <h3>
+                                    @if(Model.Origen){
+                                        <p>No existen clientes coincidentes con la busqueda!</p>
+                                    }
+                                    else{
+                                        <p>Aún no hay clientes registrados para visualizar!</p>
+                                    }
+
+                                </h3>
+                            </div>
+                        }
+                        else
+                        {
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => Model.Usuario.Nombre)</th>
+                                <th>@Html.DisplayNameFor(model => Model.Usuario.Telefono)</th>
+                                <th>@Html.DisplayNameFor(model => Model.Usuario.Direccion)</th>
+                                <th>@Html.DisplayNameFor(model => Model.Usuario.Estado)</th>
+                                <th>Acciones</th>
+                            </tr>
+                        }
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.Paginacion)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
+                                        <div class="ms-3">
+                                            <p class="fw-bold mb-1">
+                                                @Html.DisplayFor(modelItem => user.Apellido)
+                                                @Html.DisplayFor(modelItem => user.Nombre)
+                                            </p>
+                                            <p class="text-muted mb-0">@Html.DisplayFor(modelItem => user.Email)</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@Html.DisplayFor(modelItem => user.Telefono)</p>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => user.Direccion)</td>
+                                <td>
+                                    @if (user.Estado == 1)
+                                    {
+                                        <span class="badge text-bg-success">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge text-bg-danger">Baneado</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-12">
+                                                <button type="button" class="btn btn-primary btnVisualizarUsuario" data-usuario-id="@user.Id">
+                                                    <i class="fa-solid fa-user-pen fa-xl" style="color: #ffffff;"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 col-sm-12">
+                                                <button type="button" class="btn btn-warning" style="background-color: #f1965b;">
+                                                    <i class="fa-solid fa-dog fa-xl" style="color: #ffffff;"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a data-numeroPagina="@(Model.Paginacion.PaginaInicio - 1)" data-filtroActual="@filtroActual" class="page-link @anteriorDeshabilitado">
+                            Anterior
+                        </a>
+                    </li>
+                    @for (var i = 1; i <= Model.Paginacion.PaginasTotales; i++)
+                    {
+                        var paginaActiva = (i == Model.Paginacion.PaginaInicio) ? "active" : "";
+                        <li class="page-item">
+                            <a data-numeroPagina="@i" data-filtroActual="@filtroActual" class="page-link @paginaActiva">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li class="page-item">
+                        <a data-numeroPagina="@(Model.Paginacion.PaginaInicio + 1)" data-filtroActual="@filtroActual" class="page-link @siguienteDeshabilitado">
+                            Siguiente
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente">
+                <i class="fa-solid fa-user-plus fa-xl" style="color: #ffffff;"></i>
+                Nuevo cliente
+            </button>
+        </div>
+    </div>
+</div>

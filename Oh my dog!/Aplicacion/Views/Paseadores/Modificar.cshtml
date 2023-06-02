@@ -1,109 +1,94 @@
-﻿@model Aplicacion.Models.Paseadore
+﻿@model Aplicacion.Models.Paseadores
 
 @{
     Layout = null;
     ViewData["Title"] = "Create";
 }
 <head>
-
     <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/bodyCreate.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Aplicacion.styles.css" asp-append-version="true" />
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-
-    <link rel="stylesheet"
-          href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 </head>
 
-
 <div id="agregarCuidador" class="container">
-
-  
-            <form id="formulario" class="no-border m-2" autocomplete="false">
-                <div class="text-danger"></div>
-                <div class="form-group m-2">
-                    <label class="control-label">Nombre</label>
+    <form id="formulario" class="no-border m-2" autocomplete="false">
+        <div class="text-danger"></div>
+        <div class="form-group m-2">
+            <label class="control-label">Nombre</label>
             <input type="text" id="nombre" maxlength="100" autocomplete="false" value="@Html.Raw(Model.Nombre)" class="form-control" />
-                    <span id="nombre_val" class="text-danger"></span>
-                </div>
-                <div class="form-group m-2">
-                    <label class="control-label">Apellido</label>
+            <span id="nombre_val" class="text-danger"></span>
+        </div>
+        <div class="form-group m-2">
+            <label class="control-label">Apellido</label>
             <input type="text" id="apellido" maxlength="100" autocomplete="false" class="form-control" value="@Html.Raw(Model.Apellido)" />
-                    <span id="apellido_val" class="text-danger"></span>
-                </div>
-                <div class="form-group m-2">
-                    <label class="control-label">Email</label>
+            <span id="apellido_val" class="text-danger"></span>
+        </div>
+        <div class="form-group m-2">
+            <label class="control-label">Email</label>
             <input type="text" id="email" maxlength="300" autocomplete="false" class="form-control" value="@Html.Raw(Model.Email)" />
-                    <span id="email_val" class="text-danger"></span>
-                </div>
-                <div class="form-group m-2">
-                    <label class="control-label">Direccion</label>
-
+            <span id="email_val" class="text-danger"></span>
+        </div>
+        <div class="form-group m-2">
+            <label class="control-label">Direccion</label>
             <input class="form-control" autocomplete="false" id="direccion" value="@Html.Raw(Model.Ubicacion)" maxlength="200" placeholder="Ej: Calle 35" />
-                    <span id="direccion_val" class="text-danger"></span>
-                </div>
-
-                <div>
-                    <div class="form-group d-flex align-content-center justify-content-evenly m-3">
-                        <div class="form-group">
-                            <label class="control-label">Horario comienzo: </label>
-
+            <span id="direccion_val" class="text-danger"></span>
+        </div>
+        <div>
+            <div class="form-group d-flex align-content-center justify-content-evenly m-3">
+                <div class="form-group">
+                    <label class="control-label">Horario comienzo: </label>
                     <input id="inicio" type="time" autocomplete="off" class="form-control" value="@Html.Raw(Model.HorarioIn)" />
-                            <span class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Horario finaliza: </label>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Horario finaliza: </label>
                     <input autocomplete="off" type="time" id="fin" class="form-control" value="@Html.Raw(Model.HorarioOut)" />
-                            <span class="text-danger"></span>
-                        </div>
-
-                    </div>
-                    <div class="text-center">
-                        <span class="text-danger" id="fechas_val"></span>
-                    </div>
+                    <span class="text-danger"></span>
                 </div>
-                <div class="input-group m-2">
-                    <label class="input-group-text" for="upload" value="" >Foto</label>
-                    <input type="file" class="form-control" accept=".jpg,.jpeg,.png" onchange="validateFileType()" id="upload">
+            </div>
+            <div class="text-center">
+                <span class="text-danger" id="fechas_val"></span>
+            </div>
+        </div>
+        <div class="input-group m-2">
+            <label class="input-group-text" for="upload" value="" >Foto</label>
+            <input type="file" class="form-control" accept=".jpg,.jpeg,.png" onchange="validateFileType()" id="upload">
             
-                </div>
+        </div>
         <div>
             <span class="text-danger m-2" id="foto_val"></span>
         </div>
-                <button type="button" class="btn btn-primary m-2" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
-                    Modificar
-                </button>
+        <button type="button" class="btn btn-primary m-2" disabled id="btnShowModal" data-toggle="modal" data-target="#exampleModalCenter">
+            Modificar
+        </button>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            </div>
-                            <div class="modal-body " style="height:300px;">
-                                <div class="container" id="mapcontainer">
-                                    <div id="map" style="height:250px;"></div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Cancelar</button>
-                                <div class="form-group" id="enviarCuidador">
-                                    <input id="cargar" type="button" value="Confirmar" class="btn btn-primary" />
-                                </div>
-                            </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body " style="height:300px;">
+                        <div class="container" id="mapcontainer">
+                            <div id="map" style="height:250px;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="btnCloseModal" data-dismiss="modal">Cancelar</button>
+                        <div class="form-group" id="enviarCuidador">
+                            <input id="cargar" type="button" value="Confirmar" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
+    </form>
+</div>
    
 
 
@@ -113,13 +98,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+}
 
-}<script type="text/javascript"
-         src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk"></script>
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk"></script>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
 <!--    AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk*/
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
@@ -127,9 +110,8 @@
 <!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
 <script src="~/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+
 <script type="text/javascript">
-
-
 
     function showMessage(message, id) {
         const output = document.querySelector(id);
@@ -250,11 +232,6 @@
         
         
         var pac_input = document.getElementById('direccion');
-        
-        
-
-
-
 
         (function pacSelectFirst(input) {
             // store the original event binding function
@@ -372,6 +349,7 @@
                 
 
                 if ((_cuidador.Email != "@Html.Raw(Model.Email)") || (_cuidador.Ubicacion != "@Html.Raw(Model.Ubicacion)")) {
+                    console.log(_cuidador);
                     $.ajax({
                         type: "POST",
                         url: "/Paseadores/existePaseador",
@@ -379,16 +357,13 @@
 
                         dataType: "json",
                         success: function (r) {
-                            if (r) {
+                            if (r.success) {
                                 Swal.fire({
                                     title: 'Error',
-                                    text: 'El paseador ya se encuentra en la zona',
-                                    // html: '<img width="250" height="200" src="/img/AdobeStock_33953457.svg">',
-                                    imageUrl: "/img/AdobeStock_33953457.svg",
+                                    text: r.message,
+                                    imageUrl: "/img/PerroError.svg",
                                     imageHeight: 155,
                                 })
-
-
                             } else {
                                 var iconOptions = {
                                     title: _cuidador.Nombre,
@@ -400,7 +375,6 @@
                                 map.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
                                 $("#exampleModalCenter").modal('show');
                                 setTimeout(function () { map.invalidateSize() }, 400);
-
                             }
                         }
                     });
@@ -532,8 +506,6 @@
                     
 
                         Swal.fire({
-                            imageUrl: '/img/AdobeStock_262214231.svg',
-                            imageHeight: 155,
                             title: 'Felicitaciones!',
                             text: 'El paseador se ha modificado exitosamente',
                             timer: 5000,

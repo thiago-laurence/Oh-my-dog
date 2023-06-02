@@ -1,47 +1,274 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido a Oh my dog  <img src="~/img/huella_icon.png" width="40px" height="40px"/> </h1>
-    <p>Veterinaria especializada en el cuidado de nuestro miembro familiar canino</p>
+<style>
+    /* Carousel base class */
+    .carousel {
+        margin-bottom: 4rem;
+    }
+    /* Since positioning the image, we need to help out the caption */
+    .carousel-caption {
+        bottom: 3rem;
+        z-index: 10;
+    }
+
+    /* Declare heights because of positioning of img element */
+    .carousel-item {
+        height: 55rem;
+    }
+
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+    /* Center align the text within the three columns below the carousel */
+    .marketing .col-lg-4 {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    /* rtl:begin:ignore */
+    .marketing .col-lg-4 p {
+        margin-right: .75rem;
+        margin-left: .75rem;
+    }
+    /* rtl:end:ignore */
+
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+        margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+    }
+
+    /* Thin out the marketing headings */
+    /* rtl:begin:remove */
+    .featurette-heading {
+        letter-spacing: -.05rem;
+    }
+
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .card-cover {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+    }
+</style>
+
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-4">Bienvenido a Oh my dog!</h1>
+    <p style="margin-bottom: 0px;">Veterinaria especializada en el cuidado de nuestro miembro familiar canino</p>
 </div>
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+<!--Inicio de carrousel-->
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="~/img/carousel-1.jpg" class="d-block w-100 carousel-image" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Aria y Jon</h5>
-                <p>Esperando a ser atendidos</p>
+            <img src="~/img/img-carrousel1.jpg" width="100%" height="100%" style="filter: brightness(80%);" />
+            <div class="container">
+                <div class="carousel-caption text-start">
+                    <h1>Veterinaria canina</h1>
+                    <p>Especializada en brindar la mejor atención a tu miembro familiar canino</p>
+                    <p><a class="btn btn-lg btn-primary" href="#Servicios">Servicios</a></p>
+                </div>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="~/img/carousel-2.jpg" class="d-block w-100 carousel-image" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Roco</h5>
-                <p>Realizando su examen de rutina</p>
+            <!--<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777" /></svg>-->
+            <img src="~/img/img-carrousel2.jpg" width="100%" height="100%" style="filter: brightness(80%);" />
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Nuestro equipo</h1>
+                    <p>Contamos con el mejor equipo médico a su disposición las 24 hs.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#Turnos">Turnos</a></p>
+                </div>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="~/img/carousel-3.jpg" class="d-block w-100 carousel-image" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Cora</h5>
-                <p>Finalizando su chequeo</p>
+            <img src="~/img/img-carrousel3.jpg" width="100%" height="100%" style="filter: brightness(80%);" />
+            <div class="container">
+                <div class="carousel-caption text-end">
+                    <h1>Una experiencia única</h1>
+                    <p>Brindamos la mejor atención a tu perro ¡deseara volver!</p>
+                    <p><a class="btn btn-lg btn-primary" href="#Publicaciones">Publicaciones</a></p>
+                </div>
             </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+<!--Fin de carrousel-->
 
+@if (User.Identity!.IsAuthenticated)
+{
+    <!--Inicio TinderDog-->
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4 shadow-lg" src="~/img/tinderdog - logo.png" alt="" width="150" height="150">
+        <h1 class="display-5 fw-bold">TinderDog</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Postula a tu mascota en este apartado y encontrale su media naranja. Dale "Me gusta" a candidatos recomendados, visualiza los "Me gusta" recibidos, haz Match y concreta una cita!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <!--<button type="button" class="btn btn-danger btn-lg px-4 gap-3">Ingresar</button>-->
+            </div>
+        </div>
+    </div>
+    <hr class="featurette-divider">
+    <!--Fin Tinderdog-->
+}
+
+<!--Inicio de turnos-->
+<div class="container my-5" id="Turnos">
+    <h2 class="pb-2 border-bottom" style="margin-bottom: 50px;">Turnos</h2>
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+        <div class="col-lg-6 p-3 p-lg-5 pt-lg-3">
+            <h1 class="display-6 fw-bold lh-1">Organiza tu propia agenda de turnos</h1>
+            <p class="lead">Solicita turnos para tu mascota en el dia y horario que más te convenga, y luego visualizalos en tu propio calendario personal de turnos. PD: si te olvidas de solicitar uno, o tenes alguno ya registrado, tranquilo que nosotros te lo recordamos por vos.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                <!--<button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Ingresar</button>-->
+            </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 p-0 overflow-hidden shadow-lg">
+            <img class="rounded-lg-3" src="~/img/calendario.jpg" alt="" width="720">
+        </div>
+    </div>
+</div>
+<!--Fin de turnos-->
+
+<hr class="featurette-divider">
+
+<!--Inicio cards-->
+<div class="container px-4 py-5" id="Publicaciones">
+    <h2 class="pb-2 border-bottom">Publicaciones</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg pepe" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://localhost:7035/img/adopciones.png');">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Agranda la familia adoptando</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <!--<button class="btn btn-primary">
+                                Ver
+                            </button>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://localhost:7035/img/recuperaciones.png');">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Recupera a tu amigo perdido</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <!--<button class="btn btn-primary">
+                                Ver
+                            </button>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://localhost:7035/img/colectas.png');">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Realiza donativos</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <!--<button class="btn btn-primary">
+                                Ver
+                            </button>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin cards-->
+
+<hr class="featurette-divider">
+
+<!--Inicio Servicios-->
+<div class="container marketing" id="Servicios">
+    <h2 class="pb-2 border-bottom text-lg-end" style="margin-bottom: 50px;">Servicios</h2>
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">Paseadores. <span class="text-muted">A tu perro le encantará!</span></h2>
+            <p class="lead">Contáctate de forma directa con nuestros paseadores de confianza para que tu perro viva una experiencia inolvidable.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto shadow-lg" src="~/img/paseadores.jpeg" />
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading fw-normal lh-1">Cuidadores. <span class="text-muted">La mejor compañia a tu disposición!</span></h2>
+            <p class="lead">Coordina visitas a domicilio para que tu perro no esté solo en tu ausencia y no deje de recibir el cariño y amor que se merece.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto shadow-lg" src="~/img/cuidadores.png" />
+        </div>
+    </div>
+</div>
+<!-- Fin Servicios -->
+
+<hr class="featurette-divider">
+
+<!-- Inicio comentarios-->
+<div class="container">
+    <h2 class="pb-2 border-bottom" style="margin-bottom: 50px;">Concientización</h2>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-danger">Comercialización</strong>
+                    <h3 class="mb-0">Los perros NO son un producto</h3>
+                    <p class="card-text mb-auto">Estamos en contra de la comercialización de los animales, ellos son familia, no un producto.</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img src="~/img/concientizacion.jpg" width="300" height="250" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-lg h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-danger">Pirotecnia</strong>
+                    <h3 class="mb-0">A ellos también les molesta</h3>
+                    <p class="mb-auto">Nos oponemos al uso de pirotecnia debido al alto daño auditivo y psicologico provado a los animales. Ellos también sienten.</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img src="~/img/concientizacion2.png" width="300" height="250" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin comentarios-->
+
+<hr class="featurette-divider">
+<div class="b-example-divider"></div>

@@ -7,5 +7,6 @@ public class UsuarioViewModel
 
     public Usuarios Usuario { get; set; }
     public Paginacion<Usuarios> Paginacion { get; set; } 
+    public bool Origen { get; set; }
 
 }

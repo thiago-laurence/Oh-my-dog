@@ -16,8 +16,14 @@ namespace Aplicacion.Controllers
 
 		public IActionResult Index()
 		{
-			return View();
+            if (User.Claims.FirstOrDefault(c => c.Type == "New")?.Value == "true")
+            {
+                return RedirectToAction("CambiarContrasena", "Usuarios");
+            }
+            ViewBag.ActiveView = "Home";
+            return View();
 		}
+
         [Authorize(Roles = "Administrador")]
         public IActionResult Privacy()
 		{

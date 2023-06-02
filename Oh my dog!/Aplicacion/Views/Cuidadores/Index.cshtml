@@ -1,260 +1,646 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using System.Security.Claims;
-@model IEnumerable<Aplicacion.Models.Cuidadore>
+@model IEnumerable<Aplicacion.Models.Cuidadores>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cuidadores";
 }
 
-<head>
-    <link rel="stylesheet" href="~/css/opcionesMapa.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/IndexCuid.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<link rel="stylesheet" href="~/css/opcionesMapa.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/IndexCuid.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-    
-   <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"
-    
-/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 
-</head>
+<style>
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
 
+    .pac-container {
+        z-index: 9999; /* Asegúrate de que este valor sea mayor que el z-index del modal */
+    }
+</style>
 
+<div class="b-example-divider"></div>
 
+<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+    <div class="col-lg-7 text-center text-lg-start">
+        <p class="display-6 fw-bold mb-3" style="font-weight: 500!important;">
+            <i class="fa-solid fa-dog fa-md"></i>
+            Cuidadores
+        </p>
+    </div>
+</div>
 
- @if (User.Identity.IsAuthenticated)
-   { 
-        @if (User.IsInRole("Administrador"))
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("Administrador"))
     {
-        <div class="container-fluid">
+        <div class="container shadow-lg" style="margin-bottom: 60px; padding-right: 0px; padding-left: 0px;">
             <div id="map"></div>
-
-           
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary m-3" id="cargar" data-toggle="modal" onclick="cargarCuidador()" data-target="#modalCargar">
+            <div class="alert alert-info" role="alert" style="margin: 20px;">
+                <p>
+                    <strong>
+                        Ayuda:
+                    </strong>
+                    <br>
+                    En el mapa se visualizan los cuidadores publicados en el sitio. Para contactarse con alguno de ellos simplemente seleccione el deseado y escriba el mensaje a enviar, luego confirme la acción
+                    y el cuidador recibirá un email con el mensaje detallado.
+                </p>
+            </div>
+            <button type="button" class="btn btn-primary m-3" id="BtnNuevoRegistro" data-toggle="modal" data-target="#ModalNuevoCuidador">
+                <i class="fa-solid fa-user-plus fa-xl" style="color: #ffffff;"></i>
                 Publicar cuidador
             </button>
 
-            <!-- Modal -->
-            <div class="modal fade no-border" data-keyboard="false" data-backdrop="static"id="createCuidadorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden=" true">
-                <div class="modal-dialog modal-dialog-centered modal-lg"  role="document">
-                    <div class="modal-content">
-                        <div class="" style="height:530px;">
-                            <button type="button" class="close" onclick="closeCargarCuidador()" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                           
-
-                            <iframe class="no-border" src="https://localhost:7035/Cuidadores/Create"  style="height:100%;width:100%"></iframe>
-                        </div>
-                        
-                            
-                        
-                        
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-        
-        
         </div>
-            @foreach (var item in Model)
-            {
-            <div id="@item.Id"  class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
-
-
-
+        @foreach (var item in Model)
+        {
+            <div id="@item.Id" class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
                 @if (item.Foto != null)
                 {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="1era img carousel">
+                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre">
                     </div>
                 }
-
-
-                    <div class="card-body text-center m-3">
+                else
+                {
+                    <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 50px; margin-top: 26px;"></i>
+                }
+                <div class="card-body text-center m-3">
 
                     <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
+                    <strong style="margin-bottom: 5px;">Horario disponible</strong>
                     <span>
-                        Inicio: @item.HorarioIn   Fin: @item.HorarioOut <span />
+                        Desde: @item.HorarioIn
+                        Hasta: @item.HorarioOut
+                    </span>
                     <div class="d-flex justify-content-evenly">
-
-                        
-                        
-                        <!-- Button trigger modal -->
-                        <button type="button" class="m-1 btn btn-primary" id="modificar" data-toggle="modal" onclick="modificarCuidador()" data-target="#modalCargar">
+                        <button type="button" class="m-1 btn btn-sm btn-primary BtnModificarCuidador" data-cuidador-id="@item.Id">
+                            <i class="fa-solid fa-pen fa-sm"></i>
                             Modificar
                         </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade no-border" id="modificarCuidadorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden=" true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="" style="height:530px;">
-                                        <button type="button" class="close" data-dismiss="modal" onclick="closeModificarModal()" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-
-
-                                        <iframe id="modificarFrame" class="no-border" src="https://localhost:7035/Cuidadores/Modificar/@item.Id"  style="height:100%;width:100%"></iframe>
-                                    </div>
-
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        
-
-
-                    
-
-                    <button class="m-1  btn  btn-danger" id="eliminarBoton" onclick="eliminarCuidador(@item.Id)">Eliminar</button>
-                        
-                        
-                     
+                    </div>
+                    <button class="m-1 btn btn-sm btn-danger" id="eliminarBoton" onclick="eliminarCuidador(@item.Id)">
+                        <i class="fa-solid fa-trash fa-sm"></i>
+                        Eliminar
+                    </button>
+                    <button class="btn btn-sm btn-secondary BtnVisualizarCuidador" type="button" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@item.Email" style="margin-top: 10px;">
+                        <i class="fa-solid fa-envelope fa-sm"></i>
+                        Contactar
+                    </button>
                 </div>
-                </div>
-
-            }
-
+            </div>
         }
-        else
-        {
-        <div class="container-fluid">
+    }
+    else
+    {
+        <div class="container shadow-lg" style="margin-bottom: 60px; padding-right: 0px; padding-left: 0px; padding-bottom: 10px;">
             <div id="map"></div>
+            <div class="alert alert-info" role="alert" style="margin: 20px;">
+                <p>
+                    <strong>
+                        Ayuda:
+                    </strong>
+                    <br>
+                    En el mapa se visualizan los cuidadores publicados en el sitio. Para contactarse con alguno de ellos simplemente seleccione el deseado y escriba el mensaje a enviar, luego confirme la acción
+                    y el cuidador recibirá un email con el mensaje detallado.
+                </p>
+            </div>
         </div>
-            @foreach (var item in Model)
-            {
-                <div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
-
-
+        @foreach (var item in Model)
+        {
+            <div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
 
                 @if (item.Foto != null)
                 {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="1era img carousel">
+                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre">
                     </div>
                 }
+                else
+                {
+                    <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 50px; margin-top: 26px;"></i>
+                }
+                <div class="card-body text-center m-3">
+                    <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
+                    <p>
+                        <strong>Horario disponible</strong>
+                    </p>
+                    <span>
+                        <strong>
+                            Desde:
+                        </strong>
+                        @item.HorarioIn
 
-
-                    <div class="card-body text-center container-fluid">
-
-                        <h5 class="card-title">@item.Nombre @item.Apellido</h5>
-
-                        <span>Inicio: @item.HorarioIn   Fin: @item.HorarioOut <span/>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="openContactar()" data-target="#exampleModalCenter">
+                        <strong>
+                            Hasta:
+                        </strong>
+                        @item.HorarioOut
+                    </span>
+                    <button class="btn btn-secondary BtnVisualizarCuidador" type="button" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@item.Email" style="margin-top: 10px;">
+                        <i class="fa-solid fa-envelope fa-sm"></i>
                         Contactar
                     </button>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="container d-flex align-items-center justify-content-center">
+        <h1>
+            Para acceder a este sitio debe estar registrado
+        </h1>
+        <img class="w-50 h-50" src="/img/PerroError.svg" />
+    </div>
+}
 
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeContactarModal()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                        <form asp-controller="Paseadores" asp-action="EnviarCorreo" method="post" id="formContacto">
-                                        <div class="mb-3">
-                                            <label for="remitente" class="form-label">Remitente:</label>
-                                            <input type="email" class="form-control" id="remitente" name="remitente" readonly required value="@User.FindFirstValue("Email")">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="destinatario" class="form-label">Destinatario:</label>
-                                            <input type="email" class="form-control" id="destinatario" name="destinatario" readonly required value="@item.Email">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="asunto" class="form-label">Asunto:</label>
-                                            <input type="text" class="form-control" id="asunto" name="asunto" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="contenido" class="form-label">Contenido:</label>
-                                            <textarea class="form-control" id="contenido" name="contenido" required></textarea>
-                                        </div>
-                                        
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                    </form>
-                                </div>
-                                
+<!--Inicio Modal Visualizar Cuidador para contacto-->
+<div class="modal fade" id="ModalVisualizarCuidador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-envelope fa-xl"></i>
+                    Contactar cuidador
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formContactoCuidador">
+                    <div class="col-md-12">
+                        <label for="remitente" class="form-label">Remitente</label>
+                        <input type="email" class="form-control" id="Remitente" name="Remitente" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="destinatario" class="form-label">Destinatario</label>
+                        <input type="email" class="form-control" id="Destinatario" name="Destinatario" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label">Asunto</label>
+                        <input type="text" class="form-control" maxlength="50" id="Asunto" name="Asunto" required>
+                        <div class="invalid-feedback">
+                            Ingrese un asunto para el correo a enviar! (máximo 50 caracteres)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Mensaje</label>
+                        <textarea class="form-control" maxlength="500" id="Contenido" name="Contenido" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingresa un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-funcion="enviarCorreoCuidador">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin Modal Visualizar Cuidador para contacto-->
+
+<!--Modal de modificacion de Cuidador-->
+<div class="modal fade" id="ModalModificarCuidador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-user-pen fa-xl" style="color: #000000;"></i>
+                    Modificar cuidador
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formModificarCliente">
+                    <div class="col-md-12">
+                        <label class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                            <input type="email" maxlength="50" class="form-control" id="modificarEmail" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                Ingrese un email válido (con @@)!
                             </div>
                         </div>
                     </div>
-                    <!-- Modal -->
-
-
-
-
-
-
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" maxlength="20" class="form-control" id="modificarNombre" required>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" maxlength="20" class="form-control" id="modificarApellido" required>
+                        <div class="invalid-feedback">
+                            Ingresa un apellido!
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Ubicación</label>
+                        <input class="form-control" autocomplete="false" id="modificarUbicacion" maxlength="300" required placeholder="Por ejemplo, calle 64 1544">
+                        <div class="invalid-feedback">
+                            Ingresa una dirección!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Horario de comienzo</label>
+                        <input type="time" class="form-control" id="modificarHorarioIN" onchange="ValidarHoras()" required>
+                        <div class="invalid-feedback">
+                            Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Horario de fin</label>
+                        <input type="time" class="form-control" id="modificarHorarioOUT" onchange="ValidarHoras()" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="upload" value="">Foto (opcional)</label>
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="upload" onchange="validateFileType()">
+                        <div class="invalid-feedback">
+                            La foto ingresada no es válida!
+                        </div>
+                    </div>
+                    <div style="display: none;">
+                        <input type="hidden" id="modificarId">
+                        <input type="hidden" id="emailOriginal">
+                        <input type="hidden" id="ubicacionOriginal">
+                        <input type="hidden" id="modificarLatitud">
+                        <input type="hidden" id="modificarLongitud">
+                        <input type="hidden" id="modificarFotoOriginal">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-funcion="gestionDeUbicaciones">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin de modal de modificacion de cuidador-->
+<!--Modal de registro de nuevo de cuidador-->
+<div class="modal fade" id="ModalNuevoCuidador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
+                    Registrar nuevo cuidador
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formNuevoCliente">
+                    <div class="col-md-12">
+                        <label class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                            <input type="email" maxlength="50" class="form-control" id="nuevoEmail" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                Ingrese un email válido (con @@)!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" maxlength="20" class="form-control" id="nuevoNombre" required>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" maxlength="20" class="form-control" id="nuevoApellido" required>
+                        <div class="invalid-feedback">
+                            Ingresa un apellido!
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Ubicación</label>
+                        <input class="form-control" autocomplete="false" id="nuevoUbicacion" maxlength="300" required placeholder="Por ejemplo, calle 64 1544">
+                        <div class="invalid-feedback">
+                            Ingresa una dirección!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Horario de comienzo</label>
+                        <input type="time" class="form-control" id="nuevoHorarioIN" onchange="ValidarHoras()" required>
+                        <div class="invalid-feedback">
+                            Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Horario de fin</label>
+                        <input type="time" class="form-control" id="nuevoHorarioOUT" onchange="ValidarHoras()" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="upload" value="">Foto (opcional)</label>
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="nuevoUpload" onchange="validateFileType()">
+                        <div class="invalid-feedback">
+                            La foto ingresada no es válida!
+                        </div>
+                    </div>
+                    <div style="display: none;">
+                        <input type="hidden" id="nuevaLatitud">
+                        <input type="hidden" id="nuevaLongitud">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-funcion="gestionDeUbicacionesNuevo">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin de modal de modificacion de cuidador-->
+<!--Inicio de modal de ubicacion obtenida para el cuidador-->
+<div class="modal fade" id="ModalMapa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body " style="height:300px;">
+                <div class="container" id="mapcontainer">
+                    <div id="miniMapa" style="height:250px;"></div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="BtnCerrarModalMapa" data-dismiss="modal">Cancelar</button>
+                <div class="form-group" id="enviarCuidador">
+                    <input id="" type="button" value="Confirmar" class="btn btn-primary BtnAceptarModificacion" />
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--fin de modal de ubicacion obtenida para el cuidador-->
+<!--Inicio de modal de ubicacion obtenida para el cuidador-->
+<div class="modal fade" id="ModalMapaNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body " style="height:300px;">
+                <div class="container" id="mapcontainer">
+                    <div id="miniMapaNuevo" style="height:250px;"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="BtnCerrarModalMapaNuevo" data-dismiss="modal">Cancelar</button>
+                <div class="form-group" id="enviarCuidador">
+                    <input id="" type="button" value="Confirmar" class="btn btn-primary BtnAceptarRegistro" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--fin de modal de ubicacion obtenida para el cuidador-->
+<div class="b-example-divider"></div>
+
+
+@section Scripts{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyCOaGBTqaoeabIM9N5VJ9rn0jdrCGvqjCk"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+
+    <!-- Validacion de relleno de formulario para contacto de cuidador -->
+    <script>
+        var miniMapa;
+        (() => {
+            'use strict'
+
+            // Fetch all the forms with the '.needs-validation' class
+            const forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over the forms
+            Array.from(forms).forEach(form => {
+                // Select the buttons within each form
+                const buttons = form.querySelectorAll('button');
+
+                // Loop over the buttons and attach event listeners
+                Array.from(buttons).forEach(button => {
+                    var file = document.getElementById("upload");
+                    var inicio = document.getElementById('modificarHorarioIN');
+                    var fin = document.getElementById('modificarHorarioOUT');
+                    if (!button.classList.contains('btn-Cancelar')) {
+                        // For 'Aceptar' buttons
+                        button.addEventListener('click', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+
+                            form.classList.add('was-validated');
+
+                            if (form.checkValidity()) {
+                                const functionName = button.dataset.funcion;
+                                if (functionName) {
+                                    window[functionName]();
+                                }
+                            }
+                        }, false);
+                    } else {
+                        // For 'Cancelar' buttons
+                        button.addEventListener('click', () => {
+                            form.reset();
+                            form.classList.remove('was-validated');
+                            file.classList.remove("is-invalid");
+                            file.classList.remove("is-valid");
+                            inicio.classList.remove("is-valid");
+                            inicio.classList.remove("is-invalid");
+                            fin.classList.remove("is-valid");
+                            fin.classList.remove("is-invalid");
+                        }, false);
+                    }
+                });
+            });
+        })()
+    </script>
+
+    <!--Envio de formulario de contacto-->
+    <script>
+        function enviarCorreoCuidador() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            Swal.fire({
+                title: '¿Enviar correo al cuidador?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var mensaje = {
+                        remitente: document.getElementById("Remitente").value,
+                        destinatario: document.getElementById("Destinatario").value,
+                        contenido: document.getElementById("Contenido").value,
+                        asunto: document.getElementById("Asunto").value
+                    };
+
+                    $.ajax({
+                        url: '@Url.Action("ContactarCuidador", "Cuidadores")',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { remitente: mensaje.remitente, destinatario: mensaje.destinatario, asunto: mensaje.asunto, contenido: mensaje.contenido },
+                        success: function (data) {
+                            if (data.success) {
+                                $('#ModalVisualizarCuidador').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Mensaje enviado!',
+                                    text: data.message,
+                                })
+                                var form = document.getElementById("formContactoCuidador");
+                                form.reset();
+                                form.classList.remove('was-validated');
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un erorr!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    <!--Obtener remitente y destinatario para el mnodal de contacto al cuidador-->
+    <script>
+        //Obtener los datos del cuidador y mostralos en el modal de contacto
+        $(document).on('click', '.BtnVisualizarCuidador', function () {
+            document.getElementById("Remitente").value = $(this).data('remitente');;
+            document.getElementById("Destinatario").value = $(this).data('destinatario');;
+            $('#ModalVisualizarCuidador').modal('show');
+        });
+    </script>
+
+    <!--Obtener datos de cuidador y mostrar en modal de modificacion-->
+    <script>
+        //Obtener los datos del cuidador y mostralos en el modal
+        $(document).on('click', '.BtnModificarCuidador', function () {
+            var idCuidador = $(this).data('cuidador-id'); // Obtener el valor del campo de entrada de texto
+
+            $.ajax({
+                url: '@Url.Action("ObtenerCuidador", "Cuidadores")',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: idCuidador }, // Enviar los datos al controlador
+                success: function (data) {
+                    document.getElementById("modificarEmail").value = data.email;
+                    document.getElementById("emailOriginal").value = data.email;
+                    document.getElementById("modificarNombre").value = data.nombre;
+                    document.getElementById("modificarApellido").value = data.apellido;
+                    document.getElementById("modificarUbicacion").value = data.ubicacion;
+                    document.getElementById("ubicacionOriginal").value = data.ubicacion;
+                    document.getElementById("modificarId").value = data.id;
+                    document.getElementById("modificarHorarioIN").value = data.horarioIn;
+                    document.getElementById("modificarHorarioOUT").value = data.horarioOut;
+                    document.getElementById("modificarLatitud").value = data.latitud;
+                    document.getElementById("modificarLongitud").value = data.longitud;
+                    document.getElementById("modificarFotoOriginal").value = data.foto;
+                    $('#ModalModificarCuidador').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Ocurrio un erorr!'
+                    })
+                }
+            });
+        });
+    </script>
+
+    <!--Validacion de subida de archivo-->
+    <script>
+        let file = document.getElementById("upload");
+        function validateFileType() {
+            var fileName = file.value,
+                idxDot = fileName.lastIndexOf(".") + 1,
+                extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                file.classList.remove("is-invalid");
+                file.classList.add("is-valid");
+            } else {
+                file.classList.remove("is-valid");
+                file.classList.add("is-invalid");
+                file.value = "";  // Reset the input so no files are uploaded
             }
         }
+    </script>
 
-    }else
-{
-    <div class="container d-flex align-items-center justify-content-center">
-        <img class="w-50 h-50"src="/img/AdobeStock_33953457.svg" />
-       </div>
-    }
-    @section Scripts{
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    
-                    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+    <!--Validacion de horarios modificacion-->
+    <script>
+        function ValidarHoras() {
+            var inicio = document.getElementById('modificarHorarioIN');
+            var fin = document.getElementById('modificarHorarioOUT');
+            if (inicio.value >= fin.value) {
+                inicio.classList.remove("is-valid");
+                inicio.classList.add("is-invalid");
+                fin.classList.remove("is-valid");
+                fin.classList.add("is-invalid");
+            }
+            else {
+                inicio.classList.remove("is-invalid");
+                inicio.classList.add("is-valid");
+                fin.classList.remove("is-invalid");
+                fin.classList.add("is-valid");
+            }
+        }
+    </script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                    
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-
-    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
-                    
-                    
-<script>
-
-      
-
-
-
+    <!--Implementacion de mapa-->
+    <script>
         var mapOptions;
         var map;
 
-
-
-
-
-
-        function mostrarCuidadadores() {
+        function mostrarCuidadores() {
             let customIcon = {
-                iconUrl: "https://svgsilh.com/svg/1314467-ff9800.svg",
-                iconSize: [30, 30],
-
+                iconUrl: "/img/pataPerro.png",
+                iconSize: [40, 40],
             }
 
-
-            //let myIcon = L.divIcon();
             var markers = L.markerClusterGroup();
             let myIcon = L.icon(customIcon);
             $.ajax({
@@ -262,12 +648,9 @@
                 url: 'Cuidadores/obtenerCuidadores',
                 data: {},
                 dataType: "json",
-
                 success: function (response) {
-
                     // Looping over emloyee list and display it
                     $.each(response, function (index, cuidador) {
-
                         let iconOptions = {
                             title: cuidador.Nombre,
                             draggable: false,
@@ -286,182 +669,557 @@
                     alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
                 }
             });
-
-
         }
-
-
-
 
         const options = {
             enableHighAccuracy: true,
-            
             maximumAge: 0,
         };
 
-        function configurarMapa(){
+        function configurarMapa() {
             map = new L.map('map', mapOptions);
-            let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-                minZoom: 13,
-                maxZoom: 16
-            });
+            let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    minZoom: 13,
+                    maxZoom: 16
+                });
             map.addLayer(layer);
-            
-
         }
         function success(pos) {
             const crd = pos.coords;
-
-             mapOptions = {
+            mapOptions = {
                 center: [crd.latitude, crd.longitude],
                 zoom: 13,
                 zoomControl: true
             }
             configurarMapa();
             L.control.locate().addTo(map);
-            mostrarCuidadadores();
+            mostrarCuidadores();
         }
-
         function error(err) {
-             mapOptions = {
+            mapOptions = {
                 center: [-34.8811236, -58.0117828],
                 zoom: 13,
                 zoomControl: true
             }
             configurarMapa();
-            mostrarCuidadadores();
+            mostrarCuidadores();
         }
 
         navigator.geolocation.getCurrentPosition(success, error, options);
-        
+    </script>
 
-         
+    <!--Gestiona de ubicaciones en modificacion-->
+    <script>
+        function gestionDeUbicaciones() {
+            // Funciones de validacion de ubicacion del cuidador
+            var marker;
+            var mapOptions = {
+                center: [-34.9, -57.9597539],
+                zoom: 13,
+                zoomControl: true
+            }
 
-        
+            miniMapa = new L.map('miniMapa', mapOptions);
+            var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+            miniMapa.addLayer(layer);
 
-        
+            var customIcon = {
+                iconUrl: "/img/pataPerro.png",
+                iconSize: [40, 40],
+            }
+            var myIcon = L.icon(customIcon);
+            geocoder = new google.maps.Geocoder();
 
+            var latitude = document.getElementById("modificarLatitud").value;
+            var longitude = document.getElementById("modificarLongitud").value;
 
+            var _cuidador = {};
 
-
-                
-        
-        function cargarCuidador() {
-            
-            $("#createCuidadorModal").modal("show");
-           
-        }
-
-        function modificarCuidador() {
-            
-            $("#modificarCuidadorModal").appendTo("body").modal("show");
-            
-        }
-
-        function openContactar() {
-            map.closePopup();
-            
-            $("#exampleModalCenter").appendTo("body").modal("show");
-            
-        }
-
-        function closeContactarModal() {
-            $("body>#exampleModalCenter").remove();
-
-            $("#exampleModalCenter").modal("hide");
-
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-
-        }
-        
-        function closeModificarModal(){
-            $("body>#modificarCuidadorModal").remove();
-            
-            $("#modificarCuidadorModal").modal("hide");
-            
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-            
-        }
-
-        window.closeModificarMod =function(){
-            var url = '@Url.Action("Index", "Cuidadores")';
-            window.location.href = url;
-            $("body>#modificarCuidadorModal").remove();
-
-            $("#modificarCuidadorModal").modal("hide");
-
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-            
-
-        }
-
-
-        window.closeCargar = function () {
-            $("#createCuidadorModal").modal("hide");
-            location.reload();
-
-        };
-
-        function closeCargarCuidador(){
-
-            $("#createCuidadorModal").modal("hide");
-            
-        }
-
-    
-        function eliminarCuidador(id_borrar){
-                Swal.fire({
-          title: '¿Está seguro?',
-          text: "No hay vuelta atrás",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Borrar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-
+            function controlarUbicacion() {
+                _cuidador.Latitud = latitude;
+                _cuidador.Longitud = longitude;
+                _cuidador.Email = document.getElementById("modificarEmail").value;
+                _cuidador.Ubicacion = document.getElementById("modificarUbicacion").value;
+                var emailOriginal = document.getElementById("emailOriginal").value;
+                var ubicacionOriginal = document.getElementById("ubicacionOriginal").value;
+                if ((_cuidador.Email != emailOriginal) || (_cuidador.Ubicacion != ubicacionOriginal)) {
                     $.ajax({
                         type: "POST",
-                        url: "/Cuidadores/borrarCuidador",
-                        data: { id: id_borrar },
+                        url: "/Cuidadores/existeCuidador",
+                        data: _cuidador,
                         dataType: "json",
-                        success: function (r) {
-                            Swal.fire({
-                                icon: 'success',
-
-                                title: 'Eliminado',
-                                text: 'El cuidador ha sido eliminado',
-                                timer: 5000,
-                                timerProgressBar: true
-                            })
-                                .then((result) => {
-                                    /* Read more about handling dismissals below */
-                                    if (result.dismiss === Swal.DismissReason.timer) {
-                                        console.log('I was closed by the timer')
-                                    }
-
-                                    var url = '@Url.Action("Index", "Cuidadores")';
-                                    window.location.href = url;
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: data.message,
+                                    imageUrl: "/img/PerroError.svg",
+                                    imageHeight: 155,
                                 })
-
+                                miniMapa.remove();
+                            } else {
+                                var iconOptions = {
+                                    title: _cuidador.Nombre,
+                                    draggable: false,
+                                    icon: myIcon
+                                }
+                                marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
+                                marker.addTo(miniMapa);
+                                miniMapa.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                                $("#ModalMapa").modal('show');
+                                setTimeout(function () { miniMapa.invalidateSize() }, 400);
+                            }
                         }
                     });
-          }
-        })
+                } else {
+                    var iconOptions = {
+                        title: _cuidador.Nombre,
+                        draggable: false,
+                        icon: myIcon
+                    }
+                    marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
+                    marker.addTo(miniMapa);
+                    miniMapa.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                    $("#ModalMapa").modal('show');
+                    setTimeout(function () { miniMapa.invalidateSize() }, 400);
+                }
+                document.getElementById("modificarLatitud").value = latitude;
+                document.getElementById("modificarLongitud").value = longitude;
+            }
 
+            function obtenerPosicion() {
+                geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: $("#modificarUbicacion").val() },
+                    (results, status) => {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            latitude = (results[0].geometry.location.lat());
+                            longitude = (results[0].geometry.location.lng());
+                            controlarUbicacion();
+                        }
+                    });
+            }
 
+            obtenerPosicion();
 
+            $("#BtnCerrarModalMapa").click(function () {
+                $("#ModalMapa").modal('hide');
+                if (miniMapa.hasLayer(marker)) {
+                    miniMapa.removeLayer(marker);
+                    miniMapa.remove();
+                }
+            });
         }
-
-
-        
-
-        
-     
     </script>
-    }
+
+    <!--Modificacion de cuidador-->
+    <script>
+        $('.BtnAceptarModificacion').on('click', function (event) {
+            miniMapa.remove();
+            var filename;
+            var fullPath = document.getElementById('upload').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+            } else {
+                filename = $("#modificarFotoOriginal").val();
+            }
+
+            var jsonData = {
+                Id: $("#modificarId").val(),
+                Nombre: $("#modificarNombre").val(),
+                Apellido: $("#modificarApellido").val(),
+                Email: $("#modificarEmail").val(),
+                Foto: filename,
+                Ubicacion: $("#modificarUbicacion").val(),
+                HorarioIN: $("#modificarHorarioIN").val(),
+                HorarioOUT: $("#modificarHorarioOUT").val(),
+                Latitud: document.getElementById("modificarLatitud").value,
+                Longitud: document.getElementById("modificarLongitud").value
+            };
+
+            if ($("#upload").val()) {
+                jsonData.Foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
+                var fileUpload = $("#upload").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+                fileData.append(files[0].name, files[0]);
+                $.ajax({
+                    url: '/Cuidadores/uploadFile',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Cuidadores/ModificarFinal",
+                data: jsonData,
+                dataType: "json",
+                success: function (r) {
+                    $("#BtnCerrarModalMapa").click();
+                    var form = document.getElementById('formModificarCliente');
+                    form.reset();
+                    $("#ModalModificarCuidador").modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cuidador modificado!',
+                        text: r.message
+                    }).then((result) => {
+                        location.reload();
+                    })
+                }
+            });
+        });
+    </script>
+
+    <!--Buscador de google para modificacion-->
+    <script>
+        function buscadorGoogleModificacion() {
+            // Funciones para registrar la modificacion del cuidador
+            var pac_input = document.getElementById('modificarUbicacion');
+            (function pacSelectFirst(input) {
+                var _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
+
+                function addEventListenerWrapper(type, listener) {
+                    if (type == "keydown" || type == "blur") {
+                        var orig_listener = listener;
+                        listener = function (event) {
+                            var suggestion_selected = $(".pac-item-selected").length > 0;
+                            var keyCode = event.keyCode || event.which;
+                            if ((keyCode === 13 || keyCode === 9) && !suggestion_selected) {
+                                var simulated_downarrow = $.Event("keydown", {
+                                    keyCode: 40,
+                                    which: 40
+                                });
+                                orig_listener.apply(input, [simulated_downarrow]);
+                            } else if (event.type === 'blur' && $(".pac-container .pac-item:first-child").text() != "") {
+                                pac_input.value = $(".pac-container .pac-item:first-child").text();
+                                $(".pac-container .pac-item:first-child").bind('click', function () {
+                                    console.log("click");
+                                });
+
+                            }
+                            orig_listener.apply(input, [event]);
+                        };
+                    }
+
+                    // add the modified listener
+                    _addEventListener.apply(input, [type, listener]);
+                }
+
+                if (input.addEventListener)
+                    input.addEventListener = addEventListenerWrapper;
+                else if (input.attachEvent)
+                    input.attachEvent = addEventListenerWrapper;
+
+            })(pac_input);
+            $(function () {
+                var autocomplete = new google.maps.places.Autocomplete(pac_input);
+            });
+        }
+        document.addEventListener("DOMContentLoaded", buscadorGoogleModificacion);
+    </script>
+
+    <!--Gestiona de ubicaciones en registro nuevo-->
+    <script>
+        function gestionDeUbicacionesNuevo() {
+            // Funciones de validacion de ubicacion del cuidador
+            var marker;
+            var mapOptions = {
+                center: [-34.9, -57.9597539],
+                zoom: 13,
+                zoomControl: true
+            }
+
+            miniMapa = new L.map('miniMapaNuevo', mapOptions);
+            var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+            miniMapa.addLayer(layer);
+
+            var customIcon = {
+                iconUrl: "/img/pataPerro.png",
+                iconSize: [40, 40],
+            }
+            var myIcon = L.icon(customIcon);
+            geocoder = new google.maps.Geocoder();
+
+            var latitude = document.getElementById("nuevaLatitud").value;
+            var longitude = document.getElementById("nuevaLongitud").value;
+
+            var _cuidador = {};
+
+            function controlarUbicacion() {
+                _cuidador.Latitud = latitude;
+                _cuidador.Longitud = longitude;
+                _cuidador.Email = document.getElementById("nuevoEmail").value;
+                _cuidador.Ubicacion = document.getElementById("nuevoUbicacion").value;
+                $.ajax({
+                    type: "POST",
+                    url: "/Cuidadores/existeCuidador",
+                    data: _cuidador,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.message,
+                                imageUrl: "/img/PerroError.svg",
+                                imageHeight: 155,
+                            })
+                            miniMapa.remove();
+                        } else {
+                            var iconOptions = {
+                                title: _cuidador.Nombre,
+                                draggable: false,
+                                icon: myIcon
+                            }
+                            marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
+                            marker.addTo(miniMapa);
+                            miniMapa.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                            $("#ModalMapaNuevo").modal('show');
+                            setTimeout(function () { miniMapa.invalidateSize() }, 400);
+                        }
+                    }
+                });
+                document.getElementById("nuevaLatitud").value = latitude;
+                document.getElementById("nuevaLongitud").value = longitude;
+            }
+
+            function obtenerPosicion() {
+                geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: $("#nuevoUbicacion").val() },
+                    (results, status) => {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            latitude = (results[0].geometry.location.lat());
+                            longitude = (results[0].geometry.location.lng());
+                            controlarUbicacion();
+                        }
+                    });
+            }
+
+            obtenerPosicion();
+
+            $("#BtnCerrarModalMapaNuevo").click(function () {
+                $("#ModalMapaNuevo").modal('hide');
+                if (miniMapa.hasLayer(marker)) {
+                    miniMapa.removeLayer(marker);
+                    miniMapa.remove();
+                }
+            });
+        }
+    </script>
+
+    <!--registro de nuevo cuidador-->
+    <script>
+        $('#BtnNuevoRegistro').on('click', function (event) {
+            $("#ModalNuevoCuidador").modal('show');
+        });
+
+        $('.BtnAceptarRegistro').on('click', function (event) {
+            miniMapa.remove();
+            var filename;
+            var fullPath = document.getElementById('nuevoUpload').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+            } else {
+                filename = null;
+            }
+
+            var jsonData = {
+                Nombre: $("#nuevoNombre").val(),
+                Apellido: $("#nuevoApellido").val(),
+                Email: $("#nuevoEmail").val(),
+                Foto: filename,
+                Ubicacion: $("#nuevoUbicacion").val(),
+                HorarioIN: $("#nuevoHorarioIN").val(),
+                HorarioOUT: $("#nuevoHorarioOUT").val(),
+                Latitud: document.getElementById("nuevaLatitud").value,
+                Longitud: document.getElementById("nuevaLongitud").value
+            };
+
+            if ($("#nuevoUpload").val()) {
+                jsonData.Foto = '/img/' + $('#nuevoUpload').val().replace(/C:\\fakepath\\/i, '');
+                var fileUpload = $("#nuevoUpload").get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+                fileData.append(files[0].name, files[0]);
+                $.ajax({
+                    url: '/Cuidadores/uploadFile',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Cuidadores/Insertar",
+                data: jsonData,
+                dataType: "json",
+                success: function (r) {
+                    $("#BtnCerrarModalMapaNuevo").click();
+                    var form = document.getElementById('formNuevoCliente');
+                    form.reset();
+                    $("#ModalNuevoCuidador").modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cuidador publicado!',
+                        text: r.message
+                    }).then((result) => {
+                        location.reload();
+                    })
+                }
+            });
+        });
+    </script>
+
+    <!--Buscador de google para registor nuevo-->
+    <script>
+        function buscadorGoogleRegistro() {
+            // Funciones para registrar la modificacion del cuidador
+            var pac_input = document.getElementById('nuevoUbicacion');
+            (function pacSelectFirst(input) {
+                var _addEventListener = (input.addEventListener) ? input.addEventListener : input.attachEvent;
+
+                function addEventListenerWrapper(type, listener) {
+                    if (type == "keydown" || type == "blur") {
+                        var orig_listener = listener;
+                        listener = function (event) {
+                            var suggestion_selected = $(".pac-item-selected").length > 0;
+                            var keyCode = event.keyCode || event.which;
+                            if ((keyCode === 13 || keyCode === 9) && !suggestion_selected) {
+                                var simulated_downarrow = $.Event("keydown", {
+                                    keyCode: 40,
+                                    which: 40
+                                });
+                                orig_listener.apply(input, [simulated_downarrow]);
+                            } else if (event.type === 'blur' && $(".pac-container .pac-item:first-child").text() != "") {
+                                pac_input.value = $(".pac-container .pac-item:first-child").text();
+                                $(".pac-container .pac-item:first-child").bind('click', function () {
+                                    console.log("click");
+                                });
+
+                            }
+                            orig_listener.apply(input, [event]);
+                        };
+                    }
+
+                    // add the modified listener
+                    _addEventListener.apply(input, [type, listener]);
+                }
+
+                if (input.addEventListener)
+                    input.addEventListener = addEventListenerWrapper;
+                else if (input.attachEvent)
+                    input.attachEvent = addEventListenerWrapper;
+
+            })(pac_input);
+            $(function () {
+                var autocomplete = new google.maps.places.Autocomplete(pac_input);
+            });
+        }
+        document.addEventListener("DOMContentLoaded", buscadorGoogleRegistro);
+    </script>
+
+    <!--Validacion de horarios registro-->
+    <script>
+        function ValidarHoras() {
+            var inicio = document.getElementById('nuevoHorarioIN');
+            var fin = document.getElementById('nuevoHorarioOUT');
+            if (inicio.value >= fin.value) {
+                inicio.classList.remove("is-valid");
+                inicio.classList.add("is-invalid");
+                fin.classList.remove("is-valid");
+                fin.classList.add("is-invalid");
+            }
+            else {
+                inicio.classList.remove("is-invalid");
+                inicio.classList.add("is-valid");
+                fin.classList.remove("is-invalid");
+                fin.classList.add("is-valid");
+            }
+        }
+    </script>
+
+    <!--Eliminar cuidador-->
+    <script>
+        function eliminarCuidador(id_borrar) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+            Swal.fire({
+                title: '¿Desea eliminar la publicación del cuidador?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Cuidadores/borrarCuidador",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { id: id_borrar },
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Publicación eliminada!',
+                                    text: data.message
+                                }).then((result) => {
+                                    location.reload();
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                }).then((result) => {
+                                    location.reload();
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un error!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

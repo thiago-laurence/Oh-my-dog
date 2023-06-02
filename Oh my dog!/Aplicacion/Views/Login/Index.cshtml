@@ -1,73 +1,86 @@
 ﻿@model Usuarios
 @{
-    Layout = null;
+    ViewData["Title"] = "Iniciar sesión";
 }
 
-<!DOCTYPE html>
+<style>
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+    .form-control{
+        margin-bottom: 50px;
+    }
+</style>
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>Inicio de sesion</title>
+<div class="b-example-divider"></div>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <meta name="theme-color" content="#7952b3">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+<div class="px-4 py-5 my-5 text-center">
+    <div class="col-lg-4 mx-auto">
+        <div class="overflow-hidden shadow-lg">
+            <form asp-controller="Login" asp-action="Index" method="post" class="p-4 p-md-5 border rounded-3 bg-light" id="Form-Login">
+                <i class="fa-solid fa-circle-user fa-2xl" style="color: #0b357f; font-size: 72px; margin-bottom: 50px; margin-top: 20px;"></i>
+                <h1 class="display-5 fw-bold" style="margin-bottom: 50px;">Iniciar sesión</h1>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label for="floatingInput">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Pass" type="password" class="form-control" id="pass" placeholder="Password">
+                    <label for="floatingPassword">Contraseña</label>
+                </div>
+                <button disabled class="w-100 btn btn-lg btn-primary" type="submit" id="btnIngresar">Ingresar</button>
+                <hr class="my-4">
+                <img src="~/img/Logo 2 - Veterinaria.png" width="50px" />
+                <strong><small class="text-muted">Oh my dog! - 2023</small></strong>
+            </form>
+        </div>
+    </div>
+</div>
 
-    </style>
-    <link href="~/css/loginStyles.css" rel="stylesheet">
-</head>
+<div class="b-example-divider"></div>
 
-<body class="text-center">
-    <main class="form-signin">
-        <form asp-controller="Login" asp-action="Index" method="post">
-            <img class="mb-4" src="~/img/Logo - Veterinaria.png" alt="" width="82" height="95">
-            <h1 class="h3 mb-3 fw-normal">Inicio de sesion</h1>
-            <div class="form-floating">
-                <input required type="email" class="form-control" asp-for="Email" id="floatingInput" placeholder="ejemplo@example.com">
-                <label for="floatingInput">Correo electrónico</label>
-            </div>
-            <div class="form-floating">
-                <input required minlength="8" type="password" class="form-control" asp-for="Pass" id="floatingPassword" placeholder="Contraseña">
-                <label for="floatingPassword">Contraseña</label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-        </form>
-    </main>
+@section Scripts{
+    <script>
+        // Validacion de relleno de formualario para el inicio de sesion
+        document.addEventListener('DOMContentLoaded', function () {
+            var formulario = document.getElementById('Form-Login');
+            var user = {
+                email: document.getElementById('email'),
+                pass: document.getElementById('pass')
+            };
+            var miBoton = document.getElementById('btnIngresar');
+
+            formulario.addEventListener('input', function () {
+                if (user.email.value.trim() !== '' && user.pass.value.trim() !== '') {
+                    miBoton.removeAttribute('disabled');
+                } else {
+                    miBoton.setAttribute('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+
+    <!--Mnesaje de error al fallar el inicio de sesión-->
     @if (ViewBag.Message != null)
-    {   
+    {
         <script type="text/javascript">
+            var form = document.getElementById('Form-Login');
+            form.reset();
+            document.getElementById('email').value = '';
+            document.getElementById('pass').value = '';
             var msjArray = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Message));
-            msjArray = msjArray.split(',');
+            msjArray = msjArray.split('.');
             var msjTitle = msjArray[0];
             var msjText = msjArray[1];
-            Swal.fire({
-                icon: 'warning',
+            Swal.fire({ 
+                icon: 'error',
                 title: msjTitle,
                 text: msjText
             });
         </script>
     }
-    <script type="text/javascript">
-        function DisableBackButton() {
-            window.history.forward();
-        }
-        setTimeout("DisableBackButton()", 0);
-        window.onunload = function () {
-            null
-        };
-    </script>
-</body>
-
-</html>
+}

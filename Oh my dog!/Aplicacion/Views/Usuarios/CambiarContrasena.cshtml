@@ -1,5 +1,4 @@
-﻿@model Aplicacion.Models.Usuarios
-@{
+﻿@{
     ViewData["Title"] = "Cambiar contraseña";
 }
 
@@ -10,38 +9,50 @@
         <div class="col-lg-7 text-center text-lg-start">
             <p class="display-5 fw-bold lh-1 mb-3">
                 <i class="fa-solid fa-lock fa-md"></i>
-                Cambiar contraseña
+                Cambio de contraseña
             </p>
             <p class="display-6 fw-bold mb-3" style="font-weight: 500!important;">
-                Consejos de seguridad
+                Medidas de seguridad
             </p>
             <p class="col-lg-10 fs-5">
                 Además de cuidar a tu perro, también elegimos cuidarte a vos, por eso utilizamos las siguientes medidas de seguridad para 
                 hacer de la utilización del sistema un lugar más seguro.
             </p>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 8 caracteres.</a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 caracter numérico.</a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 caracter alfabético.</a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 caracter no alfanumérico (por ejemplo -, _, *, &, etc).</a>
+                <a class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 8 caracteres.</a>
+                <a class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 carácter numérico (0..9).</a>
+                <a class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 carácter alfabético (a..z - A..Z).</a>
+                @{
+                    var caracteresPermitidos = "! ? @ # $ % ^ & * [ ] { } : ; ` ~ ( ) - _ + < > , . / |";
+                }
+                <a class="list-group-item list-group-item-action list-group-item-primary">La nueva contraseña debe contener al menos 1 carácter NO alfanumérico (caracteres permitidos: "@caracteresPermitidos" .</a>
             </div>
         </div>
         <div class="col-md-10 mx-auto col-lg-5">
-            <form class="p-4 p-md-5 border rounded-3 bg-light">
+            <form class="p-4 p-md-5 border rounded-3 bg-light" id="formCambioPass">
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingInput" placeholder="Contraseña actual">
+                    <input type="password" class="form-control" id="passActual" maxlength="50" placeholder="Contraseña actual">
                     <label for="floatingInput">Contraseña actual</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Nueva contraseña">
+                    <input type="password" class="form-control" id="newPass" maxlength="50" placeholder="Nueva contraseña">
                     <label for="floatingPassword">Nueva contraseña</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Repetir contraseña">
+                    <input type="password" class="form-control" id="newPassAgain" maxlength="50" placeholder="Repetir contraseña">
                     <label for="floatingPassword">Repetir nueva contraseña</label>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary" type="button">Aceptar</button>
+                <button disabled class="w-100 btn btn-lg btn-primary" type="button" onclick="validarCambioContrasena()" 
+                        data-usuario-email="@User.Claims.FirstOrDefault(c => c.Type == "Email")?.Value" id="btnCambioContrasena">
+                    Aceptar
+                </button>
                 <hr class="my-4">
+                @if (User.Claims.FirstOrDefault(c => c.Type == "New")?.Value == "true")
+                {
+                    <div class="alert alert-warning" role="alert">
+                        Para acceder a las funcionalidades del sistema debe cambiar la constraseña!
+                    </div>
+                }
             </form>
         </div>
     </div>
@@ -51,24 +62,88 @@
 
 <!-- Inicio cambiar contraseña -->
 
-<!-- Modificacion exitosa -->
-<div class="modal fade" id="modalSuccess" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modificación exitosa!</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-success" role="alert">
-                    <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
-                    La contraseña ha sido modificada con exito!
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Fin de modal de modificacion de contraseña-->
+@section Scripts{
+    <script>
+        // Validacion de relleno de formualario para el cambio de contrasena
+        document.addEventListener('DOMContentLoaded', function () {
+            var formulario = document.getElementById('formCambioPass');
+            var passActual = document.getElementById('passActual');
+            var newPass = document.getElementById('newPass');
+            var newPassAgain = document.getElementById('newPassAgain');
+            var miBoton = document.getElementById('btnCambioContrasena');
+
+            formulario.addEventListener('input', function () {
+                if (passActual.value.trim() !== '' && newPass.value.trim() !== '' && newPassAgain.value.trim() !== '') {
+                    miBoton.removeAttribute('disabled');
+                } else {
+                    miBoton.setAttribute('disabled', 'disabled');
+                }
+            });
+        });
+
+
+        // Validacion de cambio de contrasena
+        function validarCambioContrasena(){
+            var emailUser = $('#btnCambioContrasena').data('usuario-email');
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var passActual = document.getElementById("passActual").value;
+                    var newPass = document.getElementById("newPass").value;
+                    var newPassAgain =  document.getElementById("newPassAgain").value;
+
+                    $.ajax({
+                        url: '@Url.Action("CambiarPass", "Usuarios")',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { email: emailUser, passActual: passActual, newPass: newPass, newPassAgain: newPassAgain},
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Actualizada!',
+                                    text: data.message
+                                }).then((result) => {
+                                    location.reload();
+                                })
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un erorr!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

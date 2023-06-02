@@ -14,6 +14,7 @@ using MailKit.Security;
 using MimeKit;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Hosting.Internal;
+using System.Drawing;
 
 namespace Aplicacion.Controllers
 {
@@ -27,6 +28,7 @@ namespace Aplicacion.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            ViewBag.ActiveView = "Paseadores";
             return _context.Paseadores != null ?
                         View(await _context.Paseadores.ToListAsync()) :
                         Problem("Entity set 'OhmydogdbContext.Paseadores'  is null.");
@@ -40,14 +42,14 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
-            var paseadore = await _context.Paseadores
+            var paseador = await _context.Paseadores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (paseadore == null)
+            if (paseador == null)
             {
                 return NotFound();
             }
 
-            return View(paseadore);
+            return View(paseador);
         }
 
         // GET: Paseadores/Create
@@ -58,38 +60,27 @@ namespace Aplicacion.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Insertar(Paseadore paseadore)
+        public async Task<IActionResult> Insertar(Paseadores paseador)
         {
-
-
-            
-                _context.Paseadores.Add(paseadore);
+            _context.Paseadores.Add(paseador);
             await _context.SaveChangesAsync();
-            return Json(true);
-            
-
+            return (Json(new { success = true, message = "Un nuevo paseador ha sido registrado con éxito!" }));
         }
-        /*_context.Add(paseadore);
-                await _context.SaveChangesAsync();
-                return Json(true);
-            
-            
-        }*/
 
         // POST: Paseadores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,HorarioIn,HorarioOut,Foto,Latitud,Longitud,Ubicacion")] Paseadore paseadore)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email,HorarioIn,HorarioOut,Foto,Latitud,Longitud,Ubicacion")] Paseadores paseador)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(paseadore);
+                _context.Add(paseador);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(paseadore);
+            return View(paseador);
         }
 
         // GET: Paseadores/Edit/5
@@ -100,12 +91,12 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
-            var paseadore = await _context.Paseadores.FindAsync(id);
-            if (paseadore == null)
+            var paseador = await _context.Paseadores.FindAsync(id);
+            if (paseador == null)
             {
                 return NotFound();
             }
-            return View(paseadore);
+            return View(paseador);
         }
 
         // POST: Paseadores/Edit/5
@@ -113,9 +104,9 @@ namespace Aplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,HorarioIn,HorarioOut,Foto,Latitud,Longitud,Ubicacion")] Paseadore paseadore)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email,HorarioIn,HorarioOut,Foto,Latitud,Longitud,Ubicacion")] Paseadores paseador)
         {
-            if (id != paseadore.Id)
+            if (id != paseador.Id)
             {
                 return NotFound();
             }
@@ -124,12 +115,12 @@ namespace Aplicacion.Controllers
             {
                 try
                 {
-                    _context.Update(paseadore);
+                    _context.Update(paseador);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PaseadoreExists(paseadore.Id))
+                    if (!PaseadorExists(paseador.Id))
                     {
                         return NotFound();
                     }
@@ -140,7 +131,7 @@ namespace Aplicacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(paseadore);
+            return View(paseador);
         }
 
         // GET: Paseadores/Delete/5
@@ -151,14 +142,14 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
-            var paseadore = await _context.Paseadores
+            var paseador = await _context.Paseadores
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (paseadore == null)
+            if (paseador == null)
             {
                 return NotFound();
             }
 
-            return View(paseadore);
+            return View(paseador);
         }
         [HttpPost]
         public async Task<ActionResult> uploadFile()
@@ -181,6 +172,7 @@ namespace Aplicacion.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
             return Json(result);
         }
@@ -192,88 +184,58 @@ namespace Aplicacion.Controllers
 
         public async Task<IActionResult> Modificar(int id)
         {
-            var contextOptions = new DbContextOptionsBuilder<OhmydogdbContext>()
-    .UseSqlServer(@"server=localhost; database=ohmydogdb;integrated security=true; TrustServerCertificate=true;")
-    .Options;
-            using (var _context = new OhmydogdbContext(contextOptions))
+            var paseador = await _context.Paseadores.FirstOrDefaultAsync(p => p.Id == id);
+            if (paseador != null)
             {
-
-
-
-                if (id == null || _context.Paseadores == null)
-                {
-                    return NotFound();
-                }
-
-                var paseadore = await _context.Paseadores
-                    .FirstOrDefaultAsync(m => m.Id == id);
-                if (paseadore == null)
-                {
-                    return NotFound();
-                }
-
-                return View(paseadore);
+                return (View(paseador));
             }
+            return (NotFound());
+
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> ModificarFinal(Paseadore paseador)
+        public async Task<IActionResult> ModificarFinal(Paseadores paseador)
         {
-
-
             var borrado = _context.Paseadores.FirstOrDefault(m => m.Id == paseador.Id);
-            _context.Paseadores.Remove(borrado);
-            _context.Paseadores.Add(paseador);
-            await _context.SaveChangesAsync();
-            int lastProductId = _context.Paseadores.Max(item => item.Id);
-            return Json(lastProductId);
-
-
-
-
-
-
+            if (borrado != null){
+                _context.Paseadores.Remove(borrado);
+                _context.Paseadores.Add(paseador);
+                await _context.SaveChangesAsync();
+            }
+            return (Json(new { success = true, message = "El Paseador ha sido modificado con éxito!" }));
         }
 
         [HttpGet]
         public string obtenerPaseadores()
         {
-
-
-
-
             return JsonSerializer.Serialize(_context.Paseadores.ToList());
-
         }
 
         [HttpPost]
-        public async Task<ActionResult> existePaseador(Paseadore paseador)
+        public async Task<ActionResult> existePaseador(Paseadores paseador)
         {
-
-            Paseadore _paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Email == paseador.Email && m.Ubicacion == paseador.Ubicacion);
+            Paseadores? _paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Email == paseador.Email && m.Ubicacion == paseador.Ubicacion);
 
             if (_paseador != null)
             {
-                return Json(true);
+                return (Json(new { success = true, message = "El paseador con email \"" + paseador.Email + "\" ya está registrado en la zona!" }));
             }
 
-
-            return Json(false);
+            return (Json(new { success = false, message = "" }));
         }
         // POST: Paseadores/Delete/5
 
         [HttpPost]
         public async Task<ActionResult> borrarPaseador(int id)
         {
-            
-                var paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Id == id);
+            var paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Id == id);
+            if(paseador != null){
                 _context.Paseadores.Remove(paseador);
                 await _context.SaveChangesAsync();
-                return Json(true);
-            
-
+            }
+            return (Json(new { success = true, message = "La publicación del paseador ha sido eliminada con éxito!" }));
         }
 
 
@@ -286,26 +248,29 @@ namespace Aplicacion.Controllers
             {
                 return Problem("Entity set 'OhmydogdbContext.Paseadores'  is null.");
             }
-            var paseadore = await _context.Paseadores.FindAsync(id);
-            if (paseadore != null)
+            var paseador = await _context.Paseadores.FindAsync(id);
+            if (paseador != null)
             {
-                _context.Paseadores.Remove(paseadore);
+                _context.Paseadores.Remove(paseador);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CorreoExitoso()
+        [HttpPost]
+        public JsonResult ContactarPaseador(string remitente, string asunto, string contenido, string destinatario)
         {
-            return View();
+            _ = EnviarCorreo(remitente, asunto, contenido, destinatario);
+            
+            return (Json(new { success = true, message = "El correo fue enviado al paseador con éxito!" }));
         }
 
 
 
 
 
-        public async Task<IActionResult> SendEmail(string origen, string destino, string titulo, string mensaje)
+        public IActionResult SendEmail(string origen, string destino, string titulo, string mensaje)
         {
             var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525)
             {
@@ -315,40 +280,55 @@ namespace Aplicacion.Controllers
             client.Send(origen, destino, titulo, mensaje);
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
-        public IActionResult EnviarCorreo(string remitente, string asunto, string contenido, string destinatario)
+
+        
+        public async Task EnviarCorreo(string remitente, string asunto, string contenido, string destinatario)
         {
-            try
+            await Task.Run(() =>
             {
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("", "ohmydog_oficial@outlook.es")); // Correo de origen, tine que estar configurado en el metodo client.Authenticate()
-                message.To.Add(new MailboxAddress("", "lautaromoller345@gmail.com")); // Correo de destino
-                message.Subject = asunto;
-                contenido = contenido + "<br/>"+ "<br/>"+ "<br/>" + "Te dejo mi mail: " + remitente;
-                var bodyBuilder = new BodyBuilder();
-                bodyBuilder.HtmlBody = contenido;
-                message.Body = bodyBuilder.ToMessageBody();
-
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
-                    client.Authenticate("ohmydog_oficial@outlook.es", "zKbP.-6rQT:i4JE");
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
+                    message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
+                    message.Subject = asunto;
+                    contenido = contenido + "<br>" + "<br>" + "<br>" + "El email de la persona que se contactó con usted es: " + remitente;
+                    var bodyBuilder = new BodyBuilder();
+                    bodyBuilder.HtmlBody = contenido;
+                    message.Body = bodyBuilder.ToMessageBody();
 
-                return RedirectToAction("CorreoExitoso", "Paseadores"); // o redirige a la página que desees después de enviar el correo electrónico
-            }
-            catch (Exception ex)
-            {
-                // Manejo de errores aquí
-                return RedirectToAction("Error", "Home");
-            }
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("sandbox.smtp.mailtrap.io", 587, false);
+                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+
+                    Console.WriteLine("El correo fue enviado exitosamente!");
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores aquí
+                    Console.WriteLine(ex.Message); // Mostrar mensaje de error por consola
+                }
+            });
         }
 
+        [HttpPost]
+        public async Task<JsonResult> ObtenerPaseador(string id)
+        {
+            int idPaseador = Convert.ToInt32(id);
+            var paseador = await _context.Paseadores.FirstOrDefaultAsync(m => m.Id == idPaseador);
+            return (Json(paseador));
+        }
 
+        private bool EmailExists(string email)
+        {
+            return (_context.Paseadores?.Any(u => u.Email == email)).GetValueOrDefault();
+        }
 
-        private bool PaseadoreExists(int id)
+        private bool PaseadorExists(int id)
         {
             return (_context.Paseadores?.Any(e => e.Id == id)).GetValueOrDefault();
         }

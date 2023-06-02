@@ -1,12 +1,6 @@
 ﻿@model Aplicacion.Models.UsuarioViewModel
-
 @{
-    ViewData["Title"] = "Index";
-}
-
-@{
-    var anteriorDeshabilitado = !Model.Paginacion.PaginasAnteriores ? "disabled" : "";
-    var siguienteDeshabilitado = !Model.Paginacion.PaginasSiguientes ? "disabled" : "";
+    ViewData["Title"] = "Clientes"; 
 }
 
 <style>
@@ -17,435 +11,532 @@
         border-width: 1px 0;
         box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
     }
+
+    .custom-tooltip {
+        --bs-tooltip-bg: var(--bs-primary);
+    }
 </style>
+
 <div class="b-example-divider"></div>
+
 <!-- Inicio Clientes -->
 <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
-    <h1>Clientes</h1>
+    <div class="col-lg-7 text-center text-lg-start">
+        <p class="display-6 fw-bold mb-3" style="font-weight: 500!important;">
+            <i class="fa-solid fa-users fa-md"></i>
+            Clientes
+        </p>
+    </div>
     <div class="container">
         <div class="row justify-content-end">
             <div class="col-md-4 col-sm-12">
                 <div class="container-fluid">
-                    <form class="d-flex" role="search" asp-controller="Usuarios" asp-action="Index">
-                        <input class="form-control me-2" type="text" name="buscar" value="@ViewData["FiltroActual"]" placeholder="Buscar...">
-                        <button class="btn btn-success" type="submit">Buscar</button>
-                        <a asp-action="Index" class="btn btn-info">Lista completa</a>
+                    <form role="search">
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="form-control me-2" type="text" name="buscar"
+                                       data-bs-toggle="tooltip" data-bs-placement="right"
+                                       data-bs-custom-class="custom-tooltip"
+                                       data-bs-title="El criterio de busqueda es por apellido"
+                                       autocomplete="off"
+                                       placeholder="Buscar..." id="BuscadorUsuarios">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-6 col-sm-12">
+                                <button class="btn btn-success" type="button" id="btnBuscar">Buscar</button>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <a class="btn btn-primary" onclick="listarUsuarios('reset')">Listado completo</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="bg-light">
-                            @if (Model.ListUsuarios.Count() == 0)
-                            {
-                                    <div class="text-center alert alert-info" role="alert">
-                                        <h3>Aún no hay clientes registrados!</h3>
-                                    </div>
-                            }else{
-                                <tr>
-                                    <th>@Html.DisplayNameFor(model => Model.Usuario.Nombre)</th>
-                                    <th>@Html.DisplayNameFor(model => Model.Usuario.Telefono)</th>
-                                    <th>@Html.DisplayNameFor(model => Model.Usuario.Direccion)</th>
-                                    <th>@Html.DisplayNameFor(model => Model.Usuario.Estado)</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            }
-                        </thead>
-                        <tbody>
-                            @foreach(var user in Model.ListUsuarios)
-                            {
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
-                                            <div class="ms-3">
-                                                <p class="fw-bold mb-1">
-                                                    @Html.DisplayFor(modelItem => user.Apellido)
-                                                    @Html.DisplayFor(modelItem => user.Nombre)
-                                                </p>
-                                                <p class="text-muted mb-0">@Html.DisplayFor(modelItem => user.Email)</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">@Html.DisplayFor(modelItem => user.Telefono)</p>
-                                    </td>
-                                    <td>@Html.DisplayFor(modelItem => user.Direccion)</td>
-                                    <td>
-                                        @if (user.Estado == 1)
-                                        {
-                                            <span class="badge text-bg-success">Activo</span>
-                                        }else{
-                                            <span class="badge text-bg-danger">Baneado</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-md-3 col-sm-12">
-                                                    <button type="button" class="btn btn-primary" onclick="mostrarModal()">
-                                                        <i class="fa-solid fa-user-pen fa-xl" style="color: #ffffff;"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-3 col-sm-12">
-                                                    <button type="button" class="btn btn-warning" style="background-color: #f1965b;">
-                                                        <i class="fa-solid fa-dog fa-xl" style="color: #ffffff;"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="container" id="containerListaUsuarios">
+        @await Html.PartialAsync("_ListarUsuarios", Model)
     </div>
-    <br>
-    <br>
-    <div class="container">
-        <div class="row">
-            <!--<div class="col-10">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link">Anterior</a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Siguiente</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <!--<div>
-                <a class="btn btn-primary" @anteriorDeshabilitado asp-action="Index" asp-route-NumeroPagina="@(Model.Paginacion.PaginaInicio - 1)" asp-route-filtroActual="@ViewData["FiltroActual"]">
-                    Anterior
-                </a>
-                @for(var i = 1; i <= Model.Paginacion.PaginasTotales; i++)
-                {
-                    //var paginaActiva = 
-                }
-            </div>-->
-            <div class="col-2">
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#nuevoCliente">
-                    <i class="fa-solid fa-user-plus fa-xl" style="color: #ffffff;"></i>
-                    Nuevo cliente
-                </button>
-
-                <!--<a asp-action="Create"><button class="btn btn-primary" type="button">
-                    <i class="fa-solid fa-user-plus fa-xl" style="color: #ffffff;"></i>
-                    MVC
-                </button></a>-->
-            </div>
-        </div>
-    </div>
+    
 </div>
 
     <!--Inicio de modales-->
-        <!--Inicio de modal de nuevo de clientes-->
-        <div class="modal fade" id="nuevoCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                            <i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
-                            Nuevo cliente
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form asp-action="Create" id="Form" class="row g-3 needs-validation" novalidate>
-                            <div class="col-md-12">
-                                <label for="validationCustomUsername" class="form-label">Email</label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="inputGroupPrepend">@@</span>
-                                    <input asp-for="Usuario.Email" type="email" class="form-control" id="validationCustom01" aria-describedby="inputGroupPrepend" required>
-                                    <span asp-validation-for="Usuario.Email" class="text-danger"></span>
-                                    <div class="valid-feedback">
-                                        Bien!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Ingrese un email!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom01" class="form-label">Nombre</label>
-                                <input asp-for="Usuario.Nombre" type="text" class="form-control" id="validationCustom01" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingrese un nombre!
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom02" class="form-label">Apellido</label>
-                                <input asp-for="Usuario.Apellido" type="text" class="form-control" id="validationCustom02" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingresa un apellido!
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom02" class="form-label">Dirección</label>
-                                <input asp-for="Usuario.Direccion" type="text" class="form-control" id="validationCustom02" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingresa una dirección!
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="validationCustom03" class="form-label">Telefono</label>
-                                <input asp-for="Usuario.Telefono" type="text" class="form-control" id="validationCustom03" required>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Ingresa un número de telefono!
-                                </div>
-                            </div>
-                            <!--<div class="col-md-4">
-                                <label for="validationCustom04" class="form-label">Estado</label>
-                                <select asp-for="Usuario.Estado" class="form-select" id="validationCustom04" required>
-                                    <option selected disabled value="">Elige...</option>
-                                    <option value="true">Activo</option>
-                                    <option value="false">Baneado</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Por favor selecciona un estado!
-                                </div>
-                            </div>-->
-                            <div style="display: none;">
-                                <input asp-for="Usuario.Estado" type="text" value="true">
-                                <input asp-for="Usuario.IdRol" type="text" value="false">
-                                <input asp-for="Usuario.Pass" type="text" value="12345678">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button asp-action="Create" type="submit" class="btn btn-primary">Aceptar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Fin de modal de nuevo de clientes-->
 
-        <!--Inicio de modal de modificacion de clientes-->
-        <div class="modal fade" id="modificarCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                            <i class="fa-solid fa-user-pen fa-xl" style="color: #000000;"></i>
-                            Editar cliente
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-            <div class="modal-body">
-                <form asp-action="Create" class="row g-3 needs-validation" novalidate id="modificarCliente">
-                    <div class="col-md-12">
-                        <label for="validationCustomUsername" class="form-label">Email</label>
-                        <div class="input-group has-validation">
-                            <span class="input-group-text" id="inputGroupPrepend">@@</span>
-                            <input asp-for="Usuario.Email" type="email" class="form-control" id="validationCustom01" aria-describedby="inputGroupPrepend" required>
-                            <span asp-validation-for="Usuario.Email" class="text-danger"></span>
+    <!--Modal de nuevo de clientes-->
+    <div class="modal fade" id="modalNuevoCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
+                        Nuevo cliente
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formNuevoCliente">
+                        <div class="col-md-12">
+                            <label for="validationCustomUsername" class="form-label">Email</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                                <input type="email" class="form-control" maxlength="50" id="nuevoEmail" aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Ingrese un email válido (con @@)!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom01" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" maxlength="20" id="nuevoNombre" required>
                             <div class="valid-feedback">
                                 Bien!
                             </div>
                             <div class="invalid-feedback">
-                                Ingrese un email!
+                                Ingrese un nombre!
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Nombre</label>
-                        <input asp-for="Usuario.Nombre" type="text" class="form-control" id="nombreInput" required>
-                        <div class="valid-feedback">
-                            Bien!
+                        <div class="col-md-6">
+                            <label for="validationCustom02" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" maxlength="20" id="nuevoApellido" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingresa un apellido!
+                            </div>
                         </div>
-                        <div class="invalid-feedback">
-                            Ingrese un nombre!
+                        <div class="col-md-6">
+                            <label for="validationCustom02" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" maxlength="20" id="nuevoDireccion" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingresa una dirección!
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="validationCustom02" class="form-label">Apellido</label>
-                        <input asp-for="Usuario.Apellido" type="text" class="form-control" id="apellidoInput" required>
-                        <div class="valid-feedback">
-                            Bien!
+                        <div class="col-md-6">
+                            <label for="validationCustom03" class="form-label">Telefono</label>
+                            <input type="text" class="form-control" minlength="10" maxlength="10" pattern="\d*" id="nuevoTelefono" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingresa un número de telefono válido para Argentina (10 dígitos)!
+                            </div>
                         </div>
-                        <div class="invalid-feedback">
-                            Ingresa un apellido!
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-funcion="registrarNuevoCliente">Aceptar</button>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="validationCustom02" class="form-label">Dirección</label>
-                        <input asp-for="Usuario.Direccion" type="text" class="form-control" id="validationCustom02" required>
-                        <div class="valid-feedback">
-                            Bien!
-                        </div>
-                        <div class="invalid-feedback">
-                            Ingresa una dirección!
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="validationCustom03" class="form-label">Telefono</label>
-                        <input asp-for="Usuario.Telefono" type="text" class="form-control" id="validationCustom03" required>
-                        <div class="valid-feedback">
-                            Bien!
-                        </div>
-                        <div class="invalid-feedback">
-                            Ingresa un número de telefono!
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="validationCustom04" class="form-label">Estado</label>
-                        <select asp-for="Usuario.Estado" class="form-select" id="validationCustom04" required>
-                            <option selected disabled value="">Elige...</option>
-                            <option value="true">Activo</option>
-                            <option value="false">Baneado</option>
-                        </select>
-                        <div class="valid-feedback">
-                            Bien!
-                        </div>
-                        <div class="invalid-feedback">
-                            Por favor selecciona un estado!
-                        </div>
-                    </div>
-                    <div style="display: none;">
-                        <input asp-for="Usuario.IdRol" type="text" value="false">
-                        <input asp-for="Usuario.Pass" type="text" value="12345678">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button asp-action="Create" type="submit" class="btn btn-primary">Aceptar</button>
-                    </div>
-                </form>
-            </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!--Fin de modal de modificacion de clientes-->
+    </div>
+    <!--Fin de modal de nuevo de clientes-->
+    <!--Modal de modificacion de clientes-->
+    <div class="modal fade" id="modalModificarCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <i class="fa-solid fa-user-pen fa-xl" style="color: #000000;"></i>
+                        Editar cliente
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formModificarCliente">
+                        <div class="col-md-12">
+                            <label for="validationCustomUsername" class="form-label">Email</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                                <input type="email" maxlength="50" class="form-control" id="modificarEmail" aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Bien!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Ingrese un email válido (con @@)!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom01" class="form-label">Nombre</label>
+                            <input type="text" maxlength="20" class="form-control" id="modificarNombre" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingrese un nombre!
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom02" class="form-label">Apellido</label>
+                            <input type="text" maxlength="20" class="form-control" id="modificarApellido" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingresa un apellido!
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom02" class="form-label">Dirección</label>
+                            <input type="text" maxlength="20" class="form-control" id="modificarDireccion" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingresa una dirección!
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom03" class="form-label">Telefono</label>
+                            <input type="text" minlength="10" maxlength="10" pattern="\d*" class="form-control" id="modificarTelefono" required>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Ingresa un número de telefono válido para Argentina (10 dígitos)!
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom04" class="form-label">Estado</label>
+                            <select class="form-select" id="modificarEstado" required>
+                                <option selected disabled value="">Elige...</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Baneado</option>
+                            </select>
+                            <div class="valid-feedback">
+                                Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                Por favor selecciona un estado!
+                            </div>
+                        </div>
+                        <div style="display: none;">
+                            <input type="hidden" id="modificarIdRol">
+                            <input type="hidden" id="modificarPass">
+                            <input type="hidden" id="modificarId">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-funcion="aceptarModificarCliente">Aceptar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Fin de modal de modificacion de clientes-->
 
-        <!-- Adicion exitosa -->
-        <div class="modal fade" id="modalSuccessNuevoCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Nuevo cliente registrado!</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-success" role="alert">
-                  <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
-                  Un nuevo cliente ha sido registrado con éxito!
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modificacion exitosa -->
-        <div class="modal fade" id="modalSuccessModificarCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Cliente modificado!</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-success" role="alert">
-                  <i class="fa-solid fa-circle-check fa-xl" style="color: #163c0b;"></i>
-                  La información del cliente ha sido modificada con éxito!
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      
     <!--Fin de modales-->
-      
+
 <!-- Fin Clientes -->
+
 <div class="b-example-divider"></div>
 
 
 @section Scripts{
+    <!-- Constantes de inicializacion de tooltips -->
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
+    <!-- Validacion de relleno de formulario -->
     <script>
         (() => {
             'use strict'
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
+            // Fetch all the forms with the '.needs-validation' class
+            const forms = document.querySelectorAll('.needs-validation');
 
-            // Loop over them and prevent submission
+            // Loop over the forms
             Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
+                // Select the buttons within each form
+                const buttons = form.querySelectorAll('button');
+
+                // Loop over the buttons and attach event listeners
+                Array.from(buttons).forEach(button => {
+                    if (!button.classList.contains('btn-Cancelar')) {
+                        // For 'Aceptar' buttons
+                        button.addEventListener('click', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+
+                            form.classList.add('was-validated');
+
+                            if (form.checkValidity()) {
+                                const functionName = button.dataset.funcion;
+                                if (functionName) {
+                                    // Execute the specified function
+                                    window[functionName]();
+                                }
+                            }
+                        }, false);
+                    } else {
+                        // For 'Cancelar' buttons
+                        button.addEventListener('click', () => {
+                            form.reset();
+                            form.classList.remove('was-validated');
+                        }, false);
                     }
-                    
-                    form.classList.add('was-validated')
-                }, false)
-            })
+                });
+            });
         })()
     </script>
 
+    <!-- Listado de usuarios -->
     <script>
-        /*function mostrarModal(e){
-            $.ajax({
-                type: "GET",
-                url: "~/Controllers/UsuariosController",
-                data: {},
-                dataType: :"json",
+        $(document).ready(function () {
+            // Asegurar que se ejecute en la 1er carga de la vista
+            cambiarPagina();
 
-                success: function(data){
-                    alert("Datos: " + data);
+            // Obtiene el valor ingresado en el buscador cada vez que se presione una tecla escribiendo sobre el
+            document.getElementById('BuscadorUsuarios').addEventListener('input', listarUsuarios);
+        });
+
+        function cambiarPagina() {
+            // Obtener todos los elementos <a> con la clase "numero-pagina"
+            const elementosPagina = document.querySelectorAll('.page-link');
+
+            // Agregar un evento de escucha de clic a cada elemento
+            elementosPagina.forEach(elemento => {
+                elemento.addEventListener('click', function () {
+                    // Obtener el valor del atributo data-numeroPagina
+                    const numeroPagina = this.getAttribute('data-numeroPagina');
+                    //Tomar el texto ingresado en la busqueda
+                    var filtroActual = document.getElementById('BuscadorUsuarios').value;
+
+                    $.ajax({
+                        url: '@Url.Action("listarUsuarios", "Usuarios")',
+                        type: 'GET',
+                        data: { query: filtroActual, numeroPagina: numeroPagina },
+                        success: function (data) {
+                            // Actualizar el contenido del contenedor de la lista de usuarios
+                            $('#containerListaUsuarios').html(data);
+                            //Carga los nuevos numeros de pagina
+                            cambiarPagina();
+                        },
+                        error: function () {
+                            alert('Error al buscar usuarios');
+                        }
+                    });
+                });
+            });
+        }
+
+        function listarUsuarios(reset) {
+            var filtroActual = document.getElementById('BuscadorUsuarios').value;
+            if (reset == "reset"){
+                filtroActual = null;
+                document.getElementById('BuscadorUsuarios').value = "";
+            }
+
+            // Realizar la petición Ajax
+            $.ajax({
+                url: '@Url.Action("listarUsuarios", "Usuarios")', // Ruta de la acción del controlador para buscar usuarios
+                type: 'GET',
+                data: { query: filtroActual }, // Envía el valor del buscador como parámetro de la búsqueda
+                success: function (data) {
+                    // Actualizar el contenido del contenedor de la lista de usuarios
+                    $('#containerListaUsuarios').html(data);
+                    //Carga los nuevos numeros de pagina
+                    cambiarPagina();
                 },
-                error: function(error){
-                    alert("ERROR!");
+                error: function () {
+                    alert('Error al buscar usuarios');
                 }
             });
-        }*/
+        }
     </script>
 
-    @if (TempData["RegistroExitoso"] != null && (bool)TempData["RegistroExitoso"]!)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#modalSuccessNuevoCliente').modal('show');
+    <!-- Registro de nuevo cliente -->
+    <script>
+        function registrarNuevoCliente() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            Swal.fire({
+                title: '¿Desea registrar a un nuevo cliente?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var user = {
+                        email: document.getElementById("nuevoEmail").value,
+                        nombre: document.getElementById("nuevoNombre").value,
+                        apellido: document.getElementById("nuevoApellido").value,
+                        telefono: document.getElementById("nuevoTelefono").value,
+                        direccion: document.getElementById("nuevoDireccion").value,
+                    };
+
+                    $.ajax({
+                        url: '@Url.Action("Registrar", "Usuarios")',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(user),
+                        success: function (data) {
+                            if (data.success) {
+                                listarUsuarios();
+                                $('#modalNuevoCliente').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cliente registrado!',
+                                    text: data.message,
+                                    footer: '<div class="alert alert-info" role="alert">Se ha enviado un email al correro ingresado para confirmar el registro solicitando el cambio de contraseña</div>'
+                                })
+                                var form = document.getElementById("formNuevoCliente");
+                                form.reset();
+                                form.classList.remove('was-validated');
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un erorr!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    <!-- Modificacion de usuarios -->
+    <script>
+        //Obtener los datos del cliente y mostralos en el modal
+        $(document).on('click', '.btnVisualizarUsuario', function () {
+            var idUsuario = $(this).data('usuario-id'); // Obtener el valor del campo de entrada de texto
+            $.ajax({
+                url: '@Url.Action("Detalles", "Usuarios")',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: idUsuario }, // Enviar los datos al controlador
+                success: function (data) {
+                    document.getElementById("modificarEmail").value = data.email;
+                    document.getElementById("modificarNombre").value = data.nombre;
+                    document.getElementById("modificarApellido").value = data.apellido;
+                    document.getElementById("modificarDireccion").value = data.direccion;
+                    document.getElementById("modificarTelefono").value = data.telefono;
+                    document.getElementById("modificarEstado").value = data.estado;
+                    document.getElementById("modificarId").value = data.id;
+                    document.getElementById("modificarIdRol").value = data.idRol;
+                    document.getElementById("modificarPass").value = data.pass;
+                    $('#modalModificarCliente').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Ocurrio un erorr!'
+                    })
+                }
             });
-        </script>
-    }
+        });
+
+        // Aceptar la modificacion del cliente
+        function aceptarModificarCliente() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            Swal.fire({
+                title: '¿Desea modificar la info. del cliente?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var user = {
+                        id: document.getElementById("modificarId").value,
+                        email: document.getElementById("modificarEmail").value,
+                        nombre: document.getElementById("modificarNombre").value,
+                        apellido: document.getElementById("modificarApellido").value,
+                        telefono: document.getElementById("modificarTelefono").value,
+                        direccion: document.getElementById("modificarDireccion").value,
+                        estado: document.getElementById("modificarEstado").value,
+                        idRol: document.getElementById("modificarIdRol").value,
+                        pass: document.getElementById("modificarPass").value
+                    };
+
+                    $.ajax({
+                        url: '@Url.Action("Modificar", "Usuarios")',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(user),
+                        success: function (data) {
+                            if (data.success) {
+                                listarUsuarios();
+                                $('#modalModificarCliente').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Información actualizada!',
+                                    text: data.message
+                                })
+                                var form = document.getElementById("formModificarCliente");
+                                form.reset();
+                                form.classList.remove('was-validated');
+                                
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un error!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+  
 }

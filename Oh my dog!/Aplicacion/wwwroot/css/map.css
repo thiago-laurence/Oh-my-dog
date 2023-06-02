@@ -8,7 +8,6 @@
     height: 75vh;
 }
 #tarjeta {
-    background-image: url(../img/fondo_formulario.svg);
     background-size: cover;
     ;
 }
