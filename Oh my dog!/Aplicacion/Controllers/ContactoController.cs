@@ -37,6 +37,7 @@ namespace Aplicacion.Controllers
             catch (Exception ex)
             {
                 // Manejo de errores aquí
+                Console.WriteLine(ex.Message);
                 return RedirectToAction("Error", "Home");
             }
         }

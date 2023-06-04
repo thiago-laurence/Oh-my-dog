@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="~/css/opcionesMapa.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/map.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/IndexCuid.css" asp-append-version="true" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />    
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
@@ -42,8 +42,10 @@
     </div>
 </div>
 
- @if (User.Identity.IsAuthenticated){ 
-    @if (User.IsInRole("Administrador")){
+@if (User.Identity!.IsAuthenticated)
+{
+    @if (User.IsInRole("Administrador"))
+    {
         <div class="container shadow-lg" style="margin-bottom: 60px; padding-right: 0px; padding-left: 0px;">
             <div id="map"></div>
             <div class="alert alert-info" role="alert" style="margin: 20px;">
@@ -62,43 +64,46 @@
             </button>
 
         </div>
-        @foreach (var item in Model){
-            <div id="@item.Id"  class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
-                @if (item.Foto != null){
+        @foreach (var item in Model)
+        {
+            <div id="@item.Id" class="card d-none  container-fluid d-flex flex-column text-center align-self-center">
+                @if (item.Foto != null)
+                {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre">
+                        <img src="@item.Foto" class="align-self-center" alt="@item.Nombre" height="60">
                     </div>
                 }
-                else{
+                else
+                {
                     <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 50px; margin-top: 26px;"></i>
                 }
                 <div class="card-body text-center m-3">
-
-                <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
-                <strong style="margin-bottom: 5px;">Horario disponible</strong>
-                <span>
-                    Desde: @item.HorarioIn
-                    Hasta: @item.HorarioOut
-                </span>
-                <div class="d-flex justify-content-evenly">
-                    <button type="button" class="m-1 btn btn-sm btn-primary BtnModificarPaseador" data-paseador-id="@item.Id">
+                    <h4 class="card-title m-2 fw-bold">
+                        @item.Nombre @item.Apellido
+                    </h4>
+                    <strong style="margin-bottom: 5px;">Horario disponible</strong>
+                    <p>Desde: @item.HorarioIn</p>
+                    <p>Hasta: @item.HorarioOut</p>
+                    <div class="d-flex justify-content-evenly">
+                        <button type="button" class="m-1 btn btn-sm btn-primary BtnModificarPaseador" data-paseador-id="@item.Id">
                             <i class="fa-solid fa-pen fa-sm"></i>
-                        Modificar
+                            Modificar
+                        </button>
+                        <button class="m-1 btn btn-sm btn-danger" id="eliminarBoton" onclick="eliminarPaseador(@item.Id)">
+                            <i class="fa-solid fa-trash fa-sm"></i>
+                            Eliminar
+                        </button>
+                    </div>
+                    <button class="btn btn-sm btn-secondary BtnVisualizarPaseador" type="button" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@item.Email" style="margin-top: 5px;">
+                        <i class="fa-solid fa-envelope fa-sm"></i>
+                        Contactar
                     </button>
                 </div>
-                <button class="m-1  btn btn-sm btn-danger" id="eliminarBoton" onclick="eliminarCuidador(@item.Id)">
-                        <i class="fa-solid fa-trash fa-sm"></i>
-                    Eliminar
-                </button>
-                <button class="btn btn-secondary btn-sm BtnVisualizarPaseador" type="button" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@item.Email" style="margin-top: 10px;">
-                        <i class="fa-solid fa-envelope fa-sm"></i>
-                    Contactar
-                </button>
-            </div>
             </div>
         }
     }
-    else{
+    else
+    {
         <div class="container shadow-lg" style="margin-bottom: 60px; padding-right: 0px; padding-left: 0px; padding-bottom: 10px;">
             <div id="map"></div>
             <div class="alert alert-info" role="alert" style="margin: 20px;">
@@ -112,34 +117,28 @@
                 </p>
             </div>
         </div>
-        @foreach (var item in Model){
+        @foreach (var item in Model)
+        {
             <div id="@item.Id" class="card d-none d-flex flex-column text-center align-self-center">
-                
-               @if (item.Foto != null){
+
+                @if (item.Foto != null)
+                {
                     <div class="d-flex justify-content-center">
                         <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre">
                     </div>
                 }
-                else{
+                else
+                {
                     <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 50px; margin-top: 26px;"></i>
                 }
                 <div class="card-body text-center m-3">
-                    <h5 class="card-title m-2">@item.Nombre @item.Apellido</h5>
-                    <p>
-                        <strong>Horario disponible</strong>
-                    </p>
-                    <span>
-                        <strong>
-                            Desde: 
-                        </strong>
-                        @item.HorarioIn
-
-                         <strong>
-                            Hasta: 
-                        </strong>
-                        @item.HorarioOut
-                    </span>
-                    <button class="btn btn-sm btn-secondary BtnVisualizarPaseador" type="button" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@item.Email" style="margin-top: 10px;">
+                    <h4 class="card-title m-2 fw-bold">
+                        @item.Nombre @item.Apellido
+                    </h4>
+                    <strong style="margin-bottom: 5px;">Horario disponible</strong>
+                    <p>Desde: @item.HorarioIn</p>
+                    <p>Hasta: @item.HorarioOut</p>
+                    <button class="btn btn-secondary BtnVisualizarPaseador" type="button" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@item.Email" style="margin-top: 10px;">
                         <i class="fa-solid fa-envelope fa-sm"></i>
                         Contactar
                     </button>
@@ -147,17 +146,19 @@
             </div>
         }
     }
-}else{
+}
+else
+{
     <div class="container d-flex align-items-center justify-content-center">
         <h1>
             Para acceder a este sitio debe estar registrado
         </h1>
-        <img class="w-50 h-50"src="/img/PerroError.svg" />
+        <img class="w-50 h-50" src="/img/PerroError.svg" />
     </div>
 }
 
 
-<!--Inicio Modal Visualizar paseador para contacto-->
+<!--Inicio Modal Visualizar Paseador para contacto-->
 <div class="modal fade" id="ModalVisualizarPaseador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -166,7 +167,7 @@
                     <i class="fa-solid fa-envelope fa-xl"></i>
                     Contactar paseador
                 </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="resetForm(formContactoPaseador)" aria-label="Close"></button>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formContactoPaseador">
@@ -193,17 +194,16 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" data-funcion="enviarCorreoPaseador">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarContacto">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="enviarCorreoPaseador()" disabled id="BtnContacto">Aceptar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!--Fin Modal Visualizar paseador para contacto-->
-
-<!--Modal de modificacion de paseador-->
+<!--Fin Modal Visualizar Paseador para contacto-->
+<!--Modal de modificacion de Paseador-->
 <div class="modal fade" id="ModalModificarPaseador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -212,7 +212,7 @@
                     <i class="fa-solid fa-user-pen fa-xl" style="color: #000000;"></i>
                     Modificar paseador
                 </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm(formModificarCliente)"></button>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formModificarCliente">
@@ -249,18 +249,18 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Horario de comienzo</label>
-                        <input type="time" class="form-control" id="modificarHorarioIN" onchange="ValidarHoras()" required>
+                        <input type="time" class="form-control" id="modificarHorarioIN" required>
                         <div class="invalid-feedback">
                             Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)!
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Horario de fin</label>
-                        <input type="time" class="form-control" id="modificarHorarioOUT" onchange="ValidarHoras()" required>
+                        <input type="time" class="form-control" id="modificarHorarioOUT" required>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" for="upload" value="">Foto (opcional)</label>
-                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="upload" onchange="validateFileType()">
+                        <label class="form-label" for="modificarUpload" value="">Foto (opcional)</label>
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="modificarUpload" onchange="validateFileTypeModificar()">
                         <div class="invalid-feedback">
                             La foto ingresada no es válida!
                         </div>
@@ -274,8 +274,8 @@
                         <input type="hidden" id="modificarFotoOriginal">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" data-funcion="gestionDeUbicaciones">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarModificar">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="gestionDeUbicacionesModificar()" id="BtnModificarPaseador">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -283,7 +283,6 @@
     </div>
 </div>
 <!--Fin de modal de modificacion de paseador-->
-
 <!--Modal de registro de nuevo de paseador-->
 <div class="modal fade" id="ModalNuevoPaseador" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -293,7 +292,7 @@
                     <i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
                     Registrar nuevo paseador
                 </h1>
-                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm(formNuevoCliente)"></button>-->
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formNuevoCliente">
@@ -330,18 +329,18 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Horario de comienzo</label>
-                        <input type="time" class="form-control" id="nuevoHorarioIN" onchange="ValidarHoras()" required>
+                        <input type="time" class="form-control" id="nuevoHorarioIN" required>
                         <div class="invalid-feedback">
                             Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)!
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Horario de fin</label>
-                        <input type="time" class="form-control" id="nuevoHorarioOUT" onchange="ValidarHoras()" required>
+                        <input type="time" class="form-control" id="nuevoHorarioOUT" required>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" for="upload" value="">Foto (opcional)</label>
-                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="nuevoUpload" onchange="validateFileType()">
+                        <label class="form-label" for="nuevoUpload" value="">Foto (opcional)</label>
+                        <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="nuevoUpload" onchange="validateFileTypeNuevo()">
                         <div class="invalid-feedback">
                             La foto ingresada no es válida!
                         </div>
@@ -351,8 +350,8 @@
                         <input type="hidden" id="nuevaLongitud">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-Cancelar" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" data-funcion="gestionDeUbicacionesNuevo">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarNuevo">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="gestionDeUbicacionesNuevo()" disabled id="BtnAgregarPaseador">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -360,21 +359,20 @@
     </div>
 </div>
 <!--Fin de modal de modificacion de paseador-->
-
-<!--Inicio de modal de ubicacion obtenida para el paseador-->
-<div class="modal fade" id="ModalMapa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="border: solid #000000;">
+<!--Inicio de modal de ubicacion obtenida para el paseador a modificar -->
+<div class="modal fade" id="ModalMapa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
             </div>
-            <div class="modal-body " style="height:300px;">
+            <div class="modal-body">
                 <div class="container" id="mapcontainer">
-                    <div id="miniMapa" style="height:250px;"></div>
+                    <div class="shadow-sm" id="miniMapa" style="height:300px;"></div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <!--<button type="button" class="btn btn-secondary" id="BtnCerrarModalMapa" data-dismiss="modal">Cancelar</button>-->
-                <div class="form-group" id="enviarCuidador">
+            <div class="modal-footer" style="margin-top: 10px;">
+                <button type="button" class="btn btn-secondary" id="BtnCerrarModalMapa" data-dismiss="modal">Cancelar</button>
+                <div class="form-group" id="enviarPaseador">
                     <input id="" type="button" value="Confirmar" class="btn btn-primary BtnAceptarModificacion" />
                 </div>
             </div>
@@ -382,27 +380,27 @@
     </div>
 </div>
 <!--fin de modal de ubicacion obtenida para el paseador-->
-
-<!--Inicio de modal de ubicacion obtenida para el paseador-->
-<div class="modal fade" id="ModalMapaNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="border: solid #000000;">
+<!--Inicio de modal de ubicacion obtenida para el registro de nuevo paseador-->
+<div class="modal fade" id="ModalMapaNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
             </div>
-            <div class="modal-body " style="height:300px;">
+            <div class="modal-body">
                 <div class="container" id="mapcontainer">
-                    <div id="miniMapaNuevo" style="height:250px;"></div>
+                    <div class="shadow-sm" id="miniMapaNuevo" style="height:300px;"></div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="margin-top: 10px;">
                 <button type="button" class="btn btn-secondary" id="BtnCerrarModalMapaNuevo" data-dismiss="modal">Cancelar</button>
-                <div class="form-group" id="enviarCuidador">
+                <div class="form-group" id="enviarPaseador">
                     <input id="" type="button" value="Confirmar" class="btn btn-primary BtnAceptarRegistro" />
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!--fin de modal de ubicacion obtenida para el paseador-->
 <div class="b-example-divider"></div>
 
@@ -414,58 +412,311 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
 
-    <!-- Validacion de relleno de formulario para contacto de paseador -->
+    <!-- Validacion de relleno de formulario contactar paseador -->
     <script>
-        var miniMapa;
-        (() => {
-            'use strict'
+        document.addEventListener('DOMContentLoaded', function () {
+            var formularioContacto = document.getElementById('formContactoPaseador');
+            var asunto = document.getElementById('Asunto');
+            var contenido = document.getElementById('Contenido');
+            var enviarButtonContacto = document.getElementById('BtnContacto');
 
-            // Fetch all the forms with the '.needs-validation' class
-            const forms = document.querySelectorAll('.needs-validation');
+            asunto.addEventListener('input', validarAsunto);
+            contenido.addEventListener('input', validarContenido);
 
-            // Loop over the forms
-            Array.from(forms).forEach(form => {
-                // Select the buttons within each form
-                const buttons = form.querySelectorAll('button');
+            function validarAsunto() {
+                if (asunto.value.trim() !== '') {
+                    asunto.classList.remove('is-invalid');
+                    asunto.classList.add('is-valid');
+                } else {
+                    asunto.classList.remove('is-valid');
+                    asunto.classList.add('is-invalid');
+                }
 
-                // Loop over the buttons and attach event listeners
-                Array.from(buttons).forEach(button => {
-                    var file = document.getElementById("upload");
-                    var inicio = document.getElementById('modificarHorarioIN');
-                    var fin = document.getElementById('modificarHorarioOUT');
-                    if (!button.classList.contains('btn-Cancelar')) {
-                        // For 'Aceptar' buttons
-                        button.addEventListener('click', event => {
-                            if (!form.checkValidity()) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
+                habilitarBotonEnvioContacto();
+            }
 
-                            form.classList.add('was-validated');
+            function validarContenido() {
+                if (contenido.value.trim() !== '') {
+                    contenido.classList.remove('is-invalid');
+                    contenido.classList.add('is-valid');
+                } else {
+                    contenido.classList.remove('is-valid');
+                    contenido.classList.add('is-invalid');
+                }
 
-                            if (form.checkValidity()) {
-                                const functionName = button.dataset.funcion;
-                                if (functionName) {
-                                    window[functionName]();
-                                }
-                            }
-                        }, false);
-                    } else {
-                        // For 'Cancelar' buttons
-                        button.addEventListener('click', () => {
-                            form.reset();
-                            form.classList.remove('was-validated');
-                            file.classList.remove("is-invalid");
-                            file.classList.remove("is-valid");
-                            inicio.classList.remove("is-valid");
-                            inicio.classList.remove("is-invalid");
-                            fin.classList.remove("is-valid");
-                            fin.classList.remove("is-invalid");
-                        }, false);
-                    }
-                });
+                habilitarBotonEnvioContacto();
+            }
+
+            // Habilitar o deshabilitar el botón de envío según la validez del formulario
+            function habilitarBotonEnvioContacto() {
+                if (asunto.classList.contains('is-valid') && contenido.classList.contains('is-valid')) {
+                    enviarButtonContacto.disabled = false;
+                } else {
+                    enviarButtonContacto.disabled = true;
+                }
+            }
+
+            // Reset del formulario al presionar el boton cancelar
+            var btnCancelarContacto = document.getElementById('BtnCancelarContacto');
+            btnCancelarContacto.addEventListener('click', function () {
+                asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
+                contenido.classList.remove('is-invalid'); contenido.classList.remove('is-valid');
+                enviarButtonContacto.disabled = true;
+                formularioContacto.reset();
             });
-        })()
+        });
+    </script>
+
+    <!-- Validacion de relleno de formulario añadir nuevo paseador -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var formularioN = document.getElementById('formNuevoCliente');
+            var nombreN = document.getElementById('nuevoNombre');
+            var apellidoN = document.getElementById('nuevoApellido');
+            var emailN = document.getElementById('nuevoEmail');
+            var ubicacionN = document.getElementById('nuevoUbicacion');
+            var inicioInputN = document.getElementById('nuevoHorarioIN');
+            var finInputN = document.getElementById('nuevoHorarioOUT');
+            var enviarButtonN = document.getElementById('BtnAgregarPaseador');
+
+            nombreN.addEventListener('input', validarNombreN);
+            apellidoN.addEventListener('input', validarApellidoN);
+            ubicacionN.addEventListener('input', validarUbicacionN);
+            emailN.addEventListener('input', validarEmailN);
+            inicioInputN.addEventListener('input', validarHorasN);
+            finInputN.addEventListener('input', validarHorasN);
+
+            function validarNombreN() {
+                if (nombreN.value.trim() !== '') {
+                    nombreN.classList.remove('is-invalid');
+                    nombreN.classList.add('is-valid');
+                } else {
+                    nombreN.classList.remove('is-valid');
+                    nombreN.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioN();
+            }
+
+            function validarApellidoN() {
+                if (apellidoN.value.trim() !== '') {
+                    apellidoN.classList.remove('is-invalid');
+                    apellidoN.classList.add('is-valid');
+                } else {
+                    apellidoN.classList.remove('is-valid');
+                    apellidoN.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioN();
+            }
+
+            function validarUbicacionN() {
+                if (ubicacionN.value.trim() !== '') {
+                    ubicacionN.classList.remove('is-invalid');
+                    ubicacionN.classList.add('is-valid');
+                } else {
+                    ubicacionN.classList.remove('is-valid');
+                    ubicacionN.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioN();
+            }
+
+            function validarEmailN() {
+                if (emailN.value.trim() !== '' && emailN.value.includes('@@')) {
+                    emailN.classList.remove('is-invalid');
+                    emailN.classList.add('is-valid');
+                } else {
+                    emailN.classList.remove('is-valid');
+                    emailN.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioN();
+            }
+
+            function validarHorasN() {
+                var inicio = inicioInputN.value.substring(0, 5);
+                var fin = finInputN.value.substring(0, 5);
+
+                if (inicio.trim() !== '' && fin.trim() !== '') {                    
+                    if (inicio < fin) {
+                        inicioInputN.classList.remove('is-invalid');
+                        inicioInputN.classList.add('is-valid');
+                        finInputN.classList.remove('is-invalid');
+                        finInputN.classList.add('is-valid');
+                    } else {
+                        inicioInputN.classList.remove('is-valid');
+                        inicioInputN.classList.add('is-invalid');
+                        finInputN.classList.remove('is-valid');
+                        finInputN.classList.add('is-invalid');
+                    }
+                } else {
+                    inicioInputN.classList.remove('is-valid');
+                    inicioInputN.classList.remove('is-invalid');
+                    finInputN.classList.remove('is-valid');
+                    finInputN.classList.remove('is-invalid');
+                }
+
+                habilitarBotonEnvioN();
+            }
+
+            // Habilitar o deshabilitar el botón de envío según la validez del formulario
+            function habilitarBotonEnvioN() {
+                if (nombreN.classList.contains('is-valid') && inicioInputN.classList.contains('is-valid') && finInputN.classList.contains('is-valid')
+                    && ubicacionN.classList.contains('is-valid') && apellidoN.classList.contains('is-valid') && emailN.classList.contains('is-valid')) {
+                    enviarButtonN.disabled = false;
+                } else {
+                    enviarButtonN.disabled = true;
+                }
+            }
+
+            // Reset del formulario al presionar el boton cancelar
+            var btnCancelarN = document.getElementById('BtnCancelarNuevo');
+            var formularioN = document.getElementById('formNuevoCliente');
+            var fileN = document.getElementById('nuevoUpload');
+            btnCancelarN.addEventListener('click', function () {
+                nombreN.classList.remove('is-invalid'); nombreN.classList.remove('is-valid');
+                apellidoN.classList.remove('is-invalid'); apellidoN.classList.remove('is-valid');
+                ubicacionN.classList.remove('is-invalid'); ubicacionN.classList.remove('is-valid');
+                inicioInputN.classList.remove('is-invalid'); inicioInputN.classList.remove('is-valid');
+                finInputN.classList.remove('is-invalid'); finInputN.classList.remove('is-valid');
+                emailN.classList.remove('is-invalid'); emailN.classList.remove('is-valid');
+                fileN.classList.remove('is-invalid'); fileN.classList.remove('is-valid');
+                enviarButtonN.disabled = true;
+                formularioN.reset();
+            });
+        });
+    </script>
+
+    <!-- Validacion de relleno de formulario modificar paseador -->
+    <script>
+        function ValidacionDeInputsModificar() {
+            var formularioM = document.getElementById('formModificarCliente');
+            var nombreM = document.getElementById('modificarNombre');
+            var apellidoM = document.getElementById('modificarApellido');
+            var emailM = document.getElementById('modificarEmail');
+            var ubicacionM = document.getElementById('modificarUbicacion');
+            var inicioInputM = document.getElementById('modificarHorarioIN');
+            var finInputM = document.getElementById('modificarHorarioOUT');
+            var enviarButtonM = document.getElementById('BtnModificarPaseador');
+
+            function InicializarInputsModificar() {
+                nombreM.addEventListener('input', validarNombreM);
+                nombreM.classList.add('is-valid');
+                apellidoM.addEventListener('input', validarApellidoM);
+                apellidoM.classList.add('is-valid');
+                ubicacionM.addEventListener('input', validarUbicacionM);
+                ubicacionM.classList.add('is-valid');
+                emailM.addEventListener('input', validarEmailM);
+                emailM.classList.add('is-valid');
+                inicioInputM.addEventListener('input', validarHorasM);
+                inicioInputM.classList.add('is-valid');
+                finInputM.addEventListener('input', validarHorasM);
+                finInputM.classList.add('is-valid');
+                enviarButtonM.disabled = false;
+            }
+            InicializarInputsModificar();
+
+            function validarNombreM() {
+                if (nombreM.value.trim() !== '') {
+                    nombreM.classList.remove('is-invalid');
+                    nombreM.classList.add('is-valid');
+                } else {
+                    nombreM.classList.remove('is-valid');
+                    nombreM.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioM();
+            }
+
+            function validarApellidoM() {
+                if (apellidoM.value.trim() !== '') {
+                    apellidoM.classList.remove('is-invalid');
+                    apellidoM.classList.add('is-valid');
+                } else {
+                    apellidoM.classList.remove('is-valid');
+                    apellidoM.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioM();
+            }
+
+            function validarUbicacionM() {
+                if (ubicacionM.value.trim() !== '') {
+                    ubicacionM.classList.remove('is-invalid');
+                    ubicacionM.classList.add('is-valid');
+                } else {
+                    ubicacionM.classList.remove('is-valid');
+                    ubicacionM.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioM();
+            }
+
+            function validarEmailM() {
+                if (emailM.value.trim() !== '' && emailM.value.includes('@@')) {
+                    emailM.classList.remove('is-invalid');
+                    emailM.classList.add('is-valid');
+                } else {
+                    emailM.classList.remove('is-valid');
+                    emailM.classList.add('is-invalid');
+                }
+
+                habilitarBotonEnvioM();
+            }
+
+            function validarHorasM() {
+                var inicio = inicioInputM.value.substring(0, 5);
+                var fin = finInputM.value.substring(0, 5);
+
+                if (inicio.trim() !== '' && fin.trim() !== '') {
+                    if (inicio < fin) {
+                        inicioInputM.classList.remove('is-invalid');
+                        inicioInputM.classList.add('is-valid');
+                        finInputM.classList.remove('is-invalid');
+                        finInputM.classList.add('is-valid');
+                    } else {
+                        inicioInputM.classList.remove('is-valid');
+                        inicioInputM.classList.add('is-invalid');
+                        finInputM.classList.remove('is-valid');
+                        finInputM.classList.add('is-invalid');
+                    }
+                } else {
+                    inicioInputM.classList.remove('is-valid');
+                    inicioInputM.classList.remove('is-invalid');
+                    finInputM.classList.remove('is-valid');
+                    finInputM.classList.remove('is-invalid');
+                }
+
+                habilitarBotonEnvioM();
+            }
+
+            // Habilitar o deshabilitar el botón de envío según la validez del formulario
+            function habilitarBotonEnvioM() {
+                if (nombreM.classList.contains('is-valid') && inicioInputM.classList.contains('is-valid') && finInputM.classList.contains('is-valid')
+                    && ubicacionM.classList.contains('is-valid') && apellidoM.classList.contains('is-valid') && emailM.classList.contains('is-valid')) {
+                    enviarButtonM.disabled = false;
+                } else {
+                    enviarButtonM.disabled = true;
+                }
+            }
+
+            // Reset del formulario al presionar el boton cancelar
+            var btnCancelarM = document.getElementById('BtnCancelarModificar');
+            var formularioM = document.getElementById('formModificarCliente');
+            var fileM = document.getElementById('modificarUpload');
+            btnCancelarM.addEventListener('click', function () {
+                nombreM.classList.remove('is-invalid'); nombreM.classList.remove('is-valid');
+                apellidoM.classList.remove('is-invalid'); apellidoM.classList.remove('is-valid');
+                ubicacionM.classList.remove('is-invalid'); ubicacionM.classList.remove('is-valid');
+                inicioInputM.classList.remove('is-invalid'); inicioInputM.classList.remove('is-valid');
+                finInputM.classList.remove('is-invalid'); finInputM.classList.remove('is-valid');
+                emailM.classList.remove('is-invalid'); emailM.classList.remove('is-valid');
+                fileM.classList.remove('is-invalid'); fileM.classList.remove('is-valid');
+                enviarButtonM.disabled = false;
+                formularioM.reset();
+            });
+        }
     </script>
 
     <!--Envio de formulario de contacto-->
@@ -539,7 +790,6 @@
 
     <!--Obtener remitente y destinatario para el mnodal de contacto al paseador-->
     <script>
-        //Obtener los datos del paseador y mostralos en el modal de contacto
         $(document).on('click', '.BtnVisualizarPaseador', function () {
             document.getElementById("Remitente").value = $(this).data('remitente');;
             document.getElementById("Destinatario").value = $(this).data('destinatario');;
@@ -549,10 +799,9 @@
 
     <!--Obtener datos de paseador y mostrar en modal de modificacion-->
     <script>
-        //Obtener los datos del paseador y mostralos en el modal
         $(document).on('click', '.BtnModificarPaseador', function () {
-            var idPaseador = $(this).data('paseador-id'); // Obtener el valor del campo de entrada de texto
-            
+            var idPaseador = $(this).data('paseador-id');
+
             $.ajax({
                 url: '@Url.Action("ObtenerPaseador", "Paseadores")',
                 type: 'POST',
@@ -571,6 +820,7 @@
                     document.getElementById("modificarLatitud").value = data.latitud;
                     document.getElementById("modificarLongitud").value = data.longitud;
                     document.getElementById("modificarFotoOriginal").value = data.foto;
+                    ValidacionDeInputsModificar();
                     $('#ModalModificarPaseador').modal('show');
                 },
                 error: function (xhr, status, error) {
@@ -584,48 +834,46 @@
         });
     </script>
 
-    <!--Validacion de subida de archivo-->
+    <!--Validacion de subida de archivo para nuevo paseador -->
     <script>
-        let file = document.getElementById("upload");
-        function validateFileType() {
-            var fileName = file.value,
+        let fileN = document.getElementById("nuevoUpload");
+        function validateFileTypeNuevo() {
+            var fileName = fileN.value,
                 idxDot = fileName.lastIndexOf(".") + 1,
                 extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
             if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
-                file.classList.remove("is-invalid");
-                file.classList.add("is-valid");
+                fileN.classList.remove("is-invalid");
+                fileN.classList.add("is-valid");
             } else {
-                file.classList.remove("is-valid");
-                file.classList.add("is-invalid");
-                file.value = "";  // Reset the input so no files are uploaded
+                fileN.classList.remove("is-valid");
+                fileN.classList.add("is-invalid");
+                fileN.value = "";  // Reset the input so no files are uploaded
             }
         }
     </script>
-
-    <!--Validacion de horarios modificacion-->
+    <!--Validacion de subida de archivo para modificar paseador -->
     <script>
-        function ValidarHoras() {
-            var inicio = document.getElementById('modificarHorarioIN');
-            var fin = document.getElementById('modificarHorarioOUT');
-            if (inicio.value >= fin.value) {
-                inicio.classList.remove("is-valid");
-                inicio.classList.add("is-invalid");
-                fin.classList.remove("is-valid");
-                fin.classList.add("is-invalid");
-            }
-            else {
-                inicio.classList.remove("is-invalid");
-                inicio.classList.add("is-valid");
-                fin.classList.remove("is-invalid");
-                fin.classList.add("is-valid");
+        let fileM = document.getElementById("modificarUpload");
+        function validateFileTypeModificar() {
+            var fileName = fileM.value,
+                idxDot = fileName.lastIndexOf(".") + 1,
+                extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                fileM.classList.remove("is-invalid");
+                fileM.classList.add("is-valid");
+            } else {
+                fileM.classList.remove("is-valid");
+                fileM.classList.add("is-invalid");
+                fileM.value = "";  // Reset the input so no files are uploaded
             }
         }
     </script>
 
     <!--Implementacion de mapa-->
     <script>
-        var mapOptions;
+        var miniMapa;
         var map;
+        var mapOptions;
 
         function mostrarPaseadores() {
             let customIcon = {
@@ -642,15 +890,15 @@
                 dataType: "json",
                 success: function (response) {
                     // Looping over emloyee list and display it
-                    $.each(response, function (index, cuidador) {
+                    $.each(response, function (index, paseador) {
                         let iconOptions = {
-                            title: cuidador.Nombre,
+                            title: paseador.Nombre,
                             draggable: false,
                             icon: myIcon
                         }
-                        let marker = new L.Marker([cuidador.Latitud, cuidador.Longitud], iconOptions);
+                        let marker = new L.Marker([paseador.Latitud, paseador.Longitud], iconOptions);
                         markers.addLayer(marker);
-                        marker.bindPopup(document.getElementById(cuidador.Id).innerHTML, {
+                        marker.bindPopup(document.getElementById(paseador.Id).innerHTML, {
                             maxWidth: "auto",
                             width: "250"
                         });
@@ -662,7 +910,7 @@
                 }
             });
         }
-        
+
         const options = {
             enableHighAccuracy: true,
             maximumAge: 0,
@@ -671,8 +919,10 @@
         function configurarMapa() {
             map = new L.map('map', mapOptions);
             let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {minZoom: 13,
-                maxZoom: 16});
+                {
+                    minZoom: 13,
+                    maxZoom: 16
+                });
             map.addLayer(layer);
         }
         function success(pos) {
@@ -688,7 +938,7 @@
         }
         function error(err) {
             mapOptions = {
-                center: [-34.8811236, -58.0117828],
+                center: [-34.92089542088923, -57.95354430132076],
                 zoom: 13,
                 zoomControl: true
             }
@@ -696,14 +946,14 @@
             mostrarPaseadores();
         }
 
-        navigator.geolocation.getCurrentPosition(success, error, options);  
+        navigator.geolocation.getCurrentPosition(success, error, options);
     </script>
 
     <!--Gestiona de ubicaciones en modificacion-->
     <script>
-        function gestionDeUbicaciones() {
+        var markerModificar;
+        function gestionDeUbicacionesModificar() {
             // Funciones de validacion de ubicacion del paseador
-            var marker;
             var mapOptions = {
                 center: [-34.9, -57.9597539],
                 zoom: 13,
@@ -724,20 +974,20 @@
             var latitude = document.getElementById("modificarLatitud").value;
             var longitude = document.getElementById("modificarLongitud").value;
 
-            var _cuidador = {};
+            var _paseador = {};
 
             function controlarUbicacion() {
-                _cuidador.Latitud = latitude;
-                _cuidador.Longitud = longitude;
-                _cuidador.Email = document.getElementById("modificarEmail").value;
-                _cuidador.Ubicacion = document.getElementById("modificarUbicacion").value;
+                _paseador.Latitud = latitude;
+                _paseador.Longitud = longitude;
+                _paseador.Email = document.getElementById("modificarEmail").value;
+                _paseador.Ubicacion = document.getElementById("modificarUbicacion").value;
                 var emailOriginal = document.getElementById("emailOriginal").value;
                 var ubicacionOriginal = document.getElementById("ubicacionOriginal").value;
-                if ((_cuidador.Email != emailOriginal) || (_cuidador.Ubicacion != ubicacionOriginal)) {
+                if ((_paseador.Email != emailOriginal) || (_paseador.Ubicacion != ubicacionOriginal)) {
                     $.ajax({
                         type: "POST",
                         url: "/Paseadores/existePaseador",
-                        data: _cuidador,
+                        data: _paseador,
                         dataType: "json",
                         success: function (data) {
                             if (data.success) {
@@ -751,29 +1001,29 @@
                                 miniMapa.remove();
                             } else {
                                 var iconOptions = {
-                                    title: _cuidador.Nombre,
+                                    title: _paseador.Nombre,
                                     draggable: false,
                                     icon: myIcon
                                 }
-                                marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
-                                marker.addTo(miniMapa);
-                                miniMapa.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                                markerModificar = new L.Marker([_paseador.Latitud, _paseador.Longitud], iconOptions);
+                                markerModificar.addTo(miniMapa);
+                                miniMapa.panTo(new L.LatLng(_paseador.Latitud, _paseador.Longitud));
                                 $("#ModalMapa").modal('show');
-                                setTimeout(function () { miniMapa.invalidateSize() }, 400);
+                                setTimeout(function () { miniMapa.invalidateSize() }, 800);
                             }
                         }
                     });
                 } else {
                     var iconOptions = {
-                        title: _cuidador.Nombre,
+                        title: _paseador.Nombre,
                         draggable: false,
                         icon: myIcon
                     }
-                    marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
-                    marker.addTo(miniMapa);
-                    miniMapa.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                    markerModificar = new L.Marker([_paseador.Latitud, _paseador.Longitud], iconOptions);
+                    markerModificar.addTo(miniMapa);
+                    miniMapa.panTo(new L.LatLng(_paseador.Latitud, _paseador.Longitud));
                     $("#ModalMapa").modal('show');
-                    setTimeout(function () { miniMapa.invalidateSize() }, 400);
+                    setTimeout(function () { miniMapa.invalidateSize() }, 800);
                 }
                 document.getElementById("modificarLatitud").value = latitude;
                 document.getElementById("modificarLongitud").value = longitude;
@@ -795,8 +1045,8 @@
 
             $("#BtnCerrarModalMapa").click(function () {
                 $("#ModalMapa").modal('hide');
-                if (miniMapa.hasLayer(marker)) {
-                    miniMapa.removeLayer(marker);
+                if (miniMapa.hasLayer(markerModificar)) {
+                    miniMapa.removeLayer(markerModificar);
                     miniMapa.remove();
                 }
             });
@@ -808,14 +1058,14 @@
         $('.BtnAceptarModificacion').on('click', function (event) {
             miniMapa.remove();
             var filename;
-            var fullPath = document.getElementById('upload').value;
+            var fullPath = document.getElementById('modificarUpload').value;
             if (fullPath) {
                 var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
                 filename = fullPath.substring(startIndex);
                 if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
                     filename = filename.substring(1);
                 }
-            }else{
+            } else {
                 filename = $("#modificarFotoOriginal").val();
             }
 
@@ -831,10 +1081,10 @@
                 Latitud: document.getElementById("modificarLatitud").value,
                 Longitud: document.getElementById("modificarLongitud").value
             };
-            
-            if ($("#upload").val()) {
-                jsonData.Foto = '/img/' + $('#upload').val().replace(/C:\\fakepath\\/i, '');
-                var fileUpload = $("#upload").get(0);
+
+            if ($("#modificarUpload").val()) {
+                jsonData.Foto = '/img/' + $('#modificarUpload').val().replace(/C:\\fakepath\\/i, '');
+                var fileUpload = $("#modificarUpload").get(0);
                 var files = fileUpload.files;
                 var fileData = new FormData();
                 fileData.append(files[0].name, files[0]);
@@ -876,7 +1126,7 @@
 
     <!--Buscador de google para modificacion-->
     <script>
-        function buscadorGoogleModificacion(){
+        function buscadorGoogleModificacion() {
             // Funciones para registrar la modificacion del paseador
             var pac_input = document.getElementById('modificarUbicacion');
             (function pacSelectFirst(input) {
@@ -918,15 +1168,16 @@
             $(function () {
                 var autocomplete = new google.maps.places.Autocomplete(pac_input);
             });
-    }
-    document.addEventListener("DOMContentLoaded", buscadorGoogleModificacion);
+        }
+        document.addEventListener("DOMContentLoaded", buscadorGoogleModificacion);
     </script>
 
     <!--Gestiona de ubicaciones en registro nuevo-->
     <script>
+        var markerNuevo;
         function gestionDeUbicacionesNuevo() {
             // Funciones de validacion de ubicacion del paseador
-            var marker;
+            var pepe = "hola";
             var mapOptions = {
                 center: [-34.9, -57.9597539],
                 zoom: 13,
@@ -944,20 +1195,20 @@
             var myIcon = L.icon(customIcon);
             geocoder = new google.maps.Geocoder();
 
-            var latitude = document.getElementById("nuevaLatitud").value;
-            var longitude = document.getElementById("nuevaLongitud").value;
+            var latitude;
+            var longitude
 
-            var _cuidador = {};
+            var _paseador = {};
 
             function controlarUbicacion() {
-                _cuidador.Latitud = latitude;
-                _cuidador.Longitud = longitude;
-                _cuidador.Email = document.getElementById("nuevoEmail").value;
-                _cuidador.Ubicacion = document.getElementById("nuevoUbicacion").value;
+                _paseador.Latitud = latitude;
+                _paseador.Longitud = longitude;
+                _paseador.Email = document.getElementById("nuevoEmail").value;
+                _paseador.Ubicacion = document.getElementById("nuevoUbicacion").value;
                 $.ajax({
                     type: "POST",
                     url: "/Paseadores/existePaseador",
-                    data: _cuidador,
+                    data: _paseador,
                     dataType: "json",
                     success: function (data) {
                         if (data.success) {
@@ -971,15 +1222,17 @@
                             miniMapa.remove();
                         } else {
                             var iconOptions = {
-                                title: _cuidador.Nombre,
+                                title: _paseador.Nombre,
                                 draggable: false,
                                 icon: myIcon
                             }
-                            marker = new L.Marker([_cuidador.Latitud, _cuidador.Longitud], iconOptions);
-                            marker.addTo(miniMapa);
-                            miniMapa.panTo(new L.LatLng(_cuidador.Latitud, _cuidador.Longitud));
+                            markerNuevo = new L.Marker([_paseador.Latitud, _paseador.Longitud], iconOptions);
+                            markerNuevo.addTo(miniMapa);
+                            miniMapa.panTo(new L.LatLng(_paseador.Latitud, _paseador.Longitud));
                             $("#ModalMapaNuevo").modal('show');
-                            setTimeout(function () { miniMapa.invalidateSize() }, 400);
+                            setTimeout(function () { miniMapa.invalidateSize() }, 800);
+                            console.log("Aca marker");
+                            console.log(markerNuevo);
                         }
                     }
                 });
@@ -1002,9 +1255,12 @@
             obtenerPosicion();
 
             $("#BtnCerrarModalMapaNuevo").click(function () {
+                console.log("Aca marker y minimapa");
+                console.log(markerNuevo);
+                console.log(miniMapa);
                 $("#ModalMapaNuevo").modal('hide');
-                if (miniMapa.hasLayer(marker)) {
-                    miniMapa.removeLayer(marker);
+                if (miniMapa.hasLayer(markerNuevo)) {
+                    miniMapa.removeLayer(markerNuevo);
                     miniMapa.remove();
                 }
             });
@@ -1133,29 +1389,9 @@
         document.addEventListener("DOMContentLoaded", buscadorGoogleRegistro);
     </script>
 
-    <!--Validacion de horarios registro-->
-    <script>
-        function ValidarHoras() {
-            var inicio = document.getElementById('nuevoHorarioIN');
-            var fin = document.getElementById('nuevoHorarioOUT');
-            if (inicio.value >= fin.value) {
-                inicio.classList.remove("is-valid");
-                inicio.classList.add("is-invalid");
-                fin.classList.remove("is-valid");
-                fin.classList.add("is-invalid");
-            }
-            else {
-                inicio.classList.remove("is-invalid");
-                inicio.classList.add("is-valid");
-                fin.classList.remove("is-invalid");
-                fin.classList.add("is-valid");
-            }
-        }
-    </script>
-
     <!--Eliminar paseador-->
     <script>
-        function eliminarCuidador(id_borrar) {
+        function eliminarPaseador(id_borrar) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',

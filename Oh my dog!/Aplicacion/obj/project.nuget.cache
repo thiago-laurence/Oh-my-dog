@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "P4ZJIQiXB94tAl8v8toDajJBYMG8iOs1/EJqx4j7nsIHVpamBgp9E200XTVLjp7h+Gos16wP/Z9qnByxVJIsTw==",
+  "dgSpecHash": "VHxw2nTW0OTJgCZOQXt2Jc4SSO5i6y4RCzvzt4CSnwr5TDUDOFiWsDAN66I9zkyHJkOmWfUfhAIdMmfDEunuIg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\franc\\Desktop\\Oh-my-dog - 1era DEMO\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
+  "projectFilePath": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\franc\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\franc\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

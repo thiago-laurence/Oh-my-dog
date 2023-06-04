@@ -70,8 +70,12 @@ namespace Aplicacion.Controllers
 
         public IActionResult CambiarContrasena()
         {
-            ViewBag.ActiveView = "CambiarContrasena";
-            return (View());
+            if (User.Identity!.IsAuthenticated)
+            {
+                ViewBag.ActiveView = "CambiarContrasena";
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         // GET: Usuarios/Details/5
@@ -362,7 +366,7 @@ namespace Aplicacion.Controllers
                 string pathImagen = @"C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\Logo - Veterinaria.png";
 
                 cuerpo.AppendLine("Bienvenido " + (destinatario.Nombre + " " + destinatario.Apellido) + " a nuestra comunidad canina OhMyDog.<br>");
-                cuerpo.AppendLine("Su contraseña actual proporcionada es: <strong>" + destinatario.Pass + "</strong>.<br>");
+                cuerpo.AppendLine("Su contraseña actual proporcionada es: <strong>" + destinatario.Pass + "</strong><br>");
                 cuerpo.AppendLine("Para poder utilizar de nuestros servicios se le solicitará actualizar su contraseña al momento de iniciar sesión en el sistema.");
                 cuerpo.AppendLine("Saludos cordiales, Pedro y Lucia.");
                 try
@@ -374,7 +378,7 @@ namespace Aplicacion.Controllers
 
                     var bodyBuilder = new BodyBuilder();
                     //bodyBuilder.HtmlBody = cuerpo.ToString();
-                    bodyBuilder.HtmlBody = "<p>" + cuerpo.ToString() + "</p><img src=\"cid:imagen\">"; // Referencia a la imagen utilizando el ID "imagen"
+                    bodyBuilder.HtmlBody = "<p>" + cuerpo.ToString() + "</p><img src=\"cid:imagen\" style=\"height: 200px;\">"; // Referencia a la imagen utilizando el ID "imagen"
                                                                                                        // Adjuntar la imagen al correo
                     var imagen = bodyBuilder.LinkedResources.Add(pathImagen);
                     imagen.ContentId = "imagen";
