@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Cambiar contraseña";
 }
-
 <div class="b-example-divider"></div>
 
 <div class="container-fluid col-xl-10 col-xxl-8 px-4 py-5">
@@ -120,7 +119,14 @@
                                     title: 'Actualizada!',
                                     text: data.message
                                 }).then((result) => {
-                                    location.reload();
+                                    $.ajax({
+                                        url: '@Url.Action("CambioDeContrasena", "Login")',
+                                        type: 'POST',
+                                        data: {  },
+                                        success: function () {
+                                            window.location.href = '/Login/Index';
+                                        }
+                                    });
                                 })
 
                             } else {

@@ -25,16 +25,25 @@ namespace Aplicacion.Controllers
         {
             ViewBag.ActiveView = "Cuidadores";
             return _context.Cuidadores != null ? 
-                          View(await _context.Cuidadores.ToListAsync()) :
+                          View(await _context.Cuidadores.Include(c => c.ModalidadCuidadors).ToListAsync()) :
                           Problem("Entity set 'OhmydogdbContext.Cuidadores'  is null.");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insertar(Cuidadores cuidador)
+        public async Task<IActionResult> Insertar(Cuidadores cuidador, int idModalidad1, int idModalidad2)
         {
             _context.Cuidadores.Add(cuidador);
             await _context.SaveChangesAsync();
-
+            int idCuidador = await _context.Cuidadores.MaxAsync(c => c.Id);
+            if (idModalidad1 != 0)
+            {
+                await _context.AddAsync(new ModalidadCuidador { IdCuidador = idCuidador, IdModalidad = idModalidad1 });
+            }
+            if (idModalidad2 != 0)
+            {
+                await _context.AddAsync(new ModalidadCuidador { IdCuidador = idCuidador, IdModalidad = idModalidad2 });
+            }
+            await _context.SaveChangesAsync();
             return (Json(new { success = true, message = "Un nuevo cuidador ha sido registrado con éxito!" }));
         }
 
@@ -70,12 +79,30 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ModificarFinal(Cuidadores cuidador)
+        public async Task<IActionResult> ModificarFinal(Cuidadores cuidador, int idModalidad1, int idModalidad2)
         {
             var borrado = _context.Cuidadores.FirstOrDefault(m => m.Id == cuidador.Id);
             if (borrado != null){
                 _context.Cuidadores.Remove(borrado);
                 _context.Cuidadores.Add(cuidador);
+                await _context.SaveChangesAsync();
+
+                if (idModalidad1 != 0 || idModalidad2 != 0)
+                {
+                    var modalidades = _context.ModalidadCuidadors.Where(m => m.IdCuidador == cuidador.Id);
+                    foreach (var m in modalidades)
+                    {
+                        _context.ModalidadCuidadors.Remove(m);
+                    }
+                    if (idModalidad1 != 0)
+                    {
+                        await _context.AddAsync(new ModalidadCuidador { IdCuidador = cuidador.Id, IdModalidad = idModalidad1 });
+                    }
+                    if (idModalidad2 != 0)
+                    {
+                        await _context.AddAsync(new ModalidadCuidador { IdCuidador = cuidador.Id, IdModalidad = idModalidad2 });
+                    }
+                }
                 await _context.SaveChangesAsync();
             }
             return (Json(new { success = true, message = "El cuidador ha sido modificado con éxito!" }));
@@ -156,8 +183,9 @@ namespace Aplicacion.Controllers
         public async Task<JsonResult> ObtenerCuidador(string id)
         {
             int idCuidador = Convert.ToInt32(id);
-            var cuidador = await _context.Cuidadores.FirstOrDefaultAsync(m => m.Id == idCuidador);
-            return (Json(cuidador));
+            var _cuidador = await _context.Cuidadores.FirstOrDefaultAsync(m => m.Id == idCuidador);
+            var _modalidades = _context.Cuidadores.Include(c => c.ModalidadCuidadors).Where(c => c.Id ==  idCuidador).Select(c => c.ModalidadCuidadors.Select(m => m.IdModalidad)).ToList();
+            return (Json( new { cuidador = _cuidador, modalidades = _modalidades }));
         }
 
         // GET: Cuidadores/Details/5

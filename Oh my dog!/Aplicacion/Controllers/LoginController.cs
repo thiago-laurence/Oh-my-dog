@@ -67,6 +67,13 @@ namespace Aplicacion.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public async Task<JsonResult> CambioDeContrasena()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Json(true);
+        }
+
         public Usuarios? validarUsuario(string email, string password)
         {
             Usuarios? user = new Usuarios();
