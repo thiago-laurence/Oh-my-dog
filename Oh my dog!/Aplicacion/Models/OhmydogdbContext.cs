@@ -15,6 +15,8 @@ public partial class OhmydogdbContext : DbContext
     {
     }
 
+    public virtual DbSet<Adopciones> Adopciones { get; set; }
+
     public virtual DbSet<Cuidadores> Cuidadores { get; set; }
 
     public virtual DbSet<Descuento> Descuentos { get; set; }
@@ -54,44 +56,41 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<VacunaPerro> VacunaPerros { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        //=> optionsBuilder.UseSqlServer("server=DESKTOP-6INPIN5\\SQLEXPRESS; database=ohmydogdb; integrated security=true; Encrypt=False;");
-    }
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; integrated security=true; Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Cuidadores>(entity =>
-        {
-            entity.HasIndex(e => new { e.Ubicacion, e.Email }, "IX_Cuidadores");
+        modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
-            entity.Property(e => e.Apellido)
-                .HasMaxLength(50)
+        modelBuilder.Entity<Adopciones>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Adopcion__3214EC073618B9E0");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Color)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Foto)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.HorarioIn)
-                .HasPrecision(0)
-                .HasColumnName("HorarioIN");
-            entity.Property(e => e.HorarioOut)
-                .HasPrecision(0)
-                .HasColumnName("HorarioOUT");
-            entity.Property(e => e.Latitud)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Longitud)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.Ubicacion)
-                .HasMaxLength(200)
+            entity.Property(e => e.Peso)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.Raza)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Sexo)
+                .HasMaxLength(6)
                 .IsUnicode(false);
         });
 
@@ -118,30 +117,34 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<ModalidadCuidador>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK__Modalida__3214EC07019AA4F0");
+
             entity.ToTable("ModalidadCuidador");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.IdCuidadorNavigation).WithMany(p => p.ModalidadCuidadors)
                 .HasForeignKey(d => d.IdCuidador)
-                .HasConstraintName("FK_ModalidadCuidador_Cuidadores");
+                .HasConstraintName("FK__Modalidad__IdCui__04E4BC85");
 
             entity.HasOne(d => d.IdModalidadNavigation).WithMany(p => p.ModalidadCuidadors)
                 .HasForeignKey(d => d.IdModalidad)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ModalidadCuidador_TipoModalidad");
+                .HasConstraintName("FK__Modalidad__IdMod__05D8E0BE");
         });
 
         modelBuilder.Entity<Paseadores>(entity =>
         {
-            entity.HasIndex(e => new { e.Ubicacion, e.Email }, "IX_Paseadores");
+            entity.HasKey(e => e.Id).HasName("PK__Paseador__3214EC0744192CFF");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Apellido)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
-                .HasMaxLength(50)
+                .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.Foto)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.HorarioIn)
                 .HasPrecision(0)
@@ -150,16 +153,16 @@ public partial class OhmydogdbContext : DbContext
                 .HasPrecision(0)
                 .HasColumnName("HorarioOUT");
             entity.Property(e => e.Latitud)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Longitud)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.Longitud)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.Ubicacion)
-                .HasMaxLength(300)
+                .HasMaxLength(200)
                 .IsUnicode(false);
         });
 
@@ -211,10 +214,13 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<TipoModalidad>(entity =>
         {
-            entity.ToTable("Tipo_Modalidad");
+            entity.HasKey(e => e.Id).HasName("PK__TipoModa__3214EC07D4BCA868");
 
+            entity.ToTable("TipoModalidad");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
+                .HasMaxLength(30)
                 .IsUnicode(false);
         });
 
@@ -297,7 +303,7 @@ public partial class OhmydogdbContext : DbContext
 
             entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.IdRol)
-                .HasConstraintName("FK__Usuarios__IdRol__22FF2F51");
+                .HasConstraintName("FK__Usuarios__IdRol__48CFD27E");
         });
 
         modelBuilder.Entity<UsuarioAdopcionPublicacion>(entity =>

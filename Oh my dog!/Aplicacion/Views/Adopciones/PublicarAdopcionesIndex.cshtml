@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Adopciones
+
+@{
+    ViewData["Title"] = "PublicarAdopciones";
+}
+<style>
+    .huella-img {
+        width: 3rem;
+        height: 3rem;
+    }
+</style>
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">Bienvenido al servicio de Publicar Adopciones de nuestra veterinaria <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
+    <p style="margin-bottom: 0px;">
+        Da el primer paso hacia un futuro lleno de amor
+        <br />
+        Tu perro merece un hogar cariñoso y tú puedes hacerlo posible. Publica su adopción hoy y cambia su vida para siempre.
+        <br />
+        ¡Juntos encontraremos el hogar perfecto! ¡No esperes más, comparte su historia y haz que alguien se enamore de él!
+    </p>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border rounded mt-4 mb-4">
+            <h2>Publicar Perro en Adopción</h2>
+
+            <form asp-controller="Adopciones" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input hidden asp-for="Email" type="email" value=""/>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="peso">Peso:</label>
+                            <input asp-for="Peso" type="text" class="form-control" id="peso" name="peso" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sexo">Sexo:</label>
+                            <select class="form-control" id="sexo" name="sexo" required>
+                                <option value="Macho">Macho</option>
+                                <option value="Hembra">Hembra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="foto">Foto:</label>
+                            <input asp-for="Foto" type="file" class="form-control-file" id="foto" name="foto" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="raza">Raza:</label>
+                            <input asp-for="Raza" type="text" class="form-control" id="raza" name="raza" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="color">Color:</label>
+                            <input asp-for="Color" type="text" class="form-control" id="color" name="color" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2 mb-2">Publicar</button>
+            </form>
+        </div>
+    </div>
+</div>
