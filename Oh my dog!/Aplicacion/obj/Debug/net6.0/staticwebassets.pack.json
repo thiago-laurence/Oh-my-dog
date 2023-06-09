@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
     },
     {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\estiloCalendario.css",
+      "PackagePath": "staticwebassets\\css\\estiloCalendario.css"
+    },
+    {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\loginStyles.css",
       "PackagePath": "staticwebassets\\css\\loginStyles.css"
     },
@@ -47,6 +51,10 @@
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1314467-ff9800.svg",
       "PackagePath": "staticwebassets\\img\\1314467-ff9800.svg"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20191230_164919.jpg",
+      "PackagePath": "staticwebassets\\img\\20191230_164919.jpg"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20221020_165337.jpg",
@@ -195,6 +203,14 @@
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\calendario.js",
+      "PackagePath": "staticwebassets\\js\\calendario.js"
+    },
+    {
+      "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\popper.js",
+      "PackagePath": "staticwebassets\\js\\popper.js"
     },
     {
       "Id": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",
