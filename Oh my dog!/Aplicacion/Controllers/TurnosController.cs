@@ -21,7 +21,7 @@ namespace Aplicacion.Controllers
         // GET: Turnos
         public async Task<IActionResult> Index()
         {
-            var ohmydogdbContext = _context.Turnos.Include(t => t.EstadoNavigation).Include(t => t.PerroNavigation);
+            var ohmydogdbContext = _context.Turnos.Include(t => t.EstadoNavigation);
             return View(await ohmydogdbContext.ToListAsync());
         }
 
@@ -33,23 +33,21 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
-            var turno = await _context.Turnos
+            var turnos = await _context.Turnos
                 .Include(t => t.EstadoNavigation)
-                .Include(t => t.PerroNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (turno == null)
+            if (turnos == null)
             {
                 return NotFound();
             }
 
-            return View(turno);
+            return View(turnos);
         }
 
         // GET: Turnos/Create
         public IActionResult Create()
         {
             ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id");
-            ViewData["Perro"] = new SelectList(_context.Perros, "Id", "Id");
             return View();
         }
 
@@ -58,17 +56,16 @@ namespace Aplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Motivo,Estado,Fecha,Dueno,Perro")] Turno turno)
+        public async Task<IActionResult> Create([Bind("Id,Motivo,Estado,Fecha,Dueno")] Turnos turnos)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(turno);
+                _context.Add(turnos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id", turno.Estado);
-            ViewData["Perro"] = new SelectList(_context.Perros, "Id", "Id", turno.Perro);
-            return View(turno);
+            ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id", turnos.Estado);
+            return View(turnos);
         }
 
         // GET: Turnos/Edit/5
@@ -79,14 +76,13 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
-            var turno = await _context.Turnos.FindAsync(id);
-            if (turno == null)
+            var turnos = await _context.Turnos.FindAsync(id);
+            if (turnos == null)
             {
                 return NotFound();
             }
-            ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id", turno.Estado);
-            ViewData["Perro"] = new SelectList(_context.Perros, "Id", "Id", turno.Perro);
-            return View(turno);
+            ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id", turnos.Estado);
+            return View(turnos);
         }
 
         // POST: Turnos/Edit/5
@@ -94,9 +90,9 @@ namespace Aplicacion.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Motivo,Estado,Fecha,Dueno,Perro")] Turno turno)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Motivo,Estado,Fecha,Dueno")] Turnos turnos)
         {
-            if (id != turno.Id)
+            if (id != turnos.Id)
             {
                 return NotFound();
             }
@@ -105,12 +101,12 @@ namespace Aplicacion.Controllers
             {
                 try
                 {
-                    _context.Update(turno);
+                    _context.Update(turnos);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TurnoExists(turno.Id))
+                    if (!TurnosExists(turnos.Id))
                     {
                         return NotFound();
                     }
@@ -121,9 +117,8 @@ namespace Aplicacion.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id", turno.Estado);
-            ViewData["Perro"] = new SelectList(_context.Perros, "Id", "Id", turno.Perro);
-            return View(turno);
+            ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id", turnos.Estado);
+            return View(turnos);
         }
 
         // GET: Turnos/Delete/5
@@ -134,16 +129,15 @@ namespace Aplicacion.Controllers
                 return NotFound();
             }
 
-            var turno = await _context.Turnos
+            var turnos = await _context.Turnos
                 .Include(t => t.EstadoNavigation)
-                .Include(t => t.PerroNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (turno == null)
+            if (turnos == null)
             {
                 return NotFound();
             }
 
-            return View(turno);
+            return View(turnos);
         }
 
         // POST: Turnos/Delete/5
@@ -155,17 +149,17 @@ namespace Aplicacion.Controllers
             {
                 return Problem("Entity set 'OhmydogdbContext.Turnos'  is null.");
             }
-            var turno = await _context.Turnos.FindAsync(id);
-            if (turno != null)
+            var turnos = await _context.Turnos.FindAsync(id);
+            if (turnos != null)
             {
-                _context.Turnos.Remove(turno);
+                _context.Turnos.Remove(turnos);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TurnoExists(int id)
+        private bool TurnosExists(int id)
         {
           return (_context.Turnos?.Any(e => e.Id == id)).GetValueOrDefault();
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Aplicacion.Models;
 
-public partial class Perro
+public partial class Perros
 {
     public int Id { get; set; }
 
@@ -25,11 +25,11 @@ public partial class Perro
 
     public DateTime FechaDeNacimiento { get; set; }
 
+    public virtual ICollection<PerroTurno> PerroTurnos { get; set; } = new List<PerroTurno>();
+
     public virtual ICollection<Publicacion> Publicacions { get; set; } = new List<Publicacion>();
 
     public virtual ICollection<TratamientoPerro> TratamientoPerros { get; set; } = new List<TratamientoPerro>();
-
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
 
     public virtual ICollection<VacunaPerro> VacunaPerros { get; set; } = new List<VacunaPerro>();
 }

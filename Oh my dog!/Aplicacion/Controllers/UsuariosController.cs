@@ -8,13 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using System.Text.RegularExpressions;
 using Aplicacion.Data;
-using Microsoft.Identity.Client;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using NuGet.Versioning;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using MailKit.Security;
 using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
@@ -363,7 +361,7 @@ namespace Aplicacion.Controllers
                 string remitente = "ohmydoglem@gmail.com",
                        asunto = "OhMyDog - Confirmación de registro";
                 StringBuilder cuerpo = new StringBuilder();
-                string pathImagen = @"C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\Logo - Veterinaria.png";
+                string pathImagen = @"C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\Logo - Veterinaria.png";
 
                 cuerpo.AppendLine("Bienvenido " + (destinatario.Nombre + " " + destinatario.Apellido) + " a nuestra comunidad canina OhMyDog.<br>");
                 cuerpo.AppendLine("Su contraseña actual proporcionada es: <strong>" + destinatario.Pass + "</strong><br>");
@@ -386,8 +384,10 @@ namespace Aplicacion.Controllers
 
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
-                        client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+						
+
+						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
+                        client.Authenticate("753b469e9e376d", "06af1e23c346ae");
                         client.Send(message);
                         client.Disconnect(true);
                     }

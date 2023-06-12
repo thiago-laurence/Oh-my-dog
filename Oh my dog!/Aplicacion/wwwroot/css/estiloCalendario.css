@@ -28,6 +28,10 @@
     margin: 20px auto;
     background: #add8e6;
 }
+select option[value=""], select:invalid{
+    color:'grey';
+}
+
 
 /*  Events display */
 .events-container {
@@ -175,13 +179,7 @@
     box-shadow: none;
     outline: none; }
 
-#cancel-button {
-    display: block;
-    position: absolute;
-    left: 40px;
-    bottom: 20px;
-    background-color: #FFD580;
-}
+
 
 #ok-button {
     display: block;
