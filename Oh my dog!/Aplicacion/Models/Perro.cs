@@ -11,7 +11,7 @@ public partial class Perro
 
     public float Peso { get; set; }
 
-    public bool? Celo { get; set; }
+    public DateTime? Celo { get; set; }
 
     public string Sexo { get; set; } = null!;
 
@@ -22,8 +22,12 @@ public partial class Perro
     public bool Estado { get; set; }
 
     public string Raza { get; set; } = null!;
+    public string Observaciones { get; set; } = null!;
 
     public DateTime FechaDeNacimiento { get; set; }
+
+    public int IdDueno { get; set; }
+    public virtual Usuarios Dueno { get; set; }
 
     public virtual ICollection<Publicacion> Publicacions { get; set; } = new List<Publicacion>();
 

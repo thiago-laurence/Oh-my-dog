@@ -417,5 +417,44 @@ namespace Aplicacion.Controllers
                     (pass.Length >= 8) && (Regex.IsMatch(pass, @"\d")) && (Regex.IsMatch(pass, @"[a-zA-Z]")) && (Regex.IsMatch(pass, @"\W"))
                 );
         }
+
+        [HttpGet]
+        public JsonResult PoseeDescuento(string? email, int? idUsuario)
+        {
+            bool _okDescuento = false;
+            if (email == null && idUsuario != null) // En caso de que invoque a esta accion desde el modulo de perros, en donde no poseo el email del usuario
+            {
+                var _usuario = _context.Usuarios.FirstOrDefault(u => u.Id == idUsuario);
+                _okDescuento = _context.Descuentos.Any(u => u.Email == _usuario!.Email);
+                return Json(new { descuento = _okDescuento, message = "" });
+            }
+            else
+            {
+                // Caso contrario se recibe el email del usuario
+                _okDescuento = _context.Descuentos.Any(u => u.Email == email);
+                return (Json(new { descuento = _okDescuento, message = "" }));
+            }
+        }
+
+        [HttpPost]
+        public JsonResult AplicarDescuento(string? email, int? idUsuario)
+        {
+            Descuento? _descuento = null;
+            if (email == null) // En caso de que invoque a esta accion desde el modulo de perros, en donde no poseo el email del usuario
+            {
+                var _usuario = _context.Usuarios.FirstOrDefault(u => u.Id == idUsuario);
+                _descuento = _context.Descuentos.FirstOrDefault(d => d.Email == _usuario!.Email);
+            }
+            else
+            {
+                // Caso contrario se recibe el email del usuario
+                _descuento = _context.Descuentos.FirstOrDefault(d => d.Email == email);
+            }
+
+            _context.Descuentos.Remove(_descuento);
+            _context.SaveChanges();
+
+            return Json(new { descuento = true, message = "" });
+        }
     }
 }

@@ -41,32 +41,12 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1-c6224fe220.jpg",
-      "PackagePath": "staticwebassets\\img\\1-c6224fe220.jpg"
-    },
-    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1314467-ff9800.svg",
       "PackagePath": "staticwebassets\\img\\1314467-ff9800.svg"
     },
     {
-      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20221020_165337.jpg",
-      "PackagePath": "staticwebassets\\img\\20221020_165337.jpg"
-    },
-    {
-      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230106_230132.jpg",
-      "PackagePath": "staticwebassets\\img\\20230106_230132.jpg"
-    },
-    {
-      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230107_002354.jpg",
-      "PackagePath": "staticwebassets\\img\\20230107_002354.jpg"
-    },
-    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230214_150242.jpg",
       "PackagePath": "staticwebassets\\img\\20230214_150242.jpg"
-    },
-    {
-      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\800px-Flag_of_Unitarian_Party_exiled.svg.png",
-      "PackagePath": "staticwebassets\\img\\800px-Flag_of_Unitarian_Party_exiled.svg.png"
     },
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\840_560.jpg",
@@ -101,6 +81,10 @@
       "PackagePath": "staticwebassets\\img\\Logo LEM - v2.png"
     },
     {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\LogoPerroDefault.jpg",
+      "PackagePath": "staticwebassets\\img\\LogoPerroDefault.jpg"
+    },
+    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\PerroError.svg",
       "PackagePath": "staticwebassets\\img\\PerroError.svg"
     },
@@ -111,6 +95,14 @@
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\calendario.jpg",
       "PackagePath": "staticwebassets\\img\\calendario.jpg"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\caniche.jpg",
+      "PackagePath": "staticwebassets\\img\\caniche.jpg"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\caniche2.jpg",
+      "PackagePath": "staticwebassets\\img\\caniche2.jpg"
     },
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-1.jpg",
@@ -145,6 +137,10 @@
       "PackagePath": "staticwebassets\\img\\cuidadores.png"
     },
     {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\descuento.png",
+      "PackagePath": "staticwebassets\\img\\descuento.png"
+    },
+    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\fondo_formulario.svg",
       "PackagePath": "staticwebassets\\img\\fondo_formulario.svg"
     },
@@ -175,6 +171,10 @@
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\pataPerro.png",
       "PackagePath": "staticwebassets\\img\\pataPerro.png"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\pepe.jpg",
+      "PackagePath": "staticwebassets\\img\\pepe.jpg"
     },
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\recuperaciones.png",

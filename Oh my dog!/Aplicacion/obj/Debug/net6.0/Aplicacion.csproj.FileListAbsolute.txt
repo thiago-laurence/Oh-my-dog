@@ -883,3 +883,21 @@ C:\Users\franc\Desktop\Oh-my-dog - 1era DEMO\Oh my dog!\Aplicacion\obj\Debug\net
 C:\Users\franc\Desktop\Oh-my-dog - 1era DEMO\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.pdb
 C:\Users\franc\Desktop\Oh-my-dog - 1era DEMO\Oh my dog!\Aplicacion\obj\Debug\net6.0\Aplicacion.genruntimeconfig.cache
 C:\Users\franc\Desktop\Oh-my-dog - 1era DEMO\Oh my dog!\Aplicacion\obj\Debug\net6.0\ref\Aplicacion.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Hangfire.AspNetCore.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Hangfire.Core.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Hangfire.NetCore.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\Hangfire.SqlServer.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\ca\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\de\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\es\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\fa\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\fr\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\nb\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\nl\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\pt-BR\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\pt-PT\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\pt\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\sv\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\tr-TR\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\zh-TW\Hangfire.Core.resources.dll
+C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\bin\Debug\net6.0\zh\Hangfire.Core.resources.dll
