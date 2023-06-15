@@ -1,4 +1,6 @@
-﻿@model Aplicacion.Models.AdopcionViewModel
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Aplicacion.Models.AdopcionViewModel
 @{
 
     Layout = "_Layout";
@@ -7,17 +9,26 @@
     var filtroActual = "";
 }
 <style>
-    .huella-img {
+    .huella-img 
+    {
         width: 3rem;
         height: 3rem;
+        transform: translateY(-0.4rem);
     }
-    .custom-button {
+
+    .custom-button 
+    {
         width: 100% !important;
         margin-bottom: 5px !important;
     }
+
+    .card-adoptado 
+    {
+        background-color: rgba(0, 128, 0, 0.3);
+    }
 </style>
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
-    <h1 class="display-7">Listado de adopciones <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
+    <h1 class="display-7">Listado de adopciones <img class="huella-img" src="~/img/listadoAdopciones-icon.png" /></h1>
     <p style="margin-bottom: 0px;">
         ¡Encuentra tu compañero perfecto! Explora nuestras adopciones y suma a tu familia un familiar canino. ¡Adopta hoy y cambia una vida para siempre!
     </p>
@@ -26,41 +37,93 @@
     <div class="row">
         @foreach (var adopcion in Model.Paginacion)
         {
-          
-                <div class="col-md-3">
-                    <div class="container-card">
-                        <div class="card mt-4 mb-4">
-
-                            <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">@adopcion.Nombre</h5>
-                                    <p class="card-text"><strong>Email del dueño:</strong> @adopcion.Email</p>
-                                    <p class="card-text"><strong>Peso:</strong> @adopcion.Peso</p>
-                                    <p class="card-text"><strong>Color:</strong> @adopcion.Color</p>
-                                    <p class="card-text"><strong>Descripción:</strong> @adopcion.Descripcion</p>
-                                </div>
-                                <div class="card-footer">
-                                @if (adopcion.Estado == 0)
-                                {
-                                <button class="btn btn-primary custom-button">Modificar</button>
+            <div class="col-md-3">
+                <div class="container-card">
+                    <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )">
+                        <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@adopcion.Nombre @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
+                            <p class="card-text"><strong>Email del publicador:</strong> @adopcion.Email</p>
+                            <p class="card-text"><strong>Peso:</strong> @adopcion.Peso</p>
+                            <p class="card-text"><strong>Color:</strong> @adopcion.Color</p>
+                            <p class="card-text"><strong>Descripción:</strong> @adopcion.Descripcion</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary custom-button">Modificar</button>
+                            @if (adopcion.Email != User.FindFirstValue("Email"))
+                            {
+                                <button class="btn btn-info custom-button BtnVisualizarContacto" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@adopcion.Email">Contactar</button>
+                            }
+                            else
+                            {
                                 <button class="btn btn-danger custom-button">Eliminar</button>
-                                <button class="btn btn-info custom-button">Contactar</button>
+                            }
+                            @if (adopcion.Estado == 0 && adopcion.Email != User.FindFirstValue("Email"))
+                            {
                                 <button class="btn btn-success custom-button">Adoptar</button>
-                                }
-                                else if (adopcion.Estado == 1)
-                                {
-                                <button class="btn btn-primary custom-button">Modificar</button>
-                                <button class="btn btn-danger custom-button">Eliminar</button>
-                                <button class="btn btn-info custom-button">Contactar</button>
-                                }
-                                </div>
- 
+                            }
                         </div>
                     </div>
                 </div>
-           
+            </div>
         }
     </div>
 </div>
+<!--Inicio Modal para contacto con el publicador-->
+<div class="modal fade" id="ModalContactar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-envelope fa-xl"></i>
+                    Contactar publicador de la adopcion
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formContactoPublicador">
+                    <div class="col-md-12">
+                        <label for="remitente" class="form-label">Remitente</label>
+                        <input type="email" class="form-control" id="Remitente" name="Remitente" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="destinatario" class="form-label">Destinatario</label>
+                        <input type="email" class="form-control" id="Destinatario" name="Destinatario" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label">Asunto</label>
+                        <input type="text" class="form-control" maxlength="50" id="Asunto" name="Asunto" required>
+                        <div class="invalid-feedback">
+                            Ingrese un asunto para el correo a enviar! (máximo 50 caracteres)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Mensaje</label>
+                        <textarea class="form-control" maxlength="500" id="Contenido" name="Contenido" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingresa un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarContacto">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="enviarCorreoPublicador()" disabled id="BtnContacto">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Scripts Section -->
 
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+@*<script src="~/js/bootstrap.bundle.min.js"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    $(document).on('click', '.BtnVisualizarContacto', function () {
+        document.getElementById("Remitente").value = $(this).data('remitente');;
+        document.getElementById("Destinatario").value = $(this).data('destinatario');;
+        $('#ModalContactar').modal('show');
+    });
+</script>

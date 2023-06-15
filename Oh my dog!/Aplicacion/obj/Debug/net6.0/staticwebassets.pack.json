@@ -177,6 +177,10 @@
       "PackagePath": "staticwebassets\\img\\img-carrousel3.jpg"
     },
     {
+      "Id": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\listadoAdopciones-icon.png",
+      "PackagePath": "staticwebassets\\img\\listadoAdopciones-icon.png"
+    },
+    {
       "Id": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\paseadores.jpeg",
       "PackagePath": "staticwebassets\\img\\paseadores.jpeg"
     },
