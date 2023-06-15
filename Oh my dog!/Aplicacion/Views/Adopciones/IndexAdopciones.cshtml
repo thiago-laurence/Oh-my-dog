@@ -1,0 +1,8 @@
+﻿@model Aplicacion.Models.AdopcionViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="container" id="containerListaAdopciones">
+    @await Html.PartialAsync("_ListarAdopciones", Model)
+</div>

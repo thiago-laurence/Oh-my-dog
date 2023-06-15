@@ -1,0 +1,66 @@
+﻿@model Aplicacion.Models.AdopcionViewModel
+@{
+
+    Layout = "_Layout";
+    var anteriorDeshabilitado = !Model.Paginacion.PaginasAnteriores ? "disabled" : "";
+    var siguienteDeshabilitado = !Model.Paginacion.PaginasSiguientes ? "disabled" : "";
+    var filtroActual = "";
+}
+<style>
+    .huella-img {
+        width: 3rem;
+        height: 3rem;
+    }
+    .custom-button {
+        width: 100% !important;
+        margin-bottom: 5px !important;
+    }
+</style>
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">Listado de adopciones <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
+    <p style="margin-bottom: 0px;">
+        ¡Encuentra tu compañero perfecto! Explora nuestras adopciones y suma a tu familia un familiar canino. ¡Adopta hoy y cambia una vida para siempre!
+    </p>
+</div>
+<div class="container">
+    <div class="row">
+        @foreach (var adopcion in Model.Paginacion)
+        {
+          
+                <div class="col-md-3">
+                    <div class="container-card">
+                        <div class="card mt-4 mb-4">
+
+                            <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">@adopcion.Nombre</h5>
+                                    <p class="card-text"><strong>Email del dueño:</strong> @adopcion.Email</p>
+                                    <p class="card-text"><strong>Peso:</strong> @adopcion.Peso</p>
+                                    <p class="card-text"><strong>Color:</strong> @adopcion.Color</p>
+                                    <p class="card-text"><strong>Descripción:</strong> @adopcion.Descripcion</p>
+                                </div>
+                                <div class="card-footer">
+                                @if (adopcion.Estado == 0)
+                                {
+                                <button class="btn btn-primary custom-button">Modificar</button>
+                                <button class="btn btn-danger custom-button">Eliminar</button>
+                                <button class="btn btn-info custom-button">Contactar</button>
+                                <button class="btn btn-success custom-button">Adoptar</button>
+                                }
+                                else if (adopcion.Estado == 1)
+                                {
+                                <button class="btn btn-primary custom-button">Modificar</button>
+                                <button class="btn btn-danger custom-button">Eliminar</button>
+                                <button class="btn btn-info custom-button">Contactar</button>
+                                }
+                                </div>
+ 
+                        </div>
+                    </div>
+                </div>
+           
+        }
+    </div>
+</div>
+
+

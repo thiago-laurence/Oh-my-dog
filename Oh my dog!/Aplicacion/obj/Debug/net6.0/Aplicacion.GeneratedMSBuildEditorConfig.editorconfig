@@ -16,8 +16,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Fede\Documents\GitHub\Oh-my-dog\Oh my dog!\Aplicacion
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Fede/Documents/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopciones/IndexAdopciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25lc1xJbmRleEFkb3BjaW9uZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Fede/Documents/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopciones/PublicarAdopcionesIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25lc1xQdWJsaWNhckFkb3BjaW9uZXNJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fede/Documents/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopciones/_ListarAdopciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25lc1xfTGlzdGFyQWRvcGNpb25lcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fede/Documents/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/CorreoExitoso.cshtml]

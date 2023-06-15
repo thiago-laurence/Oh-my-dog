@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "v0CTF/oREUU98xmKCjn1+cTKkBQw8RiTJ2CiLuzv+mw=",
+  "Hash": "FiboDJ2j4oc50/0t9OiMMUJJddiZGhFqgmM21iiWxS0=",
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -627,6 +627,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\HuellaMapa.svg"
+    },
+    {
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-adopcion-card.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/icon-adopcion-card.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icon-adopcion-card.png"
+    },
+    {
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-dog-alert.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/icon-dog-alert.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icon-dog-alert.png"
     },
     {
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel1.jpg",

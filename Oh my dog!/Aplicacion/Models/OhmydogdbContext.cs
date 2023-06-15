@@ -67,7 +67,6 @@ public partial class OhmydogdbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Adopcion__3214EC073618B9E0");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Color)
                 .HasMaxLength(20)
                 .IsUnicode(false);

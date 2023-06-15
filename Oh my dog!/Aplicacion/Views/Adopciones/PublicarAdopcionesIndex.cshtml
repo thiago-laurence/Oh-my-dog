@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "PublicarAdopciones";
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .huella-img {
         width: 3rem;
@@ -26,21 +27,15 @@
         <div class="col-md-6 border rounded mt-4 mb-4">
             <h2>Publicar Perro en Adopción</h2>
 
-            <form asp-controller="Adopciones" asp-action="Create" method="post" enctype="multipart/form-data">
+            <form asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex" method="post" enctype="multipart/form-data" id="form-adopciones">
                 <div class="row">
-                    <div class="col-md-6">
-                        <input hidden asp-for="Email" type="email" value=""/>
+                    <div class="col-md-12">
+                        <input hidden asp-for="Email" type="email" value="@User.FindFirstValue("Email")"/>
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input type="text" class="form-control" id="nombre" name="nombre" required>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="peso">Peso:</label>
-                            <input asp-for="Peso" type="text" class="form-control" id="peso" name="peso" required>
-                        </div>
-                    </div>
+                    </div>                  
                 </div>
 
                 <div class="row">
@@ -55,10 +50,18 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="peso">Peso:</label>
+                            <div class="input-group">
+                                <input asp-for="Peso" type="text" class="form-control" id="peso" name="peso" required>                                
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-6">
+                        <div class="form-group">
                             <label for="foto">Foto:</label>
                             <input asp-for="Foto" type="file" class="form-control-file" id="foto" name="foto" required>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
 
                 <div class="row">
@@ -78,10 +81,31 @@
 
                 <div class="form-group">
                     <label for="descripcion">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                    <textarea asp-for="Descripcion" class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2 mb-2">Publicar</button>
             </form>
         </div>
     </div>
 </div>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+@*        var form = document.getElementById('form-adopciones');
+        form.reset();
+        document.getElementById('email').value = '';
+        document.getElementById('pass').value = '';*@
+        var msjArray = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Message));
+        msjArray = msjArray.split('.');
+        var msjTitle = msjArray[0];
+        var msjText = msjArray[1];
+        Swal.fire({
+            icon: 'error',
+            title: msjTitle,
+            text: msjText@*,
+            customClass: {
+                icon: 'my-custom-icon-class' // Aquí debes especificar la clase CSS para tu icono personalizado
+            }*@
+        });
+    </script>
+}
