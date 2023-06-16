@@ -757,10 +757,31 @@ else
 						}
 						//Ver despuès
 						// If this date has any events, style it with .event-date
-						if (events.length > 1) {
-							
+					if (events.length > 1) {
+						if (events[0] == true) {
+							for (var k = 1; k < events.length; k++) {
+								
+								if ($("#rechazados-button").hasClass("activa")) {
+									if (events[k]["Estado"] === 2) {
+										curr_date.addClass("event-date");
+										break;
+									}
+								} else if ($("#aceptados-button").hasClass("activa")) {
+									if (events[k]["Estado"] === 1) {
+										curr_date.addClass("event-date");
+										break;
+									}
+								} else {
+									if (events[k]["Estado"] === 3) {
+										curr_date.addClass("event-date");
+										break;
+									}
+								}
+							}
+						} else {
 							curr_date.addClass("event-date");
 						}
+					}
 						// Set onClick handler for clicking a date
 						curr_date.click({ events: events, month: month, day: day }, date_click);
 						row.append(curr_date);
@@ -941,110 +962,117 @@ else
 			}
 
 
-			function mostrar_eventos(events,month,day){
-				var evento;
-				$(".events-container").empty();
-				$(".events-container").show(250);
-				
-				if (events[0]==true) {
+		function mostrar_eventos(events, month, day) {
+			var evento;
+			$(".events-container").empty();
+			$(".events-container").show(250);
+
+			if (events[0] == true) {
 
 
 				if (((events.filter(m => m.Estado == 3).length == 0) && ($("#pendientes-button").hasClass("activa")))
 					|| ((events.filter(m => m.Estado == 2).length == 0) && ($("#rechazados-button").hasClass("activa")))
-						|| ((events.filter(m => m.Estado == 1).length == 0) && ($("#aceptados-button").hasClass("activa"))))
-					{
-						var event_card = $("<div class='event-card d-flex flex-column'></div>");
-						var event_name = $("<div class='event-name mb-3'>No tiene turnos para el " + day + "/" + month + ".</div>");
-						$(event_card).css({ "border-left": "10px solid #FF1744" });
-						$(event_card).append(event_name);
-						$(".events-container").append(event_card);
-					}
-					else {
-					
-						// Go through and add each event as a card to the events container
-						for (var i = 1; i < events.length; i++) {
-							var event_card = $("<div class='event-card'></div>");
-							var event_name = $("<div class='event-name'>" + events[i].Motivo + ":</div>");
-							var event_count = $("<div class='event-count'>" + events[i].Motivo + " Invited</div>");
-							if($("#rechazados-button").hasClass("activa")){
-								if (events[i]["Estado"] === 2) {
-									$(event_card).css({
-									"border-left": "10px solid #FF1744"
-								});
-							event_count = $("<div class='event-cancelled'>Cancelado</div>");
-							}
-							}else if($("#aceptados-button").hasClass("activa")){
-							if (events[i]["Estado"] === 1) {
-								$(event_card).css({
-									"border-left": "10px solid #FF1744"
-								});
-								event_count = $("<div class='event-cancelled'>Aceptado</div>");
-							}
-							}else{
-							if (events[i]["Estado"] === 3) {
-								$(event_card).css({
-									"border-left": "10px solid #FF1744"
-								});
-								event_count = $("<div class='event-cancelled'>Pendiente</div>");
-								
-							}
-							}
-						var event_button = $("<button class='btn btn-primary align-self-end'   onclick='verDetalle(" + events[i].Id + ")' >Ver detalle</button>")
-						$(event_card).append(event_name).append(event_count);
-						$(event_card).append(event_button);
-						$(".events-container").append(event_card);
-						
-						}
-					}
+					|| ((events.filter(m => m.Estado == 1).length == 0) && ($("#aceptados-button").hasClass("activa")))) {
+					var event_card = $("<div class='event-card d-flex flex-column'></div>");
+					var event_name = $("<div class='event-name mb-3'>No tiene turnos para el " + day + "/" + month + ".</div>");
+					$(event_card).css({ "border-left": "10px solid #FF1744" });
+					$(event_card).append(event_name);
+					$(".events-container").append(event_card);
 				}
 				else {
 
-					if (events.length == 1) {
-
-						var event_card = $("<div class='event-card d-flex flex-column'></div>");
-						var event_name = $("<div class='event-name mb-3'>No tiene turnos para el " + day + " de " + month + ".</div>");
-						$(event_card).css({ "border-left": "10px solid #FF1744" });
-
-						$(event_card).append(event_name);
-
-						$(".events-container").append(event_card);
-					}
-					else {
-						
-						// Go through and add each event as a card to the events container
+					// Go through and add each event as a card to the events container
+					for (var i = 1; i < events.length; i++) {
 						var event_card = $("<div class='event-card'></div>");
-
-						var event_name = $("<div class='event-name'>" + events[1].Motivo + ":</div>");
-						var event_count = $("<div class='event-count'>" + events[1].Motivo + " Invited</div>");
-						if (events[1].Estado === 2) {
-							$(event_card).css({
-								"border-left": "10px solid #FF1744"
-							});
-							event_count = $("<div class='event-cancelled'>Cancelado</div>");
-						} else {
-							if (events[1].Estado == 1) {
+						var event_name = $("<div class='event-name'>" + events[i].Motivo + ":</div>");
+						var event_count = $("<div class='event-count'>" + events[i].Motivo + " Invited</div>");
+						if ($("#rechazados-button").hasClass("activa")) {
+							if (events[i]["Estado"] === 2) {
+								$(event_card).css({
+									"border-left": "10px solid #FF1744"
+								});
+								event_count = $("<div class='event-cancelled'>Cancelado</div>");
+								var event_button = $("<button class='btn btn-primary align-self-end'   onclick='verDetalle(" + events[i].Id + ")' >Ver detalle</button>")
+								$(event_card).append(event_name).append(event_count);
+								$(event_card).append(event_button);
+								$(".events-container").append(event_card);
+							}
+						} else if ($("#aceptados-button").hasClass("activa")) {
+							if (events[i]["Estado"] === 1) {
 								$(event_card).css({
 									"border-left": "10px solid #6aa84f"
 								});
 								event_count = $("<div class='event-cancelled'>Aceptado</div>");
-							} else {
-
+								var event_button = $("<button class='btn btn-primary align-self-end'   onclick='verDetalle(" + events[i].Id + ")' >Ver detalle</button>")
+								$(event_card).append(event_name).append(event_count);
+								$(event_card).append(event_button);
+								$(".events-container").append(event_card);
+							}
+						} else {
+							if (events[i]["Estado"] === 3) {
 								$(event_card).css({
 									"border-left": "10px solid #f1c232"
 								});
 								event_count = $("<div class='event-cancelled'>Pendiente</div>");
-
+								var event_button = $("<button class='btn btn-primary align-self-end'   onclick='verDetalle(" + events[i].Id + ")' >Ver detalle</button>")
+								$(event_card).append(event_name).append(event_count);
+								$(event_card).append(event_button);
+								$(".events-container").append(event_card);
 							}
 						}
+						
 
-
-					var event_button = $("<button class='btn btn-primary align-self-end' onclick='verDetalle(" + events[1].Id + ")' >Ver detalle</button>")
-						$(event_card).append(event_name).append(event_count);
-						$(event_card).append(event_button);
-						$(".events-container").append(event_card);
 					}
 				}
 			}
+			else {
+
+				if (events.length == 1) {
+
+					var event_card = $("<div class='event-card d-flex flex-column'></div>");
+					var event_name = $("<div class='event-name mb-3'>No tiene turnos para el " + day + " de " + month + ".</div>");
+					$(event_card).css({ "border-left": "10px solid #FF1744" });
+
+					$(event_card).append(event_name);
+
+					$(".events-container").append(event_card);
+				}
+				else {
+
+					// Go through and add each event as a card to the events container
+					var event_card = $("<div class='event-card'></div>");
+
+					var event_name = $("<div class='event-name'>" + events[1].Motivo + ":</div>");
+					var event_count = $("<div class='event-count'>" + events[1].Motivo + " Invited</div>");
+					if (events[1].Estado === 2) {
+						$(event_card).css({
+							"border-left": "10px solid #FF1744"
+						});
+						event_count = $("<div class='event-cancelled'>Cancelado</div>");
+					} else {
+						if (events[1].Estado == 1) {
+							$(event_card).css({
+								"border-left": "10px solid #6aa84f"
+							});
+							event_count = $("<div class='event-cancelled'>Aceptado</div>");
+						} else {
+
+							$(event_card).css({
+								"border-left": "10px solid #f1c232"
+							});
+							event_count = $("<div class='event-cancelled'>Pendiente</div>");
+
+						}
+					}
+
+
+					var event_button = $("<button class='btn btn-primary align-self-end' onclick='verDetalle(" + events[1].Id + ")' >Ver detalle</button>")
+					$(event_card).append(event_name).append(event_count);
+					$(event_card).append(event_button);
+					$(".events-container").append(event_card);
+				}
+			}
+		}
 
 
 		

@@ -275,9 +275,10 @@ select option[value=""], select:invalid{
     }
 
 .event-date {
-  border-color: #7e0cf5;
-  background: #7e0cf5;
-  color: #fff; }
+    border-color: #add8e6;
+    background: #add8e6;
+    color: #fff;
+}
   .event-date:after {
     position: absolute;
     top: 0;
@@ -294,7 +295,7 @@ select option[value=""], select:invalid{
 }
 
 .event-date.active-date {
-  background: #7e0cf5; }
+  background:#add8e6 }
 
 /* input dialog */
 .dialog {
