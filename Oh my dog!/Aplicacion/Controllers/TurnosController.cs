@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
+using System.Text.Json;
 
 namespace Aplicacion.Controllers
 {
@@ -44,8 +45,83 @@ namespace Aplicacion.Controllers
             return View(turnos);
         }
 
-        // GET: Turnos/Create
-        public IActionResult Create()
+
+		public String obtenerPerros(String mail)
+		{
+			 int idDueño = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+            var perrosUsuario = _context.Perros.Where(c => c.IdDueño == idDueño && c.Estado==true).ToList();
+            Console.Write(perrosUsuario.Count());
+			return JsonSerializer.Serialize(perrosUsuario);
+		}
+
+        public IActionResult obtenerEventos(String mail)
+		{
+			int idDueño = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+			int? rol = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.IdRol).First();
+			
+			if (rol == 1) {
+				List<Turnos> turnosAux = _context.Turnos.ToList();
+
+				
+				return Json(new { admin = true, turnos= JsonSerializer.Serialize(turnosAux) });
+			}
+            else
+            {
+				List<Turnos> turnoAux = _context.Turnos.Where(t =>  idDueño == t.Dueno).ToList();
+                
+			
+                return Json(new { admin = false, turnos = JsonSerializer.Serialize(turnoAux) });
+			}
+			
+		}
+
+
+        [HttpPost]
+        public IActionResult cargarTurno(String mail,DateTime fecha, List<String> perros, String motivo,int horario)
+        {
+			Turnos turno = new Turnos();
+			turno.Estado = 3;
+			turno.Motivo = motivo;
+			turno.Dueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+			turno.Fecha = fecha;
+			turno.Horario = (horario == 0) ? 1 : 2;
+			_context.Turnos.Add(turno);
+			_context.SaveChanges();
+            
+			int id_Turno = _context.Turnos.Max(i=>i.Id); // Retrieve the generated ID from the newly inserted Turnos record
+
+			perros.ForEach(perro => {
+				PerroTurnos turnoPerro = new PerroTurnos();
+				turnoPerro.Nombre = perro;
+				turnoPerro.IdTurno = id_Turno;
+                int? idPerro = _context.Perros
+                    .Where(m => m.IdDueño == turno.Dueno && m.Nombre == perro)?
+                    .Select(i => i.Id)
+                    .FirstOrDefault();
+                if (idPerro == 0) { 
+                turnoPerro.IdPerro = null; // Retrieve the ID of the Perro record
+                }
+                else
+                {
+					turnoPerro.IdPerro = idPerro;
+				}
+
+				_context.PerroTurnos.Add(turnoPerro);
+				
+			});
+			_context.SaveChanges();
+            Turnos turnoAux= new Turnos();
+            turnoAux.Estado=turno.Estado;
+            turnoAux.Motivo=turno.Motivo;
+            turnoAux.Dueno=turno.Dueno;
+			turnoAux.Fecha =turno.Fecha ;
+            turnoAux.Horario=turno.Horario;
+            turnoAux.Id = turno.Id;
+			return Json(new{asignado= JsonSerializer.Serialize(turnoAux)});
+        }
+
+		// GET: Turnos/Create
+		public IActionResult Create()
         {
             ViewData["Estado"] = new SelectList(_context.EstadoTurnos, "Id", "Id");
             return View();
@@ -122,7 +198,52 @@ namespace Aplicacion.Controllers
         }
 
         // GET: Turnos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public IActionResult rechazarTurno(int idTurno)
+        {
+
+			Turnos turno = _context.Turnos.Where(m => m.Id == idTurno).First();
+			turno.Estado = 2;
+			Turnos borrado = _context.Turnos.Where(m => m.Id == idTurno).First();
+			List<PerroTurnos> turnosPerrosBorrar = _context.PerroTurnos.Where(m => m.IdPerro == idTurno).ToList();
+			turnosPerrosBorrar.ForEach(turno =>
+			{
+				_context.PerroTurnos.Remove(turno);
+			});
+			_context.SaveChanges();
+			_context.Turnos.Remove(borrado);
+			_context.SaveChanges();
+			turno.Id = 0;
+			
+			_context.Turnos.Add(turno);
+			_context.SaveChanges();
+
+			return Json(true);
+        }
+
+		[HttpPost]
+		public IActionResult aceptarTurno(int idTurno)
+		{
+            Turnos turno = _context.Turnos.Where(m => m.Id == idTurno).First();
+            turno.Estado = 1;
+            Turnos borrado= _context.Turnos.Where(m => m.Id == idTurno).First();
+			List<PerroTurnos> turnosPerrosBorrar = _context.PerroTurnos.Where(m => m.IdPerro == idTurno).ToList();
+			turnosPerrosBorrar.ForEach(turno =>
+			{
+				_context.PerroTurnos.Remove(turno);
+			});
+			_context.SaveChanges();
+			_context.Turnos.Remove(borrado);
+			_context.SaveChanges();
+			turno.Id = 0;
+			_context.Turnos.Add(turno);
+
+            _context.SaveChanges();
+			return Json(true);
+		}
+
+
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Turnos == null)
             {

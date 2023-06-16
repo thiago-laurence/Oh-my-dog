@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Aplicacion.Models;
 
-public partial class PerroTurno
+public partial class PerroTurnos
 {
     public int Id { get; set; }
 
@@ -11,5 +11,9 @@ public partial class PerroTurno
 
     public int? IdPerro { get; set; }
 
+    public int IdTurno { get; set; }
+
     public virtual Perros? IdPerroNavigation { get; set; }
+
+    public virtual Turnos IdTurnoNavigation { get; set; } = null!;
 }

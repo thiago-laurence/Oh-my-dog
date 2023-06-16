@@ -167,7 +167,7 @@ namespace Aplicacion.Controllers
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
                         client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("753b469e9e376d", "06af1e23c346ae");
+                        client.Authenticate("7472fca358e9d7", "06af1e23c346ae");
                         client.Send(message);
                         client.Disconnect(true);
                     }

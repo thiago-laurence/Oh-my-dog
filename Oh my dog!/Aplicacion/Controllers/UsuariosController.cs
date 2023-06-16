@@ -32,7 +32,7 @@ namespace Aplicacion.Controllers
         // GET: Usuarios
 
         // Variable para indicar la cantida a mostrar por la paginacion
-        private int cantidadDeRegistros = 3;
+        private int cantidadDeRegistros = 15;
         public async Task<IActionResult> Index()
         {
             ViewBag.ActiveView = "IndexClientes";
@@ -200,8 +200,8 @@ namespace Aplicacion.Controllers
             user.Estado = 1;
             user.IdRol = 2;
             user.Pass = GeneradorRandomContrasena();
-			_ = EnviarCorreoUsuario(user);
-            _context.Add(user);
+			await EnviarCorreoUsuario(user);
+            _context.Usuarios.Add(user);
             await _context.SaveChangesAsync();
 
             return (Json(new { success = true, message = "Un nuevo cliente ha sido registrado con éxito!" }));
@@ -354,7 +354,9 @@ namespace Aplicacion.Controllers
             return (password.ToString());
         }
 
-		public async Task EnviarCorreoUsuario(Usuarios destinatario)
+  
+
+        public async Task EnviarCorreoUsuario(Usuarios destinatario)
 		{
             await Task.Run(() =>
             {
@@ -387,7 +389,7 @@ namespace Aplicacion.Controllers
 						
 
 						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("753b469e9e376d", "06af1e23c346ae");
+                        client.Authenticate("7472fca358e9d7", "4a53ab261e38ad");
                         client.Send(message);
                         client.Disconnect(true);
                     }

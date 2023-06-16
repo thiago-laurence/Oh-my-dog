@@ -25,7 +25,11 @@ public partial class Perros
 
     public DateTime FechaDeNacimiento { get; set; }
 
-    public virtual ICollection<PerroTurno> PerroTurnos { get; set; } = new List<PerroTurno>();
+    public int? IdDueño { get; set; }
+
+    public virtual Usuarios? IdDueñoNavigation { get; set; }
+
+    public virtual ICollection<PerroTurnos> PerroTurnos { get; set; } = new List<PerroTurnos>();
 
     public virtual ICollection<Publicacion> Publicacions { get; set; } = new List<Publicacion>();
 

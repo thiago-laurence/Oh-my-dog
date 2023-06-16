@@ -15,5 +15,11 @@ public partial class Turnos
 
     public int Dueno { get; set; }
 
+    public int Horario { get; set; }
+
     public virtual EstadoTurno EstadoNavigation { get; set; } = null!;
+
+    public virtual HorarioTurno HorarioNavigation { get; set; } = null!;
+
+    public virtual ICollection<PerroTurnos> PerroTurnos { get; set; } = new List<PerroTurnos>();
 }

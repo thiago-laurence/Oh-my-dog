@@ -155,7 +155,7 @@
                         <ul class="list-group list-group-flush">
                             @foreach (var modalidad in item.ModalidadCuidadors)
                             {
-                                <li class="list-group-item">@modalidad.IdModalidadNavigation.Nombre</li>
+                                <li class="list-group-item">@((modalidad.IdModalidad == 1) ? "Ir a domicilio" : "En el hogar")</li>
                             }
                         </ul>
                     }

@@ -261,7 +261,7 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult ContactarPaseador(string remitente, string asunto, string contenido, string destinatario)
         {
-            _ = EnviarCorreo(remitente, asunto, contenido, destinatario);
+             _ = EnviarCorreo(remitente, asunto, contenido, destinatario);
             
             return (Json(new { success = true, message = "El correo fue enviado al paseador con éxito!" }));
         }
@@ -300,8 +300,8 @@ namespace Aplicacion.Controllers
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
                         client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-						client.Authenticate("753b469e9e376d", "06af1e23c346ae");
-						client.Send(message);
+                        client.Authenticate("7472fca358e9d7", "4a53ab261e38ad");
+                        client.Send(message);
                         client.Disconnect(true);
                     }
 
