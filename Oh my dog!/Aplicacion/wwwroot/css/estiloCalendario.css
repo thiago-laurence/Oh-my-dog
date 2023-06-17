@@ -1,4 +1,4 @@
-﻿.ftco-section {
+.ftco-section {
   padding: 7em 0; }
 
 .ftco-no-pt {
@@ -279,7 +279,13 @@ select option[value=""], select:invalid{
     background: #add8e6;
     color: #fff;
 }
-  .event-date:after {
+  
+
+.active-date {
+    background: #FFD580;
+    color: #fff;
+}
+ .color-turno {
     position: absolute;
     top: 0;
     left: 0;
@@ -287,12 +293,33 @@ select option[value=""], select:invalid{
     height: 10px;
     border-radius: 50%;
     content: '';
-    background: #28a745;}
+    background: #28a745;
 
-.active-date {
-    background: #FFD580;
-    color: #fff;
+  }
+
+.color-turno2 {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    content: '';
+    background: #28a745;
 }
+
+.color-turno3 {
+   
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    content: '';
+    background: #28a745;
+}
+
 
 .event-date.active-date {
   background:#add8e6 }
