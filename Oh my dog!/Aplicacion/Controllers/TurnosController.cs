@@ -58,8 +58,17 @@ namespace Aplicacion.Controllers
 		{
 			int idDueño = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
 			int? rol = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.IdRol).First();
-			DateTime fechaActual = DateTime.Now;
-           
+			DateTime fechaActual = DateTime.Now.Date;
+            //Si quedaron pendientes los cancelo
+            List<Turnos> turnosActualizar=_context.Turnos.Where(i => i.Fecha < fechaActual && i.Estado==3).ToList();
+            turnosActualizar.ForEach(turnoBorrar => {
+                turnoBorrar.Estado = 2;
+			});
+            //borrarMañana();
+            borrarTarde();
+            
+            _context.SaveChanges();
+
 			if (rol == 1) {
 
                 var turnosAux = _context.Turnos
@@ -122,7 +131,8 @@ namespace Aplicacion.Controllers
 			turno.Dueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
 			turno.Fecha = fecha;
 			turno.Horario = (horario == 0) ? 1 : 2;
-			_context.Turnos.Add(turno);
+            if (_context.Turnos.Where(i => i.Fecha == fecha.Date && i.Dueno == turno.Dueno).Count() == 0) { 
+            _context.Turnos.Add(turno);
 			_context.SaveChanges();
 			int id_Turno = _context.Turnos.Max(i=>i.Id); // Retrieve the generated ID from the newly inserted Turnos record
 
@@ -163,8 +173,12 @@ namespace Aplicacion.Controllers
              Nombre = pt.Nombre,
          }).ToList()
         }).OrderBy(i=>i.Id).Last();
-			return Json(new{asignado= JsonSerializer.Serialize(turnoAux)});
-        }
+		return Json(new{asignado= JsonSerializer.Serialize(turnoAux), obtenido=true});
+			}else
+            {
+                return Json(new { obtenido = false });
+            }
+		}
 
 		// GET: Turnos/Create
 		public IActionResult Create()
@@ -269,6 +283,47 @@ namespace Aplicacion.Controllers
 
             return Json(new { turno = JsonSerializer.Serialize(turno) });
         }
+
+
+
+		[HttpPost]
+		public IActionResult borrarMañana()
+        {
+			DateTime fechaActual = DateTime.Now.Date;
+            //Si quedaron pendientes los cancelo
+            int horaMan = DateTime.Now.Hour;
+			if (horaMan > 12) { 
+				List<Turnos> turnosActualizar = _context.Turnos.Where(i => i.Fecha == fechaActual && i.Estado == 3 && i.Horario==1).ToList();
+			turnosActualizar.ForEach(turnoBorrar => {
+				turnoBorrar.Estado = 2;
+			});
+				_context.SaveChanges();
+			}
+			
+			return Json(true);
+
+        }
+        [HttpPost]
+		public IActionResult borrarTarde()
+		{
+			DateTime fechaActual = DateTime.Now.Date;
+            int horaTarde =  DateTime.Now.Hour;
+			if (horaTarde> 19)
+            //Si quedaron pendientes los cancelo
+            {
+                List<Turnos> turnosActualizar = _context.Turnos.Where(i => i.Fecha == fechaActual && i.Estado == 3 && i.Horario == 2).ToList();
+                turnosActualizar.ForEach(turnoBorrar =>
+                {
+                    turnoBorrar.Estado = 2;
+                });
+
+                _context.SaveChanges();
+            }
+                return Json(true);
+
+		}
+
+
 
 		[HttpPost]
 		public IActionResult aceptarTurno(int idTurno, String comentario, String horario)

@@ -173,11 +173,11 @@ else
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="text" maxlength="20" class="form-control" readonly id="fechaPendiente" required>
+						<input type="date" maxlength="20" class="form-control" readonly id="fechaPendiente" required>
 
 					</div>
 					<div class="col-md-6">
-						<label class="form-label">Horario solicitado</label>
+						<label class="form-label">Franja solicitada</label>
 						<input type="text" maxlength="20" class="form-control"readonly id="horarioPendiente" required>
 
 					</div>
@@ -669,14 +669,14 @@ else
 
 				if ((($("#label.year").html() == date.getFullYear())
 					&& (meses[($(".active-month").html())] == date.getMonth()))
-					&& (parseInt($(".active-date").html()) == date.getDate()) && (date.getHours() >=17)){
+					&& (parseInt($(".active-date").html()) == date.getDate()) && (date.getHours() >=20)){
 					$("#add-button").addClass("d-none");
 					return;
 				}
 
 				if ((($("#label.year").html() == date.getFullYear())
 					&& (meses[($(".active-month").html())] == date.getMonth()))
-					&& (parseInt($(".active-date").html()) == date.getDate()) && (date.getHours()>=8)) {
+					&& (parseInt($(".active-date").html()) == date.getDate()) && (date.getHours()>=13)) {
 					$("#franjaMañana").prop("disabled", true);
 					$("#horario").prop("selectedIndex", 1);
 
@@ -896,28 +896,39 @@ else
 						type: 'POST',
 						dataType: 'json',
 						data: { mail: emailUsuario, fecha: fechaIso, perros: nombrePerros, motivo: motive,horario:horarioSel }, // Enviar los datos al controlador
-						
-						success: function (data) {
-							var turno=JSON.parse(data.asignado);
+
+					success: function (data) {
+						if (data.asignado) {
+							var turno = JSON.parse(data.asignado);
 							event_data["events"].push(turno);
-						var seleccion = $("#horario").prop("selectedIndex");
-						document.getElementById('form-turnos').reset();
-						$("#horario").prop("selectedIndex", seleccion);
-						for (var i = $(".mascota").length; i >= 1; i--) {
-							($("#mascota" + i).remove());
-						}
-						
-						$("#dialog").hide(250);
-						
-						asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
-						enviarButtonContacto.disabled = true;
-						agregarCamposMascota();
-						$(".events-container").show();
-						date.setDate(day);
-						init_calendar(date);
-							
+							var seleccion = $("#horario").prop("selectedIndex");
+							document.getElementById('form-turnos').reset();
+							$("#horario").prop("selectedIndex", seleccion);
+							for (var i = $(".mascota").length; i >= 1; i--) {
+								($("#mascota" + i).remove());
+							}
+
+							$("#dialog").hide(250);
+
+							asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
+							enviarButtonContacto.disabled = true;
+							agregarCamposMascota();
+							$(".events-container").show();
+							date.setDate(day);
+							init_calendar(date);
+
 							//new_event_json(name, count, date, day);
-						},
+						}
+						else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Ya tiene un turno para la fecha'
+							});
+						}
+
+
+								},
 						error: function (xhr, status, error) {
 							Swal.fire({
 								icon: 'error',
@@ -1062,7 +1073,7 @@ else
 			$(".events-container").append(event_card);
 			for (var i = 0; i < aceptados.length; i++) {
 				var event_card = $("<div class='event-card d-none tarjeta-aceptado'></div>");
-				alert(aceptados[i].HorarioFinal)
+	
 				var event_name = $("<div class='event-name'>El cliente " + aceptados[i].Cliente + " tiene un turno aceptado en la franja " + aceptados[i].HorarioFinal + "</div>");
 				
 				$(event_card).css({
@@ -1229,11 +1240,19 @@ else
 				$("#detalleRechazado").modal("show");
 			}
 			else{
-				alert(idTurno)
+				
 				$("#rechazar-button").attr("data-id-turno",idTurno);
 				$("#aceptar-button").attr("data-id-turno", idTurno);
 				$("#horarioPendiente").val(turno[0].Horario);
-				
+				$("#comentario").removeClass("is-valid");
+				$("#comentario").removeClass("is-invalid");
+				$("#horarioFinalPendiente").removeClass("is-valid");
+				$("#horarioFinalPendiente").removeClass("is-invalid");
+				$('#horarioFinalPendiente').val('');
+				$('#comentario').val('');
+				$("#rechazar-button").attr("disabled",true);
+				$("#aceptar-button").attr("disabled",true);
+
 				var perrosAfectados="";
 				$.each(turno[0].PerrosDelTurno, function (index, perroTurno) {
 
@@ -1261,14 +1280,8 @@ else
 				$("#mascotasPendiente").val(perrosAfectados);
 				$("#motivoPendiente").val(turno[0].Motivo);
 				$("#mailPendiente").val(turno[0].Cliente);
-				var fechaLocal = new Date(turno[0].Fecha.substr(0, 10));
-				var day = ("0" + fechaLocal.getDate()).slice(-2);
-				var month = ("0" + (fechaLocal.getMonth() + 1)).slice(-2);
-				var today = fechaLocal.getFullYear() + "-" + (month) + "-" + (day);
-
-				
-
-				$("#fechaPendiente").val(fechaLocal.toLocaleDateString());
+			
+				$("#fechaPendiente").val(turno[0].Fecha.substr(0, 10));
 
 				$("#detallePendiente").modal("show");
 			}
@@ -1320,6 +1333,7 @@ else
 					var rechazado = JSON.parse(data.turno);
 					turno[0].Id = rechazado.Id;
 					var date = new Date(turno[0].Fecha.substr(0, 10));
+					date.setDate(date.getDate()+1);
 					var day = parseInt($(".active-date").html());
 					date.setDate(day);
 					init_calendar(date);
@@ -1383,6 +1397,7 @@ else
 		function esMayor(horario1, horario2) {
 			return horario1 > horario2;
 		}
+
 		function llamador(fecha1,fecha2){
 
 			setTimeout(function () {
@@ -1399,19 +1414,24 @@ else
 				$("#aceptar-button").prop("disabled", true);
 			}
 		}
-
+		//Toca revisar
 		$("#horarioFinalPendiente").on('change', function verificarHorario() {
 			var horarioUsuario = document.getElementById("horarioFinalPendiente").value;
 			var horarioActual = obtenerHorarioActual();
 			var idTurno = $("#aceptar-button").data("id-turno");
+			
+			
+			
 			var turno = event_data["events"].filter(m => m.Id == idTurno);
-			var fecha1 = new Date();
-			var fecha2 = new Date();
+
+
+			var fecha1 = new Date(Date.now());
+			var fecha2 = new Date(turno[0].Fecha.substr(0, 10));
+			fecha2.setDate(fecha2.getDate()+1);
 			fecha1.setHours(parseInt(horarioActual.split(':')[0]), parseInt(horarioActual.split(':')[1]), 0, 0);
 			fecha2.setHours(parseInt(horarioUsuario.split(':')[0]), parseInt(horarioUsuario.split(':')[1]),0, 0);
-		
 			if (turno[0].Horario == 'Mañana (8 a 13 hs)'){
-				if (esMayor(horarioUsuario, horarioActual) && esMayor(horarioUsuario,'07:59') && esMayor('13:01',horarioUsuario)) {
+				if ((fecha2.getTime()>=fecha1.getTime()) && esMayor(horarioUsuario,'07:59') && esMayor('13:01',horarioUsuario)) {
 					$("#horarioFinalPendiente").addClass('is-valid')
 					$("#horarioFinalPendiente").removeClass('is-invalid');
 					llamador(fecha1, fecha2);
@@ -1419,7 +1439,7 @@ else
 					$("#horarioFinalPendiente").removeClass('is-valid'); 
 					$("#horarioFinalPendiente").addClass('is-invalid')
 				}
-			} else if (esMayor(horarioUsuario, horarioActual) && esMayor(horarioUsuario, '16:59') && esMayor('20:01', horarioUsuario)) {
+			} else if ((fecha2.getTime() >= fecha1.getTime()) && esMayor(horarioUsuario, '16:59') && esMayor('20:01', horarioUsuario)) {
 				$("#horarioFinalPendiente").addClass('is-valid')
 				$("#horarioFinalPendiente").removeClass('is-invalid')
 				llamador(fecha1, fecha2);
@@ -1460,7 +1480,7 @@ else
 					var aceptado=JSON.parse(data.turno);
 					turno[0].Id=aceptado.Id;
 					var date = new Date(turno[0].Fecha.substr(0, 10));
-					
+					date.setDate(date.getDate()+1);
 					var day = parseInt($(".active-date").html());
 					date.setDate(day);
 					init_calendar(date);
@@ -1475,8 +1495,119 @@ else
 			});
 			}
 
-		
+		function borrarMañana() {
+			// Aquí colocas el código del método que deseas ejecutar a las 13:00
+
+			$.ajax({
+				url: '@Url.Action("borrarMañana", "Turnos")',
+				type: 'POST',
+				async: false,
+				dataType: 'json',
+				data: {}, // Enviar los datos al controlador
+				success: function (data) {
+					let timerInterval
+					Swal.fire({
+						title: 'Actualizando horarios y turnos',
+						icon: 'warning',
+						timer: 5000,
+						timerProgressBar: true,
+						willClose: () => {
+							clearInterval(timerInterval)
+						}
+					}).then((result) => {
+						/* Read more about handling dismissals below */
+						location.reload();
+					})
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Ocurrio un erorr!'
+					})
+				}
+			});
+			location.reload();
+		}
+
+		function planificarBorrarMañana() {
+			var ahora = new Date();
+			var horaDeseada = new Date();
+
+			// Establecer la hora deseada en 13:00 (1:00 PM)
+			horaDeseada.setHours(13, 00, 0, 0);
+
+			var tiempoRestante = horaDeseada.getTime() - ahora.getTime();
+
+			if (tiempoRestante <= 0) {
+				// La hora deseada ya ha pasado, ejecutar el método inmediatamente
+				//
+			} else {
+				// Planificar la ejecución del método usando setTimeout
+				setTimeout(borrarMañana, tiempoRestante);
+			}
+		}
+
+		// Llamar a la función planificarEjecucion para iniciar el proceso de planificación
 
 
+
+
+		function ejecutarBorradoTarde() {
+			// Aquí colocas el código del método que deseas ejecutar a las 13:00
+
+			$.ajax({
+				url: '@Url.Action("borrarTarde", "Turnos")',
+				type: 'POST',
+				async: false,
+				dataType: 'json',
+				data: {}, // Enviar los datos al controlador
+				success: function (data) {
+					let timerInterval
+					Swal.fire({
+						title: 'Actualizando horarios y turnos',
+						icon: 'warning',
+						timer: 5000,
+						timerProgressBar: true,
+						willClose: () => {
+							clearInterval(timerInterval)
+						}
+					}).then((result) => {
+						/* Read more about handling dismissals below */
+						location.reload();
+					})
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Ocurrio un erorr!'
+					})
+				}
+			});
+			
+		}
+
+		function planificarBorradoTarde() {
+			var ahora = new Date();
+			var horaDeseada = new Date();
+
+			// Establecer la hora deseada en 13:00 (1:00 PM)
+			horaDeseada.setHours(20, 0, 0, 0);
+
+			var tiempoRestante = horaDeseada.getTime() - ahora.getTime();
+
+			if (tiempoRestante <= 0) {
+				// La hora deseada ya ha pasado, ejecutar el método inmediatamente
+				//
+			} else {
+				// Planificar la ejecución del método usando setTimeout
+				setTimeout(ejecutarBorradoTarde, tiempoRestante);
+			}
+		}
+
+		// Llamar a la función planificarEjecucion para iniciar el proceso de planificación
+		planificarBorrarMañana();
+		planificarBorradoTarde();
 	</script>
 }
