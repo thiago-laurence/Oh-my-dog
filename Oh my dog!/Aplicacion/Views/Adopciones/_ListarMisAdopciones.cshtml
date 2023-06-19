@@ -1,0 +1,385 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Aplicacion.Models.AdopcionViewModel
+@{
+
+    Layout = "_Layout";
+    var anteriorDeshabilitado = !Model.Paginacion.PaginasAnteriores ? "disabled" : "";
+    var siguienteDeshabilitado = !Model.Paginacion.PaginasSiguientes ? "disabled" : "";
+    var filtroActual = "";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+    .huella-img {
+        width: 3rem;
+        height: 3rem;
+        transform: translateY(-0.4rem);
+    }
+
+    .btn-custom {
+        background-color: #59a1ab;
+        color: white;
+        border-color: #59a1ab;
+    }
+
+    .btn-custom:hover {
+        background-color: #41767d;
+        color: white;
+        border-color: #41767d;
+    }
+
+    .card-adoptado {
+        background-color: #D9F7F4;
+    }
+
+</style>
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">Mis adopciones <img class="huella-img" src="~/img/listadoAdopciones-icon.png" /></h1>
+    <p style="margin-bottom: 0px;">
+        ¡Aqui puedes ver todas tus adopciones publicadas así como también podrás modificar, eliminar y marcar como adoptado al canino de tu publicacion!
+    </p>
+</div>
+@if (Model.Paginacion.Count() == 0)
+{
+    <div class="text-center alert alert-info mt-5 mb-5" role="alert">
+        <h3>
+            @if (Model.Origen)
+            {
+                <p>No existen adopciones coincidentes con la busqueda!</p>
+            }
+            else
+            {
+                <p>¡Todavia no tienes ninguna adopción publicada para visualizar!</p>
+            }
+
+        </h3>
+    </div>
+}
+<div class="container">
+    <div class="row">
+        @foreach (var adopcion in Model.Paginacion)
+        {
+            <div class="col-md-3">
+                <div class="container-card">
+                    <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
+                        <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                        <div class="card-body">
+                            <h5 class="card-title text-center nombre">@adopcion.Nombre @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
+                            <p class="card-text"><strong>Email del publicador:</strong> @adopcion.Email</p>
+                            <p class="card-text tamano"><strong>Tamaño:</strong> @adopcion.Tamano</p>
+                            <p class="card-text raza"><strong>Raza:</strong> @adopcion.Raza</p>
+                            <p class="card-text sexo"><strong>Sexo:</strong> @adopcion.Sexo</p>
+                            <p class="card-text color"><strong>Color:</strong> @adopcion.Color</p>
+                            <p class="card-text descripcion"><strong>Descripción:</strong> @adopcion.Descripcion</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <div class="d-flex gap-3">                               
+                                @if (adopcion.Estado == 0)
+                                {
+                                    <button class="btn btn-custom adoptar-btn" data-adopcion-id="@adopcion.Id" data-toggle="tooltip" data-placement="top" title="Marcar como Adoptado">
+                                        <i class="bi bi-house-add"></i>
+                                    </button>
+                                    <button class="btn btn-warning modificar-btn" data-toggle="tooltip" data-placement="top" title="Modificar">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                }                              
+                                @if (adopcion.Baja == 0)
+                                {
+                                    <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Modal de modificación -->
+<div class="modal fade" id="ModalModificar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="bi bi-pencil-square"></i>
+                    Edicion datos de la adopcion
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row needs-validation" novalidate id="formEditarAdopcion">
+                    <input type="hidden" id="adopcion-id" />
+                    <input type="hidden" id="email" value="@User.FindFirstValue("Email")"/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="Nombre">
+                        </div>
+                    </div>                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sexo">Sexo:</label>
+                                <select class="form-control" id="sexo" name="sexo" required>
+                                    <option value="Macho">Macho</option>
+                                    <option value="Hembra">Hembra</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tamano">Tamaño:</label>
+                                <select class="form-control" id="tamano" name="tamano" required>
+                                    <option value="Pequeño">Pequeño</option>
+                                    <option value="Mediano">Mediano</option>
+                                    <option value="Grande">Grande</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="raza">Raza:</label>
+                                <input type="text" class="form-control" id="raza" name="raza" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="color">Color:</label>
+                                <input type="text" class="form-control" id="color" name="color" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                        </div>
+                    </div>            
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarContacto">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Modificar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+<!-- Scripts Section -->
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+@*<script src="~/js/bootstrap.bundle.min.js"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    $(document).ready(function () {
+        window.addEventListener('load', function () {
+            capitalizarNombresPerros();
+        });
+
+        function capitalizarNombresPerros() {
+            var cardsAdopcion = document.querySelectorAll('.card');
+
+            cardsAdopcion.forEach(function (card) {
+                var nombrePerroElemento = card.querySelector('.card-body .nombre');
+
+                var nombrePerro = nombrePerroElemento.textContent;
+
+                if (!nombrePerro.includes('ADOPTADO')) {
+                    var palabras = nombrePerro.split(' ');
+
+                    for (var i = 0; i < palabras.length; i++) {
+                        var palabra = palabras[i];
+
+                        palabras[i] = palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
+                    }
+
+                    nombrePerro = palabras.join(' ');
+                }
+
+                nombrePerroElemento.textContent = nombrePerro;
+            });
+        }
+        // Manejo del evento clic en el botón "Adoptar"
+        $('.adoptar-btn').click(function () {
+            var adopcionId = $(this).data('adopcion-id');
+            var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
+
+            Swal.fire({
+                title: '¿Quieres dar en adopción a esta mascota?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Enviar la solicitud AJAX para cambiar el estado a "Adoptado"
+                    $.ajax({
+                        url: '/Adopciones/Adoptar',
+                        type: 'POST',
+                        data: { id: adopcionId },
+                        success: function (response) {
+                            // Actualizar el estado en la tarjeta de adopción
+                           tarjetaAdopcion.find('.card-title').text("(ADOPTADO)");
+
+                            // Agregar una clase CSS para resaltar el cambio de estado
+                            tarjetaAdopcion.addClass('card-adoptado');
+
+                            // Quitar el boton Adoptar
+                            tarjetaAdopcion.find('.adoptar-btn').remove();
+                            tarjetaAdopcion.find('.modificar-btn').remove();
+
+                            // Mostrar el mensaje de éxito
+                            Swal.fire('¡Adopción realizada!', 'La mascota ha sido dada en adopción.', 'success');
+                        },
+                        error: function (error) {
+                            Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+        // Manejo del evento clic en el botón "Eliminar"
+        $('.eliminar-btn').click(function () {
+                var adopcionId = $(this).closest('.card').data('adopcion-id');
+                var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
+
+                Swal.fire({
+                    title: '¿Estás seguro de que deseas eliminar esta publicación?',
+                    text: 'Esta acción no se puede deshacer.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Enviar la solicitud AJAX para eliminar la publicación de la adopción
+                        $.ajax({
+                            url: '/Adopciones/BajaLogica',
+                            type: 'POST',
+                            data: { id: adopcionId },
+                            success: function (response) {
+                                // Eliminar la tarjeta de adopción del DOM
+                                tarjetaAdopcion.remove();
+
+                                // Mostrar el mensaje de éxito
+                                Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
+                            },
+                            error: function (error) {
+                                Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
+                            }
+                        });
+                    }
+                });
+        });
+        // Manejo del evento clic en el botón "Modificar"
+        $('.modificar-btn').click(function () {
+            var adopcionId = $(this).closest('.card').data('adopcion-id');
+            var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
+
+            // Obtener los datos de la adopción mediante una solicitud AJAX
+            $.ajax({
+                url: '/Adopciones/Obtener',
+                type: 'POST',
+                data: { id: adopcionId },
+                success: function (response) {
+                        
+                    // Rellenar el formulario con los datos de la adopción
+                    $('#adopcion-id').val(response.id);
+                    $('#nombre').val(response.nombre);
+                    $('#sexo').val(response.sexo);
+                    $('#raza').val(response.raza);
+                    $('#tamano').val(response.tamano);
+                    $('#color').val(response.color);
+                    $('#descripcion').val(response.descripcion);
+                    $('#ModalModificar').modal('show');
+                    // Mostrar el formulario
+                        
+                },
+                error: function (error) {
+                    Swal.fire('Error', 'Hubo un problema al obtener los datos de la adopción.', 'error');
+                }
+            });
+        });
+        // Manejo del evento de envío del formulario
+        $('#formEditarAdopcion').submit(function (event) {
+            event.preventDefault(); // Evitar la acción de envío predeterminada
+            var adopcionId = $(this).closest('.card').data('adopcion-id');
+            var tarjetaAdopcion = $(this).closest('.card');
+            // Obtener los datos del formulario
+            var adopcionId = $('#adopcion-id').val();
+            var email = $('#email').val();
+            var nombre = $('#nombre').val();
+            var sexo = $('#sexo').val();
+            var tamano = $('#tamano').val();
+            var raza = $('#raza').val();
+            var color = $('#color').val();
+            var descripcion = $('#descripcion').val();
+
+            // Crear un objeto con los datos a enviar
+            var data = {
+                id: adopcionId,
+                email: email,
+                nombre: nombre,
+                sexo: sexo,
+                raza:raza,
+                tamano: tamano,
+                color: color,
+                descripcion: descripcion
+            };
+
+            // Enviar la solicitud AJAX para guardar los cambios
+            $.ajax({
+                url: '/Adopciones/Editar',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    // Actualizar los datos en la tarjeta de adopción
+                    var card = $('.card[data-adopcion-id="' + response.adopcion.id + '"]');
+                    card.find('.card-body .nombre').text(response.adopcion.nombre);
+                    card.find('.card-body .sexo').html('<strong>Sexo:</strong> ' + response.adopcion.sexo);
+                    card.find('.card-body .raza').html('<strong>Raza:</strong> ' + response.adopcion.raza);
+                    card.find('.card-body .tamano').html('<strong>Tamaño:</strong> ' + response.adopcion.tamano);
+                    card.find('.card-body .color').html('<strong>Color:</strong> ' + response.adopcion.color);
+                    card.find('.card-body .descripcion').html('<strong>Descripcion:</strong> ' + response.adopcion.descripcion);
+
+                    //tarjetaAdopcion.find('.card-body .nombre').text(nombre);
+                    //tarjetaAdopcion.find('.card-body .sexo').text(response.adopcion.sexo);
+                    //tarjetaAdopcion.find('.raza').text(raza);
+                    //tarjetaAdopcion.find('.tamaño').text(tamano);
+                    //tarjetaAdopcion.find('.color').text(color);
+                    //tarjetaAdopcion.find('.descripcion').text(descripcion);
+
+                    // Ocultar el formulario
+                    $('#ModalModificar').modal('hide');
+
+                    if(response.error)
+                    {
+                            Swal.fire('No se pudo guardar los cambios', response.mensaje, 'warning');
+                    }
+                    else
+                    {
+                        // Mostrar el mensaje de éxito
+                        Swal.fire('¡Cambios guardados!', 'Los cambios han sido guardados correctamente.', 'success');
+                    }
+                   
+                },
+                error: function (error) {
+                    Swal.fire('Error', 'Error con la conexion a la base de datos', 'error');
+                }
+            });
+        });
+    });
+</script>
+}

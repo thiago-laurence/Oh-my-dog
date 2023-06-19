@@ -76,13 +76,10 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Foto)
-                .HasMaxLength(100)
-                .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.Peso)
+            entity.Property(e => e.Tamano)
                 .HasMaxLength(10)
                 .IsUnicode(false);
             entity.Property(e => e.Raza)

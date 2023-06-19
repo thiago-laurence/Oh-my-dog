@@ -11,11 +11,9 @@ public partial class Adopciones
 
     public string Nombre { get; set; } = null!;
 
-    public string Peso { get; set; } = null!;
+    public string Tamano { get; set; } = null!;
 
     public string Sexo { get; set; } = null!;
-
-    public string Foto { get; set; } = null!;
 
     public string Raza { get; set; } = null!;
 
@@ -24,4 +22,6 @@ public partial class Adopciones
     public string Descripcion { get; set; } = null!;
 
     public int Estado { get; set; }
+
+    public int Baja { get; set; }
 }
