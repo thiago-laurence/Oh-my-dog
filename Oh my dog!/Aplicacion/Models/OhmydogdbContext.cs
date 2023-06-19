@@ -59,7 +59,7 @@ public partial class OhmydogdbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; integrated security=true; trust server certificate=true;");
+        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; integrated security=true; trustservercertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -290,7 +290,13 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Turnos>(entity =>
         {
+            entity.Property(e => e.Comentario)
+                .HasMaxLength(200)
+                .IsUnicode(false);
             entity.Property(e => e.Fecha).HasColumnType("date");
+            entity.Property(e => e.HorarioFinal)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.Motivo)
                 .HasMaxLength(50)
                 .IsUnicode(false);

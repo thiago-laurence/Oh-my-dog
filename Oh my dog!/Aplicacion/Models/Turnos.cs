@@ -17,6 +17,10 @@ public partial class Turnos
 
     public int Horario { get; set; }
 
+    public string? HorarioFinal { get; set; }
+
+    public string? Comentario { get; set; }
+
     public virtual EstadoTurno EstadoNavigation { get; set; } = null!;
 
     public virtual HorarioTurno HorarioNavigation { get; set; } = null!;

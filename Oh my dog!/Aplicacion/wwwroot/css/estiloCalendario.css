@@ -307,6 +307,9 @@ select option[value=""], select:invalid{
     background: #28a745;
 }
 
+.alinearDerecha{
+    margin-left:auto;
+}
 .color-turno3 {
    
     position: absolute;

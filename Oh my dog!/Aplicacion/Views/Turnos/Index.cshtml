@@ -135,7 +135,6 @@
 
 	</section>
 }
-	
 else
 {
 	<div class="container d-flex align-items-center justify-content-center">
@@ -153,103 +152,71 @@ else
 			<div class="modal-header">
 				<h1 class="modal-title fs-5" id="staticBackdropLabel">
 					<i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
-					Registrar nuevo cuidador
+					Turno pendiente
 				</h1>
 				<!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
 			</div>
 			<div class="modal-body">
-				<form autocomplete="off" class="row g-3 needs-validation" novalidate id="formNuevoCliente">
+				<div autocomplete="off" class="row g-3" novalidate id="formTurnoPendiente">
 					<div class="col-md-12">
-						<label class="form-label">Email</label>
+						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control" id="nuevoEmail" aria-describedby="inputGroupPrepend" required>
-							<div class="invalid-feedback">
-								Ingrese un email válido (con @@)!
-							</div>
+							<input type="email" maxlength="50" class="form-control"readonly id="mailPendiente" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label class="form-label">Nombre</label>
-						<input type="text" maxlength="20" class="form-control" id="nuevoNombre" required>
-						<div class="invalid-feedback">
-							Ingrese un nombre!
-						</div>
+					
+					<div class="col-md-12">
+						<label class="form-label">Mascotas</label>
+						<input type="text" maxlength="20" class="form-control" readonly id="mascotasPendiente" required>
+						
 					</div>
 					<div class="col-md-6">
-						<label class="form-label">Apellido</label>
-						<input type="text" maxlength="20" class="form-control" id="nuevoApellido" required>
+						<label class="form-label">Fecha solicitada</label>
+						<input type="text" maxlength="20" class="form-control" readonly id="fechaPendiente" required>
+
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Horario solicitado</label>
+						<input type="text" maxlength="20" class="form-control"readonly id="horarioPendiente" required>
+
+					</div>
+
+				
+					
+					<div class="col-md-6">
+						<label class="form-label">Horario final</label>
+						<input type="time" maxlength="20" class="form-control"  id="horarioFinalPendiente" required>
 						<div class="invalid-feedback">
-							Ingresa un apellido!
+							Para aceptar el turno debe elegir un horario dentro de la franja horaria
 						</div>
+					</div>
+
+					<div class="col-md-12">
+						<label class="form-label">Motivo</label>
+						<input class="form-control" autocomplete="false" id="motivoPendiente" readonly maxlength="300" required>
+						
 					</div>
 					<div class="col-md-12">
-						<label class="form-label">Ubicación</label>
-						<input class="form-control" autocomplete="false" id="nuevoUbicacion" maxlength="300" required placeholder="Por ejemplo, calle 64 1544">
+						<label class="form-label">Comentarios</label>
+						<textarea class="form-control" autocomplete="false" value="" id="comentario"  maxlength="200"></textarea>
 						<div class="invalid-feedback">
-							Ingresa una dirección!
+							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
 					</div>
-					<div class="col-md-12">
-						<label class="form-label">Modalidad de trabajo</label> <br />
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="1" id="nuevoModalidad1" required>
-							<label class="form-check-label" for="flexCheckDefault">
-								Ir a domicilio
-							</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="2" id="nuevoModalidad2" required>
-							<label class="form-check-label" for="flexCheckChecked">
-								En el hogar
-							</label>
-							<div class="invalid-feedback">
-								Ingrese al menos una modalidad de trabajo!
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label class="form-label">Horario de comienzo</label>
-						<input type="time" class="form-control" id="nuevoHorarioIN" required>
-						<div class="invalid-feedback">
-							Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)!
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label class="form-label">Horario de fin</label>
-						<input type="time" class="form-control" id="nuevoHorarioOUT" required>
-					</div>
-					<div class="col-md-12">
-						<label class="form-label" for="nuevoUpload" value="">Foto (opcional)</label>
-						<input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="nuevoUpload" onchange="validateFileTypeNuevo()">
-						<div class="invalid-feedback">
-							La foto ingresada no es válida!
-						</div>
-					</div>
-					<div style="display: none;">
-						<input type="hidden" id="nuevaLatitud">
-						<input type="hidden" id="nuevaLongitud">
-					</div>
+					
 					<div class="modal-footer">
-						@if (!User.IsInRole("Administrador"))
-						{
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-						}
-						else
-						{
 							<div class="d-flex justify-content-center">
-								<button tpye="button" class="btn btn-success mb-3 activo" onclick="aceptarTurno()" id="aceptar-button" data-bs-dismiss="modal">Aceptar</button>
-								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" id="rechazar-button" data-bs-dismiss="modal">Rechazar</button>
-								
+								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" disabled id="rechazar-button" data-bs-dismiss="modal">Rechazar</button>
+								<button tpye="button" class="btn btn-success mb-3 activo" onclick="aceptarTurno()" disabled id="aceptar-button" data-bs-dismiss="modal">Aceptar</button>
 							</div>
-						}
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+<!--Fin modal Turno pendiente detalle-->
 
 
 
@@ -265,7 +232,7 @@ else
 				<!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
 			</div>
 			<div class="modal-body">
-				<form autocomplete="off" class="row g-3 needs-validation" id="form-turnos" novalidate data-usuario-mail="@User.FindFirstValue("email")">
+				<form autocomplete="off" class="row g-3" id="form-turnos" novalidate data-usuario-mail="@User.FindFirstValue("email")">
 
 					<button type="button" class="btn btn-primary" onclick="agregarCamposMascota()">Agregar mascota</button>
 					
@@ -284,8 +251,7 @@ else
 							<option id="franjaTarde">Tarde (17 a 20 hs)</option>
 						</select>
 					</div>
-
-
+					
 
 					<div class="col-md-12">
 						<label for="validationCustom01" class="form-label">Motivo</label>
@@ -314,6 +280,7 @@ else
 
 	<!--Por cada mascota se da la opcion de seleccionar de entre sus mascotas o ingresar una nueva. Máximo 5 mascotas-->
 	<script>
+
 		var container = $("#mascotas-dinamico");
 		function borrarCamposMascota(idBorrado){
 			if ($(".mascota").length >1){
@@ -558,8 +525,10 @@ else
 		//	Muestra la solicitud del turno
 			$('#ModalDatosTurno').modal('show');
 		});
+
+
 		
-		
+
 	</script>
 
 
@@ -569,8 +538,15 @@ else
 			"events": [
 
 			]
-		};	
-			 function cargar_eventos() {
+		};
+
+
+		
+
+
+
+
+		function cargar_eventos() {
 				var emailUsuario = $("section").data('usuario-mail');
 				$.ajax({
 					url: '@Url.Action("obtenerEventos", "Turnos")',
@@ -581,8 +557,9 @@ else
 					success: function (data) {
 						
 						if (data.admin) {
-
+							
 							var turnosAsignados = JSON.parse(data.turnos);
+							
 							event_data["events"].push(true);
 							$.each(turnosAsignados, function (index, turno) {
 								event_data["events"].push(turno);
@@ -627,6 +604,7 @@ else
 				"Nov": 10,
 				"Dic": 11
 			};
+
 			// Setup the calendar with the current date
 			$(document).ready( function () {
 				var date = new Date();
@@ -897,10 +875,12 @@ else
 					console.log("new event");
 					//Falta ajax. Hay que setear el turno para los que estàn registrados y agregar
 					var nombrePerros = [];
-					var valor = $("select[name=cantidadMascotas]").val();
+				var valor = $(".mascota").length;
 					for (i = 1; i <= valor; i++) {
 						var mascota = $("#mascota" + i + " select option:selected").val();
+						
 						if (mascota == 'Otra') {
+						
 							mascota = $("#mascota" + i + " div input").val();
 						}
 						nombrePerros.push(mascota);
@@ -988,55 +968,124 @@ else
 
 
 
-		function mostrarPendientes(events){
+		function mostrarPendientes(events) {
 			var pendientes = (events.filter(i => i.Estado == 3));
+
+			var event_card = $("<div class='event-card d-flex text-end'></div>");
+			var descripcion = $("<span class='align-self-center'>Eventos pendientes: " + pendientes.length + "</span>")
+			var button = $("<button class='btn  alinearDerecha' style='background-color:#e68a19;color:white' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
+			event_card.append(descripcion);
+			if (pendientes.length > 0) {
+				event_card.append(button);
+			}
+			$(".events-container").append(event_card);
 			for (var i = 0; i < pendientes.length; i++) {
-				var event_card = $("<div class='event-card'></div>");
-				var event_name = $("<div class='event-name'>" + pendientes[i].Motivo + ":</div>");
-				var event_count = $("<div class='event-count'>" + pendientes[i].Motivo + " Invited</div>");
+				var event_card = $("<div class='event-card d-none tarjeta-pendiente'></div>");
+				var event_name = $("<div class='event-name'>El cliente " + pendientes[i].Cliente + " ha solicitado un turno en la franja " + pendientes[i].Horario+"</div>");
+				
 				$(event_card).css({
 					"border-left": "10px solid #f1c232"
 				});
 				event_count = $("<div class='event-cancelled'>Pendiente</div>");
-				var event_button = $("<button class='btn btn-primary align-self-end'   onclick='verDetalle(" + pendientes[i].Id + ")' >Ver detalle</button>")
-				$(event_card).append(event_name).append(event_count);
-				$(event_card).append(event_button);
+				var event_button = $("<button class='btn btn-primary mt-2' onclick='verDetalle(" + pendientes[i].Id + ")'>Ver detalle</button>");
+				$(event_card).append(event_name);
+				
+				var contenedorBoton = $("<div class='d-flex justify-content-end'></div>");
+				$(contenedorBoton).append(event_button);
+				$(event_card).append(contenedorBoton);
+				
 				$(".events-container").append(event_card);
+				
+
 			}
+
+			button.on("click", function () {
+				$(".tarjeta-pendiente").toggleClass("d-none");
+				if (button.text() == "Mostrar") {
+					button.text("Ocultar");
+				} else {
+					button.text("Mostrar");
+				}
+			});
 		}
 
 		function mostrarRechazados(events){
 			var rechazados = (events.filter(i => i.Estado == 2));
+			var event_card = $("<div class='event-card d-flex text-end'></div>");
+			var descripcion = $("<span class='align-self-center'>Eventos rechazados: " + rechazados.length + "</span>")
+			var button = $("<button class='btn btn-secondary alinearDerecha'style='background-color:#e68a19;color:white' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
+			event_card.append(descripcion);
+			if (rechazados.length > 0) {
+				event_card.append(button);
+			}
+			$(".events-container").append(event_card);
 			for (var i = 0; i < rechazados.length; i++) {
-				var event_card = $("<div class='event-card'></div>");
-				var event_name = $("<div class='event-name'>" + rechazados[i].Motivo + ":</div>");
-				var event_count = $("<div class='event-count'>" + rechazados[i].Motivo + " Invited</div>");
+				var event_card = $("<div class='event-card d-none tarjeta-rechazado'></div>");
+				var event_name = $("<div class='event-name'>El cliente " + rechazados[i].Cliente + " tiene un turno rechazado en la franja " + rechazados[i].Horario +"</div>");
+				
 				$(event_card).css({
 					"border-left": "10px solid #FF1744"
 				});
 				event_count = $("<div class='event-cancelled'>Rechazado</div>");
-				var event_button = $("<button class='btn btn-primary align-self-end'  onclick='verDetalle(" + rechazados[i].Id + ")' >Ver detalle</button>")
-				$(event_card).append(event_name).append(event_count);
-				$(event_card).append(event_button);
+				var event_button = $("<button class='btn btn-primary align-self-end mt-2'  onclick='verDetalle(" + rechazados[i].Id + ")' >Ver detalle</button>")
+				$(event_card).append(event_name);
+
+				var contenedorBoton = $("<div class='d-flex justify-content-end'></div>");
+				$(contenedorBoton).append(event_button);
+				$(event_card).append(contenedorBoton);
 				$(".events-container").append(event_card);
+
+
 			}
+
+			button.on("click",function(){
+				$(".tarjeta-rechazado").toggleClass("d-none");
+				if(button.text()=="Mostrar"){
+				button.text("Ocultar");
+				}else
+				{
+					button.text("Mostrar");
+				}
+			});
+
 		}
 
 		function mostrarAceptados(events){
 			var aceptados = (events.filter(i => i.Estado == 1));
+			var event_card = $("<div class='event-card d-flex text-end'></div>");
+			var descripcion = $("<span class='align-self-center'>Eventos aceptados: " + aceptados.length + "</span>")
+			var button = $("<button class='btn btn-secondary alinearDerecha' type='button' style='background-color:#e68a19;color:white' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
+			event_card.append(descripcion);
+			if (aceptados.length > 0) {
+				event_card.append(button);
+			}
+			$(".events-container").append(event_card);
 			for (var i = 0; i < aceptados.length; i++) {
-				var event_card = $("<div class='event-card'></div>");
-				var event_name = $("<div class='event-name'>" + aceptados[i].Motivo + ":</div>");
-				var event_count = $("<div class='event-count'>" + aceptados[i].Motivo + " Invited</div>");
+				var event_card = $("<div class='event-card d-none tarjeta-aceptado'></div>");
+				alert(aceptados[i].HorarioFinal)
+				var event_name = $("<div class='event-name'>El cliente " + aceptados[i].Cliente + " tiene un turno aceptado en la franja " + aceptados[i].HorarioFinal + "</div>");
+				
 				$(event_card).css({
 					"border-left": "10px solid #6aa84f"
 				});
 				event_count = $("<div class='event-cancelled'>Aceptado</div>");
-				var event_button = $("<button class='btn btn-primary align-self-end'   onclick='verDetalle(" + aceptados[i].Id + ")' >Ver detalle</button>")
-				$(event_card).append(event_name).append(event_count);
-				$(event_card).append(event_button);
+				var event_button = $("<button class='btn btn-primary align-self-end mt-2'  onclick='verDetalle(" + aceptados[i].Id + ")' >Ver detalle</button>")
+				$(event_card).append(event_name);
+
+				var contenedorBoton = $("<div class='d-flex justify-content-end'></div>");
+				$(contenedorBoton).append(event_button);
+				$(event_card).append(contenedorBoton);
 				$(".events-container").append(event_card);
 			}
+			button.on("click",function(){
+				$(".tarjeta-aceptado").toggleClass("d-none");
+				if(button.text()=="Mostrar"){
+					button.text("Ocultar");
+				}else
+				{
+					button.text("Mostrar");
+				}
+			});
 
 		}
 
@@ -1109,32 +1158,59 @@ else
 
 					// Go through and add each event as a card to the events container
 					var event_card = $("<div class='event-card'></div>");
+					var event_name = $("<div> Motivo del turno: " + events[1].Motivo + "</div>");
+					var perrosAfectados="Perros: "
 
-					var event_name = $("<div class='event-name'>" + events[1].Motivo + ":</div>");
-					var event_count = $("<div class='event-count'>" + events[1].Motivo + " Invited</div>");
+					
+						$.each(events[1].PerrosDelTurno, function (index, perroTurno) {
+							
+						if(index+1<=events[1].PerrosDelTurno.length-2){
+								perrosAfectados += perroTurno.Nombre +", ";
+						
+						}else{
+							if (index + 1 == events[1].PerrosDelTurno.length-1){
+								perrosAfectados += perroTurno.Nombre + " y ";
+							}else{
+								perrosAfectados+=perroTurno.Nombre;
+							}
+						}
+
+					});
+					var event_Perros = $("<div>" + perrosAfectados + "</div>");
+					var event_Horario = $("<div>Horario elegido: " + events[1].Horario + "</div>");
+					var event_count;
+					var contenedorComentario= $("<div></div>");
+					var comentario;
 					if (events[1].Estado === 2) {
 						$(event_card).css({
 							"border-left": "10px solid #FF1744"
 						});
-						event_count = $("<div class='event-cancelled'>Cancelado</div>");
+						event_count = $("<div>Estado: cancelado</div>");
+						var comentario = $("<div>Comentario: " + events[1].Comentario+ "</div>");
+						contenedorComentario.append(comentario);
 					} else {
 						if (events[1].Estado == 1) {
 							$(event_card).css({
 								"border-left": "10px solid #6aa84f"
 							});
-							event_count = $("<div class='event-cancelled'>Aceptado</div>");
+							var event_Horario = $("<div>Horario elegido: " + events[1].HorarioFinal + "</div>");
+							event_count = $("<div>Estado: aceptado</div>");
+							var comentario = $("<div>Comentario: " + events[1].Comentario+ "</div>");
+							contenedorComentario.append(comentario);
 						} else {
 
 							$(event_card).css({
 								"border-left": "10px solid #f1c232"
 							});
-							event_count = $("<div class='event-cancelled'>Pendiente</div>");
+							event_count = $("<div>Estado: pendiente</div>");
 
 						}
 					}
-					var event_button = $("<button class='btn btn-primary align-self-end' onclick='verDetalle(" + events[1].Id + ")' >Ver detalle</button>")
-					$(event_card).append(event_name).append(event_count);
-					$(event_card).append(event_button);
+					//var event_button = $("<button class='btn btn-primary align-self-end' onclick='verDetalle(" + events[1].Id + ")' >Ver detalle</button>")
+					
+					
+					$(event_card).append(event_name).append(event_count).append(event_Perros).append(event_Horario).append(contenedorComentario);
+
 					$(".events-container").append(event_card);
 				}
 			}
@@ -1153,22 +1229,84 @@ else
 				$("#detalleRechazado").modal("show");
 			}
 			else{
+				alert(idTurno)
 				$("#rechazar-button").attr("data-id-turno",idTurno);
 				$("#aceptar-button").attr("data-id-turno", idTurno);
+				$("#horarioPendiente").val(turno[0].Horario);
+				
+				var perrosAfectados="";
+				$.each(turno[0].PerrosDelTurno, function (index, perroTurno) {
+
+					if (index + 1 <= turno[0].PerrosDelTurno.length - 2) {
+						perrosAfectados += perroTurno.Nombre + ", ";
+
+					} else {
+						if (index + 1 == turno[0].PerrosDelTurno.length - 1) {
+							perrosAfectados += perroTurno.Nombre + " y ";
+						} else {
+							perrosAfectados += perroTurno.Nombre;
+						}
+					}
+
+				});
+				if (turno[0].Horario == "Mañana (8 a 13 hs)"){
+					
+					$("#horarioFinalPendiente").attr("min", "08:00");
+				$("#horarioFinalPendiente").attr("max", "13:00");
+				} else {
+					$("#horarioFinalPendiente").attr("min","17:00");
+					$("#horarioFinalPendiente").attr("max","20:00");
+				}
+				
+				$("#mascotasPendiente").val(perrosAfectados);
+				$("#motivoPendiente").val(turno[0].Motivo);
+				$("#mailPendiente").val(turno[0].Cliente);
+				var fechaLocal = new Date(turno[0].Fecha.substr(0, 10));
+				var day = ("0" + fechaLocal.getDate()).slice(-2);
+				var month = ("0" + (fechaLocal.getMonth() + 1)).slice(-2);
+				var today = fechaLocal.getFullYear() + "-" + (month) + "-" + (day);
+
+				
+
+				$("#fechaPendiente").val(fechaLocal.toLocaleDateString());
+
 				$("#detallePendiente").modal("show");
 			}
 			
 		}
 
+		function validarRechazar(){
+			if($("#comentario").hasClass('is-valid')){
+				$("#rechazar-button").prop("disabled",false);
+			}else{
+				$("#rechazar-button").prop("disabled", true);
+			}
+		}
 
+		$("#comentario").on('keyup',function(){
+			if ($("#comentario").val()!=''){
+				$("#comentario").addClass('is-valid');
+				$("#comentario").removeClass('is-invalid');
+
+			} else
+			{
+				$("#comentario").addClass('is-invalid');
+				$("#comentario").removeClass('is-valid');
+			}
+			validarRechazar();
+		});
 
 		function rechazarTurno(){
 			$(".events-container").empty();
-			var idTurno=$("#rechazar-button").data("id-turno");
+			var idTurno = $("#rechazar-button").attr("data-id-turno");
 			var turno = event_data["events"].filter(m => m.Id == idTurno);
 			turno[0].Estado=2;
+			var horario = $("horarioFinalPendiente").val();
+			var comment = $("#comentario").val();
 			var index = event_data["events"].findIndex(el => el.Id === idTurno);
-			
+			turno[0].Comentario = comment;
+			turno[0].HorarioFinal= horario;
+			alert(comment);
 			event_data["events"][index]=turno[0];
 
 			$.ajax({
@@ -1176,10 +1314,12 @@ else
 				type: 'POST',
 				async: true,
 				dataType: 'json',
-				data: { idTurno: idTurno }, // Enviar los datos al controlador
+				data: { idTurno: idTurno, comentario:comment , horario : horario }, // Enviar los datos al controlador
 				success: function (data) {
 					$(".events-container").empty();
-					var date = new date(turno[0].Fecha.substr(0, 10));
+					var rechazado = JSON.parse(data.turno);
+					turno[0].Id = rechazado.Id;
+					var date = new Date(turno[0].Fecha.substr(0, 10));
 					var day = parseInt($(".active-date").html());
 					date.setDate(day);
 					init_calendar(date);
@@ -1231,26 +1371,96 @@ else
 			
 
 		});
+		
+
+		function obtenerHorarioActual() {
+			var fechaActual = new Date();
+			var hora = fechaActual.getHours().toString().padStart(2, "0");
+			var minutos = fechaActual.getMinutes().toString().padStart(2, "0");
+			return hora + ":" + minutos;
+		}
+
+		function esMayor(horario1, horario2) {
+			return horario1 > horario2;
+		}
+		function llamador(fecha1,fecha2){
+
+			setTimeout(function () {
+				$('#horarioFinalPendiente').trigger('change');
+			}, fecha2 - fecha1);
+		}
 
 
+		function validarAceptar(){
+			if ($("#horarioFinalPendiente").hasClass('is-valid')) {
+				
+				$("#aceptar-button").prop("disabled",false);
+			}else{
+				$("#aceptar-button").prop("disabled", true);
+			}
+		}
+
+		$("#horarioFinalPendiente").on('change', function verificarHorario() {
+			var horarioUsuario = document.getElementById("horarioFinalPendiente").value;
+			var horarioActual = obtenerHorarioActual();
+			var idTurno = $("#aceptar-button").data("id-turno");
+			var turno = event_data["events"].filter(m => m.Id == idTurno);
+			var fecha1 = new Date();
+			var fecha2 = new Date();
+			fecha1.setHours(parseInt(horarioActual.split(':')[0]), parseInt(horarioActual.split(':')[1]), 0, 0);
+			fecha2.setHours(parseInt(horarioUsuario.split(':')[0]), parseInt(horarioUsuario.split(':')[1]),0, 0);
+		
+			if (turno[0].Horario == 'Mañana (8 a 13 hs)'){
+				if (esMayor(horarioUsuario, horarioActual) && esMayor(horarioUsuario,'07:59') && esMayor('13:01',horarioUsuario)) {
+					$("#horarioFinalPendiente").addClass('is-valid')
+					$("#horarioFinalPendiente").removeClass('is-invalid');
+					llamador(fecha1, fecha2);
+				} else {
+					$("#horarioFinalPendiente").removeClass('is-valid'); 
+					$("#horarioFinalPendiente").addClass('is-invalid')
+				}
+			} else if (esMayor(horarioUsuario, horarioActual) && esMayor(horarioUsuario, '16:59') && esMayor('20:01', horarioUsuario)) {
+				$("#horarioFinalPendiente").addClass('is-valid')
+				$("#horarioFinalPendiente").removeClass('is-invalid')
+				llamador(fecha1, fecha2);
+			} else {
+				$("#horarioFinalPendiente").removeClass('is-valid');
+				$("#horarioFinalPendiente").addClass('is-invalid')
+			}
+			validarAceptar();
+
+			
+		});
 		function aceptarTurno() {
-			$(".events-container").empty();
-				var idTurno = $("#aceptar-button").data("id-turno");
+				
+			
+				$(".events-container").empty();
+				var idTurno = $("#aceptar-button").attr("data-id-turno");
 				
 				var turno = event_data["events"].filter(m => m.Id == idTurno);
 				turno[0].Estado = 1;
+			var horario = $("#horarioFinalPendiente").val();
+		
+			var comment = $("#comentario").val();
 				var index = event_data["events"].findIndex(el => el.Id === idTurno);
-				
+			turno[0].Comentario = comment;
+			turno[0].HorarioFinal = horario;
 				event_data["events"][index] = turno[0];
+				
+				
+				
 			$.ajax({
 				url: '@Url.Action("aceptarTurno", "Turnos")',
 				type: 'POST',
 				async: true,
 				dataType: 'json',
-				data: { idTurno: idTurno }, // Enviar los datos al controlador
+				data: { idTurno: idTurno, comentario:comment, horario:horario }, // Enviar los datos al controlador
 				success: function (data) {
 					$(".events-container").empty();
-					var date = new date(turno[0].Fecha.substr(0, 10));
+					var aceptado=JSON.parse(data.turno);
+					turno[0].Id=aceptado.Id;
+					var date = new Date(turno[0].Fecha.substr(0, 10));
+					
 					var day = parseInt($(".active-date").html());
 					date.setDate(day);
 					init_calendar(date);
@@ -1263,8 +1473,9 @@ else
 					})
 				}
 			});
+			}
 
-		}
+		
 
 
 	</script>
