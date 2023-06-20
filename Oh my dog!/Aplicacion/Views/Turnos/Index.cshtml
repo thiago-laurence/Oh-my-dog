@@ -391,10 +391,6 @@ else
 						<label class="form-label" style="font-size:14px;">Agregar mascota</label>
 						<button type="button" class="mx-5" onclick="agregarCamposMascota()"><i class="fa fa-plus" aria-hidden="true"></i></button>
 					</div>
-					
-					
-				
-					
 					<div id="mascotas-dinamico">
 						
 					</div>
@@ -1069,8 +1065,7 @@ else
 						enviarButtonContacto.disabled = true;
 						agregarCamposMascota();
 						$(".events-container").show();
-						date.setDate(day);
-						init_calendar(date);
+						
 						if (data.asignado) {
 							var turno = JSON.parse(data.asignado);
 							event_data["events"].push(turno);
@@ -1085,7 +1080,8 @@ else
 								text: 'Ya tiene un turno para la fecha'
 							});
 						}
-
+						date.setDate(day);
+						init_calendar(date);
 
 								},
 						error: function (xhr, status, error) {

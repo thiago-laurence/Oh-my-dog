@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using System.Text.Json;
+using MimeKit;
 
 namespace Aplicacion.Controllers
 {
@@ -306,7 +307,7 @@ namespace Aplicacion.Controllers
 			Nombre = pt.Nombre,
 		}).ToList()
 	}).OrderBy(i=>i.Id).Last();
-
+			EnviarCorreo(turnoAux);
 			return Json(new { turno = JsonSerializer.Serialize(turnoAux) });
         }
 
@@ -398,7 +399,7 @@ namespace Aplicacion.Controllers
 			Nombre = pt.Nombre,
 		}).ToList()
 	}).OrderBy(i => i.Id).Last();
-
+            EnviarCorreo(turnoAux);
 			return Json(new { turno= JsonSerializer.Serialize(turnoAux)});
 		}
 
@@ -440,7 +441,109 @@ namespace Aplicacion.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TurnosExists(int id)
+
+
+
+
+
+
+
+
+		public async Task EnviarCorreo(dynamic turno)
+		{
+            await Task.Run(() =>
+            {
+				try
+				{
+					int id = turno.Id;
+					int estado = turno.Estado;
+					var horario = turno.Horario;
+                    
+					int dueno = turno.Dueno;
+					var fecha = turno.Fecha;
+					var horarioFinal = turno.HorarioFinal;
+					var perroTurnos = turno.PerrosDelTurno;
+					var comentario = turno.Comentario;
+                    string cliente = turno.Cliente;
+					var message = new MimeMessage();
+					message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
+					message.To.Add(new MailboxAddress("", cliente)); // Correo de destino
+                    var asunto="";
+                    var contenido = "";
+                    if (estado == 1) {
+
+
+						asunto = "Turno aceptado";
+                        contenido = "Se le informa que su turno ha sido aceptado. A continuación el detalle de su turno: "+
+						"<br>"+ "<br>"+"Fecha: "+fecha.ToString("dddd, dd MMMM yyyy") + "<br>"+"Horario del turno: "+horarioFinal+"<br>"+"Perros: "+"<br>"+"<ul>";
+                        foreach(var turno in perroTurnos)
+                        {
+                            contenido+="<li>"+turno.Nombre+ "</li>";
+                        }
+                        contenido += "</ul>";
+                        if (comentario != null)
+                        {
+                            contenido += "<br>" + comentario;
+                        }
+                    }
+                    else
+                    {
+                        asunto = "Turno rechazado";
+						
+						contenido = "Se le informa que su turno ha sido rechazado. A continuación el detalle de su turno: " +
+						"<br>" + "<br>" + "Fecha: " + fecha.ToString("dddd, dd MMMM yyyy") + "<br>" + "Franja solicitada: " + horario + "<br>" + "Perros: " + "<br>" + "<ul>";
+						foreach (var turno in perroTurnos)
+						{
+							contenido += "<li>" + turno.Nombre + "</li>";
+						}
+						contenido += "</ul>";
+						contenido += "<br>" + comentario;
+					}
+                    message.Subject = asunto;
+                    contenido = contenido + "<br>" + "<br>" + "<br>" + "Saludos cordiales por parte de Oh my Dog!";
+					var bodyBuilder = new BodyBuilder();
+					bodyBuilder.HtmlBody = contenido;
+					message.Body = bodyBuilder.ToMessageBody();
+
+					using (var client = new MailKit.Net.Smtp.SmtpClient())
+					{
+						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
+						client.Authenticate("7472fca358e9d7", "4a53ab261e38ad");
+						client.Send(message);
+						client.Disconnect(true);
+					}
+
+					Console.WriteLine("El correo fue enviado exitosamente!");
+				}
+				catch (Exception ex)
+				{
+					// Manejo de errores aquí
+					Console.WriteLine(ex.Message); // Mostrar mensaje de error por consola
+				}
+			});
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		private bool TurnosExists(int id)
         {
           return (_context.Turnos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
