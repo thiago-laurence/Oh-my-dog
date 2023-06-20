@@ -287,7 +287,7 @@ else
 					
 					<div class="modal-footer">
 							<div class="d-flex justify-content-center">
-								<button tpye="button" class="btn btn-success mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
+								<button tpye="button" class="btn btn-danger mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
 							</div>
 					</div>
 				</div>
@@ -361,7 +361,7 @@ else
 
 					<div class="modal-footer">
 						<div class="d-flex justify-content-center">
-							<button tpye="button" class="btn btn-success mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
+							<button tpye="button" class="btn btn-danger mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
 				</div>
@@ -1069,7 +1069,17 @@ else
 						if (data.asignado) {
 							var turno = JSON.parse(data.asignado);
 							event_data["events"].push(turno);
-							
+							let timerInterval;
+							Swal.fire({
+								title: 'Registro de turno exitoso',
+								icon: 'success',
+								timer: 5000,
+								timerProgressBar: true,
+								willClose: () => {
+									clearInterval(timerInterval)
+								}
+							});
+			
 
 							//new_event_json(name, count, date, day);
 						}
@@ -1562,6 +1572,16 @@ else
 					var day = parseInt($(".active-date").html());
 					date.setDate(day);
 					init_calendar(date);
+					let timerInterval;
+					Swal.fire({
+						title: 'Turno rechazado con éxito',
+						icon: 'success',
+						timer: 5000,
+						timerProgressBar: true,
+						willClose: () => {
+							clearInterval(timerInterval)
+						}
+					});
 				},
 				error: function (xhr, status, error) {
 					Swal.fire({
@@ -1715,6 +1735,16 @@ else
 					var day = parseInt($(".active-date").html());
 					date.setDate(day);
 					init_calendar(date);
+					let timerInterval;
+					Swal.fire({
+						title: 'Turno aceptado con éxito',
+						icon: 'success',
+						timer: 5000,
+						timerProgressBar: true,
+						willClose: () => {
+							clearInterval(timerInterval)
+						}
+					});
 				},
 				error: function (xhr, status, error) {
 					Swal.fire({
