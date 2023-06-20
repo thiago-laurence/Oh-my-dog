@@ -1182,9 +1182,10 @@ else
 				}
 			});
 		}
+		
 
 		function mostrarRechazados(events){
-			var rechazados = (events.filter(i => i.Estado == 2));
+			var rechazados = (events.filter(i => i.Estado == 2).sort(ordenarPendientes));
 			var event_card = $("<div class='event-card d-flex text-end'></div>");
 			var descripcion = $("<span class='align-self-center'>Eventos rechazados: " + rechazados.length + "</span>")
 			var button = $("<button class='btn btn-secondary alinearDerecha'style='background-color:#e68a19;color:white' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
@@ -1428,10 +1429,10 @@ else
 					}
 
 				});
-				$("#mailRechazado").val(turno[0].Cliente);
-				$("#fechaRechazado").val(turno[0].Fecha.substr(0, 10));
-				$("#mascotasRechazado").val(perrosAfectados);
-				$("#detalleRechazado").modal("show");
+				$("#mailAceptado").val(turno[0].Cliente);
+				$("#fechaAceptado").val(turno[0].Fecha.substr(0, 10));
+				$("#mascotasAceptado").val(perrosAfectados);
+				$("#detalleAceptado").modal("show");
 			} else if (turno[0].Estado == 2){
 
 				$("#horarioRechazado").val(turno[0].Horario);
