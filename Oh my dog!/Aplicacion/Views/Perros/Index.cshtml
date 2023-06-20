@@ -66,35 +66,35 @@
                             <option value="Hembra">Hembra</option>
                         </select>
                         <div class="invalid-feedback">
-                            Seleccione un sexo!
+                            ¡Seleccione un sexo!
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Peso (en Kg)</label>
                         <input type="text" class="form-control InputNumber" id="Peso" pattern="[0-9]+([.][0-9]+)?" required>
                         <div class="invalid-feedback">
-                            Ingrese un peso válido! (no puede empezar ni finalizar en '.', y no puede ser negativo) <!--Preguntar cuantas validaciones indico-->
+                            ¡Ingrese un peso válido! (no puede empezar ni finalizar en '.', y no puede ser negativo) <!--Preguntar cuantas validaciones indico-->
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Fecha de nacimiento</label>
                         <input type="date" class="form-control InputDate" id="FechaNacimiento" max="" required>
                         <div class="invalid-feedback">
-                            Ingrese una fecha válida! (la fecha no puede ser futura)
+                            ¡Ingrese una fecha válida! (la fecha no puede ser futura)
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="" value="">Foto (opcional)</label>
                         <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="Foto">
                         <div class="invalid-feedback">
-                            La foto ingresada no es válida!
+                            ¡La foto ingresada no es válida!
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom02" class="form-label">Observaciones</label>
                         <textarea class="form-control InputText" maxlength="500" id="Observaciones" name="" required></textarea>
                         <div class="invalid-feedback">
-                            Ingrese info. relacionada al estado de ingreso del perro!
+                            ¡Ingrese info. relacionada al estado de ingreso del perro!
                         </div>
                     </div>
                     <input type="hidden" value="@Model.Id" id="idDueno" />

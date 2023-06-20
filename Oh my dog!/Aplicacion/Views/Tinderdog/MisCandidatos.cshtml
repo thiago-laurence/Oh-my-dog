@@ -1,0 +1,41 @@
+﻿@model List<Aplicacion.Models.Perro>
+
+@{
+    ViewData["Title"] = "TinderDog";
+}
+
+<style>
+    .card-cover {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+    }
+</style>
+
+
+<div class="container-fluid" id="ContainerListarMisCandidatos">
+    @await Html.PartialAsync("_ListarMisCandidatos", Model)
+</div>
+
+
+
+@section Scripts{
+    <!--Listar candidatos-->
+    <script>
+        function ListarCandidatos() {
+            $.ajax({
+                url: '@Url.Action("ListarMisCandidatos", "Tinderdog")',
+                type: 'GET',
+                data: { idDueno: id },
+                success: function (data) {
+                    $('#ContainerListarMisCandidatos').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}

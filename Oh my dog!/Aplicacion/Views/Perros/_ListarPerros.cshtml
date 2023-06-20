@@ -11,7 +11,7 @@
     {
         <div class="text-center alert alert-info" role="alert">
             <h3>
-                <p>Aún no hay perros registrados para el cliente!</p>
+                Aún no hay perros registrados para el cliente
             </h3>
         </div>
     }
@@ -35,7 +35,7 @@
                             <img src="~/img/LogoPerroDefault.jpg" class="card-img-top" alt="LogoPerroDefault">
                         }
                         <div class="card-body">
-                            <h5 class="card-title">@item.Nombre</h5>
+                            <h3 class="card-title">@item.Nombre</h3>
                             <p class="card-text">
                                 <strong>Raza: </strong>@item.Raza
                                 <br>
@@ -43,7 +43,7 @@
                                 <br>
                                 <strong>Color: </strong>@item.Color
                                 <br>
-                                <strong>Peso: </strong>@item.Peso
+                                <strong>Peso: </strong>@item.Peso Kg.
                                 <br>
                                 <strong>Fecha de nacimiento: </strong>@item.FechaDeNacimiento.ToString("dd/MM/yy")
                                 <br>
@@ -63,11 +63,11 @@
                                 Editar
                             </button>
                             <a asp-controller="Perros" asp-action="HistoriaClinica" asp-route-idPerro="@item.Id" class="btn btn-success" type="button" style="margin-top: 5px;">
-                                <i class="fa-solid fa-file-medical"></i>
+                                <i class="fa-solid fa-folder"></i>
                                 Historia clínica
                             </a>
                             <a asp-controller="Perros" asp-action="CalendarioDeVacunas" asp-route-idPerro="@item.Id" class="btn btn-dark" type="button" style="margin-top: 5px;">
-                                <i class="fa-regular fa-calendar"></i>
+                                <i class="fa-solid fa-file-medical"></i>
                                 Libreta sanitaria
                             </a>
                         </div>

@@ -165,6 +165,10 @@
       "PackagePath": "staticwebassets\\img\\img-carrousel3.jpg"
     },
     {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\match.png",
+      "PackagePath": "staticwebassets\\img\\match.png"
+    },
+    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\paseadores.jpeg",
       "PackagePath": "staticwebassets\\img\\paseadores.jpeg"
     },
@@ -181,6 +185,10 @@
       "PackagePath": "staticwebassets\\img\\recuperaciones.png"
     },
     {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo 2 - Copy.png",
+      "PackagePath": "staticwebassets\\img\\tinderdog - logo 2 - Copy.png"
+    },
+    {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo 2.png",
       "PackagePath": "staticwebassets\\img\\tinderdog - logo 2.png"
     },
@@ -195,6 +203,10 @@
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\jquery-ui.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery-ui.min.js"
     },
     {
       "Id": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",

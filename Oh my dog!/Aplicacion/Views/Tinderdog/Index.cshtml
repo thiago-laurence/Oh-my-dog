@@ -1,0 +1,236 @@
+﻿@model List<Aplicacion.Models.Perro>
+
+@{
+    ViewData["Title"] = "TinderDog";
+}
+
+<style>
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .Carta{
+        position: relative;
+    }
+
+    .card-text {
+        position: absolute;
+        top: 90%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .filtro {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Color oscuro con opacidad */
+        z-index: 1; /* Asegura que la capa esté por encima del contenido */
+    }
+
+    #Candidato{
+        z-index: 2;
+    }
+
+</style>
+
+<div class="b-example-divider"></div>
+<div class="container">
+    <div class="px-4 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="~/img/tinderdog - logo 2 - Copy.png" alt="TinderDog - logo">
+        <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <label class="form-label">
+                    Seleccione a uno de sus perros registrados para visualzar las sugerencias de parejas
+                </label>
+                <select class="form-select form-select-lg" id="SelectorPerro" style="margin-bottom: 20px;">
+                    <option selected disabled value="">Seleccione un perro</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id">@item.Nombre</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid d-flex justify-content-center align-items-center" style="margin-bottom: 50px;" id="ContenedorSugerencias">
+    <!--Aca se visualiza la vista parcial de las sugerencias-->
+</div>
+<div class="b-example-divider"></div>
+
+@section Scripts{
+    <script src="~/js/jquery-ui.min.js"></script>
+
+    <!--Funcionalidad de desplazamiento de card-->
+    <script>
+        function InicializarDesplazamiento(){
+            var card = $('#Candidato');
+            var container = $('#ContenedorSugerencias');
+            var main = $('#Main');
+            var containerWidth = container.width();
+            var startPosition = { left: 0, top: 0 };
+            var endLikePosition = { left: ((containerWidth / 2) - (card.width() / 2)), top: 0 };
+            var endUnLikePosition = { left: -((containerWidth / 2) - (card.width() / 2)), top: 0 };
+
+            // Inicializar la tarjeta como arrastrable
+            card.draggable({
+                // Configurar opciones de arrastre
+                start: function (event, ui) {
+                    // Obtener la posición inicial del arrastre
+                    startPosition.left = ui.position.left;
+                    startPosition.top = ui.position.top;
+                },
+                // Restringir el movimiento únicamente en el eje horizontal
+                axis: 'x',
+                // Evento al arrastrar la tarjeta
+                drag: function (event, ui) {
+                    // Calcular la distancia desde el centro de la tarjeta hasta el borde izquierdo del contenedor
+                    var distance = Math.abs(ui.position.left - (containerWidth / 2)); 
+                    // Calcular la opacidad en base a la distancia
+                    var opacity = 1 - (distance / (containerWidth / 2));
+
+                    // Oscurecer la mitad correspondiente de la pantalla según el desplazamiento
+                    if (ui.position.left > 0) {
+                        // Deslizado hacia la derecha (interés)
+                        main.css('background-color', 'rgba(0, 0, 0, ' + opacity + ')');
+                        card.css('border', mapValue(opacity) + 'px solid rgba(0, 255, 0, ' + opacity + ')');
+                    } else {
+                        // Deslizado hacia la izquierda (desinterés)
+                        opacity = opacity * (-1);
+                        main.css('background-color', 'rgba(0, 0, 0, ' + opacity + ')');
+                        card.css('border', mapValue(opacity) + 'px solid rgba(255, 0, 0, ' + opacity + ')');
+                    }
+                },
+                // Evento al soltar la tarjeta
+                stop: function (event, ui) {
+                    // Restaurar el fondo del contenedor y el color de fondo de la tarjeta
+                    main.css('background-color', 'transparent');
+                    card.css('border-color', 'rgba(0, 0, 0, 0.175)');
+
+                    // Verificar si la tarjeta se soltó hacia la derecha o hacia la izquierda
+                    if (ui.position.left > 150) {
+                        // Deslizado hacia la derecha (interés)
+                        console.log('Me gusta');
+                        //MeGusta();
+                        card.animate(endLikePosition, 200);
+                    } else if (ui.position.left < -150) {
+                        // Deslizado hacia la izquierda (desinterés)
+                        console.log('No me gusta');
+                        //NoMeGusta();
+                        card.animate(endUnLikePosition, 200);
+                    } else {
+                        // No se movió lo suficiente, volver al centro
+                        card.animate(startPosition, 200); // Ajusta la duración de la animación según tus necesidades
+                    }
+                }
+            });
+        }
+
+        function mapValue(value) {
+            // Ajustar el rango de entrada y salida según tus necesidades
+            var inputMin = 0;
+            var inputMax = 1;
+            var outputMin = 1;
+            var outputMax = 10;
+
+            // Calcular el valor mapeado
+            var mappedValue = ((value - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin) + outputMin;
+
+            // Redondear el resultado a dos decimales
+            mappedValue = Math.round(mappedValue * 100) / 100;
+
+            return mappedValue;
+        }
+
+    </script>
+
+    <!--Accion MeGusta / NoMegusta-->
+    <script>
+        function MeGusta(){
+            var idPerroEmisor = document.getElementById('SelectorPerro').value;
+            var idPerroReceptor = document.getElementById('BtnMeGusta').value;
+            $.ajax({
+                url: '@Url.Action("MeGusta", "Tinderdog")',
+                type: 'POST',
+                data: { idPerroEmisor: idPerroEmisor, idPerroReceptor: idPerroReceptor },
+                success: function (data) {
+                    if (data.match){
+                        Swal.fire({
+                            imageUrl: "/img/match.png",
+                            imageHeight: 200,
+                            showCancelButton: true,
+                            confirmButtonText: 'Si',
+                            cancelButtonText: 'No',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                
+                            } else {
+                                
+                            }
+                        })
+                    }
+                    ListarSugerencias(idPerroEmisor);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+
+        function NoMeGusta(){
+            var idPerroEmisor = document.getElementById('SelectorPerro').value;
+            var idPerroReceptor = document.getElementById('BtnMeGusta').value;
+            $.ajax({
+                url: '@Url.Action("NoMeGusta", "Tinderdog")',
+                type: 'POST',
+                data: { idPerroEmisor: idPerroEmisor, idPerroReceptor: idPerroReceptor },
+                success: function (data) {
+                    if (data.success) {
+                        ListarSugerencias(idPerroEmisor);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+    <!--Listar sugerencias-->
+    <script>
+        var select = document.getElementById('SelectorPerro');
+        select.addEventListener("input", function () {
+            ListarSugerencias.call(this);
+        });
+
+        function ListarSugerencias(idPerroEmisor) {
+            var idPerro = (this.value != null) ? this.value : idPerroEmisor;
+            $.ajax({
+                url: '@Url.Action("ListarSugerencias", "Tinderdog")',
+                type: 'GET',
+                data: { idPerro: idPerro },
+                success: function (data) {
+                    $('#ContenedorSugerencias').html(data);
+                    InicializarDesplazamiento();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}

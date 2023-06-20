@@ -27,7 +27,7 @@ public partial class Perro
     public DateTime FechaDeNacimiento { get; set; }
 
     public int IdDueno { get; set; }
-    public virtual Usuarios Dueno { get; set; }
+    public virtual Usuarios Dueno { get; set; } = null!;
 
     public virtual ICollection<Publicacion> Publicacions { get; set; } = new List<Publicacion>();
 
@@ -36,4 +36,12 @@ public partial class Perro
     public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
 
     public virtual ICollection<VacunaPerro> VacunaPerros { get; set; } = new List<VacunaPerro>();
+
+    public virtual ICollection<PerrosMeGusta> MeGustaDados { get; set; } = new List<PerrosMeGusta>();
+
+    public virtual ICollection<PerrosMeGusta> MeGustaRecibidos { get; set; } = new List<PerrosMeGusta>();
+
+    public virtual ICollection<PerrosNoMeGusta> NoMeGustaDados { get; set; } = new List<PerrosNoMeGusta>();
+
+    public virtual ICollection<PerrosNoMeGusta> NoMeGustaRecibidos { get; set; } = new List<PerrosNoMeGusta>();
 }

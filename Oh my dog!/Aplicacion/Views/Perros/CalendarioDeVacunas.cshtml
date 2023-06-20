@@ -92,15 +92,13 @@
                 <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormEnviarRecordatorio">
                     <div class="col-md-12">
                         <label class="form-label">Fecha para el recordatorio</label>
-                        <input type="date" class="form-control InputDate" id="FechaRecordatorio" min="" max="" required>
-                        <div class="invalid-feedback">
-                            Ingrese una fecha que no supere los 3 dias de diferencia con la fecha recomendada!
-                        </div>
+                        <input type="date" class="form-control InputDate" id="FechaRecordatorio" min="" max="" readonly>
                     </div>
                     <div class="modal-footer">
                         <div class="alert alert-info" role="alert">
-                            La fecha indicada corresponde al vencimiento de la vacuna aplicada. Selecciona la fecha a sugerir el próximo turno, en donde el mes anterior a la fecha 
-                            se enviará un recordatorio al cliente sugiriendo el turno.
+                            La fecha indicada corresponde al vencimiento de la vacuna aplicada. 
+                            <br/>
+                            El recordatorio para la solicitud del nuevo turno se enviará via email con 30 dias de anticipación.
                         </div>
                         <input type="hidden" id="idVacunaRecordatorio" />
                         <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
@@ -306,8 +304,8 @@
                             imageUrl: "/img/descuento.png",
                             imageHeight: 155,
                             showCancelButton: true,
-                            confirmButtonText: 'Aplicar',
-                            cancelButtonText: 'Cancelar',
+                            confirmButtonText: 'Si',
+                            cancelButtonText: 'No',
                             reverseButtons: true
                         }).then((result) => {
                             if (result.isConfirmed) {
@@ -446,18 +444,9 @@
             var fechaFutura = new Date(fechaActual);
             fechaFutura.setFullYear(fechaFutura.getFullYear() + 1); // Añade 1 año a la fecha actual
 
-            var fechaMaxima = new Date(fechaFutura);
-            fechaMaxima.setDate(fechaMaxima.getDate() + 3); // Suma 3 días a la fecha actual
-
-            var fechaMinima = new Date(fechaFutura);
-            fechaMinima.setDate(fechaMinima.getDate() - 3); // Resta 3 días a la fecha actual
-
             var inputDate = document.getElementById('FechaRecordatorio');
-            inputDate.setAttribute("max", fechaMaxima.toISOString().split("T")[0]);
-            inputDate.setAttribute("min", fechaMinima.toISOString().split("T")[0]);
             inputDate.value = fechaFutura.toISOString().split("T")[0];
 
-            inputDate.classList.add('is-valid');
             var BtnEnviar = document.getElementById('BotonEnvioRecordatorio');
             BtnEnviar.disabled = false;
             $('#ModalRecordatorio').modal('show');
@@ -497,7 +486,7 @@
                 success: function (data) {
                     Toast.fire({
                         icon: 'success',
-                        text: 'Se ha programado el recordatorio para el próximo turno!'
+                        text: '¡Se ha programado el recordatorio para el próximo turno!'
                     })
                     var boton = document.getElementById('BotonCancelarRegistro');
                     boton.click();

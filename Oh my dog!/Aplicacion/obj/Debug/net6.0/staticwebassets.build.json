@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OeWVwGobQC4y4r9bn9nIhoYlEDq46X/YytIFsYaGmxM=",
+  "Hash": "B/ep8Q2kNdNW2W6gS3eZL1Hd/KVEHC8XK/ztKpvGHd8=",
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -714,6 +714,23 @@
       "OriginalItemSpec": "wwwroot\\img\\LogoPerroDefault.jpg"
     },
     {
+      "Identity": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\match.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/match.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\match.png"
+    },
+    {
       "Identity": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\paseadores.jpeg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -799,6 +816,23 @@
       "OriginalItemSpec": "wwwroot\\img\\recuperaciones.png"
     },
     {
+      "Identity": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo 2 - Copy.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/tinderdog - logo 2 - Copy.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\tinderdog - logo 2 - Copy.png"
+    },
+    {
       "Identity": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo 2.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -865,6 +899,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\jquery-ui.min.js",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "js/jquery-ui.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery-ui.min.js"
     },
     {
       "Identity": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",

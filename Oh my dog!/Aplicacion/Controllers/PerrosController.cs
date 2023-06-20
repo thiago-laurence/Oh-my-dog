@@ -24,10 +24,10 @@ namespace Aplicacion.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int idDueno)
+        public IActionResult Index(int idDueno)
         {
             return _context.Perros != null ?
-                          View(await _context.Usuarios.Include(u => u.GetPerros).FirstOrDefaultAsync(u => u.Id == idDueno)) :
+                          View(_context.Usuarios.Where(u => u.Id == idDueno).Include(u => u.GetPerros.OrderByDescending(p => p.Estado).ThenBy(p => p.Nombre)).First()) :
                           Problem("Entity set 'OhmydogdbContext.Perros'  is null.");
         }
 
@@ -228,7 +228,7 @@ namespace Aplicacion.Controllers
                 var _perro = _context.Perros.FirstOrDefault(p => p.Id == idPerro);
                 if ((DateTime.Today - _perro?.FechaDeNacimiento)?.TotalDays < 120)
                 {
-                    return (Json(new { success = false, message = "La vacuna de tipo \"Antirrábica\" debe aplicarse luego de los 4 meses de edad!" }));
+                    return (Json(new { success = false, message = "¡La vacuna de tipo \"Antirrábica\" debe aplicarse luego de los 4 meses de edad!" }));
                 }
                 return (Json(new { success = true, message = "" }));
             }
@@ -240,7 +240,7 @@ namespace Aplicacion.Controllers
                                 .LastOrDefault();
             if ((DateTime.Today - _antirrabica?.FechaAplicacion)?.TotalDays < 365)
             {
-                return (Json(new { success = true, message = "Aún no ha transcurrido el año desde la última aplicación de la vacuna \"Antirrábica\", se recomienda " +
+                return (Json(new { success = true, message = "¡Aún no ha transcurrido el año desde la última aplicación de la vacuna \"Antirrábica\", se recomienda " +
                     "que al menos haya pasado ese tiempo!" }));
             }
 
@@ -256,7 +256,7 @@ namespace Aplicacion.Controllers
                 var _perro = _context.Perros.FirstOrDefault(p => p.Id == idPerro);
                 if ((DateTime.Today - _perro?.FechaDeNacimiento)?.TotalDays < 60)
                 {
-                    return (Json(new { success = false, message = "La vacuna de tipo \"Moquillo\" debe aplicarse luego de los 2 meses de edad!" }));
+                    return (Json(new { success = false, message = "¡La vacuna de tipo \"Moquillo\" debe aplicarse luego de los 2 meses de edad!" }));
                 }
                 return (Json(new { success = true, message = "" }));
             }
@@ -272,7 +272,7 @@ namespace Aplicacion.Controllers
                 {
                     success = true,
                     message = "Aún no han trascurrido 21 dias desde la última aplicación de la vacuna \"Moquillo\", se recomienda " +
-                    "que al menos haya trascurrido ese tiempo para la aplicación del refuerzo!"
+                    "que al menos haya trascurrido ese tiempo para la aplicación del refuerzo"
                 }));
             }
 
@@ -283,7 +283,7 @@ namespace Aplicacion.Controllers
                 {
                     success = true,
                     message = "Aún no ha transcurrido el año desde la última aplicación de la vacuna \"Moquillo\", se recomienda " +
-                    " que al menos haya pasado ese tiempo!"
+                    " que al menos haya pasado ese tiempo"
                 }));
             }
 
@@ -293,8 +293,8 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult ProgramarRecordatorio(DateTime fechaRecordatorio, string idDueno, int idVacuna, int idPerro)
         {
-            DateTime fechaHardcoding = DateTime.Now;
-            fechaHardcoding = fechaHardcoding.AddMinutes(1); // Agrego 5 minutos para programar el envio del email en 5 minutos en el futuro.
+            //DateTime fechaHardcoding = DateTime.Now;
+            //fechaHardcoding = fechaHardcoding.AddMinutes(1); // Agrego 5 minutos para programar el envio del email en 5 minutos en el futuro.
 
             var query = _context.Perros.Where(p => p.Id == idPerro)
                 .Join(_context.VacunaPerros, p => p.Id, vp => vp.IdPerro, (p, vp) => new { Perro = p.Nombre, Dueno = p.IdDueno, Vacuna = vp.IdVacuna })
@@ -308,10 +308,12 @@ namespace Aplicacion.Controllers
                 asunto = "Recordatorio de vacunación",
                 contenido = "Hola " + obj.Dueno + ",  este mensaje es para informar que el dia " + fechaRecordatorio.ToShortDateString() 
                 + " se vence la vacuna " + obj.Vacuna + " para su perro " + obj.Perro + ", por lo que se le recomienda realizar una solicitud para un nuevo turno.<br>" +
-                "Saludos el equipo de <strong>OhMyDog!</strong>";
+                "Saludos del equipo de <strong>OhMyDog!</strong>";
+
             // Programar el método para ejecutarse en la fecha y hora específica utilizando Hangfire
-            BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), 
-                fechaHardcoding);
+            //fechaRecordatorio.AddHours(); fechaRecordatorio.AddMinutes(); <--- PROGRAMAR HORA DE RECORDATORIO
+            BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaRecordatorio);
+            //BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaHardcoding);
 
             return (Json(new { success = true }));
         }
