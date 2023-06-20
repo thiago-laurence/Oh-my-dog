@@ -1165,7 +1165,7 @@ else
 			$(".events-container").append(event_card);
 			for (var i = 0; i < pendientes.length; i++) {
 				var event_card = $("<div class='event-card d-none tarjeta-pendiente'></div>");
-				var event_name = $("<div class='event-name'>El cliente " + pendientes[i].Cliente + " ha solicitado un turno en la franja " + pendientes[i].Horario+"</div>");
+				var event_name = $("<div class='event-name'>El cliente " + pendientes[i].Cliente + " ha solicitado un turno. <br>Franja: " + pendientes[i].Horario+"<br>Motivo: "+pendientes[i].Motivo+"</div>");
 				
 				$(event_card).css({
 					"border-left": "10px solid #f1c232"
@@ -1255,8 +1255,8 @@ else
 			$(".events-container").append(event_card);
 			for (var i = 0; i < aceptados.length; i++) {
 				var event_card = $("<div class='event-card d-none tarjeta-aceptado'></div>");
-	
-				var event_name = $("<div class='event-name'>El cliente " + aceptados[i].Cliente + " tiene un turno aceptado a las " + aceptados[i].HorarioFinal + "</div>");
+
+				var event_name = $("<div class='event-name'>El cliente " + aceptados[i].Cliente + " tiene un turno aceptado a las " + aceptados[i].HorarioFinal + ".<br>Motivo: " + aceptados[i].Motivo + "</div>");
 				
 				$(event_card).css({
 					"border-left": "10px solid #6aa84f"
