@@ -83,7 +83,7 @@
 											<label class="form-check-label" for="flexCheckDefault" style="font-size: 16px;">
 												Rechazados
 											</label>
-											<input type="checkbox" class="activa estados"  checked id="rechazados-check">
+											<input type="checkbox" class="activa estados" checked id="rechazados-check">
 										</div>
 										<div>
 											<label class="form-check-label" for="flexCheckDefault" style="font-size: 16px;">Pendientes</label>
@@ -97,38 +97,42 @@
 						</div>
 						<div class="events-container">
 						</div>
-
-
-
 					</div>
-					@if (User.IsInRole("Administrador")){
-					<div class="alert alert-info" role="alert" style="margin: auto auto;
-    max-width: 790px;">
+
+
+				</div>
+				@if (User.IsInRole("Administrador"))
+				{<div class="col-xl-12 mt-1">
+						<div class="alert alert-info" role="alert" style="    line-height: normal;
+    margin: auto auto;
+    max-width: 790px;
+    height: 140px;">
 						<p>
 							<strong>
 								Estado de turnos:
 							</strong>
 							<br>
 							<div style="margin-left:120px;">
-									<div >
-										<div class="color-turno  d-inline-block" style="position:relative;background:#6aa84f;"></div>
-										Aceptados
-									</div>
-
-									<div >
-									<div class="color-turno2 d-inline-block" style="position:relative;left:0px;background:#FF1744;"></div>
-										Rechazados
-									</div>
-									<div>
-									<div class="color-turno3  d-inline-block" style="position:relative;left:0px;background:#f1c232"></div>
-										Pendientes
-									</div>
+								<div>
+									<div class="color-turno  d-inline-block" style="position:relative;background:#6aa84f;"></div>
+									Aceptados
 								</div>
-							</p>
-						
-						</div>
-					}
-				</div>
+
+								<div>
+									<div class="color-turno2 d-inline-block" style="position:relative;left:0px;background:#FF1744;"></div>
+									Rechazados
+								</div>
+								<div>
+									<div class="color-turno3  d-inline-block" style="position:relative;left:0px;background:#f1c232"></div>
+									Pendientes
+								</div>
+							</div>
+						</p>
+
+					</div>
+					</div>
+				}
+
 			</div>
 		</div>
 
@@ -407,9 +411,9 @@ else
 
 					<div class="col-md-12">
 						<label for="validationCustom01" class="form-label">Motivo</label>
-						<input type="text" class="form-control" maxlength="50" id="motivo" name="motivo" required>
+						<input type="text" class="form-control" maxlength="100" id="motivo" name="motivo" placeholder="Ej: Vacuna antirrábica, consulta" required>
 						<div class="invalid-feedback">
-							Ingrese el motivo de su turno! (máximo 50 caracteres)
+							Ingrese el motivo de su turno! (máximo 100 caracteres)
 						</div>
 					</div>
 
@@ -417,7 +421,7 @@ else
 
 						
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-button">Cancelar</button>
-						<button type="button" class="btn btn-primary" data-bs-dismiss="modal" disabled id="BtnTurno">Aceptar</button>
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal" disabled id="BtnTurno">Enviar</button>
 					</div>
 				</form>
 			</div>

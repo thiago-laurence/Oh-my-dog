@@ -7,7 +7,7 @@ public partial class Turnos
 {
     public int Id { get; set; }
 
-    public string? Motivo { get; set; }
+    public string Motivo { get; set; } = null!;
 
     public int Estado { get; set; }
 
