@@ -17,7 +17,7 @@ public partial class VacunaPerro
 
     public DateTime FechaAplicacion { get; set; }
 
-    public virtual Perros IdPerroNavigation { get; set; } = null!;
+    public virtual Perro IdPerroNavigation { get; set; } = null!;
 
     public virtual Vacuna IdVacunaNavigation { get; set; } = null!;
 }

@@ -392,13 +392,10 @@
                         url: '@Url.Action("Registrar", "Usuarios")',
                         type: 'POST',
                         dataType: 'json',
-                        
                         contentType: 'application/json',
                         data: JSON.stringify(user),
-                        async:false,
                         success: function (data) {
                             if (data.success) {
-                                console.log("hola");
                                 listarUsuarios();
                                 $('#modalNuevoCliente').modal('hide');
                                 Swal.fire({

@@ -1,9 +1,7 @@
 using Aplicacion.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Hangfire;
 
-using Hangfire.SqlServer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,8 +9,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<OhmydogdbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
-builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("conexion")));
-builder.Services.AddHangfireServer();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option => {
@@ -38,8 +34,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-app.UseHangfireDashboard();
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
