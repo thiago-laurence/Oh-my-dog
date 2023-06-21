@@ -18,7 +18,7 @@ namespace Aplicacion.Controllers
         private int cantidadDeRegistros = 10;
         public IActionResult PublicarAdopcionesIndex()
         {
-            ViewBag.ActiveView = "PublicarAdopcion";
+            //ViewBag.ActiveView = "PublicarAdopcion";
             return View();
         }
 
@@ -108,7 +108,12 @@ namespace Aplicacion.Controllers
 
         public async Task<IActionResult> Editar(Adopciones adopcionUpdate)
         {
+           
             Adopciones adopcion = _context.Adopciones.Where(a => a.Id == adopcionUpdate.Id).FirstOrDefault();
+            if (validarCampos(adopcionUpdate))
+            {
+                return Json(new { error = true, adopcion = adopcion, mensaje = "Por favor complete todos los campos" });
+            }
             if (adopcion != null)
             {
                 if (adopcion.Nombre == adopcionUpdate.Nombre)
@@ -221,6 +226,15 @@ namespace Aplicacion.Controllers
                 {
                     return false;
                 }
+                return true;
+            }
+            return false;
+        }
+
+        public bool validarCampos(Adopciones adopcion)
+        {
+            if (adopcion.Nombre == null || adopcion.Tamano == null || adopcion.Color == null || adopcion.Raza == null || adopcion.Sexo == null || adopcion.Descripcion == null)
+            {
                 return true;
             }
             return false;
