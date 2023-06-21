@@ -17,6 +17,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Cuidadores> Cuidadores { get; set; }
 
+<<<<<<< HEAD
     public virtual DbSet<Descuentos> Descuentos { get; set; }
 
     public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
@@ -30,6 +31,15 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<Perros> Perros { get; set; }
 
     public virtual DbSet<PerroTurnos> PerroTurnos { get; set; }
+=======
+    public virtual DbSet<Descuento> Descuentos { get; set; }
+
+    public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
+
+    public virtual DbSet<Paseadores> Paseadores { get; set; }
+
+    public virtual DbSet<Perro> Perros { get; set; }
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
 
     public virtual DbSet<Publicacion> Publicacions { get; set; }
 
@@ -59,12 +69,17 @@ public partial class OhmydogdbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+<<<<<<< HEAD
         => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; trustservercertificate=true; integrated security=true;");
+=======
+        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; integrated security=true; Encrypt=False;");
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
+<<<<<<< HEAD
         modelBuilder.Entity<Cuidadores>(entity =>
         {
             entity.HasIndex(e => new { e.Ubicacion, e.Email }, "IX_Cuidadores");
@@ -99,6 +114,10 @@ public partial class OhmydogdbContext : DbContext
         });
 
         modelBuilder.Entity<Descuentos>(entity =>
+=======
+        
+        modelBuilder.Entity<Descuento>(entity =>
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
         {
             entity.ToTable("Descuento");
 
@@ -118,6 +137,7 @@ public partial class OhmydogdbContext : DbContext
                 .IsUnicode(false);
         });
 
+<<<<<<< HEAD
         modelBuilder.Entity<HorarioTurno>(entity =>
         {
             entity.ToTable("HorarioTurno");
@@ -174,6 +194,11 @@ public partial class OhmydogdbContext : DbContext
         });
 
         modelBuilder.Entity<Perros>(entity =>
+=======
+       
+
+        modelBuilder.Entity<Perro>(entity =>
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
         {
             entity.Property(e => e.Color)
                 .HasMaxLength(10)
@@ -232,7 +257,11 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Rol>(entity =>
         {
+<<<<<<< HEAD
             entity.HasKey(e => e.IdRol).HasName("PK__Rol__2A49584C2F1A143A");
+=======
+            entity.HasKey(e => e.IdRol).HasName("PK__Rol__2A49584C4013BF73");
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
 
             entity.ToTable("Rol");
 
@@ -313,7 +342,11 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Usuarios>(entity =>
         {
+<<<<<<< HEAD
             entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC076CD730FD");
+=======
+            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC0760CF1F28");
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
 
             entity.Property(e => e.Apellido)
                 .HasMaxLength(20)
@@ -322,7 +355,7 @@ public partial class OhmydogdbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(20)
@@ -336,7 +369,11 @@ public partial class OhmydogdbContext : DbContext
 
             entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.IdRol)
+<<<<<<< HEAD
                 .HasConstraintName("FK__Usuarios__IdRol__5BE2A6F2");
+=======
+                .HasConstraintName("FK__Usuarios__IdRol__48CFD27E");
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
         });
 
         modelBuilder.Entity<UsuarioAdopcionPublicacion>(entity =>

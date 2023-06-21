@@ -11005,12 +11005,17 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Lautaro\\.nuget\\packages\\": {},
     "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+=======
+    "C:\\Users\\Fede\\.nuget\\packages\\": {}
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
       "projectName": "Aplicacion",
       "projectPath": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
@@ -11023,6 +11028,16 @@
       "configFilePaths": [
         "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+=======
+      "projectUniqueName": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
+      "projectName": "Aplicacion",
+      "projectPath": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
+      "packagesPath": "C:\\Users\\Fede\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Fede\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11030,7 +11045,10 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+<<<<<<< HEAD
         "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+=======
+>>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
