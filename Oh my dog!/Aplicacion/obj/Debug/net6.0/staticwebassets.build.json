@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "+4iKakI/W+PbEdFLfjzqtaYhpuYKicPy0WdYXfxyU4Q=",
+=======
+  "Hash": "4octvNIyX2T4gVmGZ5NDDxjl6BdXYs1FrAl7ddSuGEQ=",
+>>>>>>> feacture-adopciones
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -85,6 +89,7 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
+<<<<<<< HEAD
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\estiloCalendario.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -102,6 +107,8 @@
       "OriginalItemSpec": "wwwroot\\css\\estiloCalendario.css"
     },
     {
+=======
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\IndexCuid.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -255,6 +262,7 @@
       "OriginalItemSpec": "wwwroot\\img\\1-c6224fe220.jpg"
     },
     {
+<<<<<<< HEAD
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20191230_164919.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -272,6 +280,8 @@
       "OriginalItemSpec": "wwwroot\\img\\20191230_164919.jpg"
     },
     {
+=======
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20221020_165337.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -663,6 +673,43 @@
       "OriginalItemSpec": "wwwroot\\img\\HuellaMapa.svg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-adopcion-card.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/icon-adopcion-card.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icon-adopcion-card.png"
+    },
+    {
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-dog-alert.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/icon-dog-alert.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icon-dog-alert.png"
+    },
+    {
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel1.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -714,6 +761,26 @@
       "OriginalItemSpec": "wwwroot\\img\\img-carrousel3.jpg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\listadoAdopciones-icon.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/listadoAdopciones-icon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\listadoAdopciones-icon.png"
+    },
+    {
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -816,6 +883,26 @@
       "OriginalItemSpec": "wwwroot\\img\\PerroError.svg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\publicarAdopcion-icon.png",
+      "SourceId": "Aplicacion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "BasePath": "_content/Aplicacion",
+      "RelativePath": "img/publicarAdopcion-icon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\publicarAdopcion-icon.png"
+    },
+    {
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\recuperaciones.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -884,6 +971,7 @@
       "OriginalItemSpec": "wwwroot\\img\\tinderdog-removebg-preview.png"
     },
     {
+<<<<<<< HEAD
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\x-square.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -901,6 +989,8 @@
       "OriginalItemSpec": "wwwroot\\img\\x-square.svg"
     },
     {
+=======
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\bootstrap.bundle.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -918,6 +1008,7 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
+<<<<<<< HEAD
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\calendario.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
@@ -952,6 +1043,8 @@
       "OriginalItemSpec": "wwwroot\\js\\popper.js"
     },
     {
+=======
+>>>>>>> feacture-adopciones
       "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",

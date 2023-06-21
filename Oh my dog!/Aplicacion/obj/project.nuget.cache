@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "RgM19iMJ2a1MJBK2Rkoj98RER5cywFdYWxU+5TLK/T2cF20zkD3HnqNfzKOgi5X4ZtX6Ubq4Cfcvtp2Pl7FQKQ==",
+=======
+  "dgSpecHash": "niXTz96CsqxSqKQnf2I/4cM50HGLoQyp/6vJwU3kFdMM9dnUAGABDSXFelRI1ehQsnUxBUu1gjZAhKY+mtiEVA==",
+>>>>>>> feacture-adopciones
   "success": true,
   "projectFilePath": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
   "expectedPackageFiles": [

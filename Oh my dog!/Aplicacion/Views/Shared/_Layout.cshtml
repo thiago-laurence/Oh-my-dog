@@ -153,10 +153,21 @@
                                 Servicios
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")" href="~/Cuidadores">Cuidadores</a></li>
-                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")" href="~/Paseadores">Paseadores</a></li>
+                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")" href="Cuidadores">Cuidadores</a></li>
+                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")" href="Paseadores">Paseadores</a></li>
+                                <li>
+                                    <a class="dropdown-item link-dark" href="#">
+                                        Adopciones &raquo;
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex">Publicar adopcion</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="IndexMisAdopciones">Mis Adopciones</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="IndexAdopciones">Adopciones y adoptados</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
+
                     }
                     @if (User.Identity!.IsAuthenticated)
                     {
