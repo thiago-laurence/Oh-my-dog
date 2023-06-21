@@ -192,8 +192,8 @@ public partial class OhmydogdbContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.IdDueñoNavigation).WithMany(p => p.Perros)
-                .HasForeignKey(d => d.IdDueño)
+            entity.HasOne(d => d.IdDuenoNavigation).WithMany(p => p.Perros)
+                .HasForeignKey(d => d.IdDueno)
                 .HasConstraintName("FK_Perros_Usuarios");
         });
 

@@ -214,8 +214,8 @@ else
 					
 					<div class="modal-footer">
 							<div class="d-flex justify-content-center">
-								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" disabled id="rechazar-button" data-bs-dismiss="modal">Rechazar</button>
-								<button tpye="button" class="btn btn-success mb-3 activo" onclick="aceptarTurno()" disabled id="aceptar-button" data-bs-dismiss="modal">Aceptar</button>
+								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" disabled id="rechazar-button">Rechazar</button>
+								<button tpye="button" class="btn btn-success mb-3 activo" onclick="aceptarTurno()" disabled id="aceptar-button">Aceptar</button>
 							</div>
 					</div>
 				</div>
@@ -421,7 +421,7 @@ else
 
 						
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-button">Cancelar</button>
-						<button type="button" class="btn btn-primary" data-bs-dismiss="modal" disabled id="BtnTurno">Enviar</button>
+						<button type="button" class="btn btn-primary"  disabled id="BtnTurno">Enviar</button>
 					</div>
 				</form>
 			</div>
@@ -431,7 +431,7 @@ else
 <!--Fin Modal Visualizar Paseador para contacto-->
 @section Scripts{
 
-
+	 
 
 
 	<!--Por cada mascota se da la opcion de seleccionar de entre sus mascotas o ingresar una nueva. Máximo 5 mascotas-->
@@ -617,14 +617,15 @@ else
 				
 
 				$("#cancel-button").click(function () {
-					var seleccion = $("#horario").prop("selectedIndex");
+					
+					verificarFechas();
 					document.getElementById('form-turnos').reset();
-					$("#horario").prop("selectedIndex", seleccion);
+					
 				for (var i = $(".mascota").length; i >= 1; i--) {
 						($("#mascota"+i).remove());
 					}
 					
-					$("#dialog").hide(250);
+					
 				
 					asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
 					
@@ -973,7 +974,7 @@ else
 			// Event handler for when a date is clicked
 			function date_click(event) {
 				$(".events-container").show(250);
-				$("#dialog").hide(250);
+		
 				$(".active-date").removeClass("active-date");
 				$(this).addClass("active-date");
 				verificarFechas();
@@ -984,7 +985,7 @@ else
 			// Event handler for when a month is clicked
 			function month_click(event) {
 				$(".events-container").show(250);
-				$("#dialog").hide(250);
+				
 				var date = event.data.date;
 				$(".active-month").removeClass("active-month");
 				$(this).addClass("active-month");
@@ -995,7 +996,7 @@ else
 
 			// Event handler for when the year right-button is clicked
 			function next_year(event) {
-				$("#dialog").hide(250);
+				
 				var date = event.data.date;
 				var new_year = date.getFullYear() + 1;
 				$("year").html(new_year);
@@ -1005,7 +1006,7 @@ else
 
 			// Event handler for when the year left-button is clicked
 			function prev_year(event) {
-				$("#dialog").hide(250);
+				
 				var date = event.data.date;
 				var new_year = date.getFullYear() - 1;
 				$("year").html(new_year);
@@ -1020,92 +1021,112 @@ else
 					return;
 				// remove red error input on click
 				// empty inputs and hide events
-				$("#dialog input[type=text]").val('');
-				$("#dialog input[type=number]").val('');
-				$(".events-container").hide(0);
-				$("#dialog").show(250);
+				
 				// Event handler for cancel button
 				// Event handler for ok button
 				$("#BtnTurno").unbind().click({ date: event.data.date }, function () {
-					var date = event.data.date;
-					var day = parseInt($(".active-date").html());
-					$("#dialog").hide(250);
-					console.log("new event");
-					//Falta ajax. Hay que setear el turno para los que estàn registrados y agregar
-					var nombrePerros = [];
-				var valor = $(".mascota").length;
-					for (i = 1; i <= valor; i++) {
-						var mascota = $("#mascota" + i + " select option:selected").val();
+						Swal.fire({
+				icon:'warning',
+				title: '¿Está seguro?',
+				
+				showCancelButton: true,
+				confirmButtonText: 'Sí',
+				cancelButtonText: `Cancelar`,
+				reverseButtons: true,
+				
+			}).then((result) => {
+				/* Read more about isConfirmed, isDenied below */
+				if (result.isConfirmed) {
+						$(".events-container").hide(0);
+						var date = event.data.date;
+						var day = parseInt($(".active-date").html());
 						
-						if (mascota == 'Otra') {
-						
-							mascota = $("#mascota" + i + " div input").val();
-						}
-						nombrePerros.push(mascota);
-					}
+						console.log("new event");
+						//Falta ajax. Hay que setear el turno para los que estàn registrados y agregar
+						var nombrePerros = [];
+						var valor = $(".mascota").length;
+						for (i = 1; i <= valor; i++) {
+							var mascota = $("#mascota" + i + " select option:selected").val();
 
-					var emailUsuario = $("#form-turnos").data('usuario-mail');
-					var motive = document.getElementById('motivo').value;				
-					var fechaIso = actual.toISOString();
-					var horarioSel=$("#horario").prop("selectedIndex");
-					
-					$.ajax({
-						url: '@Url.Action("cargarTurno", "Turnos")',
-						type: 'POST',
-						dataType: 'json',
-						data: { mail: emailUsuario, fecha: fechaIso, perros: nombrePerros, motivo: motive,horario:horarioSel }, // Enviar los datos al controlador
+							if (mascota == 'Otra') {
 
-					success: function (data) {
-						var seleccion = $("#horario").prop("selectedIndex");
-						document.getElementById('form-turnos').reset();
-						$("#horario").prop("selectedIndex", seleccion);
-						for (var i = $(".mascota").length; i >= 1; i--) {
-							($("#mascota" + i).remove());
+								mascota = $("#mascota" + i + " div input").val();
+							}
+							nombrePerros.push(mascota);
 						}
 
-						$("#dialog").hide(250);
+						var emailUsuario = $("#form-turnos").data('usuario-mail');
+						var motive = document.getElementById('motivo').value;
+						var fechaIso = actual.toISOString();
+						var horarioSel = $("#horario").prop("selectedIndex");
 
-						asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
-						enviarButtonContacto.disabled = true;
-						agregarCamposMascota();
-						$(".events-container").show();
-						
-						if (data.asignado) {
-							var turno = JSON.parse(data.asignado);
-							event_data["events"].push(turno);
-							let timerInterval;
-							Swal.fire({
-								title: 'Registro de turno exitoso',
-								icon: 'success',
-								timer: 5000,
-								timerProgressBar: true,
-								willClose: () => {
-									clearInterval(timerInterval)
+						$.ajax({
+							url: '@Url.Action("cargarTurno", "Turnos")',
+							type: 'POST',
+							dataType: 'json',
+							data: { mail: emailUsuario, fecha: fechaIso, perros: nombrePerros, motivo: motive, horario: horarioSel }, // Enviar los datos al controlador
+
+							success: function (data) {
+								
+								document.getElementById('form-turnos').reset();
+								verificarFechas();
+								for (var i = $(".mascota").length; i >= 1; i--) {
+									($("#mascota" + i).remove());
 								}
-							});
-			
 
-							//new_event_json(name, count, date, day);
-						}
-						else {
-							Swal.fire({
-								icon: 'error',
-								title: 'Oops...',
-								text: 'Ya tiene un turno para la fecha'
-							});
-						}
-						date.setDate(day);
-						init_calendar(date);
+								
+								asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
+								enviarButtonContacto.disabled = true;
+								agregarCamposMascota();
+								$(".events-container").show();
 
-								},
-						error: function (xhr, status, error) {
-							Swal.fire({
-								icon: 'error',
-								title: 'Oops...',
-								text: 'Ocurrio un erorr!'
-							})
-						}
-					});
+								if (data.asignado) {
+									var turno = JSON.parse(data.asignado);
+									event_data["events"].push(turno);
+									let timerInterval;
+									Swal.fire({
+										title: 'Registro de turno exitoso',
+										icon: 'success',
+										timer: 5000,
+										timerProgressBar: true,
+										willClose: () => {
+											clearInterval(timerInterval)
+
+										}
+									});
+
+
+									//new_event_json(name, count, date, day);
+								}
+								else {
+									Swal.fire({
+										icon: 'error',
+										title: 'Error',
+										text: 'Ya tiene un turno para la fecha'
+									});
+								}
+								date.setDate(day);
+								init_calendar(date);
+								
+
+							},
+							error: function (xhr, status, error) {
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'Ocurrio un erorr!'
+								})
+								
+							},
+							complete: function(){
+								$('#ModalDatosTurno').modal('hide');
+							}
+						});
+				}
+				});
+					
+					
+					
 
 					
 					
@@ -1210,7 +1231,9 @@ else
 			$(".events-container").append(event_card);
 			for (var i = 0; i < rechazados.length; i++) {
 				var event_card = $("<div class='event-card d-none tarjeta-rechazado'></div>");
-				var event_name = $("<div class='event-name'>El cliente " + rechazados[i].Cliente + " tiene un turno rechazado en la franja " + rechazados[i].Horario +"</div>");
+				
+				var event_name = $("<div class='event-name'>El cliente " + rechazados[i].Cliente + " tiene un turno rechazado en la franja " + rechazados[i].Horario 
++"<br>Comentario: "+rechazados[i].Comentario+"</div>");
 				
 				$(event_card).css({
 					"border-left": "10px solid #FF1744"
@@ -1344,7 +1367,7 @@ else
 				if (events.length == 1) {
 
 					var event_card = $("<div class='event-card d-flex flex-column'></div>");
-					var event_name = $("<div class='event-name mb-3'>No tiene turnos para el " + day + " de " + month + ".</div>");
+					var event_name = $("<div class='event-name mb-3'>No tiene turnos para el " + day + "/" + month + ".</div>");
 					$(event_card).css({ "border-left": "10px solid #FF1744" });
 
 					$(event_card).append(event_name);
@@ -1545,56 +1568,79 @@ else
 		});
 
 		function rechazarTurno(){
-			$(".events-container").empty();
-			var idTurno = $("#rechazar-button").attr("data-id-turno");
-			var turno = event_data["events"].filter(m => m.Id == idTurno);
-			
-			var horario = $("horarioFinalPendiente").val();
-			var comment = $("#comentario").val();
-			var index = event_data["events"].findIndex(el => el.Id === idTurno);
-			
-		
-			
+			Swal.fire({
+				icon: 'warning',
+				title: '¿Está seguro?',
 
-			$.ajax({
-				url: '@Url.Action("rechazarTurno", "Turnos")',
-				type: 'POST',
-				async: true,
-				dataType: 'json',
-				data: { idTurno: idTurno, comentario:comment , horario : horario }, // Enviar los datos al controlador
-				success: function (data) {
+				showCancelButton: true,
+				confirmButtonText: 'Sí',
+				cancelButtonText: `Cancelar`,
+				reverseButtons: true,
+
+			}).then((result) => {
+			
+			if (result.isConfirmed){
 					$(".events-container").empty();
-					var rechazado = JSON.parse(data.turno);
-					turno[0].Estado = 2;
-					turno[0].Comentario = rechazado.Comentario;
-					turno[0].HorarioFinal = rechazado.HorarioFinal;
-					turno[0].Id = rechazado.Id;
-					event_data["events"][index] = turno[0];
-					
-					var date = new Date(rechazado.Fecha.substr(0, 10));
-					date.setDate(date.getDate()+1);
-					var day = parseInt($(".active-date").html());
-					date.setDate(day);
-					init_calendar(date);
-					let timerInterval;
-					Swal.fire({
-						title: 'Turno rechazado con éxito',
-						icon: 'success',
-						timer: 5000,
-						timerProgressBar: true,
-						willClose: () => {
-							clearInterval(timerInterval)
+					var idTurno = $("#rechazar-button").attr("data-id-turno");
+					var turno = event_data["events"].filter(m => m.Id == idTurno);
+
+					var horario = $("horarioFinalPendiente").val();
+					var comment = $("#comentario").val();
+					var index = event_data["events"].findIndex(el => el.Id === idTurno);
+
+
+
+
+					$.ajax({
+						url: '@Url.Action("rechazarTurno", "Turnos")',
+						type: 'POST',
+						async: true,
+						dataType: 'json',
+						data: { idTurno: idTurno, comentario: comment, horario: horario }, // Enviar los datos al controlador
+						success: function (data) {
+							$(".events-container").empty();
+							var rechazado = JSON.parse(data.turno);
+							turno[0].Estado = 2;
+							turno[0].Comentario = rechazado.Comentario;
+							turno[0].HorarioFinal = rechazado.HorarioFinal;
+							turno[0].Id = rechazado.Id;
+							event_data["events"][index] = turno[0];
+
+							var date = new Date(rechazado.Fecha.substr(0, 10));
+							date.setDate(date.getDate() + 1);
+							var day = parseInt($(".active-date").html());
+							date.setDate(day);
+							init_calendar(date);
+							let timerInterval;
+							Swal.fire({
+								title: 'Turno rechazado con éxito',
+								icon: 'success',
+								timer: 5000,
+								timerProgressBar: true,
+								willClose: () => {
+									clearInterval(timerInterval)
+								}
+							});
+							
+						},
+						error: function (xhr, status, error) {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Ocurrio un erorr!'
+							})
+							
+						},
+						complete: function(){
+							$("#detallePendiente").modal("hide");
 						}
 					});
-				},
-				error: function (xhr, status, error) {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Ocurrio un erorr!'
-					})
-				}
+
+			};
+			
 			});
+
+			
 		}
 	
 
@@ -1646,10 +1692,10 @@ else
 		function esMayor(horario1, horario2) {
 			return horario1 > horario2;
 		}
-
+		var time;
 		function llamador(fecha1,fecha2){
-			
-			setTimeout(function () {
+			clearTimeout(time);
+			time=setTimeout(function () {
 				$('#horarioFinalPendiente').trigger('change');
 			}, fecha2 - fecha1);
 		
@@ -1702,62 +1748,82 @@ else
 			
 		});
 		function aceptarTurno() {
+			Swal.fire({
+				icon:'warning',
+				title: '¿Está seguro?',
 				
-			
-				$(".events-container").empty();
-				var idTurno = $("#aceptar-button").attr("data-id-turno");
+				showCancelButton: true,
+				confirmButtonText: 'Sí',
+				cancelButtonText: `Cancelar`,
+				reverseButtons: true,
 				
-				var turno = event_data["events"].filter(m => m.Id == idTurno);
-				
-			var horario = $("#horarioFinalPendiente").val();
-		
-			var comment = $("#comentario").val();
-			var index = event_data["events"].findIndex(el => el.Id === idTurno);
-			
-				
-				
-				
-				
-			$.ajax({
-				url: '@Url.Action("aceptarTurno", "Turnos")',
-				type: 'POST',
-				async: true,
-				dataType: 'json',
-				data: { idTurno: idTurno, comentario:comment, horario:horario }, // Enviar los datos al controlador
-				success: function (data) {
+			}).then((result) => {
+				/* Read more about isConfirmed, isDenied below */
+				if (result.isConfirmed) {
 					$(".events-container").empty();
-					var aceptado=JSON.parse(data.turno);
-					turno[0].Estado=1;
-					turno[0].Comentario=aceptado.Comentario;
-					turno[0].HorarioFinal=aceptado.HorarioFinal;
-					turno[0].Id=aceptado.Id;
-					event_data["events"][index] = turno[0];
-					
-					
-					var date = new Date(aceptado.Fecha.substr(0, 10));
-					date.setDate(date.getDate()+1);
-					var day = parseInt($(".active-date").html());
-					date.setDate(day);
-					init_calendar(date);
-					let timerInterval;
-					Swal.fire({
-						title: 'Turno aceptado con éxito',
-						icon: 'success',
-						timer: 5000,
-						timerProgressBar: true,
-						willClose: () => {
-							clearInterval(timerInterval)
+					var idTurno = $("#aceptar-button").attr("data-id-turno");
+
+					var turno = event_data["events"].filter(m => m.Id == idTurno);
+
+					var horario = $("#horarioFinalPendiente").val();
+
+					var comment = $("#comentario").val();
+					var index = event_data["events"].findIndex(el => el.Id === idTurno);
+
+
+
+
+
+					$.ajax({
+						url: '@Url.Action("aceptarTurno", "Turnos")',
+						type: 'POST',
+						async: true,
+						dataType: 'json',
+						data: { idTurno: idTurno, comentario: comment, horario: horario }, // Enviar los datos al controlador
+						success: function (data) {
+							$(".events-container").empty();
+							var aceptado = JSON.parse(data.turno);
+							turno[0].Estado = 1;
+							turno[0].Comentario = aceptado.Comentario;
+							turno[0].HorarioFinal = aceptado.HorarioFinal;
+							turno[0].Id = aceptado.Id;
+							event_data["events"][index] = turno[0];
+
+
+							var date = new Date(aceptado.Fecha.substr(0, 10));
+							date.setDate(date.getDate() + 1);
+							var day = parseInt($(".active-date").html());
+							date.setDate(day);
+							init_calendar(date);
+							let timerInterval;
+							Swal.fire({
+								title: 'Turno aceptado con éxito',
+								icon: 'success',
+								timer: 5000,
+								timerProgressBar: true,
+								willClose: () => {
+									clearInterval(timerInterval)
+								}
+							});
+							
+						},
+						error: function (xhr, status, error) {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Ocurrio un erorr!'
+							})
+							
+						},
+						complete : function(){
+							$("#detallePendiente").modal("hide");
 						}
 					});
-				},
-				error: function (xhr, status, error) {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Ocurrio un erorr!'
-					})
+					
 				}
-			});
+			})
+			
+				
 			}
 
 		function borrarMañana() {

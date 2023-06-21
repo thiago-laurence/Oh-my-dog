@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using System.Text.Json;
 using MimeKit;
+using Hangfire;
 
 namespace Aplicacion.Controllers
 {
@@ -49,15 +50,15 @@ namespace Aplicacion.Controllers
 
 		public String obtenerPerros(String mail)
 		{
-			 int idDueño = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
-            var perrosUsuario = _context.Perros.Where(c => c.IdDueño == idDueño && c.Estado==true).ToList();
+			 int idDueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+            var perrosUsuario = _context.Perros.Where(c => c.IdDueno == idDueno && c.Estado==true).ToList();
             Console.Write(perrosUsuario.Count());
 			return JsonSerializer.Serialize(perrosUsuario);
 		}
 
         public IActionResult obtenerEventos(String mail)
 		{
-			int idDueño = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+			int idDueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
 			int? rol = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.IdRol).First();
 			DateTime fechaActual = DateTime.Now.Date;
             //Si quedaron pendientes los cancelo
@@ -96,7 +97,7 @@ namespace Aplicacion.Controllers
             else
             {
 
-				var turnoAux = _context.Turnos.Where(t => idDueño == t.Dueno)
+				var turnoAux = _context.Turnos.Where(t => idDueno == t.Dueno)
 	.Select(t => new
 	{
 		Id = t.Id,
@@ -142,7 +143,7 @@ namespace Aplicacion.Controllers
 				turnoPerro.Nombre = perro;
 				turnoPerro.IdTurno = id_Turno;
                 int? idPerro = _context.Perros
-                    .Where(m => m.IdDueño == turno.Dueno && m.Nombre == perro)?
+                    .Where(m => m.IdDueno == turno.Dueno && m.Nombre == perro)?
                     .Select(i => i.Id)
                     .FirstOrDefault();
                 if (idPerro == 0) { 
@@ -307,7 +308,7 @@ namespace Aplicacion.Controllers
 			Nombre = pt.Nombre,
 		}).ToList()
 	}).OrderBy(i=>i.Id).Last();
-			EnviarCorreo(turnoAux);
+			EnviarCorreo(turnoAux,false);
 			return Json(new { turno = JsonSerializer.Serialize(turnoAux) });
         }
 
@@ -323,6 +324,7 @@ namespace Aplicacion.Controllers
 				List<Turnos> turnosActualizar = _context.Turnos.Where(i => i.Fecha == fechaActual && i.Estado == 3 && i.Horario==1).ToList();
 			turnosActualizar.ForEach(turnoBorrar => {
 				turnoBorrar.Estado = 2;
+                turnoBorrar.Comentario = "Cancelado por tiempo";
 			});
 				_context.SaveChanges();
 			}
@@ -341,7 +343,8 @@ namespace Aplicacion.Controllers
                 List<Turnos> turnosActualizar = _context.Turnos.Where(i => i.Fecha == fechaActual && i.Estado == 3 && i.Horario == 2).ToList();
                 turnosActualizar.ForEach(turnoBorrar =>
                 {
-                    turnoBorrar.Estado = 2;
+					turnoBorrar.Comentario = "Cancelado por tiempo";
+					turnoBorrar.Estado = 2;
                 });
 
                 _context.SaveChanges();
@@ -399,7 +402,12 @@ namespace Aplicacion.Controllers
 			Nombre = pt.Nombre,
 		}).ToList()
 	}).OrderBy(i => i.Id).Last();
-            EnviarCorreo(turnoAux);
+            if (turnoAux.Fecha.AddDays(-3).Date > DateTime.Now.Date)
+            {
+                Console.WriteLine("Se agendo el recordatorio");
+                BackgroundJob.Schedule(() => EnviarCorreo(turnoAux, true), turnoAux.Fecha.AddDays(-3).AddHours(11).AddMinutes(30));
+            }
+			EnviarCorreo(turnoAux,false);
 			return Json(new { turno= JsonSerializer.Serialize(turnoAux)});
 		}
 
@@ -449,7 +457,7 @@ namespace Aplicacion.Controllers
 
 
 
-		public async Task EnviarCorreo(dynamic turno)
+		public async Task EnviarCorreo(dynamic turno,bool esRecordatorio)
 		{
             await Task.Run(() =>
             {
@@ -472,9 +480,17 @@ namespace Aplicacion.Controllers
                     var contenido = "";
                     if (estado == 1) {
 
-
+                        
 						asunto = "Turno aceptado";
-                        contenido = "Se le informa que su turno ha sido aceptado. A continuación el detalle de su turno: "+
+                        if (esRecordatorio)
+                        {
+                            contenido = "Se le recuerda ";
+                        }
+                        else
+                        {
+                            contenido = "Se le informa ";
+                        }
+                        contenido += "que su turno ha sido aceptado. A continuación el detalle de su turno: "+
 						"<br>"+ "<br>"+"Fecha: "+fecha.ToString("dddd, dd MMMM yyyy") + "<br>"+"Horario del turno: "+horarioFinal+"<br>"+"Perros: "+"<br>"+"<ul>";
                         foreach(var turno in perroTurnos)
                         {
