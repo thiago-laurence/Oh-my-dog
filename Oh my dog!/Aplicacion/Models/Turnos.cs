@@ -23,7 +23,7 @@ public partial class Turnos
 
     public virtual EstadoTurno EstadoNavigation { get; set; } = null!;
 
-    public virtual HorarioTurno HorarioNavigation { get; set; } = null!;
+    public virtual HorarioTurnos HorarioNavigation { get; set; } = null!;
 
     public virtual ICollection<PerroTurnos> PerroTurnos { get; set; } = new List<PerroTurnos>();
 }

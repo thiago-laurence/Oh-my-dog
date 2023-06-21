@@ -18,8 +18,9 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<Adopciones> Adopciones { get; set; }
 
     public virtual DbSet<Cuidadores> Cuidadores { get; set; }
+	public virtual DbSet<HorarioTurnos> HorarioTurnos { get; set; }
 
-    public virtual DbSet<Descuentos> Descuentos { get; set; }
+	public virtual DbSet<Descuentos> Descuentos { get; set; }
 
     public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
 
@@ -53,7 +54,9 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<UsuarioPerdidaPublicacion> UsuarioPerdidaPublicacions { get; set; }
 
-    public virtual DbSet<Vacuna> Vacunas { get; set; }
+   
+
+	public virtual DbSet<Vacuna> Vacunas { get; set; }
 
     public virtual DbSet<VacunaPerro> VacunaPerros { get; set; }
 
@@ -185,7 +188,17 @@ public partial class OhmydogdbContext : DbContext
                 .HasConstraintName("FK_Perros_Usuarios");
         });
 
-        modelBuilder.Entity<PerroTurnos>(entity =>
+		modelBuilder.Entity<HorarioTurnos>(entity =>
+		{
+			entity.ToTable("HorarioTurno");
+
+			entity.Property(e => e.Turno)
+				.HasMaxLength(30)
+				.IsUnicode(false);
+		});
+
+
+		modelBuilder.Entity<PerroTurnos>(entity =>
         {
             entity.ToTable("PerroTurno");
 

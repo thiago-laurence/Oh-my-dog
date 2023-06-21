@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Aplicacion.Models;
 
-public partial class HorarioTurno
+public partial class HorarioTurnos
 {
     public int Id { get; set; }
 
