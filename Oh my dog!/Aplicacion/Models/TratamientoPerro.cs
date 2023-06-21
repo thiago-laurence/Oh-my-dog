@@ -15,7 +15,7 @@ public partial class TratamientoPerro
 
     public DateTime Fecha { get; set; }
 
-    public virtual Perro IdPerroNavigation { get; set; } = null!;
+    public virtual Perros IdPerroNavigation { get; set; } = null!;
 
-    public virtual Tratamiento IdTratamientoNavigation { get; set; } = null!;
+    public virtual Tratamientos IdTratamientoNavigation { get; set; } = null!;
 }

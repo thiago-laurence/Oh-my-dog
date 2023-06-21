@@ -9,5 +9,5 @@ public partial class EstadoTurno
 
     public string Estado { get; set; } = null!;
 
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
+    public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
 }
