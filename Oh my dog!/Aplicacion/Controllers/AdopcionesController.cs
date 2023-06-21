@@ -101,6 +101,10 @@ namespace Aplicacion.Controllers
         }
         public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario)
         {
+            if (contenido == null)
+            {
+                return Json(new { error = true, message = "Por favor escriba algun mensaje" });
+            }
             _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
 
             return (Json(new { success = true, message = "El correo fue enviado al paseador con éxito!" }));

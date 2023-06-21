@@ -63,7 +63,7 @@
         {
             <div class="col-md-3">
                 <div class="container-card">
-                    <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )">
+                    <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
                         <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
                         <div class="card-body">
                             <h5 class="card-title text-center nombrePerro" id="nombrePerro">@adopcion.Nombre @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
@@ -84,7 +84,7 @@
                                 }                                                            
                                 @if (User.IsInRole("Administrador"))
                                 {
-                                    <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                    <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 }
@@ -192,7 +192,40 @@
         window.addEventListener('load', function () {
             capitalizarNombresPerros();
         });
+        $('.eliminar-btn').click(function () {
+            var adopcionId = $(this).closest('.card').data('adopcion-id');
+            var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
 
+            Swal.fire({
+                title: '¿Estás seguro de que deseas eliminar esta publicación?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Enviar la solicitud AJAX para eliminar la publicación de la adopción
+                    $.ajax({
+                        url: '/Adopciones/BajaLogica',
+                        type: 'POST',
+                        data: { id: adopcionId },
+                        success: function (response) {
+                            // Eliminar la tarjeta de adopción del DOM
+                            tarjetaAdopcion.parent().parent().remove();
+
+                            // Mostrar el mensaje de éxito
+                            Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
+                        },
+                        error: function (error) {
+                            Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
+                        }
+                    });
+                }
+            });
+        });
         function capitalizarNombresPerros() {
             var cardsAdopcion = document.querySelectorAll('.card');
 
@@ -251,24 +284,37 @@
                         dataType: 'json',
                         data: { remitente: mensaje.remitente, remitenteNombre: mensaje.remitenteNombre, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido },
                         success: function (data) {
-                            if (data.success) {
-                                $('#ModalContactar').modal('hide');
+                            if (data.error)
+                            {
                                 Swal.fire({
-                                    icon: 'success',
-                                    title: 'Mensaje enviado!',
+                                    icon: 'warning',
+                                    title: 'Mensaje vacio',
                                     text: data.message,
                                 })
-                                var form = document.getElementById("formContactoPublicador");
-                                form.reset();
-                                form.classList.remove('was-validated');
-
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error...',
-                                    text: data.message
-                                })
+                                
                             }
+                            else
+                            {
+                                if (data.success) {
+                                    $('#ModalContactar').modal('hide');
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Mensaje enviado!',
+                                        text: data.message,
+                                    })
+                                    var form = document.getElementById("formContactoPublicador");
+                                    form.reset();
+                                    form.classList.remove('was-validated');
+
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error...',
+                                        text: data.message
+                                    })
+                                }
+                            }
+                            
                         },
                         error: function (xhr, status, error) {
                             console.log(xhr);
