@@ -11,9 +11,21 @@
         width: 3rem;
         height: 3rem;
     }
+
+    .btn-custom {
+        background-color: #59a1ab;
+        color: white;
+        border-color: #59a1ab;
+    }
+
+    .btn-custom:hover {
+        background-color: #41767d;
+        color: white;
+        border-color: #41767d;
+    }
 </style>
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
-    <h1 class="display-7">Bienvenido al servicio de Publicar Adopciones de nuestra veterinaria <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
+    <h1 class="display-7">Bienvenido al servicio de publicar adopciones de nuestra veterinaria <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
     <p style="margin-bottom: 0px;">
         Da el primer paso hacia un futuro lleno de amor
         <br />
@@ -25,7 +37,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 border rounded mt-4 mb-4">
-            <h2>Publicar Perro en Adopción</h2>
+            <h2>Publicar Adopción</h2>
 
             <form asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex" method="post" enctype="multipart/form-data" id="form-adopciones">
                 <div class="row">
@@ -33,7 +45,7 @@
                         <input hidden asp-for="Email" type="email" value="@User.FindFirstValue("Email")"/>
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
                         </div>
                     </div>                  
                 </div>
@@ -64,13 +76,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="raza">Raza:</label>
-                            <input asp-for="Raza" type="text" class="form-control" id="raza" name="raza" required>
+                            <input asp-for="Raza" type="text" class="form-control" id="raza" name="raza" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="color">Color:</label>
-                            <input asp-for="Color" type="text" class="form-control" id="color" name="color" required>
+                            <input asp-for="Color" type="text" class="form-control" id="color" name="color" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
                         </div>
                     </div>
                 </div>
@@ -79,7 +91,7 @@
                     <label for="descripcion">Descripción:</label>
                     <textarea asp-for="Descripcion" class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary mt-2 mb-2">Publicar</button>
+                <button type="submit" class="btn btn-custom mt-2 mb-2">Publicar</button>
             </form>
         </div>
     </div>

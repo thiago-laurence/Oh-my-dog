@@ -19,6 +19,11 @@ namespace Aplicacion.Controllers
         public IActionResult PublicarAdopcionesIndex()
         {
             //ViewBag.ActiveView = "PublicarAdopcion";
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 

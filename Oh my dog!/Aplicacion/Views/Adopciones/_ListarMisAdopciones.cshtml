@@ -22,11 +22,11 @@
         border-color: #59a1ab;
     }
 
-        .btn-custom:hover {
-            background-color: #41767d;
-            color: white;
-            border-color: #41767d;
-        }
+    .btn-custom:hover {
+        background-color: #41767d;
+        color: white;
+        border-color: #41767d;
+    }
 
     .card-adoptado {
         background-color: #D9F7F4;
@@ -115,7 +115,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="Nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="Nombre" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
                         </div>
                     </div>
                     <div class="row">
@@ -182,6 +182,27 @@
             window.addEventListener('load', function () {
                 capitalizarNombresPerros();
             });
+            // Validacion de solo letras en el campo
+            var dogNameInput = document.getElementById("nombre");
+            var dogColorInput = document.getElementById("color");
+            var dogRazaInput = document.getElementById("raza");
+
+            dogNameInput.addEventListener("input", function () {
+                var regex = /[^a-zA-Z]/g;
+                var cleanedValue = dogNameInput.value.replace(regex, '');
+                dogNameInput.value = cleanedValue;
+            });
+            dogColorInput.addEventListener("input", function () {
+                var regex = /[^a-zA-Z]/g;
+                var cleanedValue = dogColorInput.value.replace(regex, '');
+                dogColorInput.value = cleanedValue;
+            });
+            dogRazaInput.addEventListener("input", function () {
+                var regex = /[^a-zA-Z]/g;
+                var cleanedValue = dogRazaInput.value.replace(regex, '');
+                dogRazaInput.value = cleanedValue;
+            });
+            //Fin validacion 
 
             function capitalizarNombresPerros() {
                 var cardsAdopcion = document.querySelectorAll('.card');

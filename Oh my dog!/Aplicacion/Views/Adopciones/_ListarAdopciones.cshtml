@@ -17,7 +17,6 @@
         transform: translateY(-0.4rem);
     }
 
-
     .btn-custom {
         background-color: #59a1ab;
         color: white;
@@ -78,7 +77,7 @@
                             <div class="d-flex gap-3">
                                 @if (adopcion.Estado == 0)
                                 {
-                                    <button class="btn btn-primary BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@adopcion.Email">
+                                    <button class="btn btn-custom BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@adopcion.Email">
                                         <i class="bi bi-send"></i>
                                     </button>
                                 }                                                            
@@ -163,7 +162,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarContacto">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="enviarCorreoPublicador()" id="BtnContacto">Aceptar</button>
+                        <button type="button" class="btn btn-custom" onclick="enviarCorreoPublicador()" id="BtnContacto">Aceptar</button>
                     </div>
                 </form>
             </div>
