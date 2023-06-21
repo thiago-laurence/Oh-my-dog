@@ -490,3 +490,8 @@ Oh my dog\!/Aplicacion/obj/Debug/net6.0/staticwebassets.pack.json
 Oh my dog\!/Aplicacion/obj/Debug/net6.0/staticwebassets/msbuild.Aplicacion.Microsoft.AspNetCore.StaticWebAssets.props
 Oh my dog\!/Aplicacion/obj/project.assets.json
 Oh my dog\!/Aplicacion/obj/project.nuget.cache
+Oh my dog\!/Aplicacion/obj/Debug/net6.0/Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+Oh my dog\!/Aplicacion/obj/Debug/net6.0/Aplicacion.csproj.AssemblyReference.cache
+Oh my dog\!/Aplicacion/obj/Debug/net6.0/Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+*.editorconfig
+*.cache
