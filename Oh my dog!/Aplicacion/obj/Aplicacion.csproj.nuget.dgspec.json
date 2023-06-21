@@ -1,41 +1,24 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj": {}
+    "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj": {
+    "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
+        "projectUniqueName": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
         "projectName": "Aplicacion",
-        "projectPath": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
-        "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\",
+        "projectPath": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
+        "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\franc\\Documents\\GitHub\\UNLP\\Tercer año\\1er Semestre\\ING 2 - Ingenieria de software 2\\Proyecto - Oh my dog!\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-=======
-    "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
-        "projectName": "Aplicacion",
-        "projectPath": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\Aplicacion.csproj",
-        "packagesPath": "C:\\Users\\Fede\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Fede\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,10 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-<<<<<<< HEAD
-          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
-=======
->>>>>>> 2dfddc1daee1454b954cb3d806c2e8e3975d3277
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -107,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -9,189 +9,189 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Aplicacion
 build_property.RootNamespace = Aplicacion
-build_property.ProjectDir = C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\
+build_property.ProjectDir = C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion
+build_property.MSBuildProjectDirectory = C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Create.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Delete.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25cRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Details.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25cRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Edit.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Adopcion/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRvcGNpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/CorreoExitoso.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/CorreoExitoso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xDb3JyZW9FeGl0b3NvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Create.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Delete.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Details.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Edit.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Modificar.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/Modificar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xNb2RpZmljYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/_ContactarCuidador.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Cuidadores/_ContactarCuidador.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VpZGFkb3Jlc1xfQ29udGFjdGFyQ3VpZGFkb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Home/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Home/Privacy.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Login/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/CorreoExitoso.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/CorreoExitoso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xDb3JyZW9FeGl0b3NvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Create.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Delete.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Details.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Edit.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Modificar.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Paseadores/Modificar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzZWFkb3Jlc1xNb2RpZmljYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Create.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljYWNpb25zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Delete.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljYWNpb25zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Details.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljYWNpb25zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Edit.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljYWNpb25zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Publicacions/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljYWNpb25zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Shared/Error.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Create.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Delete.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Details.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Edit.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Turnos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHVybm9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Create.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Delete.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Details.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Edit.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Index.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/_ListarUsuarios.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/_ListarUsuarios.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcX0xpc3RhclVzdWFyaW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/_ViewImports.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/_ViewStart.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Shared/_Layout.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-o7jczltw69
 
-[C:/Users/Lautaro/OneDrive/Documentos/GitHub/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/CambiarContrasena.cshtml]
+[C:/Users/franc/Documents/GitHub/UNLP/Tercer año/1er Semestre/ING 2 - Ingenieria de software 2/Proyecto - Oh my dog\!/Oh-my-dog/Oh my dog\!/Aplicacion/Views/Usuarios/CambiarContrasena.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ2FtYmlhckNvbnRyYXNlbmEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ej8d40cip7
