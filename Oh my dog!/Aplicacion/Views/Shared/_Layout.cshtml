@@ -128,7 +128,7 @@
                 <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 @((ViewBag.ActiveView == "Home") ? "link-light active" : "link-dark")" aria-current="page">
-                            <i class="fa-solid fa-house fa-lg" style="color: #@((ViewBag.ActiveView == "Home") ? "ffffff" : "000000")"></i>
+                            <i class="fa-solid fa-house fa-lg" style="color: #@((ViewBag.ActiveView == "Home") ? "ffffff" : "000000");"></i>
                             Inicio
                         </a>
                     </li>
@@ -148,13 +148,21 @@
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
+                            <a class="nav-link dropdown-toggle @(((ViewBag.ActiveView == "Cuidadores") || (ViewBag.ActiveView == "Paseadores")) ? "link-light active" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-image-portrait fa-xl" style="color: #@(((ViewBag.ActiveView == "Cuidadores") || (ViewBag.ActiveView == "Paseadores")) ? "ffffff" : "000000");"></i>
                                 Servicios
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")" href="Cuidadores">Cuidadores</a></li>
-                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")" href="Paseadores">Paseadores</a></li>
+                                <li>
+                                    <a asp-area="" asp-controller="Cuidadores" asp-action="Index" asp class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")">
+                                        Cuidadores
+                                    </a>
+                                    </li>
+                                <li>
+                                    <a asp-area="" asp-controller="Paseadores" asp-action="Index" class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")">
+                                        Paseadores
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     }

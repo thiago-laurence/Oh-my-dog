@@ -118,7 +118,7 @@ namespace Aplicacion.Controllers
             var vacunas = await _context.VacunaPerros.Include(v => v.IdVacunaNavigation).Where(v => v.IdPerro == idPerro)
                                 .OrderBy(v => v.FechaAplicacion).ToListAsync();
             var perro = await _context.Perros.Where(p => p.Id == idPerro).FirstOrDefaultAsync();
-            perro!.VacunaPerros= vacunas;
+            perro!.VacunaPerros = vacunas;
             return (PartialView("_ListarVacunas", perro));
         }
 

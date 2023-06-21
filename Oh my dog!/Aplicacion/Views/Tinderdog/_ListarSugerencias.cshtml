@@ -11,7 +11,7 @@
                 <img src="/img/@Model[1].Foto" alt="FotoDePerfil" width="400" height="400">
                 <p class="card-text">
                     <strong style="font-size: 40px; color: #FFFFFF;">
-                        @Model[0].Nombre @Model[1].FechaDeNacimiento.Year
+                        @Model[1].Nombre, @(DateTime.Today.Year - Model[1].FechaDeNacimiento.Year)
                     </strong>
                 </p>
             }
@@ -45,10 +45,10 @@
             </div>
         </div>
         <div class="card-footer text-center">
-            <button class="btn btn-lg btn-light" type="button" id="BtnNoMegusta" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important; margin-right: 20px;">
+            <button class="btn btn-lg btn-light" type="button" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important; margin-right: 20px;">
                 <i class="fa-solid fa-xmark fa-2xl" style="color: #dc3545;"></i>
             </button>
-            <button class="btn btn-lg btn-light" type="button" id="BtnMeGusta" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important;">
+            <button class="btn btn-lg btn-light" type="button" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important;">
                 <i class="fa-solid fa-heart fa-2xl" style="color: #4dcc93;"></i>
             </button>
         </div>
@@ -62,7 +62,7 @@
                 <img src="/img/@Model[0].Foto" alt="FotoDePerfil" width="400" height="400">
                 <p class="card-text">
                     <strong style="font-size: 40px; color: #FFFFFF;">
-                        @Model[0].Nombre @Model[0].FechaDeNacimiento.Year
+                        @Model[0].Nombre, @(DateTime.Today.Year - Model[0].FechaDeNacimiento.Year)
                     </strong>
                 </p>
             }
@@ -115,7 +115,7 @@ else if (Model.Count() == 1)
                 <img src="/img/@Model[0].Foto" alt="FotoDePerfil" width="400" height="400">
                 <p class="card-text">
                     <strong style="font-size: 40px; color: #FFFFFF;">
-                        @Model[0].Nombre @Model[0].FechaDeNacimiento.Year
+                        @Model[0].Nombre, @(DateTime.Today.Year - Model[0].FechaDeNacimiento.Year)
                     </strong>
                 </p>
             }

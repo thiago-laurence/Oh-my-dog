@@ -1,0 +1,79 @@
+﻿@model Aplicacion.Models.MeGustasRecibidosViewModel
+
+<div class="container">
+    <div class="col-lg-7 text-center text-lg-start">
+        <h2 class="pb-2 fw-bolder border-bottom">
+            <img src="~/img/tinderdog - logo.png" alt="TinderDog - Logo" width="50">
+            Me gustas de @Model.Perro.Nombre
+        </h2>
+    </div>
+    @if (Model.GetMeGustas.Count() == 0)
+    {
+        <div class="text-center alert alert-info" role="alert">
+            <h3>
+                Aún no ha recibido "Me Gustas"
+            </h3>
+        </div>
+    }
+</div>
+@if (Model.GetMeGustas.Count() != 0)
+{
+    <div class="container-fluid" style="padding-right: 200px; padding-left: 200px; padding-bottom: 50px;">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var item in Model.GetMeGustas)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            @if (item.Foto != null)
+                            {
+                                <img src="/img/@item.Foto" class="card-img-top" alt="LogoPerroDefault">
+                                <p class="card-text">
+                                    <strong style="font-size: 30px; color: #FFFFFF;">
+                                        @item.Nombre, @(DateTime.Today.Year - item.FechaDeNacimiento.Year)
+                                    </strong>
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/img/LogoPerroDefault.jpg" class="card-img-top" alt="LogoPerroDefault">
+                                <p class="card-text">
+                                    <strong style="font-size: 30px; color: #000000;">
+                                        @item.Nombre, @(DateTime.Today.Year - item.FechaDeNacimiento.Year)
+                                    </strong>
+                                </p>
+                            }
+                        </div>
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading@(item.Id)">
+                                    <button class="accordion-button collapsed" style="background-color: aliceblue;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(item.Id)" aria-expanded="false" aria-controls="collapse@(item.Id)">
+                                    </button>
+                                </h2>
+                                <div id="collapse@(item.Id)" class="accordion-collapse collapse" aria-labelledby="heading@(item.Id)" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <strong>
+                                            @item.Raza
+                                            <br>
+                                            @item.Color
+                                            <br>
+                                            @item.Observaciones
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button class="btn btn-lg btn-light" type="button" id="BtnNoMegusta" value="@item.Id" onclick="NoMeGusta()" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important; margin-right: 20px;">
+                                <i class="fa-solid fa-xmark fa-2xl" style="color: #dc3545;"></i>
+                            </button>
+                            <button class="btn btn-lg btn-light" type="button" id="BtnMeGusta" value="@item.Id" onclick="MeGusta()" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important;">
+                                <i class="fa-solid fa-heart fa-2xl" style="color: #4dcc93;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

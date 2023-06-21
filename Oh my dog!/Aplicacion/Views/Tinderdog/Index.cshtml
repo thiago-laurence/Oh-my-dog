@@ -1,4 +1,6 @@
-﻿@model List<Aplicacion.Models.Perro>
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model List<Aplicacion.Models.Perro>
 
 @{
     ViewData["Title"] = "TinderDog";
@@ -20,8 +22,8 @@
     .card-text {
         position: absolute;
         top: 90%;
-        left: 30%;
-        transform: translate(-50%, -50%);
+        left: 5%;
+        transform: translate(-0%, -50%);
     }
 
     .filtro {
@@ -65,8 +67,127 @@
 </div>
 <div class="b-example-divider"></div>
 
+<!--Modal para contactar Match-->
+<div class="modal fade" id="ModalContactarMatch" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-heart fa-xl"></i>
+                    <i class="fa-solid fa-envelope fa-xl"></i>
+                    Contactar Flechazo
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormContactoMatch">
+                    <div class="col-md-12">
+                        <label class="form-label">Remitente</label>
+                        <input type="email" class="form-control" id="Remitente" name="Remitente" value="@User.FindFirstValue("Email")" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Destinatario</label>
+                        <input type="email" class="form-control" id="Destinatario" name="Destinatario" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Asunto</label>
+                        <input type="text" class="form-control" maxlength="50" id="Asunto" name="Asunto" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Mensaje</label>
+                        <textarea class="form-control InputText" maxlength="500" id="Contenido" name="Contenido" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingresa un mensaje a incluir en el cuerpo del correo (máximo 500 caracteres)
+                        </div>
+                    </div>
+                    <input type="hidden" id="idPerroContacto" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" id="BtnCancelarContacto">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" onclick="EnviarCorreoMatch()" disabled id="BtnContacto">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script src="~/js/jquery-ui.min.js"></script>
+
+    <!--Validacion de relleno de formulario-->
+    <script>
+        // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
+        function ResetFormulario(boton) {
+            var formulario = boton.closest("form");
+            var campos = formulario.querySelectorAll(".InputText");
+
+            campos.forEach(function (campo) {
+                campo.value = '';
+                if (campo.classList.contains("is-valid")) {
+                    campo.classList.remove("is-valid");
+                }
+                if (campo.classList.contains("is-invalid")) {
+                    campo.classList.remove("is-invalid");
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            botonEnvio.disabled = true;
+        }
+        var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+        botonesCancelar.forEach(function (elemento) {
+            elemento.addEventListener('click', function () {
+                ResetFormulario(this);
+            });
+        });
+
+        // --> VALIDACION DE FORMULARIOS PARA BOTON ACEPTAR <--
+        var formularios = document.querySelectorAll(".Formulario");
+        var botonesEnvio = document.querySelectorAll(".BtnEnvioForm");
+
+        function ValidarFormulario() {
+            var formulario = this;
+            var campos = formulario.querySelectorAll(".InputText");
+            var todosValidos = true;
+
+            campos.forEach(function (campo) {
+                if (!campo.classList.contains("is-valid")) {
+                    todosValidos = false;
+                    return;
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            if (todosValidos) {
+                botonEnvio.disabled = false;
+            } else {
+                botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT TEXT <--
+        function ValidarInputText() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        formularios.forEach(function (formulario) {
+            var campos = formulario.querySelectorAll(".InputText");
+            campos.forEach(function (campo) {
+                campo.addEventListener("input", function () {
+                    if (campo.classList.contains("InputText")) {
+                        ValidarInputText.call(campo);
+                    }
+                    ValidarFormulario.call(formulario);
+                });
+            });
+        });
+    </script>
 
     <!--Funcionalidad de desplazamiento de card-->
     <script>
@@ -118,13 +239,17 @@
                     if (ui.position.left > 150) {
                         // Deslizado hacia la derecha (interés)
                         console.log('Me gusta');
-                        //MeGusta();
                         card.animate(endLikePosition, 200);
+                        setTimeout(function () {
+                            MeGusta()
+                        }, 200);
                     } else if (ui.position.left < -150) {
                         // Deslizado hacia la izquierda (desinterés)
                         console.log('No me gusta');
-                        //NoMeGusta();
                         card.animate(endUnLikePosition, 200);
+                        setTimeout(function () {
+                            NoMeGusta()
+                        }, 200);
                     } else {
                         // No se movió lo suficiente, volver al centro
                         card.animate(startPosition, 200); // Ajusta la duración de la animación según tus necesidades
@@ -153,6 +278,67 @@
 
     <!--Accion MeGusta / NoMegusta-->
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        function VisualizarContacto(idPerro){
+            $.ajax({
+                url: '@Url.Action("VisualizarContacto", "Tinderdog")',
+                type: 'GET',
+                data: { idPerro: idPerro },
+                success: function (data) {
+                    if (data.success) {
+                        document.getElementById('Destinatario').value = data.emailDueno;
+                        document.getElementById('idPerroContacto').value = data.idPerro;
+                        document.getElementById('Asunto').value = "Contacto de flechazo por " + data.nombrePerro;
+                        $('#ModalContactarMatch').modal('show');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+
+        function EnviarCorreoMatch(){
+            var remitente = document.getElementById('Remitente').value;
+            var destinatario = document.getElementById('Destinatario').value;
+            var asunto = document.getElementById('Asunto').value;
+            var contenido = document.getElementById('Contenido').value;
+            $.ajax({
+                url: '@Url.Action("ContactarMatch", "Tinderdog")',
+                type: 'POST',
+                data: { remitente: remitente, destinatario: destinatario, asunto: asunto, contenido: contenido },
+                success: function (data) {
+                    if (data.success) {
+                        Toast.fire({
+                            icon: 'success',
+                            text: '¡Se ha enviado el correo al dueño del perro!'
+                        })
+                        var boton = document.getElementById('BtnCancelarContacto');
+                        boton.click();
+                        $('#ModalContactarMatch').modal('hide');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+
         function MeGusta(){
             var idPerroEmisor = document.getElementById('SelectorPerro').value;
             var idPerroReceptor = document.getElementById('BtnMeGusta').value;
@@ -163,15 +349,16 @@
                 success: function (data) {
                     if (data.match){
                         Swal.fire({
+                            text: '¿Desea contactarse con su "Flechazo"?',
                             imageUrl: "/img/match.png",
                             imageHeight: 200,
                             showCancelButton: true,
-                            confirmButtonText: 'Si',
-                            cancelButtonText: 'No',
+                            confirmButtonText: 'Contactar',
+                            cancelButtonText: 'Cancelar',
                             reverseButtons: true
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                
+                                VisualizarContacto(idPerroReceptor);
                             } else {
                                 
                             }
