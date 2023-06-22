@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BF65Qtvvm9DriITtUwclackKAi+Z/neBdpdCuf0SPH4=",
+  "Hash": "Yur9mCeENZYClwQZ1PWP4aDbI2tNJvdb3FexZELjQfg=",
   "Source": "Aplicacion",
   "BasePath": "_content/Aplicacion",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Aplicacion\\wwwroot",
       "Source": "Aplicacion",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Aplicacion.styles.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Aplicacion.styles.css",
       "SourceId": "Aplicacion",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "Aplicacion.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Aplicacion.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Aplicacion.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aplicacion.bundle.scp.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aplicacion.bundle.scp.css",
       "SourceId": "Aplicacion",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "Aplicacion.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aplicacion.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aplicacion.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bodyCreate.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bodyCreate.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/bodyCreate.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bodyCreate.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\estiloCalendario.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\estiloCalendario.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/estiloCalendario.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\estiloCalendario.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\IndexCuid.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\IndexCuid.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/IndexCuid.css",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\IndexCuid.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\loginStyles.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\loginStyles.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/loginStyles.css",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\loginStyles.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\map.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\map.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/map.css",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\css\\map.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\modalMap.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\modalMap.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/modalMap.css",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\css\\modalMap.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\opcionesMapa.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\opcionesMapa.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/opcionesMapa.css",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\css\\opcionesMapa.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\css\\site.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\favicon.ico",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1314467-ff9800.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1314467-ff9800.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/1314467-ff9800.svg",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\img\\1314467-ff9800.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1-c6224fe220.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\1-c6224fe220.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/1-c6224fe220.jpg",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\img\\1-c6224fe220.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20191230_164919.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20191230_164919.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/20191230_164919.jpg",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\img\\20191230_164919.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20221020_165337.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20221020_165337.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/20221020_165337.jpg",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\img\\20221020_165337.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230106_230132.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230106_230132.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/20230106_230132.jpg",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\img\\20230106_230132.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230107_002354.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230107_002354.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/20230107_002354.jpg",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\img\\20230107_002354.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230214_150242.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\20230214_150242.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/20230214_150242.jpg",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\img\\20230214_150242.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\800px-Flag_of_Unitarian_Party_exiled.svg.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\800px-Flag_of_Unitarian_Party_exiled.svg.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/800px-Flag_of_Unitarian_Party_exiled.svg.png",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\img\\800px-Flag_of_Unitarian_Party_exiled.svg.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\840_560.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\840_560.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/840_560.jpg",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\img\\840_560.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\AdobeStock_262214231.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\AdobeStock_262214231.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/AdobeStock_262214231.svg",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\img\\AdobeStock_262214231.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\AdobeStock_33953457.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\AdobeStock_33953457.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/AdobeStock_33953457.svg",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\img\\AdobeStock_33953457.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\adopciones.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\adopciones.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/adopciones.png",
       "AssetKind": "All",
@@ -425,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\img\\adopciones.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\calendario.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\calendario.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/calendario.jpg",
       "AssetKind": "All",
@@ -442,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\img\\calendario.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-1.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-1.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/carousel-1.jpg",
       "AssetKind": "All",
@@ -459,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\img\\carousel-1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-2.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-2.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/carousel-2.jpg",
       "AssetKind": "All",
@@ -476,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\img\\carousel-2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-3.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\carousel-3.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/carousel-3.jpg",
       "AssetKind": "All",
@@ -493,10 +493,10 @@
       "OriginalItemSpec": "wwwroot\\img\\carousel-3.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Cesar.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Cesar.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/Cesar.jpg",
       "AssetKind": "All",
@@ -510,10 +510,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Cesar.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\colectas.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\colectas.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/colectas.png",
       "AssetKind": "All",
@@ -527,10 +527,10 @@
       "OriginalItemSpec": "wwwroot\\img\\colectas.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\colectas2.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\colectas2.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/colectas2.jpg",
       "AssetKind": "All",
@@ -544,10 +544,10 @@
       "OriginalItemSpec": "wwwroot\\img\\colectas2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\concientizacion.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\concientizacion.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/concientizacion.jpg",
       "AssetKind": "All",
@@ -561,10 +561,10 @@
       "OriginalItemSpec": "wwwroot\\img\\concientizacion.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\concientizacion2.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\concientizacion2.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/concientizacion2.png",
       "AssetKind": "All",
@@ -578,10 +578,10 @@
       "OriginalItemSpec": "wwwroot\\img\\concientizacion2.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\cuidadores.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\cuidadores.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/cuidadores.png",
       "AssetKind": "All",
@@ -595,10 +595,10 @@
       "OriginalItemSpec": "wwwroot\\img\\cuidadores.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\fondo_formulario.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\fondo_formulario.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/fondo_formulario.svg",
       "AssetKind": "All",
@@ -612,10 +612,10 @@
       "OriginalItemSpec": "wwwroot\\img\\fondo_formulario.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\granPaseador.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\granPaseador.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/granPaseador.jpg",
       "AssetKind": "All",
@@ -629,10 +629,10 @@
       "OriginalItemSpec": "wwwroot\\img\\granPaseador.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\huella_icon.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\huella_icon.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/huella_icon.png",
       "AssetKind": "All",
@@ -646,10 +646,10 @@
       "OriginalItemSpec": "wwwroot\\img\\huella_icon.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\HuellaMapa.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\HuellaMapa.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/HuellaMapa.svg",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\img\\HuellaMapa.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-adopcion-card.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-adopcion-card.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/icon-adopcion-card.png",
       "AssetKind": "All",
@@ -680,10 +680,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icon-adopcion-card.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-dog-alert.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\icon-dog-alert.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/icon-dog-alert.png",
       "AssetKind": "All",
@@ -697,10 +697,10 @@
       "OriginalItemSpec": "wwwroot\\img\\icon-dog-alert.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel1.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel1.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/img-carrousel1.jpg",
       "AssetKind": "All",
@@ -714,10 +714,10 @@
       "OriginalItemSpec": "wwwroot\\img\\img-carrousel1.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel2.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel2.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/img-carrousel2.jpg",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\img\\img-carrousel2.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel3.jpg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\img-carrousel3.jpg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/img-carrousel3.jpg",
       "AssetKind": "All",
@@ -748,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\img\\img-carrousel3.jpg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\listadoAdopciones-icon.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\listadoAdopciones-icon.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/listadoAdopciones-icon.png",
       "AssetKind": "All",
@@ -765,10 +765,10 @@
       "OriginalItemSpec": "wwwroot\\img\\listadoAdopciones-icon.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo - Veterinaria.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/Logo - Veterinaria.png",
       "AssetKind": "All",
@@ -782,10 +782,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Logo - Veterinaria.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo 2 - Veterinaria.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo 2 - Veterinaria.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/Logo 2 - Veterinaria.png",
       "AssetKind": "All",
@@ -799,10 +799,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Logo 2 - Veterinaria.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo LEM - v2.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\Logo LEM - v2.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/Logo LEM - v2.png",
       "AssetKind": "All",
@@ -816,10 +816,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Logo LEM - v2.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\paseadores.jpeg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\paseadores.jpeg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/paseadores.jpeg",
       "AssetKind": "All",
@@ -833,10 +833,10 @@
       "OriginalItemSpec": "wwwroot\\img\\paseadores.jpeg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\pataPerro.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\pataPerro.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/pataPerro.png",
       "AssetKind": "All",
@@ -850,10 +850,10 @@
       "OriginalItemSpec": "wwwroot\\img\\pataPerro.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\PerroError.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\PerroError.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/PerroError.svg",
       "AssetKind": "All",
@@ -867,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\img\\PerroError.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\publicarAdopcion-icon.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\publicarAdopcion-icon.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/publicarAdopcion-icon.png",
       "AssetKind": "All",
@@ -884,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\img\\publicarAdopcion-icon.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\recuperaciones.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\recuperaciones.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/recuperaciones.png",
       "AssetKind": "All",
@@ -901,10 +901,10 @@
       "OriginalItemSpec": "wwwroot\\img\\recuperaciones.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo 2.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo 2.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/tinderdog - logo 2.png",
       "AssetKind": "All",
@@ -918,10 +918,10 @@
       "OriginalItemSpec": "wwwroot\\img\\tinderdog - logo 2.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog - logo.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/tinderdog - logo.png",
       "AssetKind": "All",
@@ -935,10 +935,10 @@
       "OriginalItemSpec": "wwwroot\\img\\tinderdog - logo.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog-removebg-preview.png",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\tinderdog-removebg-preview.png",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/tinderdog-removebg-preview.png",
       "AssetKind": "All",
@@ -952,10 +952,10 @@
       "OriginalItemSpec": "wwwroot\\img\\tinderdog-removebg-preview.png"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\x-square.svg",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\img\\x-square.svg",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "img/x-square.svg",
       "AssetKind": "All",
@@ -969,10 +969,10 @@
       "OriginalItemSpec": "wwwroot\\img\\x-square.svg"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\bootstrap.bundle.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -986,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\calendario.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\calendario.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "js/calendario.js",
       "AssetKind": "All",
@@ -1003,10 +1003,10 @@
       "OriginalItemSpec": "wwwroot\\js\\calendario.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\popper.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\popper.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "js/popper.js",
       "AssetKind": "All",
@@ -1020,10 +1020,10 @@
       "OriginalItemSpec": "wwwroot\\js\\popper.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\js\\site.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -1037,10 +1037,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetKind": "All",
@@ -1054,10 +1054,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
       "AssetKind": "All",
@@ -1071,10 +1071,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -1088,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -1105,10 +1105,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
       "AssetKind": "All",
@@ -1122,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "AssetKind": "All",
@@ -1139,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "AssetKind": "All",
@@ -1156,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "AssetKind": "All",
@@ -1173,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
       "AssetKind": "All",
@@ -1190,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "AssetKind": "All",
@@ -1207,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "AssetKind": "All",
@@ -1224,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "AssetKind": "All",
@@ -1241,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "AssetKind": "All",
@@ -1258,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "AssetKind": "All",
@@ -1275,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "AssetKind": "All",
@@ -1292,10 +1292,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
       "AssetKind": "All",
@@ -1326,10 +1326,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "AssetKind": "All",
@@ -1343,10 +1343,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "AssetKind": "All",
@@ -1360,10 +1360,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "AssetKind": "All",
@@ -1377,10 +1377,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "AssetKind": "All",
@@ -1394,10 +1394,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "AssetKind": "All",
@@ -1411,10 +1411,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "AssetKind": "All",
@@ -1428,10 +1428,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "AssetKind": "All",
@@ -1445,10 +1445,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
       "AssetKind": "All",
@@ -1462,10 +1462,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "AssetKind": "All",
@@ -1479,10 +1479,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "AssetKind": "All",
@@ -1496,10 +1496,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "AssetKind": "All",
@@ -1513,10 +1513,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "AssetKind": "All",
@@ -1530,10 +1530,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "AssetKind": "All",
@@ -1547,10 +1547,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "AssetKind": "All",
@@ -1564,10 +1564,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "AssetKind": "All",
@@ -1581,10 +1581,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
       "AssetKind": "All",
@@ -1598,10 +1598,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "AssetKind": "All",
@@ -1615,10 +1615,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -1632,10 +1632,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "AssetKind": "All",
@@ -1649,10 +1649,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
       "AssetKind": "All",
@@ -1666,10 +1666,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "AssetKind": "All",
@@ -1683,10 +1683,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "AssetKind": "All",
@@ -1700,10 +1700,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "AssetKind": "All",
@@ -1717,10 +1717,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
       "AssetKind": "All",
@@ -1734,10 +1734,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
       "AssetKind": "All",
@@ -1751,10 +1751,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
       "AssetKind": "All",
@@ -1768,10 +1768,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
       "AssetKind": "All",
@@ -1785,10 +1785,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -1802,10 +1802,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -1819,10 +1819,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -1836,10 +1836,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -1853,10 +1853,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
@@ -1870,10 +1870,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -1887,10 +1887,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -1904,10 +1904,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -1921,10 +1921,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1938,10 +1938,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -1955,10 +1955,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -1972,10 +1972,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1989,10 +1989,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "Aplicacion",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fede\\Documents\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Lautaro\\OneDrive\\Documentos\\GitHub\\Oh-my-dog\\Oh my dog!\\Aplicacion\\wwwroot\\",
       "BasePath": "_content/Aplicacion",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
