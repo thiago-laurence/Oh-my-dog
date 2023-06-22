@@ -13,7 +13,7 @@ public partial class PerroTurnos
 
     public int IdTurno { get; set; }
 
-    public virtual Perros? IdPerroNavigation { get; set; }
+    public virtual Perro? IdPerroNavigation { get; set; }
 
     public virtual Turnos IdTurnoNavigation { get; set; } = null!;
 }

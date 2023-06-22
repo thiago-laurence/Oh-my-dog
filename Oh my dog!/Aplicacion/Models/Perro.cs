@@ -25,11 +25,15 @@ public partial class Perro
 
     public DateTime FechaDeNacimiento { get; set; }
 
+    public int? IdDueno { get; set; }
+
+    public virtual Usuarios? IdDuenoNavigation { get; set; }
+
+    public virtual ICollection<PerroTurnos> PerroTurnos { get; set; } = new List<PerroTurnos>();
+
     public virtual ICollection<Publicacion> Publicacions { get; set; } = new List<Publicacion>();
 
     public virtual ICollection<TratamientoPerro> TratamientoPerros { get; set; } = new List<TratamientoPerro>();
-
-    public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
 
     public virtual ICollection<VacunaPerro> VacunaPerros { get; set; } = new List<VacunaPerro>();
 }

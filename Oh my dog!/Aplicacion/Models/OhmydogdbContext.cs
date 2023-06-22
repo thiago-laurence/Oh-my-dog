@@ -28,7 +28,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Paseadores> Paseadores { get; set; }
 
-    public virtual DbSet<Perros> Perros { get; set; }
+    public virtual DbSet<Perro> Perros { get; set; }
 
     public virtual DbSet<PerroTurnos> PerroTurnos { get; set; }
 
@@ -95,7 +95,7 @@ public partial class OhmydogdbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Descuento>(entity =>
+        modelBuilder.Entity<Descuentos>(entity =>
         {
             entity.ToTable("Descuento");
 
@@ -164,7 +164,7 @@ public partial class OhmydogdbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Perros>(entity =>
+        modelBuilder.Entity<Perro>(entity =>
         {
             entity.Property(e => e.Color)
                 .HasMaxLength(10)

@@ -94,12 +94,22 @@
                                     </a>
                                 </li>-->
                                 <li><hr class="dropdown-divider"></li>
+
                                 <li>
-                                    <a class="dropdown-item active" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
+                                    <a class="dropdown-item active" asp-area="">
+                                        Turnos
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #000000;"></i>
                                         Cambiar contraseña
                                     </a>
+
                                 </li>
+
+                               
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogOut">
                                         <i class="fa-solid fa-right-from-bracket fa-md" style="color: #000000;"></i>
                                         Cerrar sesión
@@ -166,7 +176,12 @@
                                     </ul>
                                 </li>
                             </ul>
+
+
+                            
                         </li>
+                        
+
 
                     }
                     @if (User.Identity!.IsAuthenticated)
@@ -211,6 +226,13 @@
                                     </a>
                                 </li>-->
                                 <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Turnos" asp-action="Index">
+                                        Turnos
+                                    </a>
+
+                                </li>
+                                
                                 <li>
                                     <a class="dropdown-item @((ViewBag.ActiveView == "CambiarContrasena") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #@((ViewBag.ActiveView == "CambiarContrasena") ? "ffffff" : "000000")"></i>
