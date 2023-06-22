@@ -1,0 +1,621 @@
+﻿@model Aplicacion.Models.Usuarios
+
+@{
+    ViewData["Title"] = "Perros";
+}
+
+<style>
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+</style>
+
+<div class="b-example-divider"></div>
+
+<!-- Inicio de visualizacion de Perros -->
+<div class="container-fluid" id="ContainerListarPerros">
+    @await Html.PartialAsync("_ListarPerros", Model)
+</div>
+<!-- Fin de visualizacion de Perros -->
+
+<div class="b-example-divider"></div>
+
+<!--Modal de registro de nuevo de perro-->
+<div class="modal fade" id="ModalNuevoPerro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-paw fa-xl" style="color: #000000;"></i>
+                    Registrar perro
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormNuevoPerro">
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" maxlength="20" class="form-control InputText" id="Nombre" required>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Raza</label>
+                        <input type="text" maxlength="20" class="form-control InputText" id="Raza" required>
+                        <div class="invalid-feedback">
+                            Ingrese una raza!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Color</label>
+                        <input type="text" maxlength="30" class="form-control InputText" id="Color" required>
+                        <div class="invalid-feedback">
+                            Ingrese una raza!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom04" class="form-label">Sexo</label>
+                        <select class="form-select InputSelect" id="Sexo" required>
+                            <option selected disabled value="">Elige...</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            ¡Seleccione un sexo!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Peso (en Kg)</label>
+                        <input type="text" class="form-control InputNumber" id="Peso" pattern="[0-9]+([.][0-9]+)?" required>
+                        <div class="invalid-feedback">
+                            ¡Ingrese un peso válido! (no puede empezar ni finalizar en '.', y no puede ser negativo) <!--Preguntar cuantas validaciones indico-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control InputDate" id="FechaNacimiento" max="" required>
+                        <div class="invalid-feedback">
+                            ¡Ingrese una fecha válida! (la fecha no puede ser futura)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="" value="">Foto (opcional)</label>
+                        <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="Foto">
+                        <div class="invalid-feedback">
+                            ¡La foto ingresada no es válida!
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Observaciones</label>
+                        <textarea class="form-control InputText" maxlength="500" id="Observaciones" name="" required></textarea>
+                        <div class="invalid-feedback">
+                            ¡Ingrese info. relacionada al estado de ingreso del perro!
+                        </div>
+                    </div>
+                    <input type="hidden" value="@Model.Id" id="idDueno" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonEnvio" disabled onclick="RegistrarPerro()">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal de modificacion de perro-->
+<div class="modal fade" id="ModalModificarPerro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-pencil fa-xl" style="color: #000000;"></i>
+                    <i class="fa-solid fa-paw fa-xl" style="color: #000000;"></i>
+                    Modificar perro
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormModificarPerro">
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" maxlength="20" class="form-control InputText" id="NombreModificar" required>
+                        <div class="invalid-feedback">
+                            Ingrese un nombre!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Raza</label>
+                        <input type="text" maxlength="20" class="form-control InputText" id="RazaModificar" required>
+                        <div class="invalid-feedback">
+                            Ingrese una raza!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Color</label>
+                        <input type="text" maxlength="30" class="form-control InputText" id="ColorModificar" required>
+                        <div class="invalid-feedback">
+                            Ingrese una raza!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom04" class="form-label">Sexo</label>
+                        <select class="form-select InputSelect" id="SexoModificar" required>
+                            <option selected disabled value="">Elige...</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Seleccione un sexo!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Peso (en Kg)</label>
+                        <input type="text" class="form-control InputNumber" id="PesoModificar" pattern="[0-9]+([.][0-9]+)?" required>
+                        <div class="invalid-feedback">
+                            Ingrese un peso válido! (no puede empezar ni finalizar en '.', y no puede ser negativo) <!--Preguntar cuantas validaciones indico-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control InputDate" id="FechaNacimientoModificar" max="" required>
+                        <div class="invalid-feedback">
+                            Ingrese una fecha válida! (la fecha no puede ser futura)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="" value="">Foto (opcional)</label>
+                        <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="FotoModificar">
+                        <div class="invalid-feedback">
+                            La foto ingresada no es válida!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom04" class="form-label">Estado</label>
+                        <select class="form-select InputSelect" id="EstadoModificar" required>
+                            <option selected disabled value="">Elige...</option>
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Seleccione un sexo!
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Observaciones</label>
+                        <textarea class="form-control InputText" maxlength="500" id="ObservacionesModificar" name="" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingrese info. relacionada al estado de ingreso del perro!
+                        </div>
+                    </div>
+                    <input type="hidden" id="idDuenoModificar" />
+                    <input type="hidden" id="idModificar" />
+                    <input type="hidden" id="CeloModificar" /> <!--Se requiere para no modificar celo registrado por el cliente-->
+                    <input type="hidden" id="FotoOriginal" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarModificar">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonEnvioModificar" disabled onclick="ModificarPerro()">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <!--Validacion de relleno de formulario-->
+    <script>
+        // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
+        function ResetFormulario(boton){
+            var formulario = boton.closest("form");
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber, .InputFoto");
+
+            campos.forEach(function (campo) {
+                campo.value = '';
+                if (campo.classList.contains("is-valid")) {
+                    campo.classList.remove("is-valid");
+                } 
+                if (campo.classList.contains("is-invalid")) {
+                    campo.classList.remove("is-invalid");
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            botonEnvio.disabled = true;
+        }
+        var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+        botonesCancelar.forEach(function (elemento) {
+            elemento.addEventListener('click', function () {
+                ResetFormulario(this);
+            });
+        });
+
+        // --> VALIDACION DE FORMULARIOS PARA BOTON ACEPTAR <--
+        var formularios = document.querySelectorAll(".Formulario");
+        var botonesEnvio = document.querySelectorAll(".BtnEnvioForm");
+
+        function ValidarFormulario() {
+            var formulario = this;
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber");
+            var todosValidos = true;
+
+            campos.forEach(function (campo) {
+                if (!campo.classList.contains("is-valid")) {
+                    todosValidos = false;
+                    return;
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            if (todosValidos) {
+                botonEnvio.disabled = false;
+            } else {
+                botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT TEXT <--
+        function ValidarInputText() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        // --> VALIDACION DE INPUT DATE <--
+        function ValidarInputDate(fechaActual) {
+            if (this.value.trim() !== '' && (this.value <= fechaActual)) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        // --> VALIDACION DE INPUT SELECT <--
+        function ValidarInputSelect() {
+            if (this.selectedIndex !== -1) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        // --> VALIDACION DE INPUT NUMBER <--
+        function ValidarInputNumber() {
+            if (/^[0-9]+([.][0-9]+)?$/.test(this.value)) {
+                var pesoNum = parseFloat(this.value);
+                var enteroMin = 0; // Valor mínimo para la parte entera
+                var enteroMax = 100; // Valor máximo para la parte entera
+                var decimalMin = 0; // Valor mínimo para la parte decimal
+                var decimalMax = 999; // Valor máximo para la parte decimal
+
+                var entero = Math.floor(pesoNum);
+                var decimal = Math.round((pesoNum - entero) * 100);
+
+                if (entero >= enteroMin && entero <= enteroMax && decimal >= decimalMin && decimal <= decimalMax) {
+                    this.classList.remove("is-invalid");
+                    this.classList.add("is-valid");
+                } else {
+                    this.classList.remove("is-valid");
+                    this.classList.add("is-invalid");
+                }
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+        }
+
+        var fechaActual = new Date();
+        fechaActual.setUTCHours(fechaActual.getUTCHours() - 3); // Modifica la fecha para que sea la actual de Argentina
+        var valorActual = fechaActual.toISOString().split("T")[0];
+        formularios.forEach(function (formulario) {
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber");
+            campos.forEach(function (campo) {
+                campo.addEventListener("input", function () {
+                    if (campo.classList.contains("InputText")) {
+                        ValidarInputText.call(campo);
+                    } else if (campo.classList.contains("InputDate")) {
+                        campo.setAttribute("max", valorActual);
+                        ValidarInputDate.call(campo, valorActual);
+                    } else if (campo.classList.contains("InputSelect")) {
+                        ValidarInputSelect.call(campo);
+                    } else if (campo.classList.contains("InputNumber")) {
+                        ValidarInputNumber.call(campo);
+                    }
+                    ValidarFormulario.call(formulario);
+                });
+            });
+        });
+    </script>
+
+    <!--Validacion de subida de foto-->
+    <script>
+        function ValidarFoto() {
+            var fileName = this.value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+                this.value = "";
+            }
+        }
+
+        var inputFiles = document.querySelectorAll(".InputFoto");
+        inputFiles.forEach(function (elemento) {
+            elemento.addEventListener("change", ValidarFoto);
+        });
+    </script>
+
+    <!--Registrar nuevo perro-->
+    <script>
+        function RegistrarPerro(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+            Swal.fire({
+                title: '¿Desea registrar a un nuevo perro?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var perro = {
+                        idDueno: document.getElementById("idDueno").value,
+                        nombre: document.getElementById("Nombre").value,
+                        raza: document.getElementById("Raza").value,
+                        peso: document.getElementById("Peso").value,
+                        color: document.getElementById("Color").value,
+                        sexo: document.getElementById("Sexo").value,
+                        foto: RegistrarFoto('Foto'),
+                        observaciones: document.getElementById("Observaciones").value,
+                        FechaDeNacimiento: document.getElementById("FechaNacimiento").value
+                    };
+                    
+                    $.ajax({
+                        url: '@Url.Action("RegistrarPerro", "Perros")',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(perro),
+                        success: function (data) {
+                            if (data.success) {
+                                ListarPerros(perro.idDueno);
+                                $('#ModalNuevoPerro').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Perro registrado!',
+                                    text: data.message
+                                })
+                                var boton = document.getElementById('BotonCancelarRegistro');
+                                boton.click();
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un erorr!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    <!--Registrar foto-->
+    <script>
+        function RegistrarFoto(idFoto){
+            var filename;
+            var fullPath = document.getElementById(idFoto).value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+            } else {
+                filename = null;
+            }
+
+            if (filename != null){
+                var fileUpload = $("#" + idFoto).get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+                fileData.append(files[0].name, files[0]);
+                $.ajax({
+                    url: '/Perros/CargarFoto',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+
+            return (filename);
+        }
+    </script>
+
+    <!--Listar perros-->
+    <script>
+        function ListarPerros(id){
+            $.ajax({
+                url: '@Url.Action("ListarPerros", "Perros")',
+                type: 'GET',
+                data: { idDueno: id },
+                success: function (data) {
+                    $('#ContainerListarPerros').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+    <!--Obtener datos de perro y mostrar en modal-->
+    <script>
+        function InicializarInputs(idFormulario, idBotonAceptar){
+            var formulario = document.getElementById(idFormulario);
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber");
+
+            campos.forEach(function (campo) {
+                campo.classList.add("is-valid");
+            });
+
+            document.getElementById(idBotonAceptar).disabled = false;
+        }
+        function ObtenerPerro(idPerro){
+            $.ajax({
+                url: '@Url.Action("ObtenerPerro", "Perros")',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: idPerro }, // Enviar los datos al controlador
+                success: function (data) {
+                    document.getElementById("NombreModificar").value = data.nombre;
+                    document.getElementById("RazaModificar").value = data.raza;
+                    document.getElementById("SexoModificar").value = data.sexo;
+                    document.getElementById("EstadoModificar").value = data.estado;
+                    document.getElementById("PesoModificar").value = data.peso;
+                    document.getElementById("FechaNacimientoModificar").value = new Date(data.fechaDeNacimiento).toISOString().split("T")[0];;
+                    document.getElementById("idDuenoModificar").value = data.idDueno;
+                    document.getElementById("FotoOriginal").value = data.foto;
+                    document.getElementById("idModificar").value = data.id;
+                    document.getElementById("ObservacionesModificar").value = data.observaciones;
+                    document.getElementById("ColorModificar").value = data.color;
+                    document.getElementById("CeloModificar").value = data.celo;
+                    InicializarInputs("FormModificarPerro", "BotonEnvioModificar");
+                    $('#ModalModificarPerro').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+    <!--Modificar perro-->
+    <script>
+        function ModificarPerro(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+            Swal.fire({
+                title: '¿Desea modificar la info. del perro?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var nombreFoto = RegistrarFoto('FotoModificar');
+                    var perro = {
+                        id: document.getElementById("idModificar").value,
+                        idDueno: document.getElementById("idDuenoModificar").value,
+                        nombre: document.getElementById("NombreModificar").value,
+                        raza: document.getElementById("RazaModificar").value,
+                        peso: document.getElementById("PesoModificar").value,
+                        estado: document.getElementById("EstadoModificar").value,
+                        color: document.getElementById("ColorModificar").value,
+                        sexo: document.getElementById("SexoModificar").value,
+                        celo: document.getElementById("CeloModificar").value,
+                        foto: (nombreFoto == null) ? document.getElementById("FotoOriginal").value : nombreFoto,
+                        observaciones: document.getElementById("ObservacionesModificar").value,
+                        FechaDeNacimiento: document.getElementById("FechaNacimientoModificar").value
+                    };
+
+                    $.ajax({
+                        url: '@Url.Action("ModificarPerro", "Perros")',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { perro: perro },
+                        success: function (data) {
+                            if (data.success) {
+                                ListarPerros(perro.idDueno);
+                                $('#ModalModificarPerro').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Información actualizada!',
+                                    text: data.message
+                                })
+                                var boton = document.getElementById('BotonCancelarModificar');
+                                boton.click();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un error!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

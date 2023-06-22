@@ -1,0 +1,503 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Aplicacion.Models.VacunasViewModel
+
+@{
+    ViewData["Title"] = "Libreta sanitaria";
+}
+
+<style>
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+</style>
+
+<div class="b-example-divider"></div>
+<!-- Inicio de visualizacion de Vacunas-->
+<div class="container-fluid" id="ContainerListarVacunas">
+    @await Html.PartialAsync("_ListarVacunas", Model.Perro)
+</div>
+<!-- Fin de visualizacion de Vacunas-->
+<div class="b-example-divider"></div>
+
+<!--Modal de registro de nueva vacuna-->
+<div class="modal fade" id="ModalNuevaVacuna" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-syringe fa-xl" style="color: #000000;"></i>
+                    Registrar Vacuna
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormNuevaVacuna">
+                    <div class="col-md-6">
+                        <label for="validationCustom04" class="form-label">Vacuna</label>
+                        <select class="form-select InputSelect" id="idVacuna" required>
+                            <option selected disabled value="">Elige...</option>
+                            <!--Secuencia de vacunas registradas-->
+                            @foreach (var item in Model.Vacunas)
+                            {
+                                <option value="@item.Id">@item.Nombre</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Seleccione la vacuna aplicada!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Volumen de dosis (en ml.)</label>
+                        <input type="text" maxlength="20" class="form-control InputNumber" id="Dosis" required>
+                        <div class="invalid-feedback">
+                            Ingrese el volumen de la dosis aplicada! (en ml.)
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Número de lote</label>
+                        <input type="text" maxlength="20" class="form-control InputText" id="NroLote" required>
+                        <div class="invalid-feedback">
+                            Ingrese el número de lote de la vacuna!
+                        </div>
+                    </div>
+                    <input type="hidden" value="@Model.Perro.Id" id="idPerro" />
+                    <input type="hidden" value="@Model.Perro.IdDueno" id="idDueno" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonEnvio" disabled onclick="ValidarVacunacion()">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal de envio de recordatorio-->
+<div class="modal fade" id="ModalRecordatorio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-calendar fa-xl" style="color: #000000;"></i>
+                    Enviar recordatorio
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormEnviarRecordatorio">
+                    <div class="col-md-12">
+                        <label class="form-label">Fecha para el recordatorio</label>
+                        <input type="date" class="form-control InputDate" id="FechaRecordatorio" min="" max="" readonly>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="alert alert-info" role="alert">
+                            La fecha indicada corresponde al vencimiento de la vacuna aplicada. 
+                            <br/>
+                            El recordatorio para la solicitud del nuevo turno se enviará via email con 30 dias de anticipación.
+                        </div>
+                        <input type="hidden" id="idVacunaRecordatorio" />
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonEnvioRecordatorio" disabled onclick="EnviarRecordatorio()">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <!--Validacion de relleno de formulario-->
+    <script>
+        // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
+        function ResetFormulario(boton) {
+            var formulario = boton.closest("form");
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber, .InputFoto");
+
+            campos.forEach(function (campo) {
+                campo.value = '';
+                if (campo.classList.contains("is-valid")) {
+                    campo.classList.remove("is-valid");
+                }
+                if (campo.classList.contains("is-invalid")) {
+                    campo.classList.remove("is-invalid");
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            botonEnvio.disabled = true;
+        }
+        var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+        botonesCancelar.forEach(function (elemento) {
+            elemento.addEventListener('click', function () {
+                ResetFormulario(this);
+            });
+        });
+
+        // --> VALIDACION DE FORMULARIOS PARA BOTON ACEPTAR <--
+        var formularios = document.querySelectorAll(".Formulario");
+        var botonesEnvio = document.querySelectorAll(".BtnEnvioForm");
+
+        function ValidarFormulario() {
+            var formulario = this;
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber");
+            var todosValidos = true;
+
+            campos.forEach(function (campo) {
+                if (!campo.classList.contains("is-valid")) {
+                    todosValidos = false;
+                    return;
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            if (todosValidos) {
+                botonEnvio.disabled = false;
+            } else {
+                botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT TEXT <--
+        function ValidarInputText() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        // --> VALIDACION DE INPUT DATE <--
+        function ValidarInputDate() {
+            var fechaActual = new Date();
+            fechaActual.setUTCHours(fechaActual.getUTCHours() - 3); // Modifica la fecha para que sea la actual de Argentina
+            var fechaFutura = new Date(fechaActual);
+            fechaFutura.setFullYear(fechaFutura.getFullYear() + 1); // Añade 1 año a la fecha actual
+
+            var fechaMaxima = new Date(fechaFutura);
+            fechaMaxima.setDate(fechaMaxima.getDate() + 3); // Suma 3 días a la fecha actual
+            var valorMaximo = fechaMaxima.toISOString().split("T")[0];
+
+            var fechaMinima = new Date(fechaFutura);
+            fechaMinima.setDate(fechaMinima.getDate() - 3); // Resta 3 días a la fecha actual
+            var valorMinimo = fechaMinima.toISOString().split("T")[0];
+            if (this.value.trim() !== '' && (this.value >= valorMinimo && this.value <= valorMaximo)) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        // --> VALIDACION DE INPUT SELECT <--
+        function ValidarInputSelect() {
+            if (this.selectedIndex !== -1) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        // --> VALIDACION DE INPUT NUMBER <--
+        function ValidarInputNumber() {
+            if (/^[0-9]+([.][0-9]+)?$/.test(this.value)) {
+                var pesoNum = parseFloat(this.value);
+                var enteroMin = 0; // Valor mínimo para la parte entera
+                var enteroMax = 100; // Valor máximo para la parte entera
+                var decimalMin = 0; // Valor mínimo para la parte decimal
+                var decimalMax = 999; // Valor máximo para la parte decimal
+
+                var entero = Math.floor(pesoNum);
+                var decimal = Math.round((pesoNum - entero) * 100);
+
+                if (entero >= enteroMin && entero <= enteroMax && decimal >= decimalMin && decimal <= decimalMax) {
+                    this.classList.remove("is-invalid");
+                    this.classList.add("is-valid");
+                } else {
+                    this.classList.remove("is-valid");
+                    this.classList.add("is-invalid");
+                }
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            }
+        }
+
+        formularios.forEach(function (formulario) {
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputSelect, .InputNumber");
+            campos.forEach(function (campo) {
+                campo.addEventListener("input", function () {
+                    if (campo.classList.contains("InputText")) {
+                        ValidarInputText.call(campo);
+                    } else if (campo.classList.contains("InputDate")) {
+                        ValidarInputDate.call(campo);
+                    } else if (campo.classList.contains("InputSelect")) {
+                        ValidarInputSelect.call(campo);
+                    } else if (campo.classList.contains("InputNumber")) {
+                        ValidarInputNumber.call(campo);
+                    }
+                    ValidarFormulario.call(formulario);
+                });
+            });
+        });
+    </script>
+
+    <!--Registrar nueva vacuna-->
+    <script>
+        const Toast = Swal.mixin({
+                toast: true,
+                position: 'bottom',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        var descuentoAplicado = false;
+
+        function AplicarDescuento(idDueno, vacunacion, advertencia) {
+            $.ajax({
+                url: '@Url.Action("AplicarDescuento", "Usuarios")',
+                type: 'POST',
+                dataType: 'json',
+                data: { idUsuario: idDueno },
+                success: function (data) {
+                    descuentoAplicado = true;
+                    RegistrarVacunacion(vacunacion, advertencia);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error...',
+                        text: 'Ocurrio un erorr!'
+                    })
+                }
+            });
+        }
+
+        function PoseeDescuento(idDueno, vacunacion, advertencia) {
+            $.ajax({
+                url: '@Url.Action("PoseeDescuento", "Usuarios")',
+                type: 'GET',
+                dataType: 'json',
+                data: { idUsuario: idDueno },
+                success: function (data) {
+                    if (data.descuento) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'El cliente posee un 10% de descuento!',
+                            text: '¿Desea aplicarlo?',
+                            imageUrl: "/img/descuento.png",
+                            imageHeight: 155,
+                            showCancelButton: true,
+                            confirmButtonText: 'Si',
+                            cancelButtonText: 'No',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                AplicarDescuento(idDueno, vacunacion, advertencia);
+                            } else {
+                                RegistrarVacunacion(vacunacion, advertencia);
+                            }
+                        })
+                    } else {
+                        RegistrarVacunacion(vacunacion, advertencia);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error...',
+                        text: 'Ocurrio un erorr!'
+                    })
+                }
+            });
+        }
+
+        function RegistrarVacunacion(vacunacion, advertencia) {
+            // Independientemente la existencia o aplicacion del descuento, se registra la vacuna
+            $.ajax({
+                url: '@Url.Action("RegistrarVacunacion", "Perros")',
+                type: 'POST',
+                dataType: 'json',
+                data: { vacunacion: vacunacion },
+                success: function (data) {
+                    ListarVacunas(vacunacion.idPerro);
+                    $('#ModalNuevaVacuna').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Vacunación registrada!',
+                        text: data.message,
+                        footer: (advertencia != '') ? ('<div class="alert alert-warning" role="alert">' + advertencia + '</div>') : ''
+                    }).then((result) => {
+                        if (result.isConfirmed) { }
+                        document.getElementById('idVacunaRecordatorio').value = vacunacion.idVacuna;
+                        var boton = document.getElementById('BotonCancelarRegistro');
+                        boton.click();
+                        MostrarRecordatorio();
+                    })
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error...',
+                        text: 'Ocurrio un erorr!'
+                    })
+                }
+            });
+        }
+
+        function ValidarVacunacion() {
+            var fechaActual = new Date();
+            fechaActual.setUTCHours(fechaActual.getUTCHours() - 3); // Modifica la fecha para que sea la actual de Argentina
+            var valorActual = fechaActual.toISOString().split("T")[0];
+            var vacunacion = {
+                idPerro: document.getElementById("idPerro").value,
+                idVacuna: document.getElementById("idVacuna").value,
+                dosis: document.getElementById("Dosis").value,
+                nroLote: document.getElementById("NroLote").value,
+                fechaAplicacion: valorActual
+            };
+            var idDueno = document.getElementById("idDueno").value;
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+            Swal.fire({
+                title: '¿Desea registrar la aplicación de una vacuna?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("ValidarVacuna", "Perros")',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { idPerro: vacunacion.idPerro, idVacuna: vacunacion.idVacuna },
+                        success: function (data) {
+                            if (data.success) { // Si la vacuna es valida para aplicar
+                                PoseeDescuento(idDueno, vacunacion, data.message);
+                            } else { // Error en caso de no cumplir validacion de antirrabica o moquillo!
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error...',
+                                    text: data.message
+                                })
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un erorr!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+
+    <!--Mostrar recordatorio para el proximo turno-->
+    <script>
+        function MostrarRecordatorio() {
+            if (descuentoAplicado){
+                Toast.fire({
+                    icon: 'info',
+                    text: 'Se ha registrado la aplicación del descuento'
+                })
+                descuentoAplicado = false;
+            }
+            var fechaActual = new Date();
+            fechaActual.setUTCHours(fechaActual.getUTCHours() - 3); // Modifica la fecha para que sea la actual de Argentina
+            var fechaFutura = new Date(fechaActual);
+            fechaFutura.setFullYear(fechaFutura.getFullYear() + 1); // Añade 1 año a la fecha actual
+
+            var inputDate = document.getElementById('FechaRecordatorio');
+            inputDate.value = fechaFutura.toISOString().split("T")[0];
+
+            var BtnEnviar = document.getElementById('BotonEnvioRecordatorio');
+            BtnEnviar.disabled = false;
+            $('#ModalRecordatorio').modal('show');
+        }
+    </script> 
+
+    <!--Listar vacunas-->
+    <script>
+        function ListarVacunas(id) {
+            $.ajax({
+                url: '@Url.Action("ListarVacunas", "Perros")',
+                type: 'GET',
+                data: { idPerro: id },
+                success: function (data) {
+                    $('#ContainerListarVacunas').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+    <!--Programar envio de recordatorio-->
+    <script>
+        function EnviarRecordatorio(){
+            var fecha = document.getElementById('FechaRecordatorio').value;
+            var idDueno = document.getElementById('idDueno').value;
+            var idVacuna = document.getElementById('idVacunaRecordatorio').value;
+            var idPerro = document.getElementById('idPerro').value;
+            $.ajax({
+                url: '@Url.Action("ProgramarRecordatorio", "Perros")',
+                type: 'POST',
+                data: { fechaRecordatorio: fecha, idDueno: idDueno, idVacuna: idVacuna, idPerro: idPerro },
+                success: function (data) {
+                    Toast.fire({
+                        icon: 'success',
+                        text: '¡Se ha programado el recordatorio para el próximo turno!'
+                    })
+                    var boton = document.getElementById('BotonCancelarRegistro');
+                    boton.click();
+                    $('#ModalRecordatorio').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}

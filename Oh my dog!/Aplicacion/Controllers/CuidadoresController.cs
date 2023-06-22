@@ -27,8 +27,9 @@ namespace Aplicacion.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.ActiveView = "Cuidadores";
+            var cuidadores = await _context.Cuidadores.Include(c => c.ModalidadCuidadors).ThenInclude(m => m.IdModalidadNavigation).ToListAsync();
             return _context.Cuidadores != null ? 
-                          View(await _context.Cuidadores.Include(c => c.ModalidadCuidadors).ToListAsync()) :
+                          View(cuidadores) :
                           Problem("Entity set 'OhmydogdbContext.Cuidadores'  is null.");
         }
 

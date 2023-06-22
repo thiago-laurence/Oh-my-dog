@@ -1,0 +1,57 @@
+﻿@model List<Aplicacion.Models.Perro>
+
+@if(Model.Count() == 0)
+{
+    <div class="text-center alert alert-info" role="alert">
+        <h3>
+            Usted no posee perros registrados para publicar
+        </h3>
+    </div>
+}
+else
+{
+    <div class="container px-4 py-5" id="custom-cards">
+        <h2 class="pb-2 fw-bolder border-bottom">
+            <i class="fa-sharp fa-solid fa-shield-dog"></i>
+            Mis candidatos
+        </h2>
+        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+            @foreach(var item in Model)
+            {
+                <div class="col">
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://localhost:7035/img/@((item.Foto != null) ? item.Foto : "LogoPerroDefault.jpg")');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                                @item.Nombre
+                            </h3>
+                            <ul class="d-flex list-unstyled mt-auto">
+                                <li class="me-auto">
+                                    <!--REQUIERE VALIDACION DE PERRO PUBLICADO O NO PUBLICADO-->
+                                @if(item.Sexo == "Hembra")
+                                {
+                                    <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="CargarCelo(@(item.Id))">
+                                        Ofrecer candidato
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="PublicarCandidato(@(item.Id))">
+                                        Ofrecer candidato
+                                    </button>
+                                }
+                                    <button class="btn" style="background-color: #09649d; color: #FFFFFF;" onclick="QuitarCandidato(@(item.Id))">
+                                        Quitar candidato
+                                    </button>
+
+                                    <a asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id" class="btn btn-sm btn-danger">
+                                        Me gustas recibidos
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>        
+            }
+        </div>
+    </div>
+}

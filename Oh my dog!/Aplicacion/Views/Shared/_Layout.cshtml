@@ -136,7 +136,7 @@
                 <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 @((ViewBag.ActiveView == "Home") ? "link-light active" : "link-dark")" aria-current="page">
-                            <i class="fa-solid fa-house fa-lg" style="color: #@((ViewBag.ActiveView == "Home") ? "ffffff" : "000000")"></i>
+                            <i class="fa-solid fa-house fa-lg" style="color: #@((ViewBag.ActiveView == "Home") ? "ffffff" : "000000");"></i>
                             Inicio
                         </a>
                     </li>
@@ -156,8 +156,8 @@
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
+                            <a class="nav-link dropdown-toggle @(((ViewBag.ActiveView == "Cuidadores") || (ViewBag.ActiveView == "Paseadores")) ? "link-light active" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-image-portrait fa-xl" style="color: #@(((ViewBag.ActiveView == "Cuidadores") || (ViewBag.ActiveView == "Paseadores")) ? "ffffff" : "000000");"></i>
                                 Servicios
                             </a>
                             <ul class="dropdown-menu">
@@ -179,14 +179,24 @@
                     }
                     @if (User.Identity!.IsAuthenticated)
                     {
-                        <!--
-                        <li>
-                            <a href="#" class="nav-link px-2 link-dark">
-                                <i class="fa-solid fa-heart" style="color: #000000;"></i>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @((ViewBag.ActiveView == "Tinderdog") ? "link-light" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
+                                <i class="fa-solid fa-heart" style="color: #@((ViewBag.ActiveView == "Tinderdog") ? "FFFFFF" : "000000");"></i>
                                 TinderDog
                             </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="Index" style="background-color: #@((ViewBag.SubView == "Sugerencias") ? "FFE5DB" : "");">
+                                        Sugerencias
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" style="background-color: #@((ViewBag.SubView == "MisCandidatos") ? "FFE5DB" : "");">
+                                        Mis candidatos
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        -->
                     }
                     <!--<li>
                         <a class="nav-link px-2 link-dark">
@@ -258,7 +268,7 @@
     </div>
     <!--Fin Header Veterinario-->
 
-    <div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+    <div class="container-fluid" style="padding-left: 0px; padding-right: 0px;" id="Main">
         <main role="main">
             @RenderBody()
         </main>

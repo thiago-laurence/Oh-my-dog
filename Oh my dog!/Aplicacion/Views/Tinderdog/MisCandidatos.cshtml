@@ -1,0 +1,221 @@
+﻿@model List<Aplicacion.Models.Perro>
+
+@{
+    ViewData["Title"] = "TinderDog";
+}
+
+<style>
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+    .card-cover {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+    }
+</style>
+
+
+<div class="container-fluid" id="ContainerListarMisCandidatos">
+    @await Html.PartialAsync("_ListarMisCandidatos", Model)
+</div>
+<div class="b-example-divider"></div>
+
+<!--Modal de ingreso de celo para perro de sexo Femenino-->
+<div class="modal fade" id="ModalCelo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+                    Publicar candidata
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormRegistrarCelo">
+                    <div class="col-md-12">
+                        <label class="form-label">Fecha del último celo</label>
+                        <input type="date" class="form-control InputDate" id="FechaCelo" min="" max="">
+                        <div class="invalid-feedback">
+                            Ingrese una fecha válida (la fecha no puede ser futura)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" value="" id="idPerro" />
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrarCelo" disabled onclick="RegistrarCelo()">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <!--Listar candidatos-->
+    <script>
+        function ListarCandidatos() {
+            $.ajax({
+                url: '@Url.Action("ListarMisCandidatos", "Tinderdog")',
+                type: 'GET',
+                data: { idDueno: id },
+                success: function (data) {
+                    $('#ContainerListarMisCandidatos').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+    <!--Registrar celo-->
+    <script>
+        function CargarCelo(idPerro){
+            document.getElementById('idPerro').value = idPerro;
+            $('#ModalCelo').modal('show');
+        }
+
+        function RegistrarCelo(){
+            var idPerro = document.getElementById('idPerro').value;
+            var fechaCelo = document.getElementById('FechaCelo').value;
+
+            $.ajax({
+                url: '@Url.Action("RegistrarCelo", "Tinderdog")',
+                type: 'POST',
+                data: { idPerro: idPerro, FechaCelo: fechaCelo },
+                success: function (data) {
+                    var boton = document.getElementById('BotonCancelarRegistro');
+                    boton.click();
+                    $('#ModalCelo').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+
+            PublicarCandidato(idPerro);
+        }    
+    </script>
+
+    <!--Publicar candidato-->
+    <script>
+        function PublicarCandidato(idPerro){
+            /*$.ajax({
+                url: '@@Url.Action("", "")',
+                type: 'POST',
+                data: { idPerro: idPerro },
+                success: function (data) {
+                    Toast.fire({
+                        icon: 'success',
+                        text: '¡Se ha programado el recordatorio para el próximo turno!'
+                    })
+                    var boton = document.getElementById('BotonCancelarRegistro');
+                    boton.click();
+                    $('#Modal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });*/
+        }
+    </script>
+
+    <!--Quitar candidato-->
+    <script>
+        function QuitarCandidato(idPerro){
+
+        }
+    </script>
+
+
+    <!--Validacion de formulario-->
+    <script>
+        // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
+        function ResetFormulario(boton) {
+            var formulario = boton.closest("form");
+            var campos = formulario.querySelectorAll(".InputDate");
+
+            campos.forEach(function (campo) {
+                campo.value = '';
+                if (campo.classList.contains("is-valid")) {
+                    campo.classList.remove("is-valid");
+                }
+                if (campo.classList.contains("is-invalid")) {
+                    campo.classList.remove("is-invalid");
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            botonEnvio.disabled = true;
+        }
+        var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+        botonesCancelar.forEach(function (elemento) {
+            elemento.addEventListener('click', function () {
+                ResetFormulario(this);
+            });
+        });
+
+        // --> VALIDACION DE FORMULARIOS PARA BOTON ACEPTAR <--
+        var formularios = document.querySelectorAll(".Formulario");
+        var botonesEnvio = document.querySelectorAll(".BtnEnvioForm");
+
+        function ValidarFormulario() {
+            var formulario = this;
+            var campos = formulario.querySelectorAll(".InputDate");
+            var todosValidos = true;
+
+            campos.forEach(function (campo) {
+                if (!campo.classList.contains("is-valid")) {
+                    todosValidos = false;
+                    return;
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            if (todosValidos) {
+                botonEnvio.disabled = false;
+            } else {
+                botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT DATE <--
+        function ValidarInputDate(fechaActual) {
+            if (this.value.trim() !== '' && (this.value <= fechaActual)) {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        var fechaActual = new Date();
+        fechaActual.setUTCHours(fechaActual.getUTCHours() - 3); // Modifica la fecha para que sea la actual de Argentina
+        var valorActual = fechaActual.toISOString().split("T")[0];
+        formularios.forEach(function (formulario) {
+            var campos = formulario.querySelectorAll(".InputDate");
+            campos.forEach(function (campo) {
+                campo.addEventListener("input", function () {
+                    if (campo.classList.contains("InputDate")) {
+                        campo.setAttribute("max", valorActual);
+                        ValidarInputDate.call(campo, valorActual);
+                    }
+                    ValidarFormulario.call(formulario);
+                });
+            });
+        });
+    </script>
+}
