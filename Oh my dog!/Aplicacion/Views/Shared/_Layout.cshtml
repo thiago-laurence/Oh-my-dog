@@ -93,7 +93,15 @@
                                         Calendario
                                     </a>
                                 </li>-->
+                                
                                 <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item " asp-area="">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        Turnos
+                                    </a>
+
+                                </li>
                                 <li>
                                     <a class="dropdown-item active" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #000000;"></i>
@@ -153,18 +161,21 @@
                                 Servicios
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")" href="Cuidadores">Cuidadores</a></li>
+                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")" href="Paseadores">Paseadores</a></li>
                                 <li>
-                                    <a asp-area="" asp-controller="Cuidadores" asp-action="Index" asp class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")">
-                                        Cuidadores
+                                    <a class="dropdown-item link-dark" href="#">
+                                        Adopciones &raquo;
                                     </a>
-                                    </li>
-                                <li>
-                                    <a asp-area="" asp-controller="Paseadores" asp-action="Index" class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")">
-                                        Paseadores
-                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex">Publicar adopcion</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="IndexMisAdopciones">Mis Adopciones</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="IndexAdopciones">Adopciones y adoptados</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
+
                     }
                     @if (User.Identity!.IsAuthenticated)
                     {
@@ -217,7 +228,16 @@
                                         Calendario
                                     </a>
                                 </li>-->
+                                <li>
+                                    
+
                                 <li><hr class="dropdown-divider"></li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Turnos" asp-action="Index">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Turnos
+                                </a>
+
+                                </li>
                                 <li>
                                     <a class="dropdown-item @((ViewBag.ActiveView == "CambiarContrasena") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #@((ViewBag.ActiveView == "CambiarContrasena") ? "ffffff" : "000000")"></i>

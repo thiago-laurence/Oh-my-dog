@@ -1,0 +1,333 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Aplicacion.Models.AdopcionViewModel
+@{
+
+    Layout = "_Layout";
+    var anteriorDeshabilitado = !Model.Paginacion.PaginasAnteriores ? "disabled" : "";
+    var siguienteDeshabilitado = !Model.Paginacion.PaginasSiguientes ? "disabled" : "";
+    var filtroActual = "";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+    .huella-img 
+    {
+        width: 3rem;
+        height: 3rem;
+        transform: translateY(-0.4rem);
+    }
+
+    .btn-custom {
+        background-color: #59a1ab;
+        color: white;
+        border-color: #59a1ab;
+    }
+
+    .btn-custom:hover {
+        background-color: #41767d;
+        color: white;
+        border-color: #41767d;
+    }
+
+    .card-adoptado 
+    {
+        background-color: #D9F7F4;
+    }
+</style>
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">Listado de adopciones <img class="huella-img" src="~/img/listadoAdopciones-icon.png" /></h1>
+    <p style="margin-bottom: 0px;">
+        ¡Encuentra tu compañero perfecto! Explora nuestras adopciones y suma a tu familia un familiar canino. ¡Adopta hoy y cambia una vida para siempre!
+    </p>
+</div>
+@if (Model.Paginacion.Count() == 0)
+{
+    <div class="text-center alert alert-info" role="alert">
+        <h3>
+            @if (Model.Origen)
+            {
+                <p>No existen adopciones coincidentes con la busqueda!</p>
+            }
+            else
+            {
+                <p>Aún no hay adopciones publicadas para visualizar!</p>
+            }
+
+        </h3>
+    </div>
+}
+<div class="container" id="contenedorCards">
+    <div class="row">
+        @foreach (var adopcion in Model.Paginacion)
+        {
+            <div class="col-md-3">
+                <div class="container-card">
+                    <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
+                        <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                        <div class="card-body">
+                            <h5 class="card-title text-center nombrePerro" id="nombrePerro">@adopcion.Nombre @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
+                            <p class="card-text"><strong>Email del publicador:</strong> @adopcion.Email</p>
+                            <p class="card-text"><strong>Tamaño:</strong> @adopcion.Tamano</p>
+                            <p class="card-text"><strong>Raza:</strong> @adopcion.Raza</p>
+                            <p class="card-text"><strong>Sexo:</strong> @adopcion.Sexo</p>
+                            <p class="card-text"><strong>Color:</strong> @adopcion.Color</p>
+                            <p class="card-text"><strong>Descripción:</strong> @adopcion.Descripcion</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <div class="d-flex gap-3">
+                                @if (adopcion.Estado == 0)
+                                {
+                                    <button class="btn btn-custom BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@adopcion.Email">
+                                        <i class="bi bi-send"></i>
+                                    </button>
+                                }                                                            
+                                @if (User.IsInRole("Administrador"))
+                                {
+                                    <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                }
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@*<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a data-numeroPagina="@(Model.Paginacion.PaginaInicio - 1)" data-filtroActual="@filtroActual" class="page-link @anteriorDeshabilitado">
+                            Anterior
+                        </a>
+                    </li>
+                    @for (var i = 1; i <= Model.Paginacion.PaginasTotales; i++)
+                    {
+                        var paginaActiva = (i == Model.Paginacion.PaginaInicio) ? "active" : "";
+                        <li class="page-item">
+                            <a data-numeroPagina="@i" data-filtroActual="@filtroActual" class="page-link @paginaActiva">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li class="page-item">
+                        <a data-numeroPagina="@(Model.Paginacion.PaginaInicio + 1)" data-filtroActual="@filtroActual" class="page-link @siguienteDeshabilitado">
+                            Siguiente
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>*@
+<!--Inicio Modal para contacto con el publicador-->
+<div class="modal fade" id="ModalContactar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-envelope fa-xl"></i>
+                    Contactar publicador de la adopcion
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation" novalidate id="formContactoPublicador">
+                    <input type="text" class="form-control" id="RemitenteNombre" name="RemitenteNombre" readonly value="@User.Identity.Name" hidden>
+                    <div class="col-md-12">
+                        <label for="remitente" class="form-label">Remitente</label>
+                        <input type="email" class="form-control" id="Remitente" name="Remitente" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="destinatario" class="form-label">Destinatario</label>
+                        <input type="email" class="form-control" id="Destinatario" name="Destinatario" readonly>
+                    </div>
+@*                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label">Asunto</label>
+                        <input type="text" class="form-control" maxlength="50" id="Asunto" name="Asunto" required>
+                        <div class="invalid-feedback">
+                            Ingrese un asunto para el correo a enviar! (máximo 50 caracteres)
+                        </div>
+                    </div>*@
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Mensaje</label>
+                        <textarea class="form-control" maxlength="500" id="Contenido" name="Contenido" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingresa un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="BtnCancelarContacto">Cancelar</button>
+                        <button type="button" class="btn btn-custom" onclick="enviarCorreoPublicador()" id="BtnContacto">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Scripts Section -->
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+    @*<script src="~/js/bootstrap.bundle.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).on('click', '.BtnVisualizarContacto', function () {
+            document.getElementById("Remitente").value = $(this).data('remitente');;
+            document.getElementById("Destinatario").value = $(this).data('destinatario');;
+
+            $('#ModalContactar').modal('show');
+        });
+        
+    </script>
+    <!--Envio de formulario de contacto-->
+    <script>
+        window.addEventListener('load', function () {
+            capitalizarNombresPerros();
+        });
+        $('.eliminar-btn').click(function () {
+            var adopcionId = $(this).closest('.card').data('adopcion-id');
+            var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
+
+            Swal.fire({
+                title: '¿Estás seguro de que deseas eliminar esta publicación?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Enviar la solicitud AJAX para eliminar la publicación de la adopción
+                    $.ajax({
+                        url: '/Adopciones/BajaLogica',
+                        type: 'POST',
+                        data: { id: adopcionId },
+                        success: function (response) {
+                            // Eliminar la tarjeta de adopción del DOM
+                            tarjetaAdopcion.parent().parent().remove();
+
+                            // Mostrar el mensaje de éxito
+                            Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
+                        },
+                        error: function (error) {
+                            Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+        function capitalizarNombresPerros() {
+            var cardsAdopcion = document.querySelectorAll('.card');
+
+            cardsAdopcion.forEach(function (card) {
+                var nombrePerroElemento = card.querySelector('.card-body .nombrePerro');
+
+                var nombrePerro = nombrePerroElemento.textContent;
+
+                if (!nombrePerro.includes('ADOPTADO')) {
+                    var palabras = nombrePerro.split(' ');
+
+                    for (var i = 0; i < palabras.length; i++) {
+                        var palabra = palabras[i];
+
+                        palabras[i] = palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
+                    }
+
+                    nombrePerro = palabras.join(' ');
+                }
+
+                nombrePerroElemento.textContent = nombrePerro;
+            });
+        }
+        function enviarCorreoPublicador() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            Swal.fire({
+                title: '¿Enviar correo al publicador de la adopcion?',
+                text: "Confirme la acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var card = document.querySelector('.card');
+                    var mensaje = {
+                        remitente: document.getElementById("Remitente").value,
+                        remitenteNombre: document.getElementById("RemitenteNombre").value,
+                        destinatario: document.getElementById("Destinatario").value,
+                        contenido: document.getElementById("Contenido").value,
+                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent
+                        //asunto: document.getElementById("Asunto").value
+                    };
+
+                    $.ajax({
+                        url: '@Url.Action("ContactarPublicador", "Adopciones")',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { remitente: mensaje.remitente, remitenteNombre: mensaje.remitenteNombre, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido },
+                        success: function (data) {
+                            if (data.error)
+                            {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Mensaje vacio',
+                                    text: data.message,
+                                })
+                                
+                            }
+                            else
+                            {
+                                if (data.success) {
+                                    $('#ModalContactar').modal('hide');
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Mensaje enviado!',
+                                        text: data.message,
+                                    })
+                                    var form = document.getElementById("formContactoPublicador");
+                                    form.reset();
+                                    form.classList.remove('was-validated');
+
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error...',
+                                        text: data.message
+                                    })
+                                }
+                            }
+                            
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Ocurrio un erorr!'
+                            })
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

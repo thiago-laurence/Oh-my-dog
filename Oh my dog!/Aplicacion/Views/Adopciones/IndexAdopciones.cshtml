@@ -1,0 +1,66 @@
+﻿@model Aplicacion.Models.AdopcionViewModel
+@{
+    Layout = "_Layout";
+}
+@*<div class="container">
+    <div class="row justify-content-end">
+        <div class="col-md-4 col-sm-12">
+            <div class="container-fluid">
+                <form role="search">
+                    <div class="row">
+                        <div class="col-12">
+                            <input class="form-control me-2" type="text" name="buscar"
+                                   data-bs-toggle="tooltip" data-bs-placement="right"
+                                   data-bs-custom-class="custom-tooltip"
+                                   data-bs-title="El criterio de busqueda es por nombre"
+                                   autocomplete="off"
+                                   placeholder="Buscar..." id="BuscadorAdopciones">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-6 col-sm-12">
+                            <button class="btn btn-success" type="button" id="btnBuscar">Buscar</button>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <a class="btn btn-primary" onclick="listarAdopciones('reset')">Listado completo</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="container" id="containerListaAdopciones">
+    @await Html.PartialAsync("_ListarAdopciones", Model)
+</div>
+@*<script>
+    $(document).ready(function () {
+
+        // Obtiene el valor ingresado en el buscador cada vez que se presione una tecla escribiendo sobre el
+        document.getElementById('BuscadorAdopciones').addEventListener('input', listarAdopciones);
+    });
+
+    function listarAdopciones(reset) {
+        var filtroActual = document.getElementById('BuscadorAdopciones').value;
+        if (reset == "reset") {
+            filtroActual = null;
+            document.getElementById('BuscadorAdopciones').value = "";
+        }
+
+        // Realizar la petición Ajax
+        $.ajax({
+            url: '@Url.Action("IndexAdopciones", "Adopciones")', // Ruta de la acción del controlador para buscar usuarios
+            type: 'POST',
+            data: { query: filtroActual }, // Envía el valor del buscador como parámetro de la búsqueda
+            success: function (data) {
+                // Actualizar el contenido del contenedor de la lista de usuarios
+                $('#containerListaAdopciones').html(data);
+                
+            },
+            error: function () {
+                alert('Error al buscar adopciones');
+            }
+        });
+    }
+</script>*@
+
