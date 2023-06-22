@@ -93,7 +93,15 @@
                                         Calendario
                                     </a>
                                 </li>-->
+                                
                                 <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item " asp-area="">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        Turnos
+                                    </a>
+
+                                </li>
                                 <li>
                                     <a class="dropdown-item active" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #000000;"></i>
@@ -210,7 +218,16 @@
                                         Calendario
                                     </a>
                                 </li>-->
+                                <li>
+                                    
+
                                 <li><hr class="dropdown-divider"></li>
+                                <a class="dropdown-item" asp-area="" asp-controller="Turnos" asp-action="Index">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    Turnos
+                                </a>
+
+                                </li>
                                 <li>
                                     <a class="dropdown-item @((ViewBag.ActiveView == "CambiarContrasena") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #@((ViewBag.ActiveView == "CambiarContrasena") ? "ffffff" : "000000")"></i>
