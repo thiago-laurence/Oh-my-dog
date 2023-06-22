@@ -8,13 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using System.Text.RegularExpressions;
 using Aplicacion.Data;
-using Microsoft.Identity.Client;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using NuGet.Versioning;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using MailKit.Security;
 using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
@@ -34,7 +32,7 @@ namespace Aplicacion.Controllers
         // GET: Usuarios
 
         // Variable para indicar la cantida a mostrar por la paginacion
-        private int cantidadDeRegistros = 3;
+        private int cantidadDeRegistros = 15;
         public async Task<IActionResult> Index()
         {
             ViewBag.ActiveView = "IndexClientes";
@@ -202,8 +200,8 @@ namespace Aplicacion.Controllers
             user.Estado = 1;
             user.IdRol = 2;
             user.Pass = GeneradorRandomContrasena();
-			_ = EnviarCorreoUsuario(user);
-            _context.Add(user);
+			await EnviarCorreoUsuario(user);
+            _context.Usuarios.Add(user);
             await _context.SaveChangesAsync();
 
             return (Json(new { success = true, message = "Un nuevo cliente ha sido registrado con éxito!" }));
@@ -356,14 +354,16 @@ namespace Aplicacion.Controllers
             return (password.ToString());
         }
 
-		public async Task EnviarCorreoUsuario(Usuarios destinatario)
+  
+
+        public async Task EnviarCorreoUsuario(Usuarios destinatario)
 		{
             await Task.Run(() =>
             {
                 string remitente = "ohmydoglem@gmail.com",
                        asunto = "OhMyDog - Confirmación de registro";
                 StringBuilder cuerpo = new StringBuilder();
-                string pathImagen = @"C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\Logo - Veterinaria.png";
+                string pathImagen = @"C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\Logo - Veterinaria.png";
 
                 cuerpo.AppendLine("Bienvenido " + (destinatario.Nombre + " " + destinatario.Apellido) + " a nuestra comunidad canina OhMyDog.<br>");
                 cuerpo.AppendLine("Su contraseña actual proporcionada es: <strong>" + destinatario.Pass + "</strong><br>");
@@ -386,8 +386,10 @@ namespace Aplicacion.Controllers
 
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
-                        client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+						
+
+						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
+                        client.Authenticate("7472fca358e9d7", "4a53ab261e38ad");
                         client.Send(message);
                         client.Disconnect(true);
                     }

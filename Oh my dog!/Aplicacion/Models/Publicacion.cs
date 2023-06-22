@@ -13,7 +13,7 @@ public partial class Publicacion
 
     public int IdPerro { get; set; }
 
-    public virtual Perro IdPerroNavigation { get; set; } = null!;
+    public virtual Perros IdPerroNavigation { get; set; } = null!;
 
     public virtual TipoPublicacion TipoNavigation { get; set; } = null!;
 

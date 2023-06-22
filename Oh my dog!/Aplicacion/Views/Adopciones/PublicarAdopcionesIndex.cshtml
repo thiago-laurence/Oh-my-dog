@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@model Adopciones
+
+@{
+    ViewData["Title"] = "PublicarAdopciones";
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .huella-img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .btn-custom {
+        background-color: #59a1ab;
+        color: white;
+        border-color: #59a1ab;
+    }
+
+    .btn-custom:hover {
+        background-color: #41767d;
+        color: white;
+        border-color: #41767d;
+    }
+</style>
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">Bienvenido al servicio de publicar adopciones de nuestra veterinaria <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
+    <p style="margin-bottom: 0px;">
+        Da el primer paso hacia un futuro lleno de amor
+        <br />
+        Tu perro merece un hogar cariñoso y tú puedes hacerlo posible. Publica su adopción hoy y cambia su vida para siempre.
+        <br />
+        ¡Juntos encontraremos el hogar perfecto! ¡No esperes más, comparte su historia y haz que alguien se enamore de él!
+    </p>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border rounded mt-4 mb-4">
+            <h2>Publicar Adopción</h2>
+
+            <form asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex" method="post" enctype="multipart/form-data" id="form-adopciones">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input hidden asp-for="Email" type="email" value="@User.FindFirstValue("Email")"/>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
+                        </div>
+                    </div>                  
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sexo">Sexo:</label>
+                            <select class="form-control" id="sexo" name="sexo" required>
+                                <option value="Macho">Macho</option>
+                                <option value="Hembra">Hembra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="tamano">Tamaño:</label>
+                            <select class="form-control" id="tamano" name="tamano" required>
+                                <option value="Pequeño">Pequeño</option>
+                                <option value="Mediano">Mediano</option>
+                                <option value="Grande">Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="raza">Raza:</label>
+                            <input asp-for="Raza" type="text" class="form-control" id="raza" name="raza" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="color">Color:</label>
+                            <input asp-for="Color" type="text" class="form-control" id="color" name="color" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea asp-for="Descripcion" class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-custom mt-2 mb-2">Publicar</button>
+            </form>
+        </div>
+    </div>
+</div>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+@*        var form = document.getElementById('form-adopciones');
+        form.reset();
+        document.getElementById('email').value = '';
+        document.getElementById('pass').value = '';*@
+        var msjArray = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Message));
+        msjArray = msjArray.split('.');
+        var msjTitle = msjArray[0];
+        var msjText = msjArray[1];
+        Swal.fire({
+            icon: 'error',
+            title: msjTitle,
+            text: msjText@*,
+            customClass: {
+                icon: 'my-custom-icon-class' // Aquí debes especificar la clase CSS para tu icono personalizado
+            }*@
+        });
+    </script>
+}
