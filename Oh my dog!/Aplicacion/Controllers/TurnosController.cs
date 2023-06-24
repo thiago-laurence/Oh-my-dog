@@ -24,8 +24,9 @@ namespace Aplicacion.Controllers
         // GET: Turnos
         public async Task<IActionResult> Index()
         {
-            var ohmydogdbContext = _context.Turnos.Include(t => t.EstadoNavigation);
-            return View(await ohmydogdbContext.ToListAsync());
+            ViewBag.ActiveView = "CalendarioTurnos";
+            var turnos = _context.Turnos.Include(t => t.EstadoNavigation);
+            return View(await turnos.ToListAsync());
         }
 
         // GET: Turnos/Details/5
@@ -50,7 +51,7 @@ namespace Aplicacion.Controllers
 
 		public String obtenerPerros(String mail)
 		{
-			 int idDueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+			 int idDueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).FirstOrDefault();
             var perrosUsuario = _context.Perros.Where(c => c.IdDueno == idDueno && c.Estado==true).ToList();
             Console.Write(perrosUsuario.Count());
 			return JsonSerializer.Serialize(perrosUsuario);
@@ -58,8 +59,8 @@ namespace Aplicacion.Controllers
 
         public IActionResult obtenerEventos(String mail)
 		{
-			int idDueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
-			int? rol = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.IdRol).First();
+			int idDueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).FirstOrDefault();
+			int? rol = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.IdRol).FirstOrDefault();
 			DateTime fechaActual = DateTime.Now.Date;
             //Si quedaron pendientes los cancelo
             List<Turnos> turnosActualizar=_context.Turnos.Where(i => i.Fecha < fechaActual && i.Estado==3).ToList();
@@ -74,22 +75,22 @@ namespace Aplicacion.Controllers
 			if (rol == 1) {
 
                 var turnosAux = _context.Turnos
-    .Select(t => new
-    {
-        Id = t.Id,
-        Horario= _context.HorarioTurnos.Where(i=>i.Id==t.Horario).Select(p=>p.Turno).First(),
-        Dueno = t.Dueno,
-        Motivo= t.Motivo,
-        Estado= t.Estado,
-        Fecha= t.Fecha,
-		Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m=>m.Email).First(),
-		Comentario= t.Comentario,
-        HorarioFinal= t.HorarioFinal,
-		PerrosDelTurno = _context.PerroTurnos.Where(pt => pt.IdTurno == t.Id).Select(pt => new {
-        Nombre =pt.Nombre,
-        }).ToList()
-    })
-	.ToList();
+                    .Select(t => new
+                    {
+                        Id = t.Id,
+                        Horario= _context.HorarioTurnos.Where(i=>i.Id==t.Horario).Select(p=>p.Turno).FirstOrDefault(),
+                        Dueno = t.Dueno,
+                        Motivo= t.Motivo,
+                        Estado= t.Estado,
+                        Fecha= t.Fecha,
+		                Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m=>m.Email).FirstOrDefault(),
+		                Comentario= t.Comentario,
+                        HorarioFinal= t.HorarioFinal,
+		                PerrosDelTurno = _context.PerroTurnos.Where(pt => pt.IdTurno == t.Id).Select(pt => new {
+                        Nombre =pt.Nombre,
+                        }).ToList()
+                    })
+	                .ToList();
 
 				
 				return Json(new { admin = true, turnos= JsonSerializer.Serialize(turnosAux) });
@@ -98,24 +99,24 @@ namespace Aplicacion.Controllers
             {
 
 				var turnoAux = _context.Turnos.Where(t => idDueno == t.Dueno)
-	.Select(t => new
-	{
-		Id = t.Id,
-		Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).First(),
-		Dueno = t.Dueno,
-		Motivo = t.Motivo,
-		Estado = t.Estado,
-		Fecha = t.Fecha,
-		Comentario = t.Comentario,
-		HorarioFinal = t.HorarioFinal,
-		Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m => m.Email).First(),
-		PerrosDelTurno = _context.PerroTurnos.Where(pt => pt.IdTurno == t.Id).Select(p=>new
-        {
+	            .Select(t => new
+	            {
+		            Id = t.Id,
+		            Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).FirstOrDefault(),
+		            Dueno = t.Dueno,
+		            Motivo = t.Motivo,
+		            Estado = t.Estado,
+		            Fecha = t.Fecha,
+		            Comentario = t.Comentario,
+		            HorarioFinal = t.HorarioFinal,
+		            Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m => m.Email).FirstOrDefault(),
+		            PerrosDelTurno = _context.PerroTurnos.Where(pt => pt.IdTurno == t.Id).Select(p=>new
+                    {
 
-         Nombre=   p.Nombre,
-        }).ToList()
-	})
-	.ToList();
+                     Nombre=   p.Nombre,
+                    }).ToList()
+	            })
+	            .ToList();
 
 
 				return Json(new { admin = false, turnos = JsonSerializer.Serialize(turnoAux) });
@@ -130,7 +131,7 @@ namespace Aplicacion.Controllers
 			Turnos turno = new Turnos();
 			turno.Estado = 3;
 			turno.Motivo = motivo;
-			turno.Dueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).First();
+			turno.Dueno = _context.Usuarios.Where(m => m.Email == mail).Select(i => i.Id).FirstOrDefault();
 			turno.Fecha = fecha;
 			turno.Horario = (horario == 0) ? 1 : 2;
             if (_context.Turnos.Where(i => i.Fecha == fecha.Date && i.Dueno == turno.Dueno).Count() == 0) { 
@@ -162,7 +163,7 @@ namespace Aplicacion.Controllers
      .Select(t => new
      {
          Id = t.Id,
-         Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).First(),
+         Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).FirstOrDefault(),
          Dueno = t.Dueno,
          Motivo = t.Motivo,
          Estado = t.Estado,
@@ -264,11 +265,11 @@ namespace Aplicacion.Controllers
         public IActionResult rechazarTurno(int idTurno, String comentario, String horario)
         {
 
-			Turnos turno = _context.Turnos.Where(m => m.Id == idTurno).First();
+			Turnos turno = _context.Turnos.Where(m => m.Id == idTurno).FirstOrDefault();
 			turno.Estado = 2;
 			turno.Comentario = comentario;
 			turno.HorarioFinal = horario;
-			Turnos borrado = _context.Turnos.Where(m => m.Id == idTurno).First();
+			Turnos borrado = _context.Turnos.Where(m => m.Id == idTurno).FirstOrDefault();
 			List<PerroTurnos> turnosPerrosBorrar = _context.PerroTurnos.Where(m => m.IdTurno == idTurno).ToList();
 			List<PerroTurnos> copia = new List<PerroTurnos>();
 			turnosPerrosBorrar.ForEach(turno =>
@@ -296,12 +297,12 @@ namespace Aplicacion.Controllers
 	.Select(t => new
 	{
 		Id = t.Id,
-		Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).First(),
+		Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).FirstOrDefault(),
 		Dueno = t.Dueno,
 		Motivo = t.Motivo,
 		Estado = t.Estado,
 		Fecha = t.Fecha,
-		Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m => m.Email).First(),
+		Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m => m.Email).FirstOrDefault(),
 		Comentario = t.Comentario,
 		HorarioFinal = t.HorarioFinal,
 		PerrosDelTurno = _context.PerroTurnos.Where(pt => pt.IdTurno == t.Id).Select(pt => new {
@@ -359,12 +360,12 @@ namespace Aplicacion.Controllers
 		public IActionResult aceptarTurno(int idTurno, String comentario, String horario)
 		{
             
-            Turnos turno = _context.Turnos.Where(m => m.Id == idTurno).First();
+            Turnos turno = _context.Turnos.Where(m => m.Id == idTurno).FirstOrDefault();
             turno.Estado = 1;
             turno.Comentario = comentario;
             turno.HorarioFinal = horario;
            
-            Turnos borrado= _context.Turnos.Where(m => m.Id == idTurno).First();
+            Turnos borrado= _context.Turnos.Where(m => m.Id == idTurno).FirstOrDefault();
 			List<PerroTurnos> turnosPerrosBorrar = _context.PerroTurnos.Where(m => m.IdTurno == idTurno).ToList();
             List<PerroTurnos> copia = new List<PerroTurnos>();
 			turnosPerrosBorrar.ForEach(turno =>
@@ -390,12 +391,12 @@ namespace Aplicacion.Controllers
 	.Select(t => new
 	{
 		Id = t.Id,
-		Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).First(),
+		Horario = _context.HorarioTurnos.Where(i => i.Id == t.Horario).Select(p => p.Turno).FirstOrDefault(),
 		Dueno = t.Dueno,
 		Motivo = t.Motivo,
 		Estado = 1,
 		Fecha = t.Fecha,
-		Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m => m.Email).First(),
+		Cliente = _context.Usuarios.Where(i => t.Dueno == i.Id).Select(m => m.Email).FirstOrDefault(),
 		Comentario = t.Comentario,
 		HorarioFinal = t.HorarioFinal,
 		PerrosDelTurno = _context.PerroTurnos.Where(pt => pt.IdTurno == t.Id).Select(pt => new {
@@ -524,7 +525,7 @@ namespace Aplicacion.Controllers
 					using (var client = new MailKit.Net.Smtp.SmtpClient())
 					{
 						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-						client.Authenticate("7472fca358e9d7", "4a53ab261e38ad");
+						client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
 						client.Send(message);
 						client.Disconnect(true);
 					}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Aplicacion.Models;
 
 namespace Aplicacion.Models;
 
@@ -17,10 +18,12 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Adopciones> Adopciones { get; set; }
 
+    public virtual DbSet<Perdidas> Perdidas { get; set; }
+
     public virtual DbSet<Cuidadores> Cuidadores { get; set; }
 	public virtual DbSet<HorarioTurnos> HorarioTurnos { get; set; }
 
-	public virtual DbSet<Descuentos> Descuentos { get; set; }
+	public virtual DbSet<Descuento> Descuentos { get; set; }
 
     public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
 
@@ -28,7 +31,7 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<Paseadores> Paseadores { get; set; }
 
-    public virtual DbSet<Perro> Perros { get; set; }
+    public virtual DbSet<Perros> Perros { get; set; }
     public virtual DbSet<PerrosMeGusta> PerrosMeGusta { get; set; }
 
     public virtual DbSet<PerrosNoMeGusta> PerrosNoMeGusta { get; set; }
@@ -64,8 +67,11 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<VacunaPerro> VacunaPerros { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; trustservercertificate=true; integrated security=true;");
+    {
+        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        //=> optionsBuilder.UseSqlServer("server=localhost; database=ohmydogdb; trustservercertificate=true; integrated security=true;");
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -76,7 +82,7 @@ public partial class OhmydogdbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Adopcion__3214EC073618B9E0");
 
             entity.Property(e => e.Color)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(100)
@@ -85,16 +91,43 @@ public partial class OhmydogdbContext : DbContext
                 .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Tamano)
                 .HasMaxLength(10)
                 .IsUnicode(false);
             entity.Property(e => e.Raza)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Sexo)
-                .HasMaxLength(6)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Perdidas>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Perdidas");
+
+            entity.Property(e => e.Color)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(300)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Peso)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.Raza)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Sexo)
+                .HasMaxLength(10)
                 .IsUnicode(false);
         });
 
@@ -229,10 +262,6 @@ public partial class OhmydogdbContext : DbContext
                 .HasForeignKey(d => d.IdPerroReceptor)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PerrosNoMeGusta_Perros_PerroReceptor");
-
-            entity.HasOne(d => d.IdDuenoNavigation).WithMany(p => p.Perros)
-                .HasForeignKey(d => d.IdDueno)
-                .HasConstraintName("FK_Perros_Usuarios");
         });
 
 		modelBuilder.Entity<HorarioTurnos>(entity =>
@@ -342,6 +371,7 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<Turnos>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Turnos");
             entity.Property(e => e.Comentario)
                 .HasMaxLength(200)
                 .IsUnicode(false);

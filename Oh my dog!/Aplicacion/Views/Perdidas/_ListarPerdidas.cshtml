@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using System.Security.Claims;
-@model Aplicacion.Models.AdopcionViewModel
+@model Aplicacion.Models.PerdidasViewModel
 @{
     var anteriorDeshabilitado = !Model.Paginacion.PaginasAnteriores ? "disabled" : "";
     var siguienteDeshabilitado = !Model.Paginacion.PaginasSiguientes ? "disabled" : "";
@@ -12,11 +12,11 @@
     <div class="text-center alert alert-info" role="alert">
         @if (Model.Origen)
         {
-            <h3>No existen adopciones coincidentes con la busqueda</h3>
+            <h3>No existen perdidas coincidentes con la busqueda</h3>
         }
         else
         {
-            <h3>Aún no hay adopciones publicadas para visualizar</h3>
+            <h3>Aún no hay perdidas publicadas para visualizar</h3>
         }
     </div>
 }
@@ -24,33 +24,46 @@ else
 {
     <div class="container" id="contenedorCards">
         <div class="row">
-            @foreach (var adopcion in Model.Paginacion)
+            @foreach (var perdida in Model.Paginacion)
             {
                 <div class="col-md-3">
-                    <div class="container-card shadow-lg">
-                        <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
-                            @if (adopcion.Estado == 1)
+                    <div class="container-card">
+                        <div class="card mt-4 mb-4 @(perdida.Estado == 1 ? "card-perdida" : "" )" data-perdida-id="@perdida.Id">
+                            @if (perdida.Estado == 1)
                             {
-                                <img src="~/img/publicarAdopcion-icon.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                @if(perdida.Foto != null)
+                                {
+                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                }else{
+                                    <img src="~/img/perroRecuperado.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                }
                             }
                             else
                             {
-                                <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                                @if (perdida.Foto != null)
+                                {
+                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                }
+                                else
+                                {
+                                    <img src="~/img/perroPerdido.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                }
                             }
                             <div class="card-body">
-                                <h5 class="card-title text-center nombrePerro" id="nombrePerro">@adopcion.Nombre.ToUpper() @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
-                                <p class="card-text"><strong>Email del publicador:</strong> @adopcion.Email</p>
-                                <p class="card-text"><strong>Tamaño:</strong> @adopcion.Tamano</p>
-                                <p class="card-text"><strong>Raza:</strong> @adopcion.Raza</p>
-                                <p class="card-text"><strong>Sexo:</strong> @adopcion.Sexo</p>
-                                <p class="card-text"><strong>Color:</strong> @adopcion.Color</p>
-                                <p class="card-text"><strong>Descripción:</strong> @adopcion.Descripcion</p>
+                                <h5 class="card-title text-center nombrePerro" id="nombrePerro">@perdida.Nombre.ToUpper() @(perdida.Estado == 1 ? "(RECUPERADO)" : "")</h5>
+                                <p class="card-text"><strong>Email del publicador:</strong> @perdida.Email</p>
+                                <p class="card-text"><strong>Visto última vez:</strong> @perdida.FechaPerdida.ToShortDateString()</p>
+                                <p class="card-text"><strong>Raza:</strong> @perdida.Raza</p>
+                                <p class="card-text"><strong>Sexo:</strong> @perdida.Sexo</p>
+                                <p class="card-text"><strong>Color:</strong> @perdida.Color</p>
+                                <p class="card-text"><strong>Peso:</strong> @perdida.Peso (en Kg.)</p>
+                                <p class="card-text"><strong>Descripción:</strong> @perdida.Descripcion</p>
                             </div>
                             <div class="card-footer d-flex justify-content-center">
                                 <div class="d-flex gap-3">
-                                    @if (adopcion.Estado == 0)
+                                    @if (perdida.Estado == 0)
                                     {
-                                        <button class="btn btn-custom BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@adopcion.Email">
+                                        <button class="btn btn-custom BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@perdida.Email">
                                             <i class="bi bi-send"></i>
                                         </button>
                                     }
@@ -100,3 +113,6 @@ else
         </div>
     </div>
 }
+
+
+

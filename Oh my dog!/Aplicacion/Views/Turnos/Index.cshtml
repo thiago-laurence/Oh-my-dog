@@ -3,7 +3,7 @@
 @using System.Security.Claims;
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Calendario de turnos";
 }
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
@@ -13,12 +13,12 @@
 	<div class="col-lg-7 text-center text-lg-start">
 		<p class="display-6 fw-bold mb-1" style="font-weight: 500!important;">
 			<i class="fa-solid fa-dog fa-md"></i>
-			Turnos
+			Calendario de turnos
 		</p>
 	</div>
 </div>
 
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity!.IsAuthenticated)
 {
 
 	<section class="ftco-section" id="seccion" data-usuario-mail="@User.FindFirstValue("email")">
@@ -91,22 +91,15 @@
 										</div>
 									</div>
 								}
-
-
 							</div>
 						</div>
 						<div class="events-container">
 						</div>
 					</div>
-
-
 				</div>
 				@if (User.IsInRole("Administrador"))
 				{<div class="col-xl-12 mt-1">
-						<div class="alert alert-info" role="alert" style="    line-height: normal;
-    margin: auto auto;
-    max-width: 790px;
-    height: 140px;">
+						<div class="alert alert-info" role="alert" style="    line-height: normal; margin: auto auto; max-width: 790px; height: 140px;">
 						<p>
 							<strong>
 								Estado de turnos:
@@ -132,7 +125,6 @@
 					</div>
 					</div>
 				}
-
 			</div>
 		</div>
 
@@ -429,14 +421,11 @@ else
 	</div>
 </div>
 <!--Fin Modal Visualizar Paseador para contacto-->
+
+
 @section Scripts{
-
-	 
-
-
 	<!--Por cada mascota se da la opcion de seleccionar de entre sus mascotas o ingresar una nueva. Máximo 5 mascotas-->
 	<script>
-
 		var container = $("#mascotas-dinamico");
 		function borrarCamposMascota(idBorrado){
 			if ($(".mascota").length >1){
@@ -680,17 +669,10 @@ else
 
 	<script>
 		$(document).on('click', '#add-button', function () {
-			
 		//	Muestra la solicitud del turno
 			$('#ModalDatosTurno').modal('show');
 		});
-
-
-		
-
 	</script>
-
-
 	<script>
 
 		var event_data = {

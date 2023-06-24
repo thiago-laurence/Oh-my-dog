@@ -140,19 +140,6 @@
                             Inicio
                         </a>
                     </li>
-                    <!--
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
-                            Publicaciones
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Adopciones</a></li>
-                            <li><a class="dropdown-item" href="#">Perdidas</a></li>
-                            <li><a class="dropdown-item" href="#">Colectas</a></li>
-                        </ul>
-                    </li>
-                    -->
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <li class="nav-item dropdown">
@@ -161,42 +148,116 @@
                                 Servicios
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")" href="Cuidadores">Cuidadores</a></li>
-                                <li><a class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")" href="Paseadores">Paseadores</a></li>
                                 <li>
-                                    <a class="dropdown-item link-dark" href="#">
-                                        Adopciones &raquo;
+                                    <a asp-area="" asp-controller="Cuidadores" asp-action="Index" asp class="dropdown-item @((ViewBag.ActiveView == "Cuidadores") ? "link-light active" : "link-dark")">
+                                        Cuidadores
                                     </a>
-                                    <ul class="dropdown-menu dropdown-submenu">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex">Publicar adopcion</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="IndexMisAdopciones">Mis Adopciones</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Adopciones" asp-action="IndexAdopciones">Adopciones y adoptados</a></li>
-                                    </ul>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="Paseadores" asp-action="Index" class="dropdown-item @((ViewBag.ActiveView == "Paseadores") ? "link-light active" : "link-dark")">
+                                        Paseadores
+                                    </a>
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(((ViewBag.ActiveView == "Publicaciones")) ? "link-light active" : "link-dark")" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-newspaper fa-xl" style="color: #@(((ViewBag.ActiveView == "Publicaciones")) ? "ffffff" : "000000");;"></i>
+                                Publicaciones
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item link-dark">Adopciones &raquo;</a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item @(((ViewBag.SubView == "IndexAdopciones")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Adopciones" asp-action="IndexAdopciones">
+                                                Adopciones
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item @(((ViewBag.SubView == "PublicarAdopcion")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex">
+                                                Publicar adopción
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item @(((ViewBag.SubView == "MisAdopciones")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Adopciones" asp-action="IndexMisAdopciones">
+                                                Mis adopciones
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item link-dark">Perdidas &raquo;</a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item @(((ViewBag.SubView == "IndexPerdidas")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Perdidas" asp-action="IndexPerdidas">
+                                                Perdidas
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item @(((ViewBag.SubView == "PublicarPerdida")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Perdidas" asp-action="PublicarPerdidasIndex">
+                                                Publicar perro perdido
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item @(((ViewBag.SubView == "MisPerdidas")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Perdidas" asp-action="IndexMisPerdidas">
+                                                Mis perdidas
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!--
+                                <li><a class="dropdown-item" href="#">Colectas</a></li>
+                                -->
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(((ViewBag.ActiveView == "Publicaciones")) ? "link-light active" : "link-dark")" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-newspaper fa-xl" style="color: #@(((ViewBag.ActiveView == "Publicaciones")) ? "ffffff" : "000000");"></i>
+                                Publicaciones
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item @(((ViewBag.SubView == "IndexAdopciones")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Adopciones" asp-action="IndexAdopciones">
+                                        Adopciones
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item @(((ViewBag.SubView == "IndexPerdidas")) ? "link-light active" : "link-dark")" asp-area="" asp-controller="Perdidas" asp-action="IndexPerdidas">
+                                        Perdidas
+                                    </a>
+                                </li>
+                                <!--
+                                <li><a class="dropdown-item" href="#">Colectas</a></li>
+                                -->
+                            </ul>
+                        </li>
                     }
                     @if (User.Identity!.IsAuthenticated)
                     {
+                        <!--
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle @((ViewBag.ActiveView == "Tinderdog") ? "link-light" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
-                                <i class="fa-solid fa-heart" style="color: #@((ViewBag.ActiveView == "Tinderdog") ? "FFFFFF" : "000000");"></i>
+                            <a class="nav-link dropdown-toggle @@((ViewBag.ActiveView == "Tinderdog") ? "link-light" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #@@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
+                                <i class="fa-solid fa-heart" style="color: #@@((ViewBag.ActiveView == "Tinderdog") ? "FFFFFF" : "000000");"></i>
                                 TinderDog
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="Index" style="background-color: #@((ViewBag.SubView == "Sugerencias") ? "FFE5DB" : "");">
+                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="Index" style="background-color: #@@((ViewBag.SubView == "Sugerencias") ? "FFE5DB" : "");">
                                         Sugerencias
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" style="background-color: #@((ViewBag.SubView == "MisCandidatos") ? "FFE5DB" : "");">
+                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" style="background-color: #@@((ViewBag.SubView == "MisCandidatos") ? "FFE5DB" : "");">
                                         Mis candidatos
                                     </a>
                                 </li>
                             </ul>
                         </li>
+                        -->
                     }
                     <!--<li>
                         <a class="nav-link px-2 link-dark">
@@ -214,6 +275,13 @@
                                 <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
                             </a>
                             <ul class="dropdown-menu text-small">
+                                <li>
+                                    <a class="dropdown-item @((ViewBag.ActiveView == "CalendarioTurnos") ? "active" : "")" asp-area="" asp-controller="Turnos" asp-action="Index">
+                                        <i class="fa fa-calendar" aria-hidden="true" style="color: #@((ViewBag.ActiveView == "CalendarioTurnos") ? "ffffff" : "000000");"></i>
+                                        Calendario de turnos
+                                    </a>
+                                </li>
+
                                 @if (User.IsInRole("Administrador"))
                                 {
                                     <li>
@@ -232,12 +300,6 @@
                                     
 
                                 <li><hr class="dropdown-divider"></li>
-                                <a class="dropdown-item" asp-area="" asp-controller="Turnos" asp-action="Index">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    Turnos
-                                </a>
-
-                                </li>
                                 <li>
                                     <a class="dropdown-item @((ViewBag.ActiveView == "CambiarContrasena") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
                                         <i class="fa-solid fa-lock fa-md" style="color: #@((ViewBag.ActiveView == "CambiarContrasena") ? "ffffff" : "000000")"></i>

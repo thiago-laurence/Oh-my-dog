@@ -11,8 +11,8 @@ public partial class PerrosNoMeGusta
 
     public int IdPerroReceptor { get; set; }
 
-    public virtual Perro PerroEmisor { get; set; } = null!;
+    public virtual Perros PerroEmisor { get; set; } = null!;
 
-    public virtual Perro PerroReceptor { get; set; } = null!;
+    public virtual Perros PerroReceptor { get; set; } = null!;
 
 }

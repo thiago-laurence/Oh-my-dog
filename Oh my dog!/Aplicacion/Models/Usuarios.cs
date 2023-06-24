@@ -24,5 +24,5 @@ public partial class Usuarios
     public string Pass { get; set; } = null!;
 
     public virtual Rol? IdRolNavigation { get; set; }
-    public virtual ICollection<Perro> GetPerros { get; set; } = new List<Perro>();
+    public virtual ICollection<Perros> GetPerros { get; set; } = new List<Perros>();
 }

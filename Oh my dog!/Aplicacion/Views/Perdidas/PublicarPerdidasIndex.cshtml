@@ -1,9 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using System.Security.Claims;
-@model Adopciones
+@model Perdidas
 
 @{
-    ViewData["Title"] = "Publicar adopciones";
+    ViewData["Title"] = "Publicar perdida";
 }
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -36,80 +36,30 @@
 
 
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
-    <h1 class="display-7">Bienvenido al servicio de publicar adopciones de nuestra veterinaria <img class="huella-img" src="~/img/publicarAdopcion-icon.png" /></h1>
+    <h1 class="display-7">Bienvenido al servicio de publicar perdidas de nuestra veterinaria <img class="huella-img" src="~/img/perroPerdido.png" /></h1>
     <p style="margin-bottom: 0px;">
-        Da el primer paso hacia un futuro lleno de amor
+        En este apartado puede publicar a su perro para que los demás miembros de la comunidad puedan estar informados de la situación y se contacten con usted lo antes posible.
         <br />
-        Tu perro merece un hogar cariñoso y tú puedes hacerlo posible. Publica su adopción hoy y cambia su vida para siempre.
-        <br />
-        ¡Juntos encontraremos el hogar perfecto! ¡No esperes más, comparte su historia y haz que alguien se enamore de él!
+        Con este servicio le garantizamos recuperar a su miembro familiar canino, y asi pueda volver a su hogar.
     </p>
 </div>
 <div class="container" style="margin-bottom: 50px; margin-top: 40px;">
     <div class="row justify-content-center">
         <div class="col-md-9 border rounded mt-4 mb-4 shadow-lg bg-light" style="padding: 30px;">
-            <!--<form asp-controller="Adopciones" asp-action="PublicarAdopcionesIndex" method="post" enctype="multipart/form-data" id="form-adopciones">
-                <div class="row">
-                    <div class="col-md-12">
-                        <input hidden asp-for="Email" type="email" value="@@User.FindFirstValue("Email")"/>
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
-                        </div>
-                    </div>                  
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="sexo">Sexo:</label>
-                            <select class="form-control" id="sexo" name="sexo" required>
-                                <option value="Macho">Macho</option>
-                                <option value="Hembra">Hembra</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="tamano">Tamaño:</label>
-                            <select class="form-control" id="tamano" name="tamano" required>
-                                <option value="Pequeño">Pequeño</option>
-                                <option value="Mediano">Mediano</option>
-                                <option value="Grande">Grande</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="raza">Raza:</label>
-                            <input asp-for="Raza" type="text" class="form-control" id="raza" name="raza" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="color">Color:</label>
-                            <input asp-for="Color" type="text" class="form-control" id="color" name="color" pattern="[A-Za-z]+" title="Ingrese solo letras" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea asp-for="Descripcion" class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-custom mt-2 mb-2">Publicar</button>
-            </form>
-            -->
             <form class="row g-3 needs-validation Formulario" novalidate id="FormPublicar">
-                <p class="display-6 fw-bold" style="margin-bottom: 50px;">Publicar adopción</p>
+                <p class="display-6 fw-bold" style="margin-bottom: 50px;">Publicar perdida</p>
                 <div class="col-md-4">
                     <label class="form-label">Nombre</label>
                     <input type="text" class="form-control InputText" id="Nombre" maxlength="50" required>
                     <div class="invalid-feedback">
                         Ingrese el nombre del perro
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Raza</label>
+                    <input type="text" maxlength="50" class="form-control InputText" id="Raza" required>
+                    <div class="invalid-feedback">
+                        Ingrese una raza
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -124,42 +74,44 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="validationCustom04" class="form-label">Tamaño</label>
-                    <select class="form-select InputSelect" id="Tamano" required>
-                        <option selected disabled value="">Elige...</option>
-                        <option value="Pequeño">Pequeño</option>
-                        <option value="Mediano">Mediano</option>
-                        <option value="Grande">Grande</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Seleccione un tamaño
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Raza</label>
-                    <input type="text" maxlength="50" class="form-control InputText" id="Raza" required>
-                    <div class="invalid-feedback">
-                        Ingrese una raza
-                    </div>
-                </div>
-                <div class="col-md-6">
                     <label class="form-label">Color</label>
                     <input type="text" maxlength="50" class="form-control InputText" id="Color" required>
                     <div class="invalid-feedback">
                         Ingrese un color
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <label class="form-label">Peso (en Kg)</label>
+                    <input type="text" class="form-control InputNumber" id="Peso" pattern="[0-9]+([.][0-9]+)?" required>
+                    <div class="invalid-feedback">
+                        Ingrese un peso válido (no puede empezar ni finalizar en '.', y no puede ser negativo)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Fecha de la perdida</label>
+                    <input type="date" class="form-control InputDate" id="FechaPerdida" max="" required>
+                    <div class="invalid-feedback">
+                        Ingrese una fecha válida (la fecha no puede ser futura)
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="" value="">Foto (opcional)</label>
+                    <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="Foto">
+                    <div class="invalid-feedback">
+                        La foto ingresada no es válida
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <label for="validationCustom02" class="form-label">Descripción</label>
                     <textarea class="form-control InputText" maxlength="100" id="Descripcion" required></textarea>
                     <div class="invalid-feedback">
-                        Ingrese una breve descripción del perro (máximo 100 caracteres)
+                        Ingrese una breve descripción del lugar y momento de la perdida del perro
                     </div>
                 </div>
                 <div class="col-12">
                     <input type="hidden" value="@User.FindFirstValue("Email")" id="Email" />
                     <button type="button" class="btn btn-warning BtnCancelarForm" id="BotonCancelarRegistro">Cancelar</button>
-                    <button class="btn btn-custom mt-2 mb-2 BtnEnvioForm" type="button" id="BtnEnvio" disabled onclick="PublicarAdopcion()" style="margin-left: 20px;">Publicar</button>
+                    <button class="btn btn-custom mt-2 mb-2 BtnEnvioForm" type="button" id="BtnEnvio" disabled onclick="PublicarPerdida()" style="margin-left: 20px;">Publicar</button>
                 </div>
             </form>
         </div>
@@ -171,7 +123,7 @@
 @if (ViewBag.Message != null)
 {
     <script type="text/javascript">
-@*        var form = document.getElementById('form-adopciones');
+@*        var form = document.getElementById('form-perdidas');
         form.reset();
         document.getElementById('email').value = '';
         document.getElementById('pass').value = '';*@
@@ -323,9 +275,32 @@
         });
     </script>
 
-    <!--Publicar adopcion-->
+    <!--Validacion de subida de foto-->
     <script>
-        function PublicarAdopcion() {
+        function ValidarFoto() {
+            var fileName = this.value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            } else {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+                this.value = "";
+            }
+        }
+
+        var inputFiles = document.querySelectorAll(".InputFoto");
+        inputFiles.forEach(function (elemento) {
+            elemento.addEventListener("change", ValidarFoto);
+        });
+    </script>
+
+    <!--Publicar perdida-->
+    <script>
+        function PublicarPerdida() {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -334,7 +309,7 @@
                 buttonsStyling: false
             })
             Swal.fire({
-                title: '¿Desea publicar al perro en adopción?',
+                title: '¿Desea publicar la perdida del perro?',
                 text: "Confirme la acción",
                 icon: 'warning',
                 showCancelButton: true,
@@ -343,26 +318,28 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    var adopcion = {
+                    var perdida = {
                         email: document.getElementById("Email").value,
                         nombre: document.getElementById("Nombre").value,
                         raza: document.getElementById("Raza").value,
-                        tamano: document.getElementById("Tamano").value,
+                        peso: document.getElementById("Peso").value,
                         color: document.getElementById("Color").value,
                         sexo: document.getElementById("Sexo").value,
-                        descripcion: document.getElementById('Descripcion').value
+                        foto: RegistrarFoto('Foto'),
+                        descripcion: document.getElementById('Descripcion').value,
+                        fechaPerdida: document.getElementById('FechaPerdida').value
                     };
 
                     $.ajax({
-                        url: '@Url.Action("PublicarAdopcionesIndex", "Adopciones")',
+                        url: '@Url.Action("PublicarPerdidasIndex", "Perdidas")',
                         type: 'POST',
                         dataType: 'json',
-                        data: { adopcion: adopcion },
+                        data: { perdida: perdida },
                         success: function (data) {
                             if (data.success) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: '¡Adopción publicada!',
+                                    title: '¡Perdida publicada!',
                                     text: data.message
                                 })
                                 var boton = document.getElementById('BotonCancelarRegistro');
@@ -389,6 +366,49 @@
                     });
                 }
             })
+        }
+    </script>
+
+    <!--Registrar foto-->
+    <script>
+        function RegistrarFoto(idFoto) {
+            var filename;
+            var fullPath = document.getElementById(idFoto).value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+            } else {
+                filename = null;
+            }
+
+            if (filename != null) {
+                var fileUpload = $("#" + idFoto).get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+                fileData.append(files[0].name, files[0]);
+                $.ajax({
+                    url: '/Perdidas/CargarFoto',
+                    type: 'post',
+                    datatype: 'json',
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    data: fileData,
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+
+            return (filename);
         }
     </script>
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Aplicacion.Controllers
 {
@@ -15,11 +16,11 @@ namespace Aplicacion.Controllers
         {
             _context = context;
         }
-        private int cantidadDeRegistros = 10;
         public IActionResult PublicarAdopcionesIndex()
         {
-            //ViewBag.ActiveView = "PublicarAdopcion";
-            if (!User.Identity.IsAuthenticated)
+            ViewBag.ActiveView = "Publicaciones";
+            ViewBag.SubView = "PublicarAdopcion";
+            if (!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -28,23 +29,46 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PublicarAdopcionesIndex(Adopciones adopcion)
+        public JsonResult PublicarAdopcionesIndex(Adopciones adopcion)
         {
 
             if (hayAdopcionConEmailYNombre(adopcion.Email, adopcion.Nombre.ToLower()))
             {
-                ViewBag.Message = "Adopcion fallida. Ya existe una adopcion para este usuario con ese nombre de perro, por favor elija otro nombre";
-                return View();
+                return (Json(new { success = false, message = "Ya existe una adopción para este usuario con ese nombre de perro, por favor elija otro nombre" }));
             }
             adopcion.Nombre = adopcion.Nombre.ToLower();
             _context.Add(adopcion);
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
 
-            return RedirectToAction("IndexMisAdopciones", "Adopciones");
+            return (Json(new { success = true, message = "El perro ha sido publicado en adopción con éxito" }));
+        }
+
+        // Variable para indicar la cantida a mostrar por la paginacion
+        private int cantidadDeRegistros = 4;
+        public async Task<IActionResult> IndexAdopciones()
+        {
+            ViewBag.ActiveView = "Publicaciones";
+            ViewBag.SubView = "IndexAdopciones";
+            var adopciones = from adopcion in _context.Adopciones select adopcion;
+
+            if (User.Identity!.IsAuthenticated)
+            {
+                adopciones = adopciones.Where(a => a.Email != User.FindFirstValue("Email") && a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+            }
+            else
+            {
+                adopciones = adopciones.Where(a => a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+            }
+
+            return ((_context.Usuarios != null) ? View("IndexAdopciones", new AdopcionViewModel
+            {
+                Origen = false,
+                Paginacion = await Paginacion<Adopciones>.CrearPaginacion(adopciones.AsNoTracking(), 1, cantidadDeRegistros)
+            }) : Problem("Entity set 'OhmydogdbContext.Usuarios'  is null."));
         }
 
         [HttpGet]
-        public async Task<IActionResult> IndexAdopciones(string query, int? numeroPagina)
+        public async Task<IActionResult> ListarAdopciones(string query, int? numeroPagina, string filtro)
         {
             var adopciones = from adopcion in _context.Adopciones select adopcion;
 
@@ -52,43 +76,47 @@ namespace Aplicacion.Controllers
             {
                 numeroPagina = 1;
             }
-            if (!String.IsNullOrEmpty(query))
+
+            if (!String.IsNullOrEmpty(query) && !String.IsNullOrEmpty(filtro))
             {
-                adopciones = adopciones.Where(a => a.Nombre.Contains(query));
+                adopciones = adopciones.Where(a => a.Tamano == filtro && (a.Color.Contains(query) || a.Raza.Contains(query)));
+            }
+            else if(!String.IsNullOrEmpty(query))
+            {
+                adopciones = adopciones.Where(a => (a.Color.Contains(query) || a.Raza.Contains(query)));
+            }
+            else if (!String.IsNullOrEmpty(filtro))
+            {
+                adopciones = adopciones.Where(a => a.Tamano == filtro);
             }
 
-            adopciones = adopciones.Where(a => a.Email != User.FindFirstValue("Email") && a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+            if (User.Identity!.IsAuthenticated)
+            {
+                adopciones = adopciones.Where(a => a.Email != User.FindFirstValue("Email") && a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+            }
+            else
+            {
+                adopciones = adopciones.Where(a => a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+            }
 
             AdopcionViewModel modelo = new AdopcionViewModel
             {
-                Origen = (query != null) ? true : false,
+                Origen = ((query != null) || (filtro != null)) ? true : false,
                 Paginacion = await Paginacion<Adopciones>.CrearPaginacion(adopciones.AsNoTracking(), numeroPagina ?? 1, cantidadDeRegistros)
             };
             return (PartialView("_ListarAdopciones", modelo));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> IndexMisAdopciones(string query, int? numeroPagina)
-        {
-            var adopciones = from adopcion in _context.Adopciones select adopcion;
 
-            if (query != null && numeroPagina == null)
-            {
-                numeroPagina = 1;
-            }
-            if (!String.IsNullOrEmpty(query))
-            {
-                adopciones = adopciones.Where(a => a.Nombre.Contains(query));
-            }
+        public async Task<IActionResult> IndexMisAdopciones()
+        {
+            ViewBag.ActiveView = "Publicaciones";
+            ViewBag.SubView = "MisAdopciones";
+            var adopciones = from adopcion in _context.Adopciones select adopcion;
 
             adopciones = adopciones.Where(a => a.Email == User.FindFirstValue("Email") && a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
 
-            AdopcionViewModel modelo = new AdopcionViewModel
-            {
-                Origen = (query != null) ? true : false,
-                Paginacion = await Paginacion<Adopciones>.CrearPaginacion(adopciones.AsNoTracking(), numeroPagina ?? 1, cantidadDeRegistros)
-            };
-            return (PartialView("_ListarMisAdopciones", modelo));
+            return (View("IndexMisAdopciones", await adopciones.ToListAsync()));
         }
 
         [HttpPost]
@@ -112,7 +140,7 @@ namespace Aplicacion.Controllers
             }
             _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
 
-            return (Json(new { success = true, message = "El correo fue enviado al paseador con éxito!" }));
+            return (Json(new { success = true, message = "El correo fue enviado al dueño de la publicación con éxito!" }));
         }
 
         public async Task<IActionResult> Editar(Adopciones adopcionUpdate)
@@ -150,7 +178,7 @@ namespace Aplicacion.Controllers
 
                     }
                 }              
-                return Json(new { error = true, adopcion = adopcion, mensaje = "Ya existe una publicacion con ese email y nombre por favor elija otro" });   
+                return Json(new { error = true, adopcion = adopcion, mensaje = "Ya existe una publicacion con este email y nombre de perro, por favor elija otro" });   
             }
             return Json(new { error = true, mensaje = "Problema con la conexion a la base de datos" });
 

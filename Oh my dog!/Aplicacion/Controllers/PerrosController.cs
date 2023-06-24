@@ -64,7 +64,7 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> RegistrarPerro([FromBody] Perro perro)
+        public async Task<JsonResult> RegistrarPerro([FromBody] Perros perro)
         {
             if (ExistePerro(perro.Nombre, perro.IdDueno))
             {
@@ -167,7 +167,7 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ModificarPerro(Perro perro)
+        public async Task<JsonResult> ModificarPerro(Perros perro)
         {
             var _perro = await _context.Perros.FirstOrDefaultAsync(p => p.Id == perro.Id);
             if (_perro?.Nombre != perro.Nombre)
@@ -293,8 +293,8 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult ProgramarRecordatorio(DateTime fechaRecordatorio, string idDueno, int idVacuna, int idPerro)
         {
-            //DateTime fechaHardcoding = DateTime.Now;
-            //fechaHardcoding = fechaHardcoding.AddMinutes(1); // Agrego 5 minutos para programar el envio del email en 5 minutos en el futuro.
+           //DateTime fechaHardcoding = new DateTime(2023, 06, 23, 11, 15, 0);
+           //fechaHardcoding = fechaHardcoding.AddMinutes(1);
 
             var query = _context.Perros.Where(p => p.Id == idPerro)
                 .Join(_context.VacunaPerros, p => p.Id, vp => vp.IdPerro, (p, vp) => new { Perro = p.Nombre, Dueno = p.IdDueno, Vacuna = vp.IdVacuna })
