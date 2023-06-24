@@ -33,8 +33,6 @@ public partial class Perros
 
     public virtual ICollection<TratamientoPerro> TratamientoPerros { get; set; } = new List<TratamientoPerro>();
 
-    //public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
-
     public virtual ICollection<VacunaPerro> VacunaPerros { get; set; } = new List<VacunaPerro>();
 
     public virtual ICollection<PerrosMeGusta> MeGustaDados { get; set; } = new List<PerrosMeGusta>();
