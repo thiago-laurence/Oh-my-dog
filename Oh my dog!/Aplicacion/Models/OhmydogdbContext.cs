@@ -23,7 +23,7 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<Cuidadores> Cuidadores { get; set; }
 	public virtual DbSet<HorarioTurnos> HorarioTurnos { get; set; }
 
-	public virtual DbSet<Descuento> Descuentos { get; set; }
+	public virtual DbSet<Descuentos> Descuentos { get; set; }
 
     public virtual DbSet<EstadoTurno> EstadoTurnos { get; set; }
 
@@ -131,10 +131,8 @@ public partial class OhmydogdbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Descuento>(entity =>
+        modelBuilder.Entity<Descuentos>(entity =>
         {
-            entity.ToTable("Descuento");
-
             entity.HasIndex(e => e.Email, "IX_Descuento").IsUnique();
 
             entity.Property(e => e.Email)

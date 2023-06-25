@@ -441,7 +441,7 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult AplicarDescuento(string? email, int? idUsuario)
         {
-            Descuento? _descuento = null;
+            Descuentos? _descuento = null;
             if (email == null) // En caso de que invoque a esta accion desde el modulo de perros, en donde no poseo el email del usuario
             {
                 var _usuario = _context.Usuarios.FirstOrDefault(u => u.Id == idUsuario);
