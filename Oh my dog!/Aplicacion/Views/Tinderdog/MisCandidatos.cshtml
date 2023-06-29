@@ -17,8 +17,36 @@
         background-position: center center;
         background-size: cover;
     }
+
+    .logo-img {
+        width: 3rem;
+        height: 3rem;
+        transform: translateY(-0.4rem);
+    }
+
+    .tooltip-danger {
+        --bs-tooltip-bg: var(--bs-danger);
+    }
+    .tooltip-warning {
+        --bs-tooltip-bg: var(--bs-warning);
+        --bs-tooltip-color: #000000;
+    }
+
+    .tooltip-primary {
+        --bs-tooltip-bg: var(--bs-primary);
+    }
 </style>
 
+<div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">
+        <img class="logo-img" src="~/img/tinderdog - logo.png" />
+        Mis candidatos
+        <i class="fa-sharp fa-solid fa-shield-dog"></i>
+    </h1>
+    <p style="margin-bottom: 0px;">
+        Publica a tus perros registrados en "tinderDog" y encuentre a su media naranja
+    </p>
+</div>
 
 <div class="container-fluid" id="ContainerListarMisCandidatos">
     @await Html.PartialAsync("_ListarMisCandidatos", Model)
@@ -57,13 +85,30 @@
 </div>
 
 @section Scripts{
+    <!-- Constantes de inicializacion de tooltips -->
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
     <!--Listar candidatos-->
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
         function ListarCandidatos() {
             $.ajax({
                 url: '@Url.Action("ListarMisCandidatos", "Tinderdog")',
                 type: 'GET',
-                data: { idDueno: id },
                 success: function (data) {
                     $('#ContainerListarMisCandidatos').html(data);
                 },
@@ -95,6 +140,7 @@
                     var boton = document.getElementById('BotonCancelarRegistro');
                     boton.click();
                     $('#ModalCelo').modal('hide');
+                    PublicarCandidato(idPerro);
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
@@ -102,43 +148,84 @@
                     console.log(error);
                 }
             });
-
-            PublicarCandidato(idPerro);
         }    
     </script>
 
     <!--Publicar candidato-->
     <script>
         function PublicarCandidato(idPerro){
-            /*$.ajax({
-                url: '@@Url.Action("", "")',
-                type: 'POST',
-                data: { idPerro: idPerro },
-                success: function (data) {
-                    Toast.fire({
-                        icon: 'success',
-                        text: '¡Se ha programado el recordatorio para el próximo turno!'
-                    })
-                    var boton = document.getElementById('BotonCancelarRegistro');
-                    boton.click();
-                    $('#Modal').modal('hide');
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
+            Swal.fire({
+                title: '¿Desea publicar al candidato en TinderDog?',
+                text: "Confirme la acción",
+                imageUrl: "/img/tinderdog - logo.png",
+                imageHeight: 100,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("PublicarCandidato", "Tinderdog")',
+                        type: 'POST',
+                        data: { idPerro: idPerro },
+                        success: function (data) {
+                            if (data.success) {
+                                Toast.fire({
+                                    icon: 'success',
+                                    text: '¡El candidato ha sido publicado en TinderDog!'
+                                })
+                                ListarCandidatos();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
                 }
-            });*/
+            })            
         }
     </script>
 
     <!--Quitar candidato-->
     <script>
         function QuitarCandidato(idPerro){
-
+            Swal.fire({
+                title: '¿Desea quitar al candidato de TinderDog?',
+                text: "Confirme la acción",
+                imageUrl: "/img/tinderdog - logo.png",
+                imageHeight: 100,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("QuitarCandidato", "Tinderdog")',
+                        type: 'POST',
+                        data: { idPerro: idPerro },
+                        success: function (data) {
+                            if (data.success) {
+                                Toast.fire({
+                                    icon: 'info',
+                                    text: '¡El candidato ha sido quitado de TinderDog!'
+                                })
+                                ListarCandidatos();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            })
         }
     </script>
-
 
     <!--Validacion de formulario-->
     <script>

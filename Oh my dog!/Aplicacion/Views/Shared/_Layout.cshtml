@@ -17,51 +17,134 @@
 <body>
     <!--Inicio Header Veterinario-->
     <div class="container-fluid">
-        @if (User.Claims.FirstOrDefault(c => c.Type == "New")?.Value == "true"){ // Si el usuario es "nuevo" se inhabilitan el acceso a las funcionalidades, se obliga a cambiar la contrasena.
+        @if (User.Claims.FirstOrDefault(c => c.Type == "New")?.Value == "true"){ // Si el usuario es "NUEVO" se inhabilitan el acceso a las funcionalidades, se obliga a cambiar la contrasena.
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-                <a class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                     <img class="bi me-2" src="~/img/Logo - Veterinaria.png" width="100" height="80">
                 </a>
                 <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <a class="nav-link px-2 link-dark" aria-current="page">
-                            <i class="fa-solid fa-house fa-lg" style="color: #000000"></i>
+                            <i class="fa-solid fa-house fa-lg" style="color: #000000;"></i>
                             Inicio
                         </a>
                     </li>
-                    <!--
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
-                            Publicaciones
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Adopciones</a></li>
-                            <li><a class="dropdown-item" href="#">Perdidas</a></li>
-                            <li><a class="dropdown-item" href="#">Colectas</a></li>
-                        </ul>
-                    </li>
-                    -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
-                            Servicios
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item">Cuidadores</a></li>
-                            <li><a class="dropdown-item">Paseadores</a></li>
-                        </ul>
-                    </li>
                     @if (User.Identity!.IsAuthenticated)
                     {
-                        <!--
-                        <li>
-                            <a href="#" class="nav-link px-2 link-dark">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-image-portrait fa-xl" style="color: #000000;"></i>
+                                Servicios
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item link-dark">
+                                        Cuidadores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item link-dark">
+                                        Paseadores
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
+                                Publicaciones
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item link-dark">Adopciones &raquo;</a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item link-dark">
+                                                Adopciones
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item link-dark">
+                                                Publicar adopción
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item link-dark">
+                                                Mis adopciones
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item link-dark">Perdidas &raquo;</a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item link-dark">
+                                                Perdidas
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item link-dark">
+                                                Publicar perro perdido
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item link-dark">
+                                                Mis perdidas
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!--
+                                <li><a class="dropdown-item" href="#">Colectas</a></li>
+                                -->
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-newspaper fa-xl" style="color: #000000;"></i>
+                                Publicaciones
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item link-dark">
+                                        Adopciones
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item link-dark">
+                                        Perdidas
+                                    </a>
+                                </li>
+                                <!--
+                                <li><a class="dropdown-item" href="#">Colectas</a></li>
+                                -->
+                            </ul>
+                        </li>
+                    }
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle link-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-heart" style="color: #000000;"></i>
                                 TinderDog
                             </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item link-dark">
+                                        Sugerencias
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item link-dark">
+                                        Mis candidatos
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                                -->
                     }
                     <!--<li>
                         <a class="nav-link px-2 link-dark">
@@ -74,41 +157,39 @@
                 {
                     <div class="col-md-3 text-center">
                         <div class="dropdown-center">
-                                <a href="#" class="d-block link-dark text-decoration-none fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 20px">
+                            <a href="#" class="d-block link-dark text-decoration-none fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 20px">
                                 @User.Identity.Name
                                 <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f; font-size: 45px;"></i>
                             </a>
                             <ul class="dropdown-menu text-small">
+                                <li>
+                                    <a class="dropdown-item">
+                                        <i class="fa fa-calendar" aria-hidden="true" style="color: #000000"></i>
+                                        Calendario de turnos
+                                    </a>
+                                </li>
+
                                 @if (User.IsInRole("Administrador"))
                                 {
                                     <li>
                                         <a class="dropdown-item">
-                                            <i class="fa-solid fa-users" style="color: #000000;"></i>
+                                            <i class="fa-solid fa-users fa-md" style="color: #000000"></i>
                                             Clientes
                                         </a>
                                     </li>
                                 }
-                                <!--<li>
-                                    <a class="dropdown-item">
-                                        Calendario
-                                    </a>
-                                </li>-->
-                                
+                                <li>
+
+
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item " asp-area="">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        Turnos
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a class="dropdown-item active" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
-                                        <i class="fa-solid fa-lock fa-md" style="color: #000000;"></i>
+                                    <a class="dropdown-item @((ViewBag.ActiveView == "CambiarContrasena") ? "active" : "")" asp-area="" asp-controller="Usuarios" asp-action="CambiarContrasena">
+                                        <i class="fa-solid fa-lock fa-md" style="color: #@((ViewBag.ActiveView == "CambiarContrasena") ? "ffffff" : "000000")"></i>
                                         Cambiar contraseña
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogOut">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="LogOut">
                                         <i class="fa-solid fa-right-from-bracket fa-md" style="color: #000000;"></i>
                                         Cerrar sesión
                                     </a>
@@ -128,7 +209,7 @@
                 }
             </header>
         }
-        else{ // Si el usuario no es un usuario nuevo, se permite el acceso a las funcionalidades.
+        else{ // Si el usuario NO es un usuario NUEVO, se permite el acceso a las funcionalidades.
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                     <img class="bi me-2" src="~/img/Logo - Veterinaria.png" width="100" height="80">
@@ -238,26 +319,24 @@
                     }
                     @if (User.Identity!.IsAuthenticated)
                     {
-                        <!--
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle @@((ViewBag.ActiveView == "Tinderdog") ? "link-light" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #@@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
-                                <i class="fa-solid fa-heart" style="color: #@@((ViewBag.ActiveView == "Tinderdog") ? "FFFFFF" : "000000");"></i>
+                            <a class="nav-link dropdown-toggle @((ViewBag.ActiveView == "Tinderdog") ? "link-light" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
+                                <i class="fa-solid fa-heart" style="color: #@((ViewBag.ActiveView == "Tinderdog") ? "FFFFFF" : "000000");"></i>
                                 TinderDog
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="Index" style="background-color: #@@((ViewBag.SubView == "Sugerencias") ? "FFE5DB" : "");">
+                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="Index" style="background-color: #@((ViewBag.SubView == "Sugerencias") ? "FFE5DB" : "");">
                                         Sugerencias
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" style="background-color: #@@((ViewBag.SubView == "MisCandidatos") ? "FFE5DB" : "");">
+                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" style="background-color: #@((ViewBag.SubView == "MisCandidatos") ? "FFE5DB" : "");">
                                         Mis candidatos
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        -->
                     }
                     <!--<li>
                         <a class="nav-link px-2 link-dark">
@@ -291,11 +370,6 @@
                                         </a>
                                     </li>
                                 }
-                                <!--<li>
-                                    <a class="dropdown-item @((ViewBag.ActiveView == "Calendario") ? "active" : "")" asp-area="" asp-controller="Calendario" asp-action="Index">
-                                        Calendario
-                                    </a>
-                                </li>-->
                                 <li>
                                     
 

@@ -21,6 +21,7 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<Perdidas> Perdidas { get; set; }
 
     public virtual DbSet<Cuidadores> Cuidadores { get; set; }
+
 	public virtual DbSet<HorarioTurnos> HorarioTurnos { get; set; }
 
 	public virtual DbSet<Descuentos> Descuentos { get; set; }
@@ -32,9 +33,12 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<Paseadores> Paseadores { get; set; }
 
     public virtual DbSet<Perros> Perros { get; set; }
+
     public virtual DbSet<PerrosMeGusta> PerrosMeGusta { get; set; }
 
     public virtual DbSet<PerrosNoMeGusta> PerrosNoMeGusta { get; set; }
+
+    public virtual DbSet<PublicacionTinderdog> PublicacionTinderdog { get; set; }
 
     public virtual DbSet<PerroTurnos> PerroTurnos { get; set; }
 
@@ -59,8 +63,6 @@ public partial class OhmydogdbContext : DbContext
     public virtual DbSet<UsuarioColectaPublicacion> UsuarioColectaPublicacions { get; set; }
 
     public virtual DbSet<UsuarioPerdidaPublicacion> UsuarioPerdidaPublicacions { get; set; }
-
-   
 
 	public virtual DbSet<Vacuna> Vacunas { get; set; }
 
@@ -151,26 +153,21 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<ModalidadCuidador>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Modalida__3214EC07019AA4F0");
-
             entity.ToTable("ModalidadCuidador");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.IdCuidadorNavigation).WithMany(p => p.ModalidadCuidadors)
                 .HasForeignKey(d => d.IdCuidador)
-                .HasConstraintName("FK__Modalidad__IdCui__04E4BC85");
+                .HasConstraintName("FK_ModalidadCuidador_Cuidadores");
 
             entity.HasOne(d => d.IdModalidadNavigation).WithMany(p => p.ModalidadCuidadors)
                 .HasForeignKey(d => d.IdModalidad)
-                .HasConstraintName("FK__Modalidad__IdMod__05D8E0BE");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ModalidadCuidador_TipoModalidad");
         });
 
         modelBuilder.Entity<Paseadores>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Paseador__3214EC0744192CFF");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasKey(e => e.Id).HasName("PK_Paseadores");
             entity.Property(e => e.Apellido)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -262,7 +259,17 @@ public partial class OhmydogdbContext : DbContext
                 .HasConstraintName("FK_PerrosNoMeGusta_Perros_PerroReceptor");
         });
 
-		modelBuilder.Entity<HorarioTurnos>(entity =>
+        modelBuilder.Entity<PublicacionTinderdog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_PublicacionTinderdog");
+
+            entity.Property(e => e.IdPerro).HasColumnName("IdPerro");
+
+            entity.HasOne(d => d.Perro).WithOne(p => p.PublicacionTinderdog)
+                .HasForeignKey<PublicacionTinderdog>(d => d.IdPerro);
+        });
+
+        modelBuilder.Entity<HorarioTurnos>(entity =>
 		{
 			entity.ToTable("HorarioTurno");
 
@@ -319,11 +326,10 @@ public partial class OhmydogdbContext : DbContext
 
         modelBuilder.Entity<TipoModalidad>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TipoModa__3214EC07D4BCA868");
+            entity.HasKey(e => e.Id).HasName("PK_ModalidadCuidador");
 
             entity.ToTable("TipoModalidad");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Nombre)
                 .HasMaxLength(30)
                 .IsUnicode(false);
@@ -333,7 +339,6 @@ public partial class OhmydogdbContext : DbContext
         {
             entity.ToTable("TipoPublicacion");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Nombre)
                 .HasMaxLength(20)
                 .IsUnicode(false);

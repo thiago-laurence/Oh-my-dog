@@ -203,6 +203,19 @@
 
     <!--Registrar nuevo tratamiento-->
     <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        var descuentoAplicado = false;
+
         function AplicarDescuento(idDueno, tratamiento){
             $.ajax({
                 url: '@Url.Action("AplicarDescuento", "Usuarios")',
@@ -210,15 +223,8 @@
                 dataType: 'json',
                 data: { idUsuario: idDueno },
                 success: function (data) {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Descuento aplicado!',
-                        text: 'Se ha registrado la utilización del descuento'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            RegistrarTratamiento(tratamiento);
-                        }
-                    })
+                    descuentoAplicado = true;
+                    RegistrarTratamiento(tratamiento);
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
@@ -276,7 +282,6 @@
         }
 
         function RegistrarTratamiento(tratamiento){
-            console.log(tratamiento);
             // Independientemente la existencia o aplicacion del descuento, se registra el tratamiento
             $.ajax({
                 url: '@Url.Action("RegistrarTratamiento", "Perros")',
@@ -290,9 +295,16 @@
                         icon: 'success',
                         title: 'Tratamiento registrado!',
                         text: data.message
+                    }).then((result) => {
+                        if (descuentoAplicado){
+                            Toast.fire({
+                                icon: 'info',
+                                text: 'Se ha registrado la aplicación del descuento'
+                            })
+                        }
+                        var boton = document.getElementById('BotonCancelarRegistro');
+                        boton.click();
                     })
-                    var boton = document.getElementById('BotonCancelarRegistro');
-                    boton.click();
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);

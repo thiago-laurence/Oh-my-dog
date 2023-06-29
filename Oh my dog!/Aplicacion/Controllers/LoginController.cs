@@ -33,7 +33,7 @@ namespace Aplicacion.Controllers
             {
                 if (usuario.Estado == 0)
                 {
-                    ViewBag.Message = "El usuario está baneado!. Por favor visite la veterinaria o póngase en contacto a través de ohmydog@gmail.com";
+                    ViewBag.Message = "¡El usuario está baneado! Por favor visite la veterinaria o póngase en contacto a través de ohmydog@gmail.com";
                     return View();
                 }
 
@@ -45,7 +45,7 @@ namespace Aplicacion.Controllers
                 {
                     new Claim(ClaimTypes.Name, usuario.Nombre),
                     new Claim("Email", usuario.Email),
-                    new Claim("New", (usuario.Pass[0] == '?') ? "true" : "false")
+                    new Claim("New", (usuario.EsNuevo == 1) ? "true" : "false")
                 };
 
                 claims.Add(new Claim(ClaimTypes.Role, rolUser!.Descripcion));
@@ -57,7 +57,7 @@ namespace Aplicacion.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Message = "Error al iniciar sesión, el email o contraseña son incorrectos!";
+            ViewBag.Message = "Error al iniciar sesión, el email o contraseña son incorrectos";
             return View();
         }
 

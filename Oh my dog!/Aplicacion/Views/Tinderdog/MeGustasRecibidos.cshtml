@@ -24,8 +24,25 @@
         left: 5%;
         transform: translate(-0%, -50%);
     }
+
+    .logo-img {
+        width: 3rem;
+        height: 3rem;
+        transform: translateY(-0.4rem);
+    }
 </style>
 
+
+<div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">
+        <img class="logo-img" src="~/img/tinderdog - logo.png" />
+        Me gustas de "@Model.Perro.Nombre"
+        <i class="fa-sharp fa-solid fa-fire"></i>
+    </h1>
+    <p style="margin-bottom: 0px;">
+        Listado de candidatos los cuales gustan de su perro publicado en "tinderDog"
+    </p>
+</div>
 
 <div class="container-fluid" id="ContainerListarMisCandidatos">
     @await Html.PartialAsync("_ListarMegustasRecibidos", Model)

@@ -96,10 +96,16 @@
             </div>
         </div>
         <div class="card-footer text-center">
-            <button class="btn btn-lg btn-light" type="button" id="BtnNoMegusta" value="@Model[0].Id" onclick="NoMeGusta()" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important; margin-right: 20px;">
+            <button class="btn btn-lg btn-light" type="button" id="BtnNoMegusta" value="@Model[0].Id" onclick="NoMeGusta()" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important; margin-right: 20px;"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    data-bs-custom-class="tooltip-danger"
+                    data-bs-title="No me gusta">
                 <i class="fa-solid fa-xmark fa-2xl" style="color: #dc3545;"></i>
             </button>
-            <button class="btn btn-lg btn-light" type="button" id="BtnMeGusta" value="@Model[0].Id" onclick="MeGusta()" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important;">
+            <button class="btn btn-lg btn-light" type="button" id="BtnMeGusta" value="@Model[0].Id" onclick="MeGusta()" style="background-color: #FFFFFF; border-radius: 50%; padding: 15px !important;"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    data-bs-custom-class="tooltip-success"
+                    data-bs-title="Me gusta">
                 <i class="fa-solid fa-heart fa-2xl" style="color: #4dcc93;"></i>
             </button>
         </div>

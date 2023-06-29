@@ -15,10 +15,13 @@
             </h3>
         </div>
     }
-    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevaVacuna">
-        <i class="fa-solid fa-syringe fa-xl" style="color: #FFFFFF;"></i>
-        Nueva vacuna
-    </button>
+    @if (Model.Estado)
+    {
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevaVacuna">
+            <i class="fa-solid fa-syringe fa-xl" style="color: #FFFFFF;"></i>
+            Nueva vacuna
+        </button>
+    }
 </div>
 @if (Model.VacunaPerros.Count != 0)
 {
@@ -26,16 +29,21 @@
         <div class="list-group">
             @foreach (var item in Model.VacunaPerros)
             {
-                <a class="list-group-item list-group-item-action" aria-current="true" style="background-color: aliceblue;">
-                    <small>
-                        <strong>Fecha de aplicación: </strong>
-                        @item.FechaAplicacion.ToShortDateString()
-                    </small>
+                <a class="list-group-item list-group-item-action shadow-sm" aria-current="true" style="margin-bottom: 10px;">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Vacuna: @item.IdVacunaNavigation.Nombre </h5>
                     </div>
-                    <p class="mb-1">Dosis: @item.Dosis</p>
-                    <small>Nro de lote: @item.NroLote</small>
+                    <p class="mb-1">
+                        Dosis: @item.Dosis
+                        <br>
+                        Nro de lote: @item.NroLote
+                    </p>
+                    <span class="badge text-bg-light">
+                        <strong style="font-size: 15px;">
+                            Fecha de aplicación:
+                            @item.FechaAplicacion.ToShortDateString()
+                        </strong>
+                    </span>
                 </a>
             }
         </div>

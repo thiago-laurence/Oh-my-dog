@@ -37,8 +37,15 @@ namespace Aplicacion.Controllers
             ViewBag.SubView = "MisCandidatos";
             string? email = User.FindFirst("Email")?.Value;
             return _context.Perros != null ?
-                          View("MisCandidatos", _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true)).First().GetPerros.OrderBy(p => p.Nombre).ToList()) :
+                          View("MisCandidatos", _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true)).ThenInclude(p => p.PublicacionTinderdog).First().GetPerros.OrderBy(p => p.Nombre).ToList()) :
                           Problem("Entity set 'OhmydogdbContext.Perros'  is null.");
+        }
+
+        [HttpGet]
+        public IActionResult ListarMisCandidatos()
+        {
+            string? email = User.FindFirst("Email")?.Value;
+            return (PartialView("_ListarMisCandidatos", _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true)).ThenInclude(p => p.PublicacionTinderdog).First().GetPerros.OrderBy(p => p.Nombre).ToList()));
         }
 
         public IActionResult MeGustasRecibidos(int idPerro)
@@ -49,7 +56,6 @@ namespace Aplicacion.Controllers
             var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == idPerro).Include(m => m.PerroReceptor).Select(m => m.PerroEmisor).ToList();
             return View("MeGustasRecibidos", new MeGustasRecibidosViewModel() { Perro = perro, GetMeGustas = meGustas });
         }
-
 
         [HttpGet]
         public IActionResult ListarSugerencias(int idPerro)
@@ -149,12 +155,22 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult QuitarCandidato(int idPerro)
         {
+            var publicacion = _context.PublicacionTinderdog.FirstOrDefault(p => p.IdPerro == idPerro);
+            if (publicacion != null)
+            {
+                _context.PublicacionTinderdog.Remove(publicacion);
+                _context.SaveChanges();
+            }
+
             return (Json(new { success = true }));
         }
 
-        [HttpPatch]
+        [HttpPost]
         public JsonResult PublicarCandidato(int idPerro)
         {
+            _context.PublicacionTinderdog.Add(new PublicacionTinderdog { IdPerro = idPerro });
+            _context.SaveChanges();
+
             return (Json(new { success = true }));
         }
     }

@@ -155,7 +155,7 @@
                         <ul class="list-group list-group-flush">
                             @foreach (var modalidad in item.ModalidadCuidadors)
                             {
-                                <li class="list-group-item">@((modalidad.IdModalidad == 1) ? "Ir a domicilio" : "En el hogar")</li>
+                                <li class="list-group-item">@modalidad.IdModalidadNavigation.Nombre</li>
                             }
                         </ul>
                     }
@@ -1419,7 +1419,7 @@ else
         }
     </script>
 
-    <!--registro de nuevo cuidador-->
+    <!--Registro de nuevo cuidador-->
     <script>
         $('#BtnNuevoRegistro').on('click', function (event) {
             $("#ModalNuevoCuidador").modal('show');

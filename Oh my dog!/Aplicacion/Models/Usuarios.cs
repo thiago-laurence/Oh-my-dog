@@ -23,6 +23,8 @@ public partial class Usuarios
 
     public string Pass { get; set; } = null!;
 
+    public int EsNuevo { get; set; }
+
     public virtual Rol? IdRolNavigation { get; set; }
     public virtual ICollection<Perros> GetPerros { get; set; } = new List<Perros>();
 }

@@ -1,12 +1,6 @@
 ﻿@model Aplicacion.Models.MeGustasRecibidosViewModel
 
-<div class="container">
-    <div class="col-lg-7 text-center text-lg-start">
-        <h2 class="pb-2 fw-bolder border-bottom">
-            <img src="~/img/tinderdog - logo.png" alt="TinderDog - Logo" width="50">
-            Me gustas de @Model.Perro.Nombre
-        </h2>
-    </div>
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
     @if (Model.GetMeGustas.Count() == 0)
     {
         <div class="text-center alert alert-info" role="alert">

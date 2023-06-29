@@ -2,19 +2,15 @@
 
 @if(Model.Count() == 0)
 {
-    <div class="text-center alert alert-info" role="alert">
+    <div class="text-center alert alert-info" role="alert" style="margin-top: 50px; margin-bottom: 50px;">
         <h3>
-            Usted no posee perros registrados para publicar
+            Usted no posee perros registrados para publicar en "tinderDog"
         </h3>
     </div>
 }
 else
 {
     <div class="container px-4 py-5" id="custom-cards">
-        <h2 class="pb-2 fw-bolder border-bottom">
-            <i class="fa-sharp fa-solid fa-shield-dog"></i>
-            Mis candidatos
-        </h2>
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
             @foreach(var item in Model)
             {
@@ -26,26 +22,40 @@ else
                             </h3>
                             <ul class="d-flex list-unstyled mt-auto">
                                 <li class="me-auto">
-                                    <!--REQUIERE VALIDACION DE PERRO PUBLICADO O NO PUBLICADO-->
-                                @if(item.Sexo == "Hembra")
-                                {
-                                    <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="CargarCelo(@(item.Id))">
-                                        Ofrecer candidato
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="PublicarCandidato(@(item.Id))">
-                                        Ofrecer candidato
-                                    </button>
-                                }
-                                    <button class="btn" style="background-color: #09649d; color: #FFFFFF;" onclick="QuitarCandidato(@(item.Id))">
-                                        Quitar candidato
-                                    </button>
-
-                                    <a asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id" class="btn btn-sm btn-danger">
-                                        Me gustas recibidos
-                                    </a>
+                                    @if (item.PublicacionTinderdog == null)
+                                    {
+                                        @if (item.Sexo == "Hembra")
+                                        {
+                                            <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="CargarCelo(@(item.Id))" 
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    data-bs-custom-class="tooltip-warning"
+                                                    data-bs-title="Publicar candidato">
+                                                <i class="fa-sharp fa-solid fa-circle-plus fa-xl"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="PublicarCandidato(@(item.Id))"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    data-bs-custom-class="tooltip-warning"
+                                                    data-bs-title="Publicar candidato">
+                                                <i class="fa-sharp fa-solid fa-circle-plus fa-xl"></i>
+                                            </button>
+                                        }
+                                    }else{
+                                        <button class="btn" style="background-color: #09649d; color: #FFFFFF;" onclick="QuitarCandidato(@(item.Id))" 
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-primary"
+                                                data-bs-title="Quitar candidato">
+                                            <i class="fa-sharp fa-solid fa-circle-minus fa-xl"></i>
+                                        </button>
+                                        <a class="btn btn-danger" asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id" 
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            data-bs-custom-class="tooltip-danger"
+                                            data-bs-title="Me gustas recibidos">
+                                            <i class="fa-sharp fa-solid fa-fire fa-xl"></i>
+                                        </a>
+                                    }
                                 </li>
                             </ul>
                         </div>

@@ -40,16 +40,30 @@
         z-index: 2;
     }
 
+    .tooltip-success {
+        --bs-tooltip-bg: var(--bs-success);
+    }
+
+    .tooltip-danger {
+        --bs-tooltip-bg: var(--bs-danger);
+    }
 </style>
 
-<div class="b-example-divider"></div>
+<div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">
+        <img class="logo-img" src="~/img/tinderdog - logo 2 - Copy.png" />
+    </h1>
+    <p style="margin-bottom: 0px;">
+        Bienvenido a este apartado en donde podras encontrar de forma interactiva a la media naranja de tu candidato canino
+    </p>
+</div>
+
 <div class="container">
     <div class="px-4 my-5 text-center">
-        <img class="d-block mx-auto mb-4" src="~/img/tinderdog - logo 2 - Copy.png" alt="TinderDog - logo">
         <div class="col-lg-6 mx-auto">
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <label class="form-label">
-                    Seleccione a uno de sus perros registrados para visualzar las sugerencias de parejas
+                <label class="form-label fw-bold">
+                    Seleccione a uno de sus perros registrados para visualizar las sugerencias de parejas
                 </label>
                 <select class="form-select form-select-lg" id="SelectorPerro" style="margin-bottom: 20px;">
                     <option selected disabled value="">Seleccione un perro</option>
@@ -113,6 +127,14 @@
 
 @section Scripts{
     <script src="~/js/jquery-ui.min.js"></script>
+
+    <!-- Constantes de inicializacion de tooltips -->
+    <script>
+        function InicializarTooltips(){
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+    </script>
 
     <!--Validacion de relleno de formulario-->
     <script>
@@ -411,6 +433,7 @@
                 success: function (data) {
                     $('#ContenedorSugerencias').html(data);
                     InicializarDesplazamiento();
+                    InicializarTooltips();
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);

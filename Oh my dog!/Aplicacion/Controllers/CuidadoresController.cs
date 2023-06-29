@@ -8,9 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using System.Text.Json;
 using MimeKit;
-using MailKit.Net.Smtp;
-using MailKit;
-
 
 namespace Aplicacion.Controllers
 {
@@ -168,7 +165,7 @@ namespace Aplicacion.Controllers
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
                         client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("7472fca358e9d7", "06af1e23c346ae");
+                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
                         client.Send(message);
                         client.Disconnect(true);
                     }

@@ -99,7 +99,7 @@ namespace Aplicacion.Controllers
         [HttpGet]
         public async Task<IActionResult> ListarPerros(int idDueno)
         {
-            return (PartialView("_ListarPerros", await _context.Usuarios.Include(u => u.GetPerros).FirstOrDefaultAsync(u => u.Id == idDueno)));
+            return (PartialView("_ListarPerros", await _context.Usuarios.Include(u => u.GetPerros.OrderByDescending(p => p.Estado).ThenBy(p => p.Nombre)).FirstOrDefaultAsync(u => u.Id == idDueno)));
         }
 
         [HttpGet]
@@ -181,7 +181,7 @@ namespace Aplicacion.Controllers
             _context.Perros.Add(perro);
             await _context.SaveChangesAsync();
 
-            return (Json(new { success = true, message = "El perro ha sido modificado con éxito!" }));
+            return (Json(new { success = true, message = "¡El perro ha sido modificado con éxito!" }));
         }
 
         [HttpGet]
@@ -196,7 +196,7 @@ namespace Aplicacion.Controllers
             var _okCastracion = _context.TratamientoPerros.Any(t => (t.IdPerro == idPerro) && (t.IdTratamiento == idCastracion));
             if (_okCastracion)
             {
-                return (Json(new { castracion = true, message = "Ya existe un tratamiento de tipo \"Castración\" realizado al perro!" }));
+                return (Json(new { castracion = true, message = "Ya existe un tratamiento de tipo \"Castración\" realizado al perro" }));
             }
             return (Json(new { castracion = false, message = "" }));
         }
@@ -228,7 +228,7 @@ namespace Aplicacion.Controllers
                 var _perro = _context.Perros.FirstOrDefault(p => p.Id == idPerro);
                 if ((DateTime.Today - _perro?.FechaDeNacimiento)?.TotalDays < 120)
                 {
-                    return (Json(new { success = false, message = "¡La vacuna de tipo \"Antirrábica\" debe aplicarse luego de los 4 meses de edad!" }));
+                    return (Json(new { success = false, message = "La vacuna de tipo \"Antirrábica\" debe aplicarse luego de los 4 meses de edad" }));
                 }
                 return (Json(new { success = true, message = "" }));
             }
@@ -240,8 +240,8 @@ namespace Aplicacion.Controllers
                                 .LastOrDefault();
             if ((DateTime.Today - _antirrabica?.FechaAplicacion)?.TotalDays < 365)
             {
-                return (Json(new { success = true, message = "¡Aún no ha transcurrido el año desde la última aplicación de la vacuna \"Antirrábica\", se recomienda " +
-                    "que al menos haya pasado ese tiempo!" }));
+                return (Json(new { success = true, message = "Aún no ha transcurrido el año desde la última aplicación de la vacuna \"Antirrábica\", se recomienda " +
+                    "que al menos haya pasado ese tiempo" }));
             }
 
             return (Json(new { success = true, message = "" }));
@@ -256,7 +256,7 @@ namespace Aplicacion.Controllers
                 var _perro = _context.Perros.FirstOrDefault(p => p.Id == idPerro);
                 if ((DateTime.Today - _perro?.FechaDeNacimiento)?.TotalDays < 60)
                 {
-                    return (Json(new { success = false, message = "¡La vacuna de tipo \"Moquillo\" debe aplicarse luego de los 2 meses de edad!" }));
+                    return (Json(new { success = false, message = "La vacuna de tipo \"Moquillo\" debe aplicarse luego de los 2 meses de edad" }));
                 }
                 return (Json(new { success = true, message = "" }));
             }
@@ -264,20 +264,26 @@ namespace Aplicacion.Controllers
             // Si ya se aplico la vacuna moquillo, se valida que la nueva aplicacion sea luego de 21 dias de la primera aplicacion (la validacion no es restrictiva, sino informativa)
             var _moquillo = _context.VacunaPerros
                                 .Where(t => t.IdPerro == idPerro && t.IdVacuna == idVacuna)
-                                .OrderByDescending(t => t.FechaAplicacion)
-                                .FirstOrDefault();
-            if ((DateTime.Today - _moquillo?.FechaAplicacion)?.TotalDays < 21)
+                                .OrderBy(t => t.FechaAplicacion)
+                                .ToList();
+            VacunaPerro _vacuna;
+            if(_moquillo.Count() == 1) // Si existe una unica aplicacion, advierto por los 21 dias de la segunda aplicacion
             {
-                return (Json(new
+                _vacuna = _moquillo.First();
+                if ((DateTime.Today - _vacuna?.FechaAplicacion)?.TotalDays < 21)
                 {
-                    success = true,
-                    message = "Aún no han trascurrido 21 dias desde la última aplicación de la vacuna \"Moquillo\", se recomienda " +
-                    "que al menos haya trascurrido ese tiempo para la aplicación del refuerzo"
-                }));
+                    return (Json(new
+                    {
+                        success = true,
+                        message = "Aún no han trascurrido 21 dias desde la última aplicación de la vacuna \"Moquillo\", se recomienda " +
+                        "que al menos haya trascurrido ese tiempo para la aplicación del refuerzo"
+                    }));
+                }
             }
 
-            // Se valida que la nueva aplicacion este dentro del periodo de 1 año desde la ultima aplicacion
-            if ((DateTime.Today - _moquillo?.FechaAplicacion)?.TotalDays < 365)
+            // Si existen mas apliacaciones, obtengo la ultima de ellas y se valida que la nueva aplicacion este dentro del periodo de 1 año desde la ultima aplicacion.
+            _vacuna = _moquillo.Last();
+            if ((DateTime.Today - _vacuna?.FechaAplicacion)?.TotalDays < 365)
             {
                 return (Json(new
                 {
@@ -310,8 +316,7 @@ namespace Aplicacion.Controllers
                 + " se vence la vacuna " + obj.Vacuna + " para su perro " + obj.Perro + ", por lo que se le recomienda realizar una solicitud para un nuevo turno.<br>" +
                 "Saludos del equipo de <strong>OhMyDog!</strong>";
 
-            // Programar el método para ejecutarse en la fecha y hora específica utilizando Hangfire
-            //fechaRecordatorio.AddHours(); fechaRecordatorio.AddMinutes(); <--- PROGRAMAR HORA DE RECORDATORIO
+            // Programar el método para ejecutarse en la fecha y hora específica utilizando Hangfire            
             BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaRecordatorio);
             //BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaHardcoding);
 

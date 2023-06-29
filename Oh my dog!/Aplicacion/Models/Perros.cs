@@ -43,5 +43,7 @@ public partial class Perros
 
     public virtual ICollection<PerrosNoMeGusta> NoMeGustaRecibidos { get; set; } = new List<PerrosNoMeGusta>();
 
+    public virtual PublicacionTinderdog PublicacionTinderdog { get; set; } = null!;
+
     public virtual ICollection<PerroTurnos> PerroTurnos { get; set; } = new List<PerroTurnos>();
 }

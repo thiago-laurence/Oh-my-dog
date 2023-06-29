@@ -32,7 +32,7 @@ namespace Aplicacion.Controllers
         // GET: Usuarios
 
         // Variable para indicar la cantida a mostrar por la paginacion
-        private int cantidadDeRegistros = 15;
+        private int cantidadDeRegistros = 4;
         public async Task<IActionResult> Index()
         {
             ViewBag.ActiveView = "IndexClientes";
@@ -195,8 +195,9 @@ namespace Aplicacion.Controllers
         {
             if (EmailExists(user.Email))
             {
-                return (Json(new { success = false, message = "El email ingresado ya está registrado!" }));
+                return (Json(new { success = false, message = "El email ingresado ya está registrado" }));
             }
+            user.EsNuevo = 1;
             user.Estado = 1;
             user.IdRol = 2;
             user.Pass = GeneradorRandomContrasena();
@@ -204,7 +205,7 @@ namespace Aplicacion.Controllers
             _context.Usuarios.Add(user);
             await _context.SaveChangesAsync();
 
-            return (Json(new { success = true, message = "Un nuevo cliente ha sido registrado con éxito!" }));
+            return (Json(new { success = true, message = "¡Un nuevo cliente ha sido registrado con éxito!" }));
         }
 
         [HttpPost]
@@ -217,7 +218,7 @@ namespace Aplicacion.Controllers
                 {
                     if (EmailExists(user.Email))
                     {
-                        return (Json(new { success = false, message = "El email ingresado ya está registrado!" }));
+                        return (Json(new { success = false, message = "El email ingresado ya está registrado" }));
                     }
                 }
                 try
@@ -232,9 +233,9 @@ namespace Aplicacion.Controllers
                     return (Json(new { success = false, message = "Ah ocurrido un error!" }));
                 }
 
-                return (Json(new { success = true, message = "El cliente ha sido modificado con éxito!" }));
+                return (Json(new { success = true, message = "¡El cliente ha sido modificado con éxito!" }));
             }
-            return (Json(new { success = false, message = "El usuario no existe!" }));
+            return (Json(new { success = false, message = "El usuario no existe" }));
         }
 
         [HttpPost]
@@ -246,16 +247,17 @@ namespace Aplicacion.Controllers
                 if (newPass == newPassAgain){
 
                     if(!(newPass.Length >= 8))
-                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 8 caracteres!" }));
+                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 8 caracteres" }));
                     if (!Regex.IsMatch(newPass, @"\d"))
-                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 1 caracter numérico!" }));
+                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 1 caracter numérico" }));
                     if (!Regex.IsMatch(newPass, @"[a-zA-Z]"))
-                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 1 caracter alfabético!" }));
+                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 1 caracter alfabético" }));
                     if (!Regex.IsMatch(newPass, @"\W"))
-                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 1 caracter no alfanumérico (caracter especial)!" }));
+                        return (Json(new { success = false, message = "La nueva contraseña debe poseer al menos 1 caracter no alfanumérico (caracter especial)" }));
                     
                     user.Pass = newPass;
-                     _context.Update(user);
+                    user.EsNuevo = 0;
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
 
                     // Actualizar el valor del claim de identidad en caso de que el cliente sea nuevo y haya cambiado la pass
@@ -270,12 +272,12 @@ namespace Aplicacion.Controllers
                         await HttpContext.SignInAsync(actualUser);
 
                     }
-                    return (Json(new { success = true, message = "La contraseña ha sido actualizada con éxito!" }));
+                    return (Json(new { success = true, message = "¡La contraseña ha sido actualizada con éxito!" }));
                 }
-                return (Json(new { success = false, message = "La nueva contraseña no coincide con la repetición de la nueva contraseña!" }));
+                return (Json(new { success = false, message = "La nueva contraseña no coincide con la repetición de la nueva contraseña" }));
             }
 
-            return (Json(new { success = false, message = "La contraseña actual no coincide!" }));
+            return (Json(new { success = false, message = "La contraseña actual no coincide" }));
         }
         
         // GET: Usuarios/Delete/5
@@ -324,9 +326,6 @@ namespace Aplicacion.Controllers
             var random = new Random();
             var password = new StringBuilder();
 
-            // Agregar caracter '?' de uso booleano para obligar cambio de contrasena en nuevo registro
-            password.Append('?');
-
             // Agregar al menos un carácter numérico
             password.Append(caracteresValidos[random.Next(0, 10)]);
 
@@ -337,15 +336,15 @@ namespace Aplicacion.Controllers
             password.Append(caracteresValidos[random.Next(61, caracteresValidos.Length)]);
 
             // Generar los caracteres restantes
-            for (int i = 0; i < length - 4; i++)
+            for (int i = 0; i < length - 3; i++)
             {
                 password.Append(caracteresValidos[random.Next(caracteresValidos.Length)]);
             }
 
             // Mezclar los caracteres aleatoriamente
-            for (int i = 1; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
-                int swapIndex = random.Next(1, 8);
+                int swapIndex = random.Next(0, 8);
                 char temp = password[i];
                 password[i] = password[swapIndex];
                 password[swapIndex] = temp;
@@ -354,8 +353,6 @@ namespace Aplicacion.Controllers
             return (password.ToString());
         }
 
-  
-
         public async Task EnviarCorreoUsuario(Usuarios destinatario)
 		{
             await Task.Run(() =>
@@ -363,7 +360,7 @@ namespace Aplicacion.Controllers
                 string remitente = "ohmydoglem@gmail.com",
                        asunto = "OhMyDog - Confirmación de registro";
                 StringBuilder cuerpo = new StringBuilder();
-                string pathImagen = @"C:\Users\Lautaro\OneDrive\Documentos\GitHub\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\Logo - Veterinaria.png";
+                string pathImagen = @"wwwroot\img\Logo - Veterinaria.png";
 
                 cuerpo.AppendLine("Bienvenido " + (destinatario.Nombre + " " + destinatario.Apellido) + " a nuestra comunidad canina OhMyDog.<br>");
                 cuerpo.AppendLine("Su contraseña actual proporcionada es: <strong>" + destinatario.Pass + "</strong><br>");
@@ -386,10 +383,8 @@ namespace Aplicacion.Controllers
 
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
-						
-
 						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("7472fca358e9d7", "4a53ab261e38ad");
+                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
                         client.Send(message);
                         client.Disconnect(true);
                     }
@@ -400,7 +395,7 @@ namespace Aplicacion.Controllers
                     // Manejo de errores aquí
                     Console.WriteLine(ex.Message);
                 }
-            });
+           });
         }
 
 		private bool UsuarioExists(int id)
