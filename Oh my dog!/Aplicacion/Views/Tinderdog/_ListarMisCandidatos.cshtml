@@ -26,7 +26,7 @@ else
                                     {
                                         @if (item.Sexo == "Hembra")
                                         {
-                                            <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="CargarCelo(@(item.Id))" 
+                                            <button class="btn btn-success" style="color: #FFFFFF;" onclick="CargarPublicacion(@(item.Id), 'ModalCelo')"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                     data-bs-custom-class="tooltip-warning"
                                                     data-bs-title="Publicar candidato">
@@ -35,7 +35,7 @@ else
                                         }
                                         else
                                         {
-                                            <button class="btn" style="background-color: #e28743; color: #FFFFFF;" onclick="PublicarCandidato(@(item.Id))"
+                                            <button class="btn btn-success" style="color: #FFFFFF;" onclick="CargarPublicacion(@(item.Id), 'ModalPublicacion')"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                     data-bs-custom-class="tooltip-warning"
                                                     data-bs-title="Publicar candidato">
@@ -43,18 +43,30 @@ else
                                             </button>
                                         }
                                     }else{
-                                        <button class="btn" style="background-color: #09649d; color: #FFFFFF;" onclick="QuitarCandidato(@(item.Id))" 
-                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                data-bs-custom-class="tooltip-primary"
-                                                data-bs-title="Quitar candidato">
-                                            <i class="fa-sharp fa-solid fa-circle-minus fa-xl"></i>
-                                        </button>
-                                        <a class="btn btn-danger" asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id" 
-                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            data-bs-custom-class="tooltip-danger"
-                                            data-bs-title="Me gustas recibidos">
+                                        <a class="btn btn-sugerencias" asp-controller="Tinderdog" asp-action="Sugerencias" asp-route-idPerro="@item.Id"
+                                           data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                           data-bs-custom-class="tooltip-sugerencias"
+                                           data-bs-title="Sugerencias">
                                             <i class="fa-sharp fa-solid fa-fire fa-xl"></i>
                                         </a>
+                                        <a class="btn btn-sm btn-flechazo" asp-controller="Tinderdog" asp-action="Matches" asp-route-idPerro="@item.Id"
+                                           data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                           data-bs-custom-class="tooltip-flechazo"
+                                           data-bs-title="Flechazos" style="padding: 2px 6px;">
+                                           <img src="~/img/cupido.png" height="33">
+                                        </a>
+                                        <a class="btn btn-danger" asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id" 
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            data-bs-custom-class="tooltip-meGustas"
+                                            data-bs-title="Me gustas recibidos">
+                                            <i class="fa-sharp fa-solid fa-heart fa-xl"></i>
+                                        </a>
+                                        <button class="btn btn-quitar" onclick="QuitarCandidato(@(item.Id))"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-quitar"
+                                                data-bs-title="Quitar candidato">
+                                            <i class="fa-sharp fa-solid fa-trash-can fa-xl"></i>
+                                        </button>
                                     }
                                 </li>
                             </ul>

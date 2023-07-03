@@ -163,7 +163,7 @@
                             </a>
                             <ul class="dropdown-menu text-small">
                                 <li>
-                                    <a class="dropdown-item">
+                                    <a class="dropdown-item link-dark">
                                         <i class="fa fa-calendar" aria-hidden="true" style="color: #000000"></i>
                                         Calendario de turnos
                                     </a>
@@ -319,23 +319,11 @@
                     }
                     @if (User.Identity!.IsAuthenticated)
                     {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle @((ViewBag.ActiveView == "Tinderdog") ? "link-light" : "link-dark")" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
-                                <i class="fa-solid fa-heart" style="color: #@((ViewBag.ActiveView == "Tinderdog") ? "FFFFFF" : "000000");"></i>
+                        <li>
+                            <a asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" class="nav-link px-2 @((ViewBag.ActiveView == "Tinderdog") ? "link-light active" : "link-dark")" aria-current="page" style="background-color: #@((ViewBag.ActiveView == "Tinderdog") ? "dc3545" : "FFFFFF");">
+                                <i class="fa-solid fa-heart fa-lg" style="color: #@((ViewBag.ActiveView == "Tinderdog") ? "ffffff" : "000000");"></i>
                                 TinderDog
                             </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="Index" style="background-color: #@((ViewBag.SubView == "Sugerencias") ? "FFE5DB" : "");">
-                                        Sugerencias
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item link-dark" asp-area="" asp-controller="Tinderdog" asp-action="MisCandidatos" style="background-color: #@((ViewBag.SubView == "MisCandidatos") ? "FFE5DB" : "");">
-                                        Mis candidatos
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     }
                     <!--<li>

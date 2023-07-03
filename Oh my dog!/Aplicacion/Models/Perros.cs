@@ -35,14 +35,6 @@ public partial class Perros
 
     public virtual ICollection<VacunaPerro> VacunaPerros { get; set; } = new List<VacunaPerro>();
 
-    public virtual ICollection<PerrosMeGusta> MeGustaDados { get; set; } = new List<PerrosMeGusta>();
-
-    public virtual ICollection<PerrosMeGusta> MeGustaRecibidos { get; set; } = new List<PerrosMeGusta>();
-
-    public virtual ICollection<PerrosNoMeGusta> NoMeGustaDados { get; set; } = new List<PerrosNoMeGusta>();
-
-    public virtual ICollection<PerrosNoMeGusta> NoMeGustaRecibidos { get; set; } = new List<PerrosNoMeGusta>();
-
     public virtual PublicacionTinderdog PublicacionTinderdog { get; set; } = null!;
 
     public virtual ICollection<PerroTurnos> PerroTurnos { get; set; } = new List<PerroTurnos>();

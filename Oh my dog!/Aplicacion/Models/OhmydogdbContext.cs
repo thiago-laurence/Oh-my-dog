@@ -40,6 +40,8 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<PublicacionTinderdog> PublicacionTinderdog { get; set; }
 
+    public virtual DbSet<FotosPublicacionTinderdog> FotosPublicacionTinderdog { get; set; }
+
     public virtual DbSet<PerroTurnos> PerroTurnos { get; set; }
 
     public virtual DbSet<Publicacion> Publicacions { get; set; }
@@ -233,13 +235,12 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.IdPerroReceptor).HasColumnName("idPerroReceptor");
 
             entity.HasOne(d => d.PerroEmisor).WithMany(p => p.MeGustaDados)
-                .HasForeignKey(d => d.IdPerroEmisor)
-                .HasConstraintName("FK_PerrosMeGusta_Perros_PerroEmisor");
+                  .HasPrincipalKey(p => p.IdPerro)
+                  .HasForeignKey(d => d.IdPerroEmisor);
 
             entity.HasOne(d => d.PerroReceptor).WithMany(p => p.MeGustaRecibidos)
-                .HasForeignKey(d => d.IdPerroReceptor)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PerrosMeGusta_Perros_PerroReceptor");
+                  .HasPrincipalKey(p => p.IdPerro)
+                  .HasForeignKey(d => d.IdPerroReceptor);
         });
 
         modelBuilder.Entity<PerrosNoMeGusta>(entity =>
@@ -250,23 +251,36 @@ public partial class OhmydogdbContext : DbContext
             entity.Property(e => e.IdPerroReceptor).HasColumnName("idPerroReceptor");
 
             entity.HasOne(d => d.PerroEmisor).WithMany(p => p.NoMeGustaDados)
-                .HasForeignKey(d => d.IdPerroEmisor)
-                .HasConstraintName("FK_PerrosNoMeGusta_Perros_PerroEmisor");
+                  .HasPrincipalKey(p => p.IdPerro)
+                  .HasForeignKey(d => d.IdPerroEmisor);
 
             entity.HasOne(d => d.PerroReceptor).WithMany(p => p.NoMeGustaRecibidos)
-                .HasForeignKey(d => d.IdPerroReceptor)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PerrosNoMeGusta_Perros_PerroReceptor");
+                  .HasPrincipalKey(p => p.IdPerro)
+                  .HasForeignKey(d => d.IdPerroReceptor);
         });
 
         modelBuilder.Entity<PublicacionTinderdog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_PublicacionTinderdog");
+            entity.HasIndex(e => e.IdPerro, "IX_IdPerro").IsUnique();
 
             entity.Property(e => e.IdPerro).HasColumnName("IdPerro");
+            entity.Property(e => e.Descripcion).HasColumnName("Descripcion");
 
             entity.HasOne(d => d.Perro).WithOne(p => p.PublicacionTinderdog)
                 .HasForeignKey<PublicacionTinderdog>(d => d.IdPerro);
+        });
+
+        modelBuilder.Entity<FotosPublicacionTinderdog>(entity =>
+        {
+            entity.ToTable("Fotos_PublicacionTinderdog");
+            entity.HasKey(e => e.Id).HasName("PK_Fotos_PublicacionTinderdog");
+
+            entity.Property(e => e.IdPublicacion).HasColumnName("IdPublicacion");
+            entity.Property(e => e.Foto).HasColumnName("Foto");
+
+            entity.HasOne(d => d.Publicacion).WithMany(p => p.Fotos)
+                .HasForeignKey(d => d.IdPublicacion);
         });
 
         modelBuilder.Entity<HorarioTurnos>(entity =>

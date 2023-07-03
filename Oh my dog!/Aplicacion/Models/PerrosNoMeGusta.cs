@@ -11,8 +11,8 @@ public partial class PerrosNoMeGusta
 
     public int IdPerroReceptor { get; set; }
 
-    public virtual Perros PerroEmisor { get; set; } = null!;
+    public virtual PublicacionTinderdog PerroEmisor { get; set; } = null!;
 
-    public virtual Perros PerroReceptor { get; set; } = null!;
+    public virtual PublicacionTinderdog PerroReceptor { get; set; } = null!;
 
 }

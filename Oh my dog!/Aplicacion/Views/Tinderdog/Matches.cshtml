@@ -32,7 +32,7 @@
         transform: translateY(-0.4rem);
     }
 
-    .container-heart{
+    .container-heart {
         position: absolute;
         top: 80%;
         left: 47%;
@@ -46,36 +46,39 @@
         transform: rotate(-45deg);
         animation: pulse 1s infinite;
     }
-
-    .heart::before, .heart::after {
-        content: "";
-        background: red;
-        border-radius: 50%;
-        position: absolute;
-        height: 30px;
-        width: 30px;
-    }
-
-    .heart::before {
-        top: -15px;
-    }
-
-    .heart::after {
-        left: 15px;
-    }
-
-    @@keyframes pulse {
-        75% {
-            transform: rotate(-45deg) scale(1.1);
+        .heart::before, .heart::after {
+            content: "";
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            height: 30px;
+            width: 30px;
         }
-    }
+        .heart::before {
+            top: -15px;
+        }
+        .heart::after {
+            left: 15px;
+        }
+        @@keyframes pulse {
+            75% {
+                transform: rotate(-45deg) scale(1.1);
+            }
+        }
 
-    .tooltip-success {
-        --bs-tooltip-bg: var(--bs-success);
+    .btn-custom {
+        background-color: #59a1ab;
+        color: white;
+        border-color: #59a1ab;
     }
+        .btn-custom:hover {
+            background-color: #41767d;
+            color: white;
+            border-color: #41767d;
+        }
 
-    .tooltip-danger {
-        --bs-tooltip-bg: var(--bs-danger);
+    .tooltip-primary {
+        --bs-tooltip-bg: #59a1ab;
     }
 </style>
 
@@ -83,17 +86,15 @@
 <div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
     <h1 class="display-7">
         <img class="logo-img" src="~/img/tinderdog - logo.png" />
-        Me gustas de "@Model.Perro.Nombre"
-        <i class="fa-sharp fa-solid fa-fire"></i>
+        Flechazos de "@Model.Perro.Nombre"
+        <img src="~/img/cupido.png" class="logo-img">
     </h1>
-    <p style="margin-bottom: 0px;">
-        Listado de candidatos que gustan de su perro publicado en "tinderDog"
-    </p>
 </div>
 
-<div class="container-fluid" id="ContainerListarMisCandidatos">
-    @await Html.PartialAsync("_ListarMegustasRecibidos", Model.Publicaciones)
+<div class="container-fluid" id="ContainerListarMatches">
+    @await Html.PartialAsync("_ListarMatches", Model.Publicaciones)
 </div>
+
 <div class="b-example-divider"></div>
 
 <!--Modal para contactar Match-->
@@ -143,12 +144,6 @@
 @section Scripts{
     <!-- Constantes de inicializacion de tooltips -->
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
-
-    <!--Accion MeGusta / NoMegusta-->
-    <script>
         const Toast = Swal.mixin({
             toast: true,
             position: 'bottom',
@@ -161,6 +156,87 @@
             }
         })
 
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
+    <!--Validacion de relleno de formulario-->
+    <script>
+        // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
+        function ResetFormulario(boton) {
+            var formulario = boton.closest("form");
+            var campos = formulario.querySelectorAll(".InputText");
+
+            campos.forEach(function (campo) {
+                campo.value = '';
+                if (campo.classList.contains("is-valid")) {
+                    campo.classList.remove("is-valid");
+                }
+                if (campo.classList.contains("is-invalid")) {
+                    campo.classList.remove("is-invalid");
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            botonEnvio.disabled = true;
+        }
+        var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+        botonesCancelar.forEach(function (elemento) {
+            elemento.addEventListener('click', function () {
+                ResetFormulario(this);
+            });
+        });
+
+        // --> VALIDACION DE FORMULARIOS PARA BOTON ACEPTAR <--
+        var formularios = document.querySelectorAll(".Formulario");
+        var botonesEnvio = document.querySelectorAll(".BtnEnvioForm");
+
+        function ValidarFormulario() {
+            var formulario = this;
+            var campos = formulario.querySelectorAll(".InputText");
+            var todosValidos = true;
+
+            campos.forEach(function (campo) {
+                if (!campo.classList.contains("is-valid")) {
+                    todosValidos = false;
+                    return;
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            if (todosValidos) {
+                botonEnvio.disabled = false;
+            } else {
+                botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT TEXT <--
+        function ValidarInputText() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        formularios.forEach(function (formulario) {
+            var campos = formulario.querySelectorAll(".InputText");
+            campos.forEach(function (campo) {
+                campo.addEventListener("input", function () {
+                    if (campo.classList.contains("InputText")) {
+                        ValidarInputText.call(campo);
+                    }
+                    ValidarFormulario.call(formulario);
+                });
+            });
+        });
+    </script>
+
+    <!--Contactar match-->
+    <script>
         function VisualizarContacto(idPerro) {
             $.ajax({
                 url: '@Url.Action("VisualizarContacto", "Tinderdog")',
@@ -201,81 +277,6 @@
                         boton.click();
                         $('#ModalContactarMatch').modal('hide');
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
-        }
-
-        function MeGusta() {
-            var idPerroEmisor = @Model.Perro.Id;
-            var idPerroReceptor = document.getElementById('BtnMeGusta').value;
-            $.ajax({
-                url: '@Url.Action("MeGusta", "Tinderdog")',
-                type: 'POST',
-                data: { idPerroEmisor: idPerroEmisor, idPerroReceptor: idPerroReceptor },
-                success: function (data) {
-                    if (data.match) {
-                        Swal.fire({
-                            text: '¿Desea contactarse con su "Flechazo"?',
-                            imageUrl: "/img/match.png",
-                            imageHeight: 200,
-                            showCancelButton: true,
-                            confirmButtonText: 'Contactar',
-                            cancelButtonText: 'Cancelar',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                VisualizarContacto(idPerroReceptor);
-                            } else {
-
-                            }
-                        })
-                    }
-                    ListarMeGustasRecibidos();
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
-        }
-
-        function NoMeGusta() {
-            var idPerroEmisor = @Model.Perro.Id;
-            var idPerroReceptor = document.getElementById('BtnMeGusta').value;
-            $.ajax({
-                url: '@Url.Action("NoMeGusta", "Tinderdog")',
-                type: 'POST',
-                data: { idPerroEmisor: idPerroEmisor, idPerroReceptor: idPerroReceptor },
-                success: function (data) {
-                    if (data.success) {
-                        ListarMeGustasRecibidos();
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
-        }
-    </script>
-
-    <!--Listar sugerencias-->
-    <script>
-        function ListarMeGustasRecibidos() {
-            var idPerro = @Model.Perro.Id;
-            $.ajax({
-                url: '@Url.Action("ListarMeGustasRecibidos", "Tinderdog")',
-                type: 'GET',
-                data: { idPerro: idPerro },
-                success: function (data) {
-                    $('#ContainerListarMisCandidatos').html(data);
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);

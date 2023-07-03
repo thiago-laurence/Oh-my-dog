@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Aplicacion.Models;
 using NuGet.Versioning;
 using MimeKit;
+using System.Security.Claims;
 
 namespace Aplicacion.Controllers
 {
@@ -21,23 +22,44 @@ namespace Aplicacion.Controllers
         }
 
         // GET: Tinderdog
-        public IActionResult Index()
+        public IActionResult Sugerencias(int idPerro)
         {
             ViewBag.ActiveView = "Tinderdog";
-            ViewBag.SubView = "Sugerencias";
-            string? email = User.FindFirst("Email")?.Value;
-            return _context.Perros != null ?
-                          View(_context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true)).First().GetPerros.OrderBy(p => p.Nombre).ToList()) :
-                          Problem("Entity set 'OhmydogdbContext.Perros'  is null.");
+            var miPerro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.NoMeGustaDados).First();
+
+            var sugerencias = _context.PublicacionTinderdog.Where(pb => pb.IdPerro != miPerro.Perro.Id).Include(pb => pb.Perro).Include(pb => pb.Fotos)
+            .Where(pb => (pb.Perro.IdDueno != miPerro.Perro.IdDueno) && (pb.Perro.Sexo != miPerro.Perro.Sexo) && !(miPerro.MeGustaDados.Select(m => m.IdPerroReceptor).Contains(pb.Perro.Id)) && !(miPerro.NoMeGustaDados.Select(m => m.IdPerroReceptor).Contains(pb.Perro.Id)));
+
+            var ordenamiento = sugerencias.OrderByDescending(pb => pb.Perro.Raza == miPerro.Perro.Raza && pb.Perro.Color == miPerro.Perro.Color)
+                                          .ThenByDescending(pb => pb.Perro.Raza == miPerro.Perro.Raza)
+                                          .ThenByDescending(pb => pb.Perro.Color == miPerro.Perro.Color);
+
+            return (View("Sugerencias", new TinderdogViewModel { Perro = miPerro.Perro, Publicaciones = ordenamiento.Take(2).ToList() }));
+        }
+
+        [HttpGet]
+        public IActionResult ListarSugerencias(int idPerro)
+        {
+            var miPerro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.NoMeGustaDados).First();
+
+            var sugerencias = _context.PublicacionTinderdog.Where(pb => pb.IdPerro != miPerro.Perro.Id).Include(pb => pb.Perro).Include(pb => pb.Fotos)
+            .Where(pb => (pb.Perro.IdDueno != miPerro.Perro.IdDueno) && (pb.Perro.Sexo != miPerro.Perro.Sexo) && !(miPerro.MeGustaDados.Select(m => m.IdPerroReceptor).Contains(pb.Perro.Id)) && !(miPerro.NoMeGustaDados.Select(m => m.IdPerroReceptor).Contains(pb.Perro.Id)));
+
+            var ordenamiento = sugerencias.OrderByDescending(pb => pb.Perro.Raza == miPerro.Perro.Raza && pb.Perro.Color == miPerro.Perro.Color)
+                                          .ThenByDescending(pb => pb.Perro.Raza == miPerro.Perro.Raza)
+                                          .ThenByDescending(pb => pb.Perro.Color == miPerro.Perro.Color);
+
+            return (PartialView("_ListarSugerencias", ordenamiento.Take(2).ToList()));
         }
 
         public IActionResult MisCandidatos()
         {
             ViewBag.ActiveView = "Tinderdog";
-            ViewBag.SubView = "MisCandidatos";
             string? email = User.FindFirst("Email")?.Value;
+            var misPerros = _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true))
+                            .ThenInclude(p => p.PublicacionTinderdog).First().GetPerros.OrderBy(p => p.Nombre).ToList();
             return _context.Perros != null ?
-                          View("MisCandidatos", _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true)).ThenInclude(p => p.PublicacionTinderdog).First().GetPerros.OrderBy(p => p.Nombre).ToList()) :
+                          View("MisCandidatos", misPerros) :
                           Problem("Entity set 'OhmydogdbContext.Perros'  is null.");
         }
 
@@ -45,27 +67,28 @@ namespace Aplicacion.Controllers
         public IActionResult ListarMisCandidatos()
         {
             string? email = User.FindFirst("Email")?.Value;
-            return (PartialView("_ListarMisCandidatos", _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true)).ThenInclude(p => p.PublicacionTinderdog).First().GetPerros.OrderBy(p => p.Nombre).ToList()));
+            var misPerros = _context.Usuarios.Where(u => u.Email == email).Include(u => u.GetPerros.Where(p => p.Estado == true))
+                            .ThenInclude(p => p.PublicacionTinderdog).First().GetPerros.OrderBy(p => p.Nombre).ToList();
+            return (PartialView("_ListarMisCandidatos", misPerros));
         }
 
         public IActionResult MeGustasRecibidos(int idPerro)
         {
             ViewBag.ActiveView = "Tinderdog";
-            ViewBag.SubView = "MisCandidatos";
-            var perro = _context.Perros.Where(p => p.Id == idPerro).FirstOrDefault();
-            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == idPerro).Include(m => m.PerroReceptor).Select(m => m.PerroEmisor).ToList();
-            return View("MeGustasRecibidos", new MeGustasRecibidosViewModel() { Perro = perro, GetMeGustas = meGustas });
+            var perro = _context.Perros.Where(p => p.Id == idPerro).First();
+            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.Id).Include(p => p.PerroEmisor)
+                           .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
+
+            return View("MeGustasRecibidos", new TinderdogViewModel() { Perro = perro, Publicaciones = meGustas });
         }
 
         [HttpGet]
-        public IActionResult ListarSugerencias(int idPerro)
+        public IActionResult ListarMeGustasRecibidos(int idPerro)
         {
-            var perro = _context.Perros.Where(p => p.Id == idPerro).Include(p => p.MeGustaDados).Include(p => p.NoMeGustaDados).FirstOrDefault();
-            var sugerencias = _context.Perros.Where(p => (p.IdDueno != perro!.IdDueno) && (p.Sexo != perro.Sexo) && !(perro.MeGustaDados.Select(m => m.IdPerroReceptor).Contains(p.Id)) && !(perro.NoMeGustaDados.Select(m => m.IdPerroReceptor).Contains(p.Id))); 
-            var ordenamiento = sugerencias.OrderByDescending(p => p.Raza == perro!.Raza && p.Color == perro.Color)
-                                          .ThenByDescending(p => p.Raza == perro!.Raza)
-                                          .ThenByDescending(p => p.Color == perro!.Color);
-            return (PartialView("_ListarSugerencias", ordenamiento.Take(2).ToList()));
+            var perro = _context.Perros.Where(p => p.Id == idPerro).First();
+            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.Id).Include(p => p.PerroEmisor)
+                           .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
+            return PartialView("_ListarMeGustasRecibidos", new TinderdogViewModel() { Perro = perro, Publicaciones = meGustas });
         }
 
         [HttpPost]
@@ -77,6 +100,18 @@ namespace Aplicacion.Controllers
             var match = _context.PerrosMeGusta.Where(p => p.IdPerroEmisor == idPerroReceptor).Any(m => m.IdPerroReceptor == idPerroEmisor);
             if (match)
             {
+                var perroReceptor = _context.Perros.Where(p => p.Id == idPerroReceptor).Include(p => p.Dueno).First();
+                var perroEmisor = _context.Perros.Where(p => p.Id == idPerroEmisor).Include(p => p.Dueno).First();
+                string asunto = "Se ha producido un ¡Flechazo!";
+
+                string contenido = "Se le informa que su perro " + perroEmisor.Nombre + " ha logrado un flechazo con el perro " + perroReceptor.Nombre + ". " +
+                    "Ponte en contacto lo antes posible y ¡coordina una cita! <br> Atentamente el equipo de 'OhMyDog'.";
+                _ = EnviarCorreoMatch("ohmydog@gmail.com", perroEmisor.Dueno.Email, asunto, contenido);
+
+                contenido = "Se le informa que su perro " + perroReceptor.Nombre + " ha logrado un flechazo con el perro " + perroEmisor.Nombre + ". " +
+                    "Ponte en contacto lo antes posible y ¡coordina una cita! <br> Atentamente el equipo de 'OhMyDog'.";
+                _ = EnviarCorreoMatch("ohmydog@gmail.com", perroReceptor.Dueno.Email, asunto, contenido);
+
                 return (Json(new { match = true }));
             }
 
@@ -118,13 +153,22 @@ namespace Aplicacion.Controllers
             return (Json(new { success = true }));
         }
 
+        public IActionResult Matches(int idPerro)
+        {
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).First();
+            var matches = perro.MeGustaDados.Join(perro.MeGustaRecibidos, e => e.IdPerroReceptor, r => r.IdPerroEmisor, (e, r) => e.IdPerroReceptor)
+                                            .Join(_context.PublicacionTinderdog.Include(p => p.Perro).Include(p => p.Fotos), id => id, p => p.IdPerro, (id, p) => p).ToList();
+
+            return (View("Matches", new TinderdogViewModel { Perro = perro.Perro, Publicaciones = matches }));
+        }
+
         public async Task EnviarCorreoMatch(string remitente, string destinatario, string asunto, string contenido)
         {
             await Task.Run(() =>
             {
                 try
                 {
-                    string pathImagen = @"C:\Users\franc\Documents\GitHub\UNLP\Tercer año\1er Semestre\ING 2 - Ingenieria de software 2\Proyecto - Oh my dog!\Oh-my-dog\Oh my dog!\Aplicacion\wwwroot\img\tinderdog - logo 2.png";
+                    string pathImagen = @"wwwroot\img\tinderdog - logo 2.png";
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("", remitente)); // Correo de origen
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
@@ -166,12 +210,52 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public JsonResult PublicarCandidato(int idPerro)
+        public JsonResult PublicarCandidato(PublicacionTinderdog publicacion, List<string> fotos)
         {
-            _context.PublicacionTinderdog.Add(new PublicacionTinderdog { IdPerro = idPerro });
+            _context.PublicacionTinderdog.Add(publicacion);
+            if (fotos[0] != null)
+            {
+                _context.SaveChanges();
+                var maxId = _context.PublicacionTinderdog.Max(p => p.Id);
+                fotos.ForEach(f => {
+                    _context.FotosPublicacionTinderdog.Add(new FotosPublicacionTinderdog { IdPublicacion = maxId, Foto = f });
+                });
+            }
+
             _context.SaveChanges();
 
             return (Json(new { success = true }));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CargarFoto()
+        {
+            bool result = false;
+            IFormFile archivo = Request.Form.Files.First();
+            string fileName = archivo.Name;
+            string imagePath = GetActualPath(fileName);
+            try
+            {
+                if (System.IO.File.Exists(imagePath))
+                {
+
+                    System.IO.File.Delete(imagePath);
+                }
+                using (FileStream stream = System.IO.File.Create(imagePath))
+                {
+                    await archivo.CopyToAsync(stream);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return Json(result);
+        }
+        public String GetActualPath(String filename)
+        {
+            return Path.Combine(Path.GetFullPath("wwwroot") + "\\img", filename);
         }
     }
 }

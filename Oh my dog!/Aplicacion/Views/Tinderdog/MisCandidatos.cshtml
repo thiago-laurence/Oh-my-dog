@@ -19,38 +19,71 @@
     }
 
     .logo-img {
-        width: 3rem;
-        height: 3rem;
-        transform: translateY(-0.4rem);
+        height: 5rem;
     }
 
-    .tooltip-danger {
+    .tooltip-meGustas {
         --bs-tooltip-bg: var(--bs-danger);
     }
-    .tooltip-warning {
-        --bs-tooltip-bg: var(--bs-warning);
+
+    .tooltip-flechazo{
+        --bs-tooltip-bg: #ffccf9;
         --bs-tooltip-color: #000000;
     }
-
-    .tooltip-primary {
-        --bs-tooltip-bg: var(--bs-primary);
+    .btn-flechazo{
+        background-color: #ffccf9;
     }
+        .btn-flechazo:hover {
+            background-color: #e6b8e0;
+        }
+
+    .tooltip-sugerencias {
+        --bs-tooltip-bg: #ff4a00;
+        --bs-tooltip-color: #FFFFFF;
+    }
+    .btn-sugerencias {
+        background-color: #ff4a00;
+        color: #FFFFFF;
+    }
+        .btn-sugerencias:hover {
+            background-color: #e64300;
+        }
+    
+    .tooltip-quitar {
+        --bs-tooltip-bg: #59a1ab;
+        --bs-tooltip-color: #FFFFFF;
+    }
+    .btn-quitar {
+        background-color: #59a1ab;
+        color: white;
+        border-color: #59a1ab;
+    }
+        .btn-quitar:hover {
+            background-color: #41767d;
+            color: white;
+            border-color: #41767d;
+        }
+    
 </style>
 
 <div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
     <h1 class="display-7">
-        <img class="logo-img" src="~/img/tinderdog - logo.png" />
-        Mis candidatos
-        <i class="fa-sharp fa-solid fa-shield-dog"></i>
+        <img class="logo-img" src="~/img/tinderdog - logo 2 - Copy.png" />
     </h1>
     <p style="margin-bottom: 0px;">
-        Publica a tus perros registrados en "tinderDog" y encuentre a su media naranja
+        <strong>
+            En contra de las apariencias y a favor del amor
+        </strong>
+        <br />
+        Bienvenido a este apartado en donde podras encontrar de forma interactiva a la media naranja de tu candidato canino.
     </p>
 </div>
 
 <div class="container-fluid" id="ContainerListarMisCandidatos">
     @await Html.PartialAsync("_ListarMisCandidatos", Model)
 </div>
+
+
 <div class="b-example-divider"></div>
 
 <!--Modal de ingreso de celo para perro de sexo Femenino-->
@@ -65,7 +98,7 @@
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
-                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormRegistrarCelo">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormRegistrarPublicacion">
                     <div class="col-md-12">
                         <label class="form-label">Fecha del último celo</label>
                         <input type="date" class="form-control InputDate" id="FechaCelo" min="" max="">
@@ -73,10 +106,24 @@
                             Ingrese una fecha válida (la fecha no puede ser futura)
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="" value="">Fotos (opcional)</label>
+                        <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="FotosHembra" multiple>
+                        <div class="invalid-feedback">
+                            Las fotos ingresadas no son válidas
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control InputText" maxlength="500" id="DescripcionHembra" name="" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingrese una descripción para la publicación del perfil de la candidata en el sitio
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <input type="hidden" value="" id="idPerro" />
                         <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
-                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrarCelo" disabled onclick="RegistrarCelo()">Aceptar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrar" disabled onclick="RegistrarCelo()">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -84,11 +131,55 @@
     </div>
 </div>
 
+<!--Modal de publicacion para perro de sexo Masculino-->
+<div class="modal fade" id="ModalPublicacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+                    Publicar candidato
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormRegistrarPublicacion">
+                    <div class="col-md-12">
+                        <label class="form-label" for="" value="">Fotos (opcional)</label>
+                        <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="FotosMacho" multiple>
+                        <div class="invalid-feedback">
+                            Las fotos ingresadas no son válidas
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control InputText" maxlength="500" id="DescripcionMacho" name="" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingrese una descripción para la publicación del perfil del candidato en el sitio
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" value="" id="idPerro" />
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrar" disabled onclick="PublicarCandidato(document.getElementById('idPerro').value, document.getElementById('DescripcionMacho').value, 'FotosMacho', 'ModalPublicacion')">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts{
     <!-- Constantes de inicializacion de tooltips -->
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        function InicializarTooltips(){
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
     </script>
 
     <!--Listar candidatos-->
@@ -111,6 +202,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#ContainerListarMisCandidatos').html(data);
+                    InicializarTooltips();
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
@@ -121,15 +213,16 @@
         }
     </script>
 
-    <!--Registrar celo-->
+    <!--Publicar candidato-->
     <script>
-        function CargarCelo(idPerro){
+        function CargarPublicacion(idPerro, modalName) {
             document.getElementById('idPerro').value = idPerro;
-            $('#ModalCelo').modal('show');
+            $('#' + modalName).modal('show');
         }
 
-        function RegistrarCelo(){
+        function RegistrarCelo(modalName) {
             var idPerro = document.getElementById('idPerro').value;
+            var descripcion = document.getElementById('DescripcionHembra').value;
             var fechaCelo = document.getElementById('FechaCelo').value;
 
             $.ajax({
@@ -137,10 +230,7 @@
                 type: 'POST',
                 data: { idPerro: idPerro, FechaCelo: fechaCelo },
                 success: function (data) {
-                    var boton = document.getElementById('BotonCancelarRegistro');
-                    boton.click();
-                    $('#ModalCelo').modal('hide');
-                    PublicarCandidato(idPerro);
+                    PublicarCandidato(idPerro, descripcion, 'FotosHembra', 'ModalCelo');
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
@@ -148,12 +238,9 @@
                     console.log(error);
                 }
             });
-        }    
-    </script>
+        }
 
-    <!--Publicar candidato-->
-    <script>
-        function PublicarCandidato(idPerro){
+        function PublicarCandidato(id, descripcion, idFoto, modalName){
             Swal.fire({
                 title: '¿Desea publicar al candidato en TinderDog?',
                 text: "Confirme la acción",
@@ -165,16 +252,29 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
+                    var publicacion = {
+                        idPerro: id,
+                        descripcion: descripcion
+                    };
+                    var fotos = RegistrarFoto(idFoto);
+
                     $.ajax({
                         url: '@Url.Action("PublicarCandidato", "Tinderdog")',
                         type: 'POST',
-                        data: { idPerro: idPerro },
+                        data: { publicacion: publicacion, fotos: fotos },
                         success: function (data) {
                             if (data.success) {
                                 Toast.fire({
                                     icon: 'success',
                                     text: '¡El candidato ha sido publicado en TinderDog!'
                                 })
+
+                                var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+                                botonesCancelar.forEach(function (elemento) {
+                                    elemento.click();
+                                });
+
+                                $('#' + modalName).modal('hide');
                                 ListarCandidatos();
                             }
                         },
@@ -227,12 +327,12 @@
         }
     </script>
 
-    <!--Validacion de formulario-->
+    <!--Validacion de relleno de formulario-->
     <script>
         // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
         function ResetFormulario(boton) {
             var formulario = boton.closest("form");
-            var campos = formulario.querySelectorAll(".InputDate");
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputFoto");
 
             campos.forEach(function (campo) {
                 campo.value = '';
@@ -260,7 +360,7 @@
 
         function ValidarFormulario() {
             var formulario = this;
-            var campos = formulario.querySelectorAll(".InputDate");
+            var campos = formulario.querySelectorAll(".InputText, .InputDate");
             var todosValidos = true;
 
             campos.forEach(function (campo) {
@@ -275,6 +375,17 @@
                 botonEnvio.disabled = false;
             } else {
                 botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT TEXT <--
+        function ValidarInputText() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
             }
         }
 
@@ -293,16 +404,80 @@
         fechaActual.setUTCHours(fechaActual.getUTCHours() - 3); // Modifica la fecha para que sea la actual de Argentina
         var valorActual = fechaActual.toISOString().split("T")[0];
         formularios.forEach(function (formulario) {
-            var campos = formulario.querySelectorAll(".InputDate");
+            var campos = formulario.querySelectorAll(".InputText, .InputDate");
             campos.forEach(function (campo) {
                 campo.addEventListener("input", function () {
-                    if (campo.classList.contains("InputDate")) {
+                    if (campo.classList.contains("InputText")) {
+                        ValidarInputText.call(campo);
+                    } else if (campo.classList.contains("InputDate")) {
                         campo.setAttribute("max", valorActual);
                         ValidarInputDate.call(campo, valorActual);
                     }
                     ValidarFormulario.call(formulario);
                 });
             });
+        });
+    </script>
+
+    <!--Registrar foto-->
+    <script>
+        function RegistrarFoto(idFoto) {
+            var filenames;
+            var archivos = document.getElementById(idFoto);
+            if (archivos.value) {
+                filenames = new Array(archivos.files.length);
+                for (var i = 0; i < archivos.files.length; i++) {
+                    filenames[i] = archivos.files[i].name;
+                    var fileData = new FormData();
+                    fileData.append(archivos.files[i].name, archivos.files[i]);
+                    $.ajax({
+                        url: '/Tinderdog/CargarFoto',
+                        type: 'post',
+                        datatype: 'json',
+                        contentType: false,
+                        processData: false,
+                        async: false,
+                        data: fileData,
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            } else {
+                filenames = null;
+            }
+
+            return (filenames);
+        }
+    </script>
+
+    <!--Validacion de subida de foto-->
+    <script>
+        function ValidarFoto() {
+            for(var i = 0; i < this.files.length; i++){
+                var fileName = this.files[i].name;
+                var idxDot = fileName.lastIndexOf(".") + 1;
+                var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+
+                if (!(extFile == "jpg" || extFile == "jpeg" || extFile == "png")) {
+                    this.classList.remove("is-valid");
+                    this.classList.add("is-invalid");
+                    this.value = "";
+                    return
+                }
+            }
+            this.classList.remove("is-invalid");
+            this.classList.add("is-valid");
+        }
+
+        var inputFiles = document.querySelectorAll(".InputFoto");
+        inputFiles.forEach(function (elemento) {
+            elemento.addEventListener("change", ValidarFoto);
         });
     </script>
 }

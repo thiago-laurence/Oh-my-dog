@@ -1,6 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@using System.Security.Claims;
-@model List<Aplicacion.Models.Perros>
+﻿@using System.Security.Claims;
+@model Aplicacion.Models.TinderdogViewModel
 
 @{
     ViewData["Title"] = "TinderDog";
@@ -15,8 +14,9 @@
         box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
     }
 
-    .Carta{
+    .card-body {
         position: relative;
+        padding: 0px;
     }
 
     .card-text {
@@ -36,9 +36,9 @@
         z-index: 1; /* Asegura que la capa esté por encima del contenido */
     }
 
-    #Candidato{
+    <!--#Candidato{
         z-index: 2;
-    }
+    }-->
 
     .tooltip-success {
         --bs-tooltip-bg: var(--bs-success);
@@ -47,37 +47,35 @@
     .tooltip-danger {
         --bs-tooltip-bg: var(--bs-danger);
     }
+
+    .logo-img {
+        height: 5rem;
+    }
+
+    .img-cupido{
+        position: absolute;
+        right: 0;
+        z-index: 999;
+        border-radius: 50%;
+    }
 </style>
 
 <div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
     <h1 class="display-7">
-        <img class="logo-img" src="~/img/tinderdog - logo 2 - Copy.png" />
+        <img class="logo-img" src="~/img/tinderdog - logo.png" />
+        Sugerencias para "@Model.Perro.Nombre"
     </h1>
-    <p style="margin-bottom: 0px;">
-        Bienvenido a este apartado en donde podras encontrar de forma interactiva a la media naranja de tu candidato canino
-    </p>
 </div>
 
-<div class="container">
-    <div class="px-4 my-5 text-center">
-        <div class="col-lg-6 mx-auto">
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <label class="form-label fw-bold">
-                    Seleccione a uno de sus perros registrados para visualizar las sugerencias de parejas
-                </label>
-                <select class="form-select form-select-lg" id="SelectorPerro" style="margin-bottom: 20px;">
-                    <option selected disabled value="">Seleccione un perro</option>
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.Id">@item.Nombre</option>
-                    }
-                </select>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid" style="background-color: plum; padding: 0px; display: none;" id="ContainerCupido">
+    <img src="~/img/cupidDog.gif" width="300" class="img-cupido" id="Cupido" />
 </div>
-<div class="container-fluid d-flex justify-content-center align-items-center" style="margin-bottom: 50px;" id="ContenedorSugerencias">
-    <!--Aca se visualiza la vista parcial de las sugerencias-->
+<button class="btn btn-danger" id="BtnCupido" style="display: none;">
+    Cupido
+</button>
+
+<div class="container-fluid" id="ContenedorSugerencias">
+    @await Html.PartialAsync("_ListarSugerencias", Model.Publicaciones)
 </div>
 <div class="b-example-divider"></div>
 
@@ -116,7 +114,7 @@
                     </div>
                     <input type="hidden" id="idPerroContacto" />
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary BtnCancelarForm" id="BtnCancelarContacto">Cancelar</button>
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" id="BtnCancelarContacto" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary BtnEnvioForm" onclick="EnviarCorreoMatch()" disabled id="BtnContacto">Aceptar</button>
                     </div>
                 </form>
@@ -127,6 +125,53 @@
 
 @section Scripts{
     <script src="~/js/jquery-ui.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var card = $('#Cupido');
+            var container = $('#ContainerCupido');
+            var containerWidth = container.width();
+            var cardWidth = card.width();
+            var startPosition = { left: containerWidth - cardWidth };
+            var endPosition = { left: 0 };
+
+            function animateCard(ok){
+                if (ok){
+                    var container = document.getElementById("ContainerCupido");
+                    container.style.display = "none";
+                    return
+                }
+                // Mueve la imagen de izquierda a derecha
+                card.animate(endPosition, 3000, function () {
+                    // Una vez que llega al final, mueve la imagen de derecha a izquierda
+                    card.animate(startPosition, 3000);
+                });
+            }
+            
+            // Llama a la función animateCard cada 2000 milisegundos (2 segundos)
+            //setInterval(animateCard, 6000);
+
+            
+            function Cupido() {
+                var container = document.getElementById("ContainerCupido");
+                container.style.display = "";
+                for (var i = 0; i < 3; i++) {
+                    if (i == 2){
+                        setTimeout(function () {
+                            animateCard(true)
+                        }, i * 6000);
+                    }else{
+                        setTimeout(function () {
+                            animateCard(false)
+                        }, i * 6000);
+                    }
+                }
+            }
+
+            var btn = document.getElementById('BtnCupido');
+            btn.addEventListener('click', Cupido);
+        });
+    </script>
 
     <!-- Constantes de inicializacion de tooltips -->
     <script>
@@ -213,6 +258,11 @@
 
     <!--Funcionalidad de desplazamiento de card-->
     <script>
+        $(document).ready(function () {
+            InicializarDesplazamiento();
+            InicializarTooltips();
+        });
+
         function InicializarDesplazamiento(){
             var card = $('#Candidato');
             var container = $('#ContenedorSugerencias');
@@ -261,17 +311,17 @@
                     if (ui.position.left > 150) {
                         // Deslizado hacia la derecha (interés)
                         console.log('Me gusta');
-                        card.animate(endLikePosition, 200);
+                        card.animate(endLikePosition, 300);
                         setTimeout(function () {
                             MeGusta()
-                        }, 200);
+                        }, 300);
                     } else if (ui.position.left < -150) {
                         // Deslizado hacia la izquierda (desinterés)
                         console.log('No me gusta');
-                        card.animate(endUnLikePosition, 200);
+                        card.animate(endUnLikePosition, 300);
                         setTimeout(function () {
                             NoMeGusta()
-                        }, 200);
+                        }, 300);
                     } else {
                         // No se movió lo suficiente, volver al centro
                         card.animate(startPosition, 200); // Ajusta la duración de la animación según tus necesidades
@@ -294,6 +344,32 @@
             mappedValue = Math.round(mappedValue * 100) / 100;
 
             return mappedValue;
+        }
+
+        function DesplazamientoMeGusta(){
+            var card = $('#Candidato');
+            var container = $('#ContenedorSugerencias');
+            var containerWidth = container.width();
+            var endLikePosition = { left: ((containerWidth / 2) - (card.width() / 2)), top: 0 };
+
+            console.log('Me gusta');
+            card.animate(endLikePosition, 300);
+            setTimeout(function () {
+                MeGusta()
+            }, 300);
+        }
+
+        function DesplazamientoNoMeGusta() {
+            var card = $('#Candidato');
+            var container = $('#ContenedorSugerencias');
+            var containerWidth = container.width();
+            var endUnLikePosition = { left: -((containerWidth / 2) - (card.width() / 2)), top: 0 };
+
+            console.log('No me gusta');
+            card.animate(endUnLikePosition, 300);
+            setTimeout(function () {
+                NoMeGusta()
+            }, 300);
         }
 
     </script>
@@ -346,7 +422,7 @@
                     if (data.success) {
                         Toast.fire({
                             icon: 'success',
-                            text: '¡Se ha enviado el correo al dueño del perro!'
+                            text: '¡Se ha enviado el correo a su flechazo!'
                         })
                         var boton = document.getElementById('BtnCancelarContacto');
                         boton.click();
@@ -362,7 +438,7 @@
         }
 
         function MeGusta(){
-            var idPerroEmisor = document.getElementById('SelectorPerro').value;
+            var idPerroEmisor = @Model.Perro.Id;
             var idPerroReceptor = document.getElementById('BtnMeGusta').value;
             $.ajax({
                 url: '@Url.Action("MeGusta", "Tinderdog")',
@@ -370,8 +446,11 @@
                 data: { idPerroEmisor: idPerroEmisor, idPerroReceptor: idPerroReceptor },
                 success: function (data) {
                     if (data.match){
+                        var btn = document.getElementById('BtnCupido');
+                        btn.click();
+
                         Swal.fire({
-                            text: '¿Desea contactarse con su "Flechazo"?',
+                            text: '¿Quiere romper el hielo enviando el primer mensaje a su "Flechazo"?',
                             imageUrl: "/img/match.png",
                             imageHeight: 200,
                             showCancelButton: true,
@@ -386,7 +465,7 @@
                             }
                         })
                     }
-                    ListarSugerencias(idPerroEmisor);
+                    ListarSugerencias();
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
@@ -397,7 +476,7 @@
         }
 
         function NoMeGusta(){
-            var idPerroEmisor = document.getElementById('SelectorPerro').value;
+            var idPerroEmisor = @Model.Perro.Id;
             var idPerroReceptor = document.getElementById('BtnMeGusta').value;
             $.ajax({
                 url: '@Url.Action("NoMeGusta", "Tinderdog")',
@@ -405,7 +484,7 @@
                 data: { idPerroEmisor: idPerroEmisor, idPerroReceptor: idPerroReceptor },
                 success: function (data) {
                     if (data.success) {
-                        ListarSugerencias(idPerroEmisor);
+                        ListarSugerencias();
                     }
                 },
                 error: function (xhr, status, error) {
@@ -419,13 +498,8 @@
 
     <!--Listar sugerencias-->
     <script>
-        var select = document.getElementById('SelectorPerro');
-        select.addEventListener("input", function () {
-            ListarSugerencias.call(this);
-        });
-
-        function ListarSugerencias(idPerroEmisor) {
-            var idPerro = (this.value != null) ? this.value : idPerroEmisor;
+        function ListarSugerencias() {
+            var idPerro = @Model.Perro.Id;
             $.ajax({
                 url: '@Url.Action("ListarSugerencias", "Tinderdog")',
                 type: 'GET',
