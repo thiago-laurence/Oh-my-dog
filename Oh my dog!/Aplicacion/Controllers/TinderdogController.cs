@@ -75,20 +75,25 @@ namespace Aplicacion.Controllers
         public IActionResult MeGustasRecibidos(int idPerro)
         {
             ViewBag.ActiveView = "Tinderdog";
-            var perro = _context.Perros.Where(p => p.Id == idPerro).First();
-            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.Id).Include(p => p.PerroEmisor)
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).First();
+            var matches = perro.MeGustaDados.Join(perro.MeGustaRecibidos, e => e.IdPerroReceptor, r => r.IdPerroEmisor, (e, r) => r.IdPerroEmisor);
+            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor))
+                           .Include(p => p.PerroEmisor)
                            .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
 
-            return View("MeGustasRecibidos", new TinderdogViewModel() { Perro = perro, Publicaciones = meGustas });
+            return View("MeGustasRecibidos", new TinderdogViewModel() { Perro = perro.Perro, Publicaciones = meGustas });
         }
 
         [HttpGet]
         public IActionResult ListarMeGustasRecibidos(int idPerro)
         {
-            var perro = _context.Perros.Where(p => p.Id == idPerro).First();
-            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.Id).Include(p => p.PerroEmisor)
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).First();
+            var matches = perro.MeGustaDados.Join(perro.MeGustaRecibidos, e => e.IdPerroReceptor, r => r.IdPerroEmisor, (e, r) => r.IdPerroEmisor);
+            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor))
+                           .Include(p => p.PerroEmisor)
                            .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
-            return PartialView("_ListarMeGustasRecibidos", new TinderdogViewModel() { Perro = perro, Publicaciones = meGustas });
+
+            return PartialView("_ListarMeGustasRecibidos", meGustas);
         }
 
         [HttpPost]

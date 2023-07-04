@@ -147,6 +147,81 @@
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
 
+    <!--Validacion de relleno de formulario-->
+    <script>
+        // --> RESET DE FORMULARIOS MEDIANTE BOTON CANCELAR <--
+        function ResetFormulario(boton) {
+            var formulario = boton.closest("form");
+            var campos = formulario.querySelectorAll(".InputText");
+
+            campos.forEach(function (campo) {
+                campo.value = '';
+                if (campo.classList.contains("is-valid")) {
+                    campo.classList.remove("is-valid");
+                }
+                if (campo.classList.contains("is-invalid")) {
+                    campo.classList.remove("is-invalid");
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            botonEnvio.disabled = true;
+        }
+        var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+        botonesCancelar.forEach(function (elemento) {
+            elemento.addEventListener('click', function () {
+                ResetFormulario(this);
+            });
+        });
+
+        // --> VALIDACION DE FORMULARIOS PARA BOTON ACEPTAR <--
+        var formularios = document.querySelectorAll(".Formulario");
+        var botonesEnvio = document.querySelectorAll(".BtnEnvioForm");
+
+        function ValidarFormulario() {
+            var formulario = this;
+            var campos = formulario.querySelectorAll(".InputText");
+            var todosValidos = true;
+
+            campos.forEach(function (campo) {
+                if (!campo.classList.contains("is-valid")) {
+                    todosValidos = false;
+                    return;
+                }
+            });
+
+            var botonEnvio = formulario.querySelector(".BtnEnvioForm");
+            if (todosValidos) {
+                botonEnvio.disabled = false;
+            } else {
+                botonEnvio.disabled = true;
+            }
+        }
+
+        // --> VALIDACION DE INPUT TEXT <--
+        function ValidarInputText() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            } else {
+                this.classList.remove('is-valid');
+                this.classList.add('is-invalid');
+            }
+        }
+
+        formularios.forEach(function (formulario) {
+            var campos = formulario.querySelectorAll(".InputText");
+            campos.forEach(function (campo) {
+                campo.addEventListener("input", function () {
+                    if (campo.classList.contains("InputText")) {
+                        ValidarInputText.call(campo);
+                    }
+                    ValidarFormulario.call(formulario);
+                });
+            });
+        });
+    </script>
+
     <!--Accion MeGusta / NoMegusta-->
     <script>
         const Toast = Swal.mixin({
@@ -220,7 +295,7 @@
                 success: function (data) {
                     if (data.match) {
                         Swal.fire({
-                            text: '¿Desea contactarse con su "Flechazo"?',
+                            text: '¿Quiere romper el hielo enviando el primer mensaje a su "Flechazo"?',
                             imageUrl: "/img/match.png",
                             imageHeight: 200,
                             showCancelButton: true,
