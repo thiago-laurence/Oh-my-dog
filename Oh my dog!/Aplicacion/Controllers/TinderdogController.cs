@@ -75,9 +75,10 @@ namespace Aplicacion.Controllers
         public IActionResult MeGustasRecibidos(int idPerro)
         {
             ViewBag.ActiveView = "Tinderdog";
-            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).First();
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro)
+                           .Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).Include(p => p.NoMeGustaDados).First();
             var matches = perro.MeGustaDados.Join(perro.MeGustaRecibidos, e => e.IdPerroReceptor, r => r.IdPerroEmisor, (e, r) => r.IdPerroEmisor);
-            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor))
+            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor) && !perro.NoMeGustaDados.Select(p => p.IdPerroReceptor).Contains(m.IdPerroEmisor))
                            .Include(p => p.PerroEmisor)
                            .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
 
@@ -87,9 +88,10 @@ namespace Aplicacion.Controllers
         [HttpGet]
         public IActionResult ListarMeGustasRecibidos(int idPerro)
         {
-            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).First();
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro)
+                           .Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).Include(p => p.NoMeGustaDados).First();
             var matches = perro.MeGustaDados.Join(perro.MeGustaRecibidos, e => e.IdPerroReceptor, r => r.IdPerroEmisor, (e, r) => r.IdPerroEmisor);
-            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor))
+            var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor) && !perro.NoMeGustaDados.Select(p => p.IdPerroReceptor).Contains(m.IdPerroEmisor))
                            .Include(p => p.PerroEmisor)
                            .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
 

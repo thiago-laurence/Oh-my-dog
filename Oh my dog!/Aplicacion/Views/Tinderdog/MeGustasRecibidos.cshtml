@@ -143,8 +143,15 @@
 @section Scripts{
     <!-- Constantes de inicializacion de tooltips -->
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        function InicializarTooltips() {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
     </script>
 
     <!--Validacion de relleno de formulario-->
@@ -351,6 +358,7 @@
                 data: { idPerro: idPerro },
                 success: function (data) {
                     $('#ContainerListarMisCandidatos').html(data);
+                    InicializarTooltips();
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
