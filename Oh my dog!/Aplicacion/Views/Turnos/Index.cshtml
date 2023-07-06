@@ -426,244 +426,229 @@ else
 @section Scripts{
 	<!--Por cada mascota se da la opcion de seleccionar de entre sus mascotas o ingresar una nueva. Máximo 5 mascotas-->
 	<script>
+
+
+
+		/*En vez de tener que seleccionar de entre las opciones, lo que se hace es seleccionar un checkbox.
+
+
+
+			*/
 		var container = $("#mascotas-dinamico");
-		function borrarCamposMascota(idBorrado){
-			if ($(".mascota").length >1){
-				// Obtener la última sección agregada
-				var aBorrar = container.find("#mascota"+ idBorrado);
-				// Remover la sección del contenedor
-				
-					var aDesocupar = $("#mascota" + idBorrado + " select option:selected").val();
-					$("select[name=misMascotas]").find('option:contains("' + aDesocupar + '")').prop('disabled', false);
-				
-				
-				aBorrar.remove();
-				if ($(".mascota").length ==1){
-				$("#borrarMascota").addClass("d-none");
-				}
-				cambiarValor();
-				verificarFormulario();
-				habilitarBotonEnvioContacto();
-			}
-		}
-		
-			function agregarCamposMascota() {
-				// Obtener el contenedor donde se generará el bloque dinámico
+
+
+		function agregarCamposMascota() {
+			// Obtener el contenedor donde se generará el bloque dinámico
+
+
+			// Crear el elemento div principal
+			var divElement = $("<div>").attr("id", "mascota" + ($(".mascota").length + 1)).addClass("col-md-12 mascota mt-2 mb-4");
+
+
+			// Crear el elemento label
+			var labelElement = $("<label>").attr("for", "misMascotas").addClass("form-label d-block").text("Marque las mascotas por las que se solicita turno");
+
+
+			// Crear el div para la opción "Otra"
+			var otraDiv = $("<div>").addClass("d-none otra");
+
+			// Crear el label para el input de nombre. Lo sigo usando.
+			var nombreLabel = $("<label>").addClass("form-label mt-2").text("Nombre");
+
+			// Crear el input de nombre
+			var nombreInput = $("<input>").attr({ "type": "text", "maxlength": "20" }).addClass("form-control").prop("required", true);
+
+			// Crear el div para el mensaje de error
+			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese una mascota no registrada");
+
+			// Agregar los elementos al div "otra"
+			otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);
+
+			// Agregar los elementos al div principal
+
 			
-			
-				// Crear el elemento div principal
-			var divElement = $("<div>").attr("id","mascota"+ ($(".mascota").length +1)).addClass("col-md-12 mascota mt-2 mb-4");
-				
-				
-				// Crear el elemento label
-				var labelElement = $("<label>").attr("for", "misMascotas").addClass("form-label").text("Seleccione a su mascota");
-
-				// Crear el elemento select
-				var selectElement = $("<select>").attr("name", "misMascotas").addClass("m-2").prop("required", true);
-				
-				// Crear la opción "Otra" dentro del select
-				var optionElement = $("<option>").addClass("otraMascota").text("Otra");
-				selectElement.append(optionElement);
-
-				// Crear el div para la opción "Otra"
-				var otraDiv = $("<div>").addClass("d-none otra");
-
-				// Crear el label para el input de nombre
-				var nombreLabel = $("<label>").addClass("form-label mt-2").text("Nombre");
-
-				// Crear el input de nombre
-				var nombreInput = $("<input>").attr({ "type": "text", "maxlength": "20" }).addClass("form-control").prop("required", true);
-
-				// Crear el div para el mensaje de error
-				var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese una mascota no registrada");
-
-				// Agregar los elementos al div "otra"
-				otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);
-
-				// Agregar los elementos al div principal
-			
-			if ($(".mascota").length>0){
+			// Agregar el div principal al contenedor
+			divElement.append(labelElement);
+			container.append(divElement);
+			var divPorMascota;
+			var nodoOpcion;
+			$.each(mascotasUsuario, function (index, perro) {
+				divPorMascota = $("<div class='d-block form-check'></div>");
+				nodoOpcion = $("<input type='checkbox' class='otraMascota form-check-input'>" + "<label class='ps-3 form-check-label'>" + perro.Nombre + "</label></input>");
+				divPorMascota.append(nodoOpcion);
+				$("#mascota" + $(".mascota").length).append(divPorMascota);
+			});
+			divPorMascota = $("<div class=' form-check d-block'></div>");
+			nodoOpcion = $("<input type='checkbox' class='form-check-input otraMascota checkOtra'>" + "<label class='ps-3 form-check-label'>Otra</label></input>");
+			divPorMascota.append(nodoOpcion);
+			$("#mascota" + $(".mascota").length).append(divPorMascota);
+			if ($(".mascota").length > 1) {
 				var buttonEliminar = $('<button id = "borrarMascota' + ($(".mascota").length + 1) + '"class="" onclick = "borrarCamposMascota(' + ($(".mascota").length + 1) + ')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">< path d = "M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" /><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg></button>');
 				buttonEliminar.addClass("mx-3")
-				divElement.append(labelElement, selectElement,buttonEliminar, otraDiv);
-				}else{
-				divElement.append(labelElement, selectElement, otraDiv);
-				}
-				// Agregar el div principal al contenedor
-				container.append(divElement);
-
-			$.each(mascotasUsuario, function (index, perro) {
-				
-				var nodoOpcion = $("<option class='otraMascota'>" + perro.Nombre + "</option>");
-				var clonNodo = nodoOpcion.clone();
-				$("#mascota" + $(".mascota").length + " select").prepend(clonNodo);
-			});
-			var nodoOpcion = $("<option class='otraMascota'>Seleccione una opcion</option>");
-			var clonNodo = nodoOpcion.clone();
-			$("#mascota" + $(".mascota").length + " select").prepend(clonNodo);
-			for (i = 1; i <= $(".mascota").length; i++) {
-				var aOcupar = $("#mascota" + i + " select option:selected").val();
-				if (aOcupar != 'Otra') {
-					$("select[name=misMascotas]").find('option:contains("' + aOcupar + '")').prop('disabled', true);
-				}
+				divElement.append( buttonEliminar, otraDiv);
+			} else {
+				divElement.append(otraDiv);
 			}
-			$("#mascota" + ($(".mascota").length) + " select").prop("selectedIndex",0);
-			$("#mascota" + ($(".mascota").length) + " select").find('option:contains("' + "Seleccione una opcion" + '")').prop('disabled', true);
-			$("#mascota" + ($(".mascota").length) + " select").find('option:contains("' + "Seleccione una opcion" + '")').prop('hidden', true);
-			cambiarValor();
 			verificarFormulario();
 			habilitarBotonEnvioContacto();
-			}
-			var asunto = document.getElementById('motivo');
-			var enviarButtonContacto = document.getElementById('BtnTurno');
-			//cambiar valor
-			function habilitarBotonEnvioContacto() {
-				var val = true;
+		}
 
-			var todosValidos = $(".mascota select").toArray().every(function (select) {
-				return $(select).hasClass("is-valid");
+
+
+
+		var asunto = document.getElementById('motivo');
+		var enviarButtonContacto = document.getElementById('BtnTurno');
+		//cambiar valor
+		function habilitarBotonEnvioContacto() {
+
+
+			var inputs = document.querySelectorAll(".mascota input:checked");
+			
+			var todosValidos =false;
+			
+			if (inputs.length>0){
+			todosValidos=Array.from(inputs).every(function (input) {
+				
+				return $(input).hasClass("is-valid");
 			});
-				
-				if (!(todosValidos)) {
-						val = false;
-					
-					}
-				
-				if (asunto.classList.contains('is-valid') && val) {
-					enviarButtonContacto.disabled = false;
-				} else {
-					enviarButtonContacto.disabled = true;
-				}
 			}
-
-
-
-
-			var mascotasUsuario;
-			function verificarFormulario() {
-				asunto.addEventListener('input', validarAsunto);
-				$("select[name=misMascotas]").on('input', function () {
-					var valor = $(this).val();
-					var esValido;
-					var mascotaSeleccion = $(this);
-					if (valor != 'Otra') {
-						mascotaSeleccion.addClass('is-valid');
-						mascotaSeleccion.removeClass('is-invalid');
-						habilitarBotonEnvioContacto();
-					}
-					else {
-						mascotaSeleccion.removeClass('is-valid');
-						$(this).parent().find("div input").on('input', function () {
-							var valorBuscar = $(this).val();
-							var etiqueta = $(this);
-							if (valorBuscar == '') {
-								mascotaSeleccion.removeClass('is-valid');
-								mascotaSeleccion.addClass('is-invalid');
-								etiqueta.removeClass('is-valid');
-								etiqueta.addClass('is-invalid');
-								habilitarBotonEnvioContacto();
-							}
-							else {
-								var encontre = false;
-								$.each(mascotasUsuario, function (index, perro) {
-									if (valorBuscar.toLowerCase() == perro.Nombre.toLowerCase()) {
-
-										mascotaSeleccion.removeClass('is-valid');
-										mascotaSeleccion.addClass('is-invalid');
-										etiqueta.removeClass('is-valid');
-										etiqueta.addClass('is-invalid');
-										encontre = true;
-										return false;
-									}
-
-								});
-								if (!encontre) {
-									mascotaSeleccion.removeClass('is-invalid');
-									mascotaSeleccion.addClass('is-valid');
-									etiqueta.removeClass('is-invalid');
-									etiqueta.addClass('is-valid');
-								}
-								habilitarBotonEnvioContacto();
-							}
-						});
-					}
-				});
-
-
-
-				function validarAsunto() {
-					if (asunto.value.trim() !== '') {
-						asunto.classList.remove('is-invalid');
-						asunto.classList.add('is-valid');
-					} else {
-						asunto.classList.remove('is-valid');
-						asunto.classList.add('is-invalid');
-					}
-
-					habilitarBotonEnvioContacto();
-				}
-				// Habilitar o deshabilitar el botón de envío según la validez del formulario
-				
-
-				$("#cancel-button").click(function () {
-					
-					verificarFechas();
-					document.getElementById('form-turnos').reset();
-					
-				for (var i = $(".mascota").length; i >= 1; i--) {
-						($("#mascota"+i).remove());
-					}
-					
-					
-				
-					asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
-					
-					enviarButtonContacto.disabled = true;
-				agregarCamposMascota();
-					$(".events-container").show();
-				});
-
+			if (asunto.classList.contains('is-valid') && todosValidos) {
+				enviarButtonContacto.disabled = false;
+			} else {
+				enviarButtonContacto.disabled = true;
 			}
-			var previous;
-			function cambiarValor () {
-			$("select[name='misMascotas']").on('focus', function () {
-					previous = this.value;
-				})
-					.change(function () {
-						var actual = this.value;
-					$("select[name='misMascotas']").find('option:contains("' + previous + '")').prop('disabled', false);
-						if (!(actual == "Otra")) {
-							$(this).parent().find('div').addClass("d-none");
-						$("select[name='misMascotas']").find('option:contains("' + actual + '")').prop('disabled', true);
-						} else {
-							$(this).parent().find('div').removeClass("d-none");
+		}
+
+		function verificarOtra() 
+		{
+			$(".otra input[type=text]").on('input', function () {
+				var valorBuscar = $(this).val();
+				var inputOtra=$(this);
+				if (valorBuscar == '') {
+					$(inputOtra).removeClass('is-valid');
+					$(inputOtra).addClass('is-invalid');
+					$(".checkOtra").removeClass('is-valid');
+					$(".checkOtra").addClass('is-invalid');
+					
+				}
+				else {
+					var encontre = false;
+					$.each(mascotasUsuario, function (index, perro) {
+						if (valorBuscar.toLowerCase() == perro.Nombre.toLowerCase()) {
+							$(inputOtra).removeClass('is-valid');
+							$(inputOtra).addClass('is-invalid');
+							$(".checkOtra").removeClass('is-valid');
+							$(".checkOtra").addClass('is-invalid');
+							encontre = true;
+							return false;
 						}
-						previous = this.value;
-						habilitarBotonEnvioContacto();
 					});
-			};
-			var emailUsuario = $("#form-turnos").data('usuario-mail'); // Obtener el valor del campo de entrada de 
-			$.ajax({
-				url: '@Url.Action("obtenerPerros", "Turnos")',
-				type: 'GET',
-				dataType: 'json',
-				data: { mail: emailUsuario }, // Enviar los datos al controlador
-				success: function (data) {
-				mascotasUsuario=data.slice();	
-				agregarCamposMascota();
-				$("#add-button").prop("disabled",false);
-				cambiarValor();
-				verificarFormulario();
-				habilitarBotonEnvioContacto();
-				},
-				error: function (xhr, status, error) {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Ocurrio un erorr!'
-					})
+				
+					if (!encontre) {
+						$(inputOtra).removeClass('is-invalid');
+						$(inputOtra).addClass('is-valid');
+						$(".checkOtra").removeClass('is-invalid');
+						$(".checkOtra").addClass('is-valid');
+					}
 				}
+				habilitarBotonEnvioContacto();
 			});
+		}
+
+		function limpiarInputYcheck(){
+			$(".checkOtra").removeClass('is-valid');
+			$(".checkOtra").removeClass('is-invalid');
+			$(".otra input").removeClass('is-valid');
+			$(".otra input").removeClass('is-invalid');
+			$(".otra input").val("");
+		}
+
+		function verificarCheckbox(){
+		$("input[type=checkbox]").on('click', function () {
+				var mascotaSeleccion = $(this).parent().find("label");
+				var valor = $(mascotaSeleccion).text();
+				var esValido;
+				if (valor != 'Otra') {
+					$(this).toggleClass('is-valid');
+				}else{
+					$(".otra").toggleClass('d-none');
+					if($(".otra").hasClass('d-none')){
+						limpiarInputYcheck();
+					}
+				}
+				habilitarBotonEnvioContacto();
+			});
+		}
+
+
+		function validarAsunto() {
+			if (asunto.value.trim() !== '') {
+				asunto.classList.remove('is-invalid');
+				asunto.classList.add('is-valid');
+			} else {
+				asunto.classList.remove('is-valid');
+				asunto.classList.add('is-invalid');
+			}
+			habilitarBotonEnvioContacto();
+		}
+		var mascotasUsuario;
+		function verificarFormulario() {
+			asunto.addEventListener('input', validarAsunto);
+			verificarOtra();	
+			verificarCheckbox();
+			
+			
+
+
+			$("#cancel-button").click(function () {
+
+				verificarFechas();
+				document.getElementById('form-turnos').reset();
+				//Queda. Esto para terminar de resetear todas las mascotas
+				for (var i = $(".mascota").length; i >= 1; i--) {
+					($("#mascota" + i).remove());
+				}
+
+
+
+				asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
+
+				enviarButtonContacto.disabled = true;
+				agregarCamposMascota();
+				$(".events-container").show();
+			});
+
+
+			
+
+		}
+
+
+
+
+
+		var emailUsuario = $("#form-turnos").data('usuario-mail'); // Obtener el valor del campo de entrada de
+		$.ajax({
+			url: '@Url.Action("obtenerPerros", "Turnos")',
+			type: 'GET',
+			dataType: 'json',
+			data: { mail: emailUsuario }, // Enviar los datos al controlador
+			success: function (data) {
+				mascotasUsuario = data.slice();
+				agregarCamposMascota();
+				$("#add-button").prop("disabled", false);
+
+
+
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Ocurrio un erorr!'
+				})
+			}
+		});
 
 	</script>
 
