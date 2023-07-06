@@ -467,7 +467,7 @@ else
 
 			// Crear el label para el input de nombre. Lo sigo usando.
 			var nombreLabel = $("<label>").addClass("form-label mt-2").text("Nombres de las mascotas");
-
+			$(nombreLabel).append('<span class="text-danger asterisco" >* </span>');
 			// Crear el input de nombre
 			var nombreInput = $("<textarea>").addClass("form-control").prop("required", true).attr('placeholder',"Ejemplo: Firu, Elvis Presley, George");
 
