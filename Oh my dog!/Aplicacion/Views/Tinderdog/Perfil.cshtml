@@ -1,7 +1,7 @@
-﻿@model List<Aplicacion.Models.Perros>
+﻿@model Aplicacion.Models.PublicacionTinderdog
 
 @{
-    ViewData["Title"] = "TinderDog";
+    ViewData["Title"] = "TinderDog - Perfil";
 }
 
 <style>
@@ -12,123 +12,89 @@
         border-width: 1px 0;
         box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
     }
-    .card-cover {
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-    }
 
     .logo-img {
-        height: 5rem;
+        width: 3rem;
+        height: 3rem;
+        transform: translateY(-0.4rem);
     }
-
-    .tooltip-meGustas {
-        --bs-tooltip-bg: var(--bs-danger);
-    }
-
-    .tooltip-publicar {
-        --bs-tooltip-bg: var(--bs-primary);
-    }
-
-    .tooltip-flechazo{
-        --bs-tooltip-bg: #ffccf9;
-        --bs-tooltip-color: #000000;
-    }
-    .btn-flechazo{
-        background-color: #ffccf9;
-    }
-        .btn-flechazo:hover {
-            background-color: #e6b8e0;
-        }
-
-    .tooltip-sugerencias {
-        --bs-tooltip-bg: #fa1a7f;
-        --bs-tooltip-color: #FFFFFF;
-    }
-    .btn-sugerencias {
-        background-color: #fa1a7f;
-        color: #FFFFFF;
-    }
-        .btn-sugerencias:hover {
-            background-color: #e11772;
-            color: #FFFFFF;
-        }
-    
-    .tooltip-quitar {
-        --bs-tooltip-bg: #59a1ab;
-        --bs-tooltip-color: #FFFFFF;
-    }
-    .btn-quitar {
-        background-color: #59a1ab;
-        color: white;
-        border-color: #59a1ab;
-    }
-        .btn-quitar:hover {
-            background-color: #41767d;
-            color: white;
-            border-color: #41767d;
-        }
 </style>
-
 <style>
-    .cardM{
-        backdrop-filter: blur(7px);
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 26px;
-        box-shadow: 35px 35px 68px 0px rgba(157, 177, 255, 0.2), inset -8px -8px 16px 0px rgba(157, 177, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
-        transition: all 0.3s;
-    }
-    .cardH {
-        backdrop-filter: blur(7px);
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 26px;
-        box-shadow: 35px 35px 68px 0px rgba(157, 177, 255, 0.2), inset -8px -8px 16px 0px rgba(254, 186, 217, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
-        transition: all 0.3s;
+    .Card {
+      --gray: rgba(229, 231, 235, 1);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      grid-gap: 1.25rem;
+      gap: 1.25rem;
+      border-radius: 1rem;
+      background-color: rgba(255, 255, 255, 1);
+      padding: 1.5rem;
     }
 
-        .cardM:hover {
-        border: 2px solid #008bf8;
-            box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
-        }
+    .card-1 {
+      width: 40%;
+      border-radius: 0.75rem;
+        background-color: var(--gray);
+    }
 
-        .cardM:active {
-            transform: scale(0.95);
-            border: 2px solid blue;
-        }
+    .right {
+      display: flex;
+      flex: 1 1 0%;
+      flex-direction: column;
+      grid-gap: 1.25rem;
+      gap: 1.25rem;
+    }
 
-        .cardH:hover {
-            border: 2px solid #fa1a7f;
-            box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
-        }
+    .card-2 {
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--gray);
+      padding: 5px 10px;
+    }
 
-        .cardH:active {
-            transform: scale(0.95);
-            border: 2px solid #e11772;
-        }
+    .card-3 {
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--gray);
+      padding: 5px 10px;
+    }
+    .card-3 p{
+        margin: 0px;
+    }
+
+    .bottom {
+      margin-top: auto;
+      display: flex;
+      grid-gap: 0.75rem;
+      gap: 0.75rem;
+    }
+
+    .card-4 {
+      height: 2rem;
+      width: 33%;
+      border-radius: 9999px;
+    }
+
+    @@keyframes pulse {
+      to {
+        opacity: .2;
+      }
+    }
 </style>
 
-<div class="text-center" style="background-color: #FFE5DB; padding-top: 16px; padding-bottom: 16px;">
-    <h1 class="display-7">
-        <img class="logo-img" src="~/img/tinderdog - logo 2 - Copy.png" />
-    </h1>
-    <p style="margin-bottom: 0px;">
-        <strong>
-            "En contra de las apariencias y a favor del amor"
-        </strong>
-        <br />
-        Bienvenido a este apartado en donde podras encontrar de forma interactiva a la media naranja de tu candidato canino.
-    </p>
-</div>
 
-<div class="container-fluid" id="ContainerListarMisCandidatos">
-    @await Html.PartialAsync("_ListarMisCandidatos", Model)
+
+<div class="container-fluid" id="ContainerPerfil">
+    @await Html.PartialAsync("_ListarPerfil", Model)
 </div>
 
 <div class="b-example-divider"></div>
 
-
 <!--Modal de ingreso de celo para perro de sexo Femenino-->
-<div class="modal fade" id="ModalCelo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ModalHembra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -139,7 +105,7 @@
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
-                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormRegistrarPublicacion">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormPublicacionHembra">
                     <div class="col-md-12">
                         <label class="form-label">Fecha del último celo</label>
                         <input type="date" class="form-control InputDate" id="FechaCelo" min="" max="">
@@ -164,7 +130,7 @@
                     <div class="modal-footer">
                         <input type="hidden" value="" id="idPerro" />
                         <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
-                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrar" disabled onclick="RegistrarCelo()">Aceptar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrarH" disabled onclick="RegistrarCelo()">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -173,7 +139,7 @@
 </div>
 
 <!--Modal de publicacion para perro de sexo Masculino-->
-<div class="modal fade" id="ModalPublicacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ModalMacho" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,7 +150,7 @@
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
-                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormRegistrarPublicacion">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="FormPublicacionMacho">
                     <div class="col-md-12">
                         <label class="form-label" for="" value="">Fotos (opcional)</label>
                         <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="FotosMacho" multiple>
@@ -202,7 +168,7 @@
                     <div class="modal-footer">
                         <input type="hidden" value="" id="idPerro" />
                         <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarRegistro">Cancelar</button>
-                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrar" disabled onclick="PublicarCandidato(document.getElementById('idPerro').value, document.getElementById('DescripcionMacho').value, 'FotosMacho', 'ModalPublicacion')">Aceptar</button>
+                        <button type="button" class="btn btn-primary BtnEnvioForm" id="BotonRegistrarM" disabled onclick="ModificarPerfil(document.getElementById('idPerro').value, document.getElementById('DescripcionMacho').value, 'FotosMacho', 'ModalMacho')">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -210,40 +176,17 @@
     </div>
 </div>
 
-
 @section Scripts{
-    <!-- Constantes de inicializacion de tooltips -->
+    <!--Listar perfil-->
     <script>
-        function InicializarTooltips(){
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-        }
-        $(document).ready(function () {
-            InicializarTooltips();
-        });
-    </script>
-
-    <!--Listar candidatos-->
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom',
-            showConfirmButton: false,
-            timer: 4000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-
-        function ListarCandidatos() {
+        function ListarPerfil() {
+            var idPerro = @Model.IdPerro;
             $.ajax({
-                url: '@Url.Action("ListarMisCandidatos", "Tinderdog")',
+                url: '@Url.Action("ListarPerfil", "Tinderdog")',
                 type: 'GET',
+                data: { idPerro: idPerro },
                 success: function (data) {
-                    $('#ContainerListarMisCandidatos').html(data);
-                    InicializarTooltips();
+                    $('#ContainerPerfil').html(data);
                 },
                 error: function (xhr, status, error) {
                     console.log(xhr);
@@ -251,120 +194,6 @@
                     console.log(error);
                 }
             });
-        }
-    </script>
-
-    <!--Publicar candidato-->
-    <script>
-        function CargarPublicacion(idPerro, modalName) {
-            document.getElementById('idPerro').value = idPerro;
-            $('#' + modalName).modal('show');
-        }
-
-        function RegistrarCelo(modalName) {
-            var idPerro = document.getElementById('idPerro').value;
-            var descripcion = document.getElementById('DescripcionHembra').value;
-            var fechaCelo = document.getElementById('FechaCelo').value;
-
-            $.ajax({
-                url: '@Url.Action("RegistrarCelo", "Tinderdog")',
-                type: 'POST',
-                data: { idPerro: idPerro, FechaCelo: fechaCelo },
-                success: function (data) {
-                    PublicarCandidato(idPerro, descripcion, 'FotosHembra', 'ModalCelo');
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
-                }
-            });
-        }
-
-        function PublicarCandidato(id, descripcion, idFoto, modalName){
-            Swal.fire({
-                title: '¿Desea publicar al candidato en TinderDog?',
-                text: "Confirme la acción",
-                imageUrl: "/img/tinderdog - logo.png",
-                imageHeight: 100,
-                showCancelButton: true,
-                confirmButtonText: 'Confirmar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var publicacion = {
-                        idPerro: id,
-                        descripcion: descripcion
-                    };
-                    var fotos = RegistrarFoto(idFoto);
-
-                    $.ajax({
-                        url: '@Url.Action("PublicarCandidato", "Tinderdog")',
-                        type: 'POST',
-                        data: { publicacion: publicacion, fotos: fotos },
-                        success: function (data) {
-                            if (data.success) {
-                                Toast.fire({
-                                    icon: 'success',
-                                    text: '¡El candidato ha sido publicado en TinderDog!'
-                                })
-
-                                var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
-                                botonesCancelar.forEach(function (elemento) {
-                                    elemento.click();
-                                });
-
-                                $('#' + modalName).modal('hide');
-                                ListarCandidatos();
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.log(xhr);
-                            console.log(status);
-                            console.log(error);
-                        }
-                    });
-                }
-            })            
-        }
-    </script>
-
-    <!--Quitar candidato-->
-    <script>
-        function QuitarCandidato(idPerro){
-            Swal.fire({
-                title: '¿Desea quitar al candidato de TinderDog?',
-                text: "Confirme la acción",
-                imageUrl: "/img/tinderdog - logo.png",
-                imageHeight: 100,
-                showCancelButton: true,
-                confirmButtonText: 'Confirmar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '@Url.Action("QuitarCandidato", "Tinderdog")',
-                        type: 'POST',
-                        data: { idPerro: idPerro },
-                        success: function (data) {
-                            if (data.success) {
-                                Toast.fire({
-                                    icon: 'info',
-                                    text: '¡El candidato ha sido quitado de TinderDog!'
-                                })
-                                ListarCandidatos();
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.log(xhr);
-                            console.log(status);
-                            console.log(error);
-                        }
-                    });
-                }
-            })
         }
     </script>
 
@@ -500,7 +329,7 @@
     <!--Validacion de subida de foto-->
     <script>
         function ValidarFoto() {
-            for(var i = 0; i < this.files.length; i++){
+            for (var i = 0; i < this.files.length; i++) {
                 var fileName = this.files[i].name;
                 var idxDot = fileName.lastIndexOf(".") + 1;
                 var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
@@ -520,5 +349,125 @@
         inputFiles.forEach(function (elemento) {
             elemento.addEventListener("change", ValidarFoto);
         });
+    </script>
+
+    <!--Gestion de publicacion-->
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        function InicializarInputs(idFormulario, idBotonAceptar) {
+            var formulario = document.getElementById(idFormulario);
+            var campos = formulario.querySelectorAll(".InputText, .InputDate, .InputFoto");
+
+            campos.forEach(function (campo) {
+                campo.classList.add("is-valid");
+            });
+
+            document.getElementById(idBotonAceptar).disabled = false;
+        }
+        
+        function ObtenerPublicacion(idPerro, modalName) {
+            $.ajax({
+                url: '@Url.Action("ObtenerPublicacion", "Tinderdog")',
+                type: 'GET',
+                data: { idPublicacion: idPerro }, // Enviar los datos al controlador
+                success: function (data) {
+                    document.getElementById('idPerro').value = data.idPerro;
+                    if (data.sexo == "Hembra"){
+                        document.getElementById("FechaCelo").value = new Date(data.celo).toISOString().split("T")[0];
+                        document.getElementById("DescripcionHembra").value = data.descripcion;
+                        InicializarInputs("FormPublicacionHembra", "BotonRegistrarH");
+                    }else{
+                        document.getElementById("DescripcionMacho").value = data.descripcion;
+                        InicializarInputs("FormPublicacionMacho", "BotonRegistrarM");
+                    }
+                    
+                    $('#' + modalName).modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+
+        function RegistrarCelo(modalName) {
+            var idPerro = document.getElementById('idPerro').value;
+            var descripcion = document.getElementById('DescripcionHembra').value;
+            var fechaCelo = document.getElementById('FechaCelo').value;
+
+            $.ajax({
+                url: '@Url.Action("ModificarCelo", "Tinderdog")',
+                type: 'POST',
+                data: { idPerro: idPerro, FechaCelo: fechaCelo },
+                success: function (data) {
+                    ModificarPerfil(idPerro, descripcion, 'FotosHembra', 'ModalCelo');
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+
+        function ModificarPerfil(idPerro, descripcion, idFoto, modalName) {
+            Swal.fire({
+                title: '¿Desea modificar la publicación de TinderDog?',
+                text: "Confirme la acción",
+                imageUrl: "/img/tinderdog - logo.png",
+                imageHeight: 100,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var publicacion = {
+                        idPerro: idPerro,
+                        descripcion: descripcion
+                    };
+                    var fotos = RegistrarFoto(idFoto);
+
+                    $.ajax({
+                        url: '@Url.Action("ModificarPerfil", "Tinderdog")',
+                        type: 'POST',
+                        data: { publicacion: publicacion, fotos: fotos },
+                        success: function (data) {
+                            if (data.success) {
+                                Toast.fire({
+                                    icon: 'success',
+                                    text: '¡La publicación de TinderDog ha sido actualizada!'
+                                })
+
+                                var botonesCancelar = document.querySelectorAll(".BtnCancelarForm");
+                                botonesCancelar.forEach(function (elemento) {
+                                    elemento.click();
+                                });
+
+                                $('#' + modalName).modal('hide');
+                                ListarPerfil();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            })
+        }
     </script>
 }

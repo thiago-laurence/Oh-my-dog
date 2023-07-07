@@ -10,23 +10,24 @@
 }
 else
 {
+    <!--
     <div class="container px-4 py-5" id="custom-cards">
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-            @foreach(var item in Model)
+            @@foreach(var item in Model)
             {
                 <div class="col">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://localhost:7035/img/@((item.Foto != null) ? item.Foto : "LogoPerroDefault.jpg")');">
+                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://localhost:7035/img/@@((item.Foto != null) ? item.Foto : "LogoPerroDefault.jpg")');">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                             <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
-                                @item.Nombre
+                                @@item.Nombre
                             </h3>
                             <ul class="d-flex list-unstyled mt-auto">
                                 <li class="me-auto">
-                                    @if (item.PublicacionTinderdog == null)
+                                    @@if (item.PublicacionTinderdog == null)
                                     {
-                                        @if (item.Sexo == "Hembra")
+                                        @@if (item.Sexo == "Hembra")
                                         {
-                                            <button class="btn btn-success" style="color: #FFFFFF;" onclick="CargarPublicacion(@(item.Id), 'ModalCelo')"
+                                            <button class="btn btn-success" style="color: #FFFFFF;" onclick="CargarPublicacion(@@(item.Id), 'ModalCelo')"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                     data-bs-custom-class="tooltip-warning"
                                                     data-bs-title="Publicar candidato">
@@ -35,7 +36,7 @@ else
                                         }
                                         else
                                         {
-                                            <button class="btn btn-success" style="color: #FFFFFF;" onclick="CargarPublicacion(@(item.Id), 'ModalPublicacion')"
+                                            <button class="btn btn-success" style="color: #FFFFFF;" onclick="CargarPublicacion(@@(item.Id), 'ModalPublicacion')"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                     data-bs-custom-class="tooltip-warning"
                                                     data-bs-title="Publicar candidato">
@@ -43,25 +44,25 @@ else
                                             </button>
                                         }
                                     }else{
-                                        <a class="btn btn-sugerencias" asp-controller="Tinderdog" asp-action="Sugerencias" asp-route-idPerro="@item.Id"
+                                        <a class="btn btn-sugerencias" asp-controller="Tinderdog" asp-action="Sugerencias" asp-route-idPerro="@@item.Id"
                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
                                            data-bs-custom-class="tooltip-sugerencias"
                                            data-bs-title="Sugerencias">
                                             <i class="fa-sharp fa-solid fa-fire fa-xl"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-flechazo" asp-controller="Tinderdog" asp-action="Matches" asp-route-idPerro="@item.Id"
+                                        <a class="btn btn-sm btn-flechazo" asp-controller="Tinderdog" asp-action="Matches" asp-route-idPerro="@@item.Id"
                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
                                            data-bs-custom-class="tooltip-flechazo"
                                            data-bs-title="Flechazos" style="padding: 2px 6px;">
                                            <img src="~/img/cupido.png" height="33">
                                         </a>
-                                        <a class="btn btn-danger" asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id" 
+                                        <a class="btn btn-danger" asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@@item.Id" 
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             data-bs-custom-class="tooltip-meGustas"
                                             data-bs-title="Me gustas recibidos">
                                             <i class="fa-sharp fa-solid fa-heart fa-xl"></i>
                                         </a>
-                                        <button class="btn btn-quitar" onclick="QuitarCandidato(@(item.Id))"
+                                        <button class="btn btn-quitar" onclick="QuitarCandidato(@@(item.Id))"
                                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                 data-bs-custom-class="tooltip-quitar"
                                                 data-bs-title="Quitar candidato">
@@ -71,9 +72,85 @@ else
                                 </li>
                             </ul>
                         </div>
+                        <button class="card-button">
+                            <i class="fa-sharp fa-solid fa-dog fa-xl"></i>
+                        </button>
                     </div>
                 </div>        
             }
         </div>
+    </div>
+     -->
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col" style="padding: 0px 5px;">
+                <div class="card @((item.Sexo == "Hembra") ? "cardH" : "cardM")" style="margin: 25px;">
+                    <div style="padding: 10px;">
+                        <img src="/img/@((item.Foto != null) ? item.Foto : "LogoPerroDefault.jpg")" class="card-img-top shadow-sm" alt="img-perro" style="border-radius: 10%;">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title fw-bold">
+                            @item.Nombre
+                        </h3>
+                    </div>
+                    <div class="card-footer text-center" style="background-color: unset;">
+                        @if (item.PublicacionTinderdog == null)
+                        {
+                            @if (item.Sexo == "Hembra")
+                            {
+                                <button class="btn btn-primary" style="color: #FFFFFF;" onclick="CargarPublicacion(@(item.Id), 'ModalCelo')"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        data-bs-custom-class="tooltip-publicar"
+                                        data-bs-title="Publicar candidato">
+                                    <i class="fa-sharp fa-solid fa-circle-plus fa-xl"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-primary" style="color: #FFFFFF;" onclick="CargarPublicacion(@(item.Id), 'ModalPublicacion')"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        data-bs-custom-class="tooltip-publicar"
+                                    data-bs-title="Publicar candidato">
+                                    <i class="fa-sharp fa-solid fa-circle-plus fa-xl"></i>
+                                </button>
+                            }
+                        }else{
+                            <a class="btn btn-primary" style="color: #FFFFFF;" asp-controller="Tinderdog" asp-action="PerfilPerro" asp-route-idPerro="@item.Id"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    data-bs-custom-class="tooltip-publicar"
+                                    data-bs-title="Perfil">
+                                <i class="fa-sharp fa-solid fa-dog fa-xl"></i>
+                            </a>
+                            <a class="btn btn-sugerencias" asp-controller="Tinderdog" asp-action="Sugerencias" asp-route-idPerro="@item.Id"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom"
+                               data-bs-custom-class="tooltip-sugerencias"
+                               data-bs-title="Sugerencias">
+                                <i class="fa-sharp fa-solid fa-fire fa-xl"></i>
+                            </a>
+                            <a class="btn btn-sm btn-flechazo" asp-controller="Tinderdog" asp-action="Matches" asp-route-idPerro="@item.Id"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom"
+                               data-bs-custom-class="tooltip-flechazo"
+                               data-bs-title="Flechazos" style="padding: 2px 6px;">
+                                <img src="~/img/cupido.png" height="33">
+                            </a>
+                            <a class="btn btn-danger" asp-controller="Tinderdog" asp-action="MeGustasRecibidos" asp-route-idPerro="@item.Id"
+                               data-bs-toggle="tooltip" data-bs-placement="bottom"
+                               data-bs-custom-class="tooltip-meGustas"
+                               data-bs-title="Me gustas recibidos">
+                                <i class="fa-sharp fa-solid fa-heart fa-xl"></i>
+                            </a>
+                            <button class="btn btn-quitar" onclick="QuitarCandidato(@(item.Id))"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    data-bs-custom-class="tooltip-quitar"
+                                    data-bs-title="Quitar candidato">
+                                <i class="fa-sharp fa-solid fa-trash-can fa-xl"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 }

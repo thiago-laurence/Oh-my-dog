@@ -77,6 +77,30 @@
     .tooltip-danger {
         --bs-tooltip-bg: var(--bs-danger);
     }
+
+    .cupid {
+        position: absolute;
+        top: -37.5%;
+        right: 0%;
+        transform: translateX(100%);
+        animation: flying-cupid 10s linear infinite;
+        border-radius: 50%;
+        width: 170px;
+    }
+
+    @@keyframes flying-cupid {
+        0% {
+            transform: translateX(100%);
+        }
+
+        50% {
+            transform: translateX(-300%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
 </style>
 
 
@@ -139,6 +163,24 @@
         </div>
     </div>
 </div>
+
+<!--SWAL de cupido-->
+<template id="Cupido">
+    <swal-html>
+        <img src="~/img/cupidDog.gif" alt="Cupid" class="cupid">
+        <img src="~/img/match.png" width="200" alt="img-match" />
+        <h4>
+            ¿Quiere romper el hielo enviando el primer mensaje a su "Flechazo"?
+        </h4>
+    </swal-html>
+    <swal-button type="confirm">
+        Contactar
+    </swal-button>
+    <swal-button type="cancel">
+        Cancelar
+    </swal-button>
+    <swal-param name="allowEscapeKey" value="false" />
+</template>
 
 @section Scripts{
     <!-- Constantes de inicializacion de tooltips -->
@@ -302,13 +344,7 @@
                 success: function (data) {
                     if (data.match) {
                         Swal.fire({
-                            text: '¿Quiere romper el hielo enviando el primer mensaje a su "Flechazo"?',
-                            imageUrl: "/img/match.png",
-                            imageHeight: 300,
-                            showCancelButton: true,
-                            confirmButtonText: 'Contactar',
-                            cancelButtonText: 'Cancelar',
-                            reverseButtons: true
+                            template: '#Cupido'
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 VisualizarContacto(idPerroReceptor);

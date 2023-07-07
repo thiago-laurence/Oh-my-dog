@@ -264,5 +264,58 @@ namespace Aplicacion.Controllers
         {
             return Path.Combine(Path.GetFullPath("wwwroot") + "\\img", filename);
         }
+
+        public IActionResult PerfilPerro(int idPerro)
+        {
+            ViewBag.ActiveView = "Tinderdog";
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.Fotos).First();
+            return (View("Perfil", perro));
+        }
+
+        [HttpGet]
+        public IActionResult ListarPerfil(int idPerro)
+        {
+            var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.Perro).Include(p => p.Fotos).First();
+            return (PartialView("_ListarPerfil", perro));
+        }
+
+        [HttpGet]
+        public JsonResult ObtenerPublicacion(int idPublicacion)
+        {
+            var publicacion = _context.PublicacionTinderdog.Where(p => p.Id == idPublicacion).Include(p => p.Perro).First();
+            if(publicacion.Perro.Sexo == "Hembra")
+            {
+                return (Json(new { sexo = publicacion.Perro.Sexo, idPerro = publicacion.IdPerro, descripcion = publicacion.Descripcion, celo = publicacion.Perro.Celo }));
+            }
+            return (Json(new { sexo = publicacion.Perro.Sexo, idPerro = publicacion.IdPerro, descripcion = publicacion.Descripcion }));
+        }
+
+        [HttpPost]
+        public JsonResult ModificarCelo(int idPerro, DateTime FechaCelo)
+        {
+            var perro = _context.Perros.Where(p => p.Id == idPerro).First();
+            perro.Celo = FechaCelo;
+            _context.Perros.Update(perro);
+            _context.SaveChanges();
+            return Json(new { succes = true });
+        }
+
+        [HttpPost]
+        public JsonResult ModificarPerfil(PublicacionTinderdog publicacion, List<string> fotos)
+        {
+            var publicacionOriginal = _context.PublicacionTinderdog.Where(p => p.IdPerro == publicacion.IdPerro).First();
+            publicacionOriginal.Descripcion = publicacion.Descripcion;
+            if (fotos[0] != null)
+            {
+                fotos.ForEach(f => {
+                    var fotos = _context.FotosPublicacionTinderdog.Where(p => p.IdPublicacion == publicacionOriginal.Id).ToList();
+                    fotos.ForEach(f => { _context.FotosPublicacionTinderdog.Remove(f); });
+                    _context.FotosPublicacionTinderdog.Add(new FotosPublicacionTinderdog { IdPublicacion = publicacionOriginal.Id, Foto = f });
+                });
+            }
+            _context.SaveChanges();
+
+            return (Json(new { success = true }));
+        }
     }
 }
