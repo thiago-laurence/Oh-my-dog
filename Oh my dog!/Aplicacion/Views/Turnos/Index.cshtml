@@ -172,30 +172,30 @@ else
 						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control"readonly id="mailPendiente" aria-describedby="inputGroupPrepend">
+							<input type="email" maxlength="50" class="form-control is-valid"readonly id="mailPendiente" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
 					
 					<div class="col-md-12">
 						<label class="form-label">Mascotas</label>
-						<textarea type="text" class="form-control" readonly id="mascotasPendiente" required></textarea>
+						<textarea type="text" class="form-control is-valid" readonly id="mascotasPendiente" required></textarea>
 						
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="date" maxlength="20" class="form-control" readonly id="fechaPendiente" required>
+						<input type="date" maxlength="20" class="form-control is-valid" readonly id="fechaPendiente" required>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Franja solicitada</label>
-						<input type="text" maxlength="20" class="form-control"readonly id="horarioPendiente" required>
+						<input type="text" maxlength="20" class="form-control is-valid" readonly id="horarioPendiente" required>
 
 					</div>
 
 				
 					
 					<div class="col-md-6">
-						<label class="form-label">Horario final</label>
+						<label class="form-label">Horario final<span class="text-success">* </span></label>
 						<input type="time" maxlength="20" class="form-control"  id="horarioFinalPendiente" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
@@ -204,17 +204,24 @@ else
 
 					<div class="col-md-12">
 						<label class="form-label">Motivo</label>
-						<input class="form-control" autocomplete="false" id="motivoPendiente" readonly maxlength="50" required>
+						<input class="form-control is-valid" autocomplete="false" id="motivoPendiente" readonly maxlength="50" required>
 						
 					</div>
 					<div class="col-md-12">
-						<label class="form-label">Comentarios</label>
+						<label class="form-label">Comentarios<span class="text-danger">* </span></label>
 						<textarea class="form-control" autocomplete="false" value="" id="comentario"  maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
 					</div>
-					
+					<div class="col-md-12">
+						<span class="text-danger">*</span>
+						<span>Obligatorio para rechazar el turno</span>
+					</div>
+					<div class="col-md-12">
+						<span class="text-success">*</span>
+						<span>Obligatorio para aceptar el turno</span>
+					</div>
 					<div class="modal-footer">
 							<div class="d-flex justify-content-center">
 								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" disabled id="rechazar-button">Rechazar</button>
@@ -249,23 +256,23 @@ else
 						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control"readonly id="mailAceptado" aria-describedby="inputGroupPrepend">
+							<input type="email" maxlength="50" class="form-control is-valid"readonly id="mailAceptado" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
 					
 					<div class="col-md-12">
 						<label class="form-label">Mascotas</label>
-						<textarea type="text"  class="form-control" readonly id="mascotasAceptado" required></textarea>
+						<textarea type="text"  class="form-control is-valid" readonly id="mascotasAceptado" required></textarea>
 						
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="date" maxlength="20" class="form-control" readonly id="fechaAceptado" required>
+						<input type="date" maxlength="20" class="form-control is-valid" readonly id="fechaAceptado" required>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Franja solicitada</label>
-						<input type="text" maxlength="20" class="form-control"readonly id="horarioAceptado" required>
+						<input type="text" maxlength="20" class="form-control is-valid" readonly id="horarioAceptado" required>
 
 					</div>
 
@@ -273,7 +280,7 @@ else
 					
 					<div class="col-md-6">
 						<label class="form-label">Horario final</label>
-						<input type="time" maxlength="20" class="form-control" readonly  id="horarioFinalAceptado" required>
+						<input type="time" maxlength="20" class="form-control is-valid" readonly  id="horarioFinalAceptado" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
 						</div>
@@ -281,12 +288,12 @@ else
 
 					<div class="col-md-12">
 						<label class="form-label">Motivo</label>
-						<input class="form-control" autocomplete="false" id="motivoAceptado" readonly maxlength="50" required>
+						<input class="form-control is-valid" autocomplete="false" id="motivoAceptado" readonly maxlength="50" required>
 						
 					</div>
 					<div class="col-md-12">
 						<label class="form-label">Comentarios</label>
-						<textarea class="form-control" autocomplete="false" value="" id="comentarioAceptado" readonly maxlength="200"></textarea>
+						<textarea class="form-control is-valid" autocomplete="false" value="" id="comentarioAceptado" readonly maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
@@ -305,7 +312,7 @@ else
 <!--Fin modal Turno aceptado detalle-->
 
 
-<!--Inicio Modal Ver detalle aceptado-->
+<!--Inicio Modal Ver detalle rechazado-->
 <div class="modal fade" id="detalleRechazado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -323,23 +330,23 @@ else
 						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control" readonly id="mailRechazado" aria-describedby="inputGroupPrepend">
+							<input type="email" maxlength="50" class="form-control is-valid" readonly id="mailRechazado" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<label class="form-label">Mascotas</label>
-						<textarea type="text"  class="form-control" readonly id="mascotasRechazado" required></textarea>
+						<textarea type="text"  class="form-control is-valid" readonly id="mascotasRechazado" required></textarea>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="date" maxlength="20" class="form-control" readonly id="fechaRechazado" required>
+						<input type="date" maxlength="20" class="form-control is-valid" readonly id="fechaRechazado" required>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Franja solicitada</label>
-						<input type="text" maxlength="20" class="form-control" readonly id="horarioRechazado" required>
+						<input type="text" maxlength="20" class="form-control is-valid" readonly id="horarioRechazado" required>
 
 					</div>
 
@@ -347,7 +354,7 @@ else
 
 					<div class="col-md-6">
 						<label class="form-label">Horario final</label>
-						<input type="time" maxlength="20" class="form-control" readonly id="horarioFinalRechazado" required>
+						<input type="time" maxlength="20" class="form-control is-valid" readonly id="horarioFinalRechazado" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
 						</div>
@@ -355,12 +362,12 @@ else
 
 					<div class="col-md-12">
 						<label class="form-label">Motivo</label>
-						<input class="form-control" autocomplete="false" id="motivoRechazado" readonly maxlength="50" required>
+						<input class="form-control is-valid" autocomplete="false" id="motivoRechazado" readonly maxlength="50" required>
 
 					</div>
 					<div class="col-md-12">
 						<label class="form-label">Comentarios</label>
-						<textarea class="form-control" autocomplete="false" value="" id="comentarioRechazado" readonly maxlength="200"></textarea>
+						<textarea class="form-control is-valid" autocomplete="false" value="" id="comentarioRechazado" readonly maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
@@ -433,14 +440,19 @@ else
 		</div>
 	</div>
 </div>
-<!--Fin Modal Visualizar Paseador para contacto-->
+<!--Fin Modal Solicitar turno para contacto-->
 
 
 @section Scripts{
 	<!--Por cada mascota se da la opcion de seleccionar de entre sus mascotas o ingresar una nueva. Máximo 5 mascotas-->
 	<script>
 
-
+		$(document).on('keyup keypress', 'form input[type="text"]', function (e) {
+			if (e.which == 13) {
+				e.preventDefault();
+				return false;
+			}
+		});
 
 		/*En vez de tener que seleccionar de entre las opciones, lo que se hace es seleccionar un checkbox.
 
@@ -628,9 +640,6 @@ else
 			verificarOtra();	
 			verificarCheckbox();
 			
-			
-
-
 			$("#cancel-button").click(function () {
 
 				verificarFechas();
