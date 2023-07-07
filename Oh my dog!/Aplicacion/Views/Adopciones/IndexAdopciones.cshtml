@@ -324,7 +324,7 @@
         });
     </script>
 
-    <!--Envio de formulario de contacto-->
+    <!--Elimnar adopcion -->
     <script>
         window.addEventListener('load', function () {
             capitalizarNombresPerros();
@@ -386,7 +386,8 @@
                 nombrePerroElemento.textContent = nombrePerro;
             });
         }
-        function enviarCorreoPublicador() {
+        // Contacto con el publicador
+        function enviarCorreoPublicador(adopcionId) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -394,7 +395,7 @@
                 },
                 buttonsStyling: false
             })
-
+            var adopcionId = $('#adopcionId').val();
             Swal.fire({
                 title: '¿Enviar correo al publicador de la adopcion?',
                 text: "Confirme la acción",
@@ -405,13 +406,14 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    var card = document.querySelector('.card');
+                    var card = document.querySelector('.card');                   
                     var mensaje = {
                         remitente: document.getElementById("Remitente").value,
                         remitenteNombre: document.getElementById("RemitenteNombre").value,
                         destinatario: document.getElementById("Destinatario").value,
                         contenido: document.getElementById("Contenido").value,
-                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent
+                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent,
+                        adopcionId: adopcionId
                         //asunto: document.getElementById("Asunto").value
                     };
 
@@ -419,7 +421,7 @@
                         url: '@Url.Action("ContactarPublicador", "Adopciones")',
                         type: 'POST',
                         dataType: 'json',
-                        data: { remitente: mensaje.remitente, remitenteNombre: mensaje.remitenteNombre, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido },
+                        data: { remitente: mensaje.remitente, remitenteNombre: mensaje.remitenteNombre, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido, adopcionId: mensaje.adopcionId },
                         success: function (data) {
                             if (data.error) {
                                 Swal.fire({
@@ -441,11 +443,9 @@
                                     var form = document.getElementById("formContactoPublicador");
                                     form.reset();
                                     form.classList.remove('was-validated');
-
                                 } else {
                                     Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error...',
+                                        icon: 'warning',
                                         text: data.message
                                     })
                                 }

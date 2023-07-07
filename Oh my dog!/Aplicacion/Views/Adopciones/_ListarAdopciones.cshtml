@@ -28,6 +28,7 @@ else
             {
                 <div class="col-md-3">
                     <div class="container-card shadow-lg">
+                        <input type="hidden" id="adopcionId" value="@adopcion.Id" />
                         <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
                             @if (adopcion.Estado == 1)
                             {

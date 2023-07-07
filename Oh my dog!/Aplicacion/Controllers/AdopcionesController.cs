@@ -132,11 +132,24 @@ namespace Aplicacion.Controllers
             }
             return Json(new { success = true });
         }
-        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario)
+        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario, int adopcionId)
         {
             if (contenido == null)
             {
                 return Json(new { error = true, message = "Por favor escriba algun mensaje" });
+            }
+            if (remitente != null)
+            {
+                ContactoAdopciones contactoAdopcion = _context.ContactoAdopciones.Where(ca => ca.EmailRemitente == remitente && ca.IdAdopcion == adopcionId).FirstOrDefault();
+                if (contactoAdopcion != null) 
+                {                   
+                    return (Json(new { success = false, message = "Ya contactaste al dueño de esta publicacion" }));
+                }
+                ContactoAdopciones contactoAdopcionNew = new ContactoAdopciones();
+                contactoAdopcionNew.IdAdopcion = adopcionId;
+                contactoAdopcionNew.EmailRemitente = remitente;
+                _context.Add(contactoAdopcionNew);
+                _context.SaveChangesAsync();
             }
             _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
 
