@@ -484,7 +484,7 @@ else
 			var nombreInput = $("<textarea>").addClass("form-control").prop("required", true).attr('placeholder',"Ejemplo: Firu, Elvis Presley, George");
 
 			// Crear el div para el mensaje de error
-			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas que no se encuentren en el listado");
+			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas separadas por ',' que no se encuentren en el listado.");
 
 			// Agregar los elementos al div "otra"
 			otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);
@@ -548,7 +548,7 @@ else
 				
 				
 				var inputOtra=$(this);
-				const regex = /^([A-Za-z]+\s+[A-Za-z]+|[A-Za-z]+)(\s*,\s*([A-Za-z]+\s+[A-Za-z]+|[A-Za-z]+))*$/;
+				const regex = /^\s*\w+(?:\s*\w+)*(?:\s*,\s*\w+(?:\s*\w+)*)*\s*$/;
 
 
 				if (!regex.test(valorBuscar)) {
@@ -818,15 +818,16 @@ else
 					return;
 				}
 
-				if (actual.getDay() == 6 && date.getHours()>=8 && date.getDay() == 6) {
+			if (actual.getDay() == 6 && date.getHours() >= 13 && date.getDate() == actual.getDate()) {
 					$("#add-button").addClass("d-none");
+					
 					return;
 				}else
 					if (actual.getDay() == 6){
-
+						
 						$("#franjaTarde").prop("disabled", true);
 					}
-				
+			
 
 				if ((($("#label.year").html() == date.getFullYear())
 					&& (meses[($(".active-month").html())] == date.getMonth()))

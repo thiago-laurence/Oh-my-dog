@@ -209,6 +209,8 @@ namespace Aplicacion.Controllers
             var publicacion = _context.PublicacionTinderdog.FirstOrDefault(p => p.IdPerro == idPerro);
             if (publicacion != null)
             {
+                List<FotosPublicacionTinderdog> fotos = _context.FotosPublicacionTinderdog.Where(id => id.IdPublicacion == publicacion.Id).ToList();
+                _context.FotosPublicacionTinderdog.RemoveRange(fotos);
                 _context.PublicacionTinderdog.Remove(publicacion);
                 _context.SaveChanges();
             }
