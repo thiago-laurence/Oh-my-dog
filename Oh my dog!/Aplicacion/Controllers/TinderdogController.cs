@@ -210,7 +210,12 @@ namespace Aplicacion.Controllers
             if (publicacion != null)
             {
                 List<FotosPublicacionTinderdog> fotos = _context.FotosPublicacionTinderdog.Where(id => id.IdPublicacion == publicacion.Id).ToList();
+                /*List<PerrosNoMeGusta> noMeGustas=_context.PerrosNoMeGusta.Where(id=>id.IdPerroReceptor==publicacion.IdPerro || id.IdPerroEmisor== publicacion.IdPerro).ToList();
+                List<PerrosMeGusta> meGustas= _context.PerrosMeGusta.Where(id => id.IdPerroReceptor == publicacion.IdPerro || id.IdPerroEmisor == publicacion.IdPerro).ToList();
                 _context.FotosPublicacionTinderdog.RemoveRange(fotos);
+                _context.PerrosMeGusta.RemoveRange(meGustas);
+                _context.PerrosNoMeGusta.RemoveRange(noMeGustas);
+                */
                 _context.PublicacionTinderdog.Remove(publicacion);
                 _context.SaveChanges();
             }
