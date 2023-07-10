@@ -28,7 +28,7 @@ else
             {
                 <div class="col-md-3">
                     <div class="container-card">
-                        <div class="card mt-4 mb-4 @(perdida.Estado == 1 ? "card-perdida" : "" )" data-perdida-id="@perdida.Id">
+                        <div class="card mt-4 mb-4 @(perdida.Estado == 1 ? "card-perdida" : "" )" data-perdida-id="@perdida.Id" data-destinatario="@perdida.Email" data-nombreperro="@perdida.Nombre">
                             @if (perdida.Estado == 1)
                             {
                                 @if(perdida.Foto != null)
@@ -63,7 +63,7 @@ else
                                 <div class="d-flex gap-3">
                                     @if (perdida.Estado == 0)
                                     {
-                                        <button class="btn btn-custom BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@perdida.Email">
+                                        <button class="btn btn-custom BtnVisualizarContacto" onclick="BtnVisualizarContacto('@perdida.Id', '@User.FindFirstValue("Email")', '@perdida.Email')" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@perdida.Email">
                                             <i class="bi bi-send"></i>
                                         </button>
                                     }

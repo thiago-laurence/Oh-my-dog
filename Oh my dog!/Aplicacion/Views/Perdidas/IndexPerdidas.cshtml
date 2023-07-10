@@ -85,6 +85,7 @@
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formContactoPublicador">
                     <input type="text" class="form-control" id="RemitenteNombre" name="RemitenteNombre" readonly value="@User.Identity!.Name" hidden>
+                    <input type="number" id="idPerdida" hidden value="">
                     <div class="col-md-12">
                         <label for="remitente" class="form-label">Remitente</label>
                         @if (User.Identity.IsAuthenticated)
@@ -290,12 +291,13 @@
 
     <!--Inicializacion de Remitente y Destinatario-->
     <script>
-        $(document).on('click', '.BtnVisualizarContacto', function () {
-            document.getElementById("Remitente").value = $(this).data('remitente');;
-            document.getElementById("Destinatario").value = $(this).data('destinatario');;
+        function BtnVisualizarContacto(idPerdida, remitente, destinatario) {
+            document.getElementById("Remitente").value = remitente;
+            document.getElementById("Destinatario").value = destinatario;
+            document.getElementById("idPerdida").value = idPerdida;;
 
             $('#ModalContactar').modal('show');
-        });
+        };
     </script>
 
     <!--Envio de formulario de contacto-->
@@ -305,6 +307,8 @@
         });
         $('.eliminar-btn').click(function () {
             var perdidaId = $(this).closest('.card').data('perdida-id');
+            var destinatario = $(this).closest('.card').data('destinatario');
+            var nombrePerro = $(this).closest('.card').data('nombreperro');
             var tarjetaPerdida = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
 
             Swal.fire({
@@ -322,7 +326,7 @@
                     $.ajax({
                         url: '/Perdidas/BajaLogica',
                         type: 'POST',
-                        data: { id: perdidaId },
+                        data: { id: perdidaId, destinatario: destinatario, nombrePerro: nombrePerro },
                         success: function (response) {
                             // Eliminar la tarjeta de adopción del DOM
                             tarjetaPerdida.parent().parent().remove();
@@ -385,7 +389,8 @@
                         remitenteNombre: document.getElementById("RemitenteNombre").value,
                         destinatario: document.getElementById("Destinatario").value,
                         contenido: document.getElementById("Contenido").value,
-                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent
+                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent,
+                        perdidaId: document.getElementById("idPerdida").value
                         //asunto: document.getElementById("Asunto").value
                     };
 
@@ -418,8 +423,7 @@
 
                                 } else {
                                     Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error...',
+                                        icon: 'warning',
                                         text: data.message
                                     })
                                 }

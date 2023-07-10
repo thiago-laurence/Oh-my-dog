@@ -111,6 +111,7 @@
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formContactoPublicador">
                     <input type="text" class="form-control" id="RemitenteNombre" name="RemitenteNombre" readonly value="@User.Identity!.Name" hidden>
+                    <input type="number" id="idAdopcion" hidden value="">
                     <div class="col-md-12">
                         <label for="remitente" class="form-label">Remitente</label>
                         @if (User.Identity.IsAuthenticated)
@@ -316,12 +317,12 @@
 
     <!--Inicializacion de Remitente y Destinatario-->
     <script>
-        $(document).on('click', '.BtnVisualizarContacto', function () {
-            document.getElementById("Remitente").value = $(this).data('remitente');;
-            document.getElementById("Destinatario").value = $(this).data('destinatario');;
-
+        function BtnVisualizarContacto(idAdopcion, remitente, destinatario) {
+            document.getElementById("Remitente").value = remitente;
+            document.getElementById("Destinatario").value = destinatario;
+            document.getElementById("idAdopcion").value = idAdopcion;
             $('#ModalContactar').modal('show');
-        });
+        };
     </script>
 
     <!--Elimnar adopcion -->
@@ -331,6 +332,8 @@
         });
         $('.eliminar-btn').click(function () {
             var adopcionId = $(this).closest('.card').data('adopcion-id');
+            var destinatario = $(this).closest('.card').data('destinatario');
+            var nombrePerro = $(this).closest('.card').data('nombreperro');
             var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
 
             Swal.fire({
@@ -348,7 +351,7 @@
                     $.ajax({
                         url: '/Adopciones/BajaLogica',
                         type: 'POST',
-                        data: { id: adopcionId },
+                        data: { id: adopcionId, destinatario: destinatario, nombrePerro: nombrePerro},
                         success: function (response) {
                             // Eliminar la tarjeta de adopción del DOM
                             tarjetaAdopcion.parent().parent().remove();
@@ -387,7 +390,7 @@
             });
         }
         // Contacto con el publicador
-        function enviarCorreoPublicador(adopcionId) {
+        function enviarCorreoPublicador() {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -395,7 +398,6 @@
                 },
                 buttonsStyling: false
             })
-            var adopcionId = $('#adopcionId').val();
             Swal.fire({
                 title: '¿Enviar correo al publicador de la adopcion?',
                 text: "Confirme la acción",
@@ -413,7 +415,7 @@
                         destinatario: document.getElementById("Destinatario").value,
                         contenido: document.getElementById("Contenido").value,
                         nombrePerro: card.querySelector('.card-body .nombrePerro').textContent,
-                        adopcionId: adopcionId
+                        adopcionId: document.getElementById("idAdopcion").value
                         //asunto: document.getElementById("Asunto").value
                     };
 

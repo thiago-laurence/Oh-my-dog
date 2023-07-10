@@ -29,7 +29,7 @@ else
                 <div class="col-md-3">
                     <div class="container-card shadow-lg">
                         <input type="hidden" id="adopcionId" value="@adopcion.Id" />
-                        <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
+                        <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id" data-destinatario="@adopcion.Email" data-nombreperro="@adopcion.Nombre">
                             @if (adopcion.Estado == 1)
                             {
                                 <img src="~/img/publicarAdopcion-icon.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
@@ -51,7 +51,7 @@ else
                                 <div class="d-flex gap-3">
                                     @if (adopcion.Estado == 0)
                                     {
-                                        <button class="btn btn-custom BtnVisualizarContacto" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@adopcion.Email">
+                                        <button class="btn btn-custom BtnVisualizarContacto" onclick="BtnVisualizarContacto('@adopcion.Id', '@User.FindFirstValue("Email")', '@adopcion.Email')" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente='@User.FindFirstValue("Email")' data-destinatario='@adopcion.Email'>
                                             <i class="bi bi-send"></i>
                                         </button>
                                     }
