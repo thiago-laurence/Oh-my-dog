@@ -5,6 +5,17 @@
 @{
 	ViewData["Title"] = "Calendario de turnos";
 }
+
+
+<style>
+
+	#mascotas-dinamico{
+		margin-bottom: -21px;
+	};
+	
+	
+
+</style>
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -161,30 +172,30 @@ else
 						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control"readonly id="mailPendiente" aria-describedby="inputGroupPrepend">
+							<input type="email" maxlength="50" class="form-control is-valid"readonly id="mailPendiente" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
 					
 					<div class="col-md-12">
 						<label class="form-label">Mascotas</label>
-						<input type="text" class="form-control" readonly id="mascotasPendiente" required>
+						<textarea type="text" class="form-control is-valid" readonly id="mascotasPendiente" required></textarea>
 						
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="date" maxlength="20" class="form-control" readonly id="fechaPendiente" required>
+						<input type="date" maxlength="20" class="form-control is-valid" readonly id="fechaPendiente" required>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Franja solicitada</label>
-						<input type="text" maxlength="20" class="form-control"readonly id="horarioPendiente" required>
+						<input type="text" maxlength="20" class="form-control is-valid" readonly id="horarioPendiente" required>
 
 					</div>
 
 				
 					
 					<div class="col-md-6">
-						<label class="form-label">Horario final</label>
+						<label class="form-label">Horario final<span class="text-success">* </span></label>
 						<input type="time" maxlength="20" class="form-control"  id="horarioFinalPendiente" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
@@ -193,17 +204,24 @@ else
 
 					<div class="col-md-12">
 						<label class="form-label">Motivo</label>
-						<input class="form-control" autocomplete="false" id="motivoPendiente" readonly maxlength="50" required>
+						<input class="form-control is-valid" autocomplete="false" id="motivoPendiente" readonly maxlength="50" required>
 						
 					</div>
 					<div class="col-md-12">
-						<label class="form-label">Comentarios</label>
+						<label class="form-label">Comentarios<span class="text-danger">* </span></label>
 						<textarea class="form-control" autocomplete="false" value="" id="comentario"  maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
 					</div>
-					
+					<div class="col-md-12">
+						<span class="text-danger">*</span>
+						<span>Obligatorio para rechazar el turno</span>
+					</div>
+					<div class="col-md-12">
+						<span class="text-success">*</span>
+						<span>Obligatorio para aceptar el turno</span>
+					</div>
 					<div class="modal-footer">
 							<div class="d-flex justify-content-center">
 								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" disabled id="rechazar-button">Rechazar</button>
@@ -238,23 +256,23 @@ else
 						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control"readonly id="mailAceptado" aria-describedby="inputGroupPrepend">
+							<input type="email" maxlength="50" class="form-control is-valid"readonly id="mailAceptado" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
 					
 					<div class="col-md-12">
 						<label class="form-label">Mascotas</label>
-						<input type="text"  class="form-control" readonly id="mascotasAceptado" required>
+						<textarea type="text"  class="form-control is-valid" readonly id="mascotasAceptado" required></textarea>
 						
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="date" maxlength="20" class="form-control" readonly id="fechaAceptado" required>
+						<input type="date" maxlength="20" class="form-control is-valid" readonly id="fechaAceptado" required>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Franja solicitada</label>
-						<input type="text" maxlength="20" class="form-control"readonly id="horarioAceptado" required>
+						<input type="text" maxlength="20" class="form-control is-valid" readonly id="horarioAceptado" required>
 
 					</div>
 
@@ -262,7 +280,7 @@ else
 					
 					<div class="col-md-6">
 						<label class="form-label">Horario final</label>
-						<input type="time" maxlength="20" class="form-control" readonly  id="horarioFinalAceptado" required>
+						<input type="time" maxlength="20" class="form-control is-valid" readonly  id="horarioFinalAceptado" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
 						</div>
@@ -270,12 +288,12 @@ else
 
 					<div class="col-md-12">
 						<label class="form-label">Motivo</label>
-						<input class="form-control" autocomplete="false" id="motivoAceptado" readonly maxlength="50" required>
+						<input class="form-control is-valid" autocomplete="false" id="motivoAceptado" readonly maxlength="50" required>
 						
 					</div>
 					<div class="col-md-12">
 						<label class="form-label">Comentarios</label>
-						<textarea class="form-control" autocomplete="false" value="" id="comentarioAceptado" readonly maxlength="200"></textarea>
+						<textarea class="form-control is-valid" autocomplete="false" value="" id="comentarioAceptado" readonly maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
@@ -294,7 +312,7 @@ else
 <!--Fin modal Turno aceptado detalle-->
 
 
-<!--Inicio Modal Ver detalle aceptado-->
+<!--Inicio Modal Ver detalle rechazado-->
 <div class="modal fade" id="detalleRechazado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -312,23 +330,23 @@ else
 						<label class="form-label">Cliente</label>
 						<div class="input-group has-validation">
 							<span class="input-group-text" id="inputGroupPrepend">@@</span>
-							<input type="email" maxlength="50" class="form-control" readonly id="mailRechazado" aria-describedby="inputGroupPrepend">
+							<input type="email" maxlength="50" class="form-control is-valid" readonly id="mailRechazado" aria-describedby="inputGroupPrepend">
 						</div>
 					</div>
 
 					<div class="col-md-12">
 						<label class="form-label">Mascotas</label>
-						<input type="text"  class="form-control" readonly id="mascotasRechazado" required>
+						<textarea type="text"  class="form-control is-valid" readonly id="mascotasRechazado" required></textarea>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Fecha solicitada</label>
-						<input type="date" maxlength="20" class="form-control" readonly id="fechaRechazado" required>
+						<input type="date" maxlength="20" class="form-control is-valid" readonly id="fechaRechazado" required>
 
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Franja solicitada</label>
-						<input type="text" maxlength="20" class="form-control" readonly id="horarioRechazado" required>
+						<input type="text" maxlength="20" class="form-control is-valid" readonly id="horarioRechazado" required>
 
 					</div>
 
@@ -336,7 +354,7 @@ else
 
 					<div class="col-md-6">
 						<label class="form-label">Horario final</label>
-						<input type="time" maxlength="20" class="form-control" readonly id="horarioFinalRechazado" required>
+						<input type="time" maxlength="20" class="form-control is-valid" readonly id="horarioFinalRechazado" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
 						</div>
@@ -344,12 +362,12 @@ else
 
 					<div class="col-md-12">
 						<label class="form-label">Motivo</label>
-						<input class="form-control" autocomplete="false" id="motivoRechazado" readonly maxlength="50" required>
+						<input class="form-control is-valid" autocomplete="false" id="motivoRechazado" readonly maxlength="50" required>
 
 					</div>
 					<div class="col-md-12">
 						<label class="form-label">Comentarios</label>
-						<textarea class="form-control" autocomplete="false" value="" id="comentarioRechazado" readonly maxlength="200"></textarea>
+						<textarea class="form-control is-valid" autocomplete="false" value="" id="comentarioRechazado" readonly maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
@@ -375,7 +393,7 @@ else
 		<div class="modal-content">
 			<div class="modal-header">
 				<h1 class="modal-title fs-5" id="staticBackdropLabel">
-					<i class="fa-solid fa-envelope fa-xl"></i>
+					<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
 					Solicitud de turno
 				</h1>
 				<!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
@@ -383,18 +401,16 @@ else
 			<div class="modal-body">
 				<form autocomplete="off" class="row g-3" id="form-turnos" novalidate data-usuario-mail="@User.FindFirstValue("email")">
 					
-					<div class="col-md-12 mt-3">
-						<label class="form-label" style="font-size:14px;">Agregar mascota</label>
-						<button type="button" class="mx-5" onclick="agregarCamposMascota()"><i class="fa fa-plus" aria-hidden="true"></i></button>
-					</div>
 					<div id="mascotas-dinamico">
 						
 					</div>
-
+					<div class="invalid-feedback">
+						Seleccionar al menos una opción
+					</div>
 
 					<div class="col-md-12">
-						<label for="destinatario" class="form-label">Franja horaria</label>
-						<select id="horario">
+						<label for="destinatario" class="form-label d-block">Franja horaria<span class="text-danger">* </span></label>
+						<select class="form-select is-valid" id="horario">
 							<option selected id="franjaMañana">Mañana (8 a 13 hs)</option>
 							<option id="franjaTarde">Tarde (17 a 20 hs)</option>
 						</select>
@@ -402,13 +418,17 @@ else
 					
 
 					<div class="col-md-12">
-						<label for="validationCustom01" class="form-label">Motivo</label>
-						<input type="text" class="form-control" maxlength="100" id="motivo" name="motivo" placeholder="Ej: Vacuna antirrábica, consulta" required>
+						<label for="validationCustom01" class="form-label">Motivo<span class="text-danger asterisco">* </span></label>
+						<input type="text" class="form-control " maxlength="100" id="motivo" name="motivo" placeholder="Ej: Vacuna antirrábica, consulta" required>
 						<div class="invalid-feedback">
-							Ingrese el motivo de su turno! (máximo 100 caracteres)
+							Ingrese el motivo de su turno (máximo 100 caracteres)
 						</div>
 					</div>
 
+					<div class="col-md-12">
+						<span class="text-danger">*</span>
+						<span>Campos obligatorios</span>
+					</div>
 					<div class="modal-footer">
 
 						
@@ -420,250 +440,252 @@ else
 		</div>
 	</div>
 </div>
-<!--Fin Modal Visualizar Paseador para contacto-->
+<!--Fin Modal Solicitar turno para contacto-->
 
 
 @section Scripts{
 	<!--Por cada mascota se da la opcion de seleccionar de entre sus mascotas o ingresar una nueva. Máximo 5 mascotas-->
 	<script>
+
+		$(document).on('keyup keypress', 'form input[type="text"]', function (e) {
+			if (e.which == 13) {
+				e.preventDefault();
+				return false;
+			}
+		});
+
+		/*En vez de tener que seleccionar de entre las opciones, lo que se hace es seleccionar un checkbox.
+
+
+
+			*/
 		var container = $("#mascotas-dinamico");
-		function borrarCamposMascota(idBorrado){
-			if ($(".mascota").length >1){
-				// Obtener la última sección agregada
-				var aBorrar = container.find("#mascota"+ idBorrado);
-				// Remover la sección del contenedor
-				
-					var aDesocupar = $("#mascota" + idBorrado + " select option:selected").val();
-					$("select[name=misMascotas]").find('option:contains("' + aDesocupar + '")').prop('disabled', false);
-				
-				
-				aBorrar.remove();
-				if ($(".mascota").length ==1){
-				$("#borrarMascota").addClass("d-none");
-				}
-				cambiarValor();
-				verificarFormulario();
-				habilitarBotonEnvioContacto();
-			}
-		}
-		
-			function agregarCamposMascota() {
-				// Obtener el contenedor donde se generará el bloque dinámico
+
+
+		function agregarCamposMascota() {
+			// Obtener el contenedor donde se generará el bloque dinámico
+
+
+			// Crear el elemento div principal
+			var divElement = $("<div>").attr("id", "mascota" + ($(".mascota").length + 1)).addClass("col-md-12 mascota mt-2 mb-4");
+
+
+			// Crear el elemento label
+			var labelElement = $("<label>").attr("for", "misMascotas").addClass("form-label d-block").text("Marque las mascotas por las que se solicita turno");
+			$(labelElement).append('<span class="text-danger asterisco" >* </span>');
+
+			// Crear el div para la opción "Otra"
+			var otraDiv = $("<div>").addClass("d-none otra");
+
+			// Crear el label para el input de nombre. Lo sigo usando.
+			var nombreLabel = $("<label>").addClass("form-label mt-2").text("Nombres de las mascotas");
+			$(nombreLabel).append('<span class="text-danger asterisco" >* </span>');
+			// Crear el input de nombre
+			var nombreInput = $("<textarea>").addClass("form-control").prop("required", true).attr('placeholder',"Ejemplo: Firu, Elvis Presley, George");
+
+			// Crear el div para el mensaje de error
+			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas separadas por ',' que no se encuentren en el listado y no superen los 20 caracteres.");
+
+			// Agregar los elementos al div "otra"
+			otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);
+
+			// Agregar los elementos al div principal
+
 			
-			
-				// Crear el elemento div principal
-			var divElement = $("<div>").attr("id","mascota"+ ($(".mascota").length +1)).addClass("col-md-12 mascota mt-2 mb-4");
-				
-				
-				// Crear el elemento label
-				var labelElement = $("<label>").attr("for", "misMascotas").addClass("form-label").text("Seleccione a su mascota");
-
-				// Crear el elemento select
-				var selectElement = $("<select>").attr("name", "misMascotas").addClass("m-2").prop("required", true);
-				
-				// Crear la opción "Otra" dentro del select
-				var optionElement = $("<option>").addClass("otraMascota").text("Otra");
-				selectElement.append(optionElement);
-
-				// Crear el div para la opción "Otra"
-				var otraDiv = $("<div>").addClass("d-none otra");
-
-				// Crear el label para el input de nombre
-				var nombreLabel = $("<label>").addClass("form-label mt-2").text("Nombre");
-
-				// Crear el input de nombre
-				var nombreInput = $("<input>").attr({ "type": "text", "maxlength": "20" }).addClass("form-control").prop("required", true);
-
-				// Crear el div para el mensaje de error
-				var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese una mascota no registrada");
-
-				// Agregar los elementos al div "otra"
-				otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);
-
-				// Agregar los elementos al div principal
-			
-			if ($(".mascota").length>0){
-				var buttonEliminar = $('<button id = "borrarMascota' + ($(".mascota").length + 1) + '"class="" onclick = "borrarCamposMascota(' + ($(".mascota").length + 1) + ')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">< path d = "M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" /><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg></button>');
-				buttonEliminar.addClass("mx-3")
-				divElement.append(labelElement, selectElement,buttonEliminar, otraDiv);
-				}else{
-				divElement.append(labelElement, selectElement, otraDiv);
-				}
-				// Agregar el div principal al contenedor
-				container.append(divElement);
-
+			// Agregar el div principal al contenedor
+			divElement.append(labelElement);
+			container.append(divElement);
+			var divPorMascota;
+			var nodoOpcion;
 			$.each(mascotasUsuario, function (index, perro) {
-				
-				var nodoOpcion = $("<option class='otraMascota'>" + perro.Nombre + "</option>");
-				var clonNodo = nodoOpcion.clone();
-				$("#mascota" + $(".mascota").length + " select").prepend(clonNodo);
+				divPorMascota = $("<div class='d-block form-check'></div>");
+				nodoOpcion = $("<input type='checkbox' class='otraMascota form-check-input'>" + "<label class='ps-3 form-check-label'>" + perro.Nombre + "</label></input>");
+				divPorMascota.append(nodoOpcion);
+				$("#mascota" + $(".mascota").length).append(divPorMascota);
 			});
-			var nodoOpcion = $("<option class='otraMascota'>Seleccione una opcion</option>");
-			var clonNodo = nodoOpcion.clone();
-			$("#mascota" + $(".mascota").length + " select").prepend(clonNodo);
-			for (i = 1; i <= $(".mascota").length; i++) {
-				var aOcupar = $("#mascota" + i + " select option:selected").val();
-				if (aOcupar != 'Otra') {
-					$("select[name=misMascotas]").find('option:contains("' + aOcupar + '")').prop('disabled', true);
-				}
-			}
-			$("#mascota" + ($(".mascota").length) + " select").prop("selectedIndex",0);
-			$("#mascota" + ($(".mascota").length) + " select").find('option:contains("' + "Seleccione una opcion" + '")').prop('disabled', true);
-			$("#mascota" + ($(".mascota").length) + " select").find('option:contains("' + "Seleccione una opcion" + '")').prop('hidden', true);
-			cambiarValor();
+			divPorMascota = $("<div class=' form-check d-block'></div>");
+			nodoOpcion = $("<input type='checkbox' class='form-check-input otraMascota checkOtra'>" + "<label id='otraEtiqueta' class='ps-3 form-check-label'>Otra/s</label></input>");
+			divPorMascota.append(nodoOpcion);
+			$("#mascota" + $(".mascota").length).append(divPorMascota);
+			divElement.append(otraDiv);
 			verificarFormulario();
 			habilitarBotonEnvioContacto();
-			}
-			var asunto = document.getElementById('motivo');
-			var enviarButtonContacto = document.getElementById('BtnTurno');
-			//cambiar valor
-			function habilitarBotonEnvioContacto() {
-				var val = true;
+		}
 
-			var todosValidos = $(".mascota select").toArray().every(function (select) {
-				return $(select).hasClass("is-valid");
+
+
+
+		var asunto = document.getElementById('motivo');
+		var enviarButtonContacto = document.getElementById('BtnTurno');
+		//cambiar valor
+		function habilitarBotonEnvioContacto() {
+
+
+			var inputs = document.querySelectorAll(".mascota input:checked");
+			
+			var todosValidos =false;
+			
+			if (inputs.length>0){
+			todosValidos=Array.from(inputs).every(function (input) {
+				
+				return $(input).hasClass("is-valid");
 			});
-				
-				if (!(todosValidos)) {
-						val = false;
-					
-					}
-				
-				if (asunto.classList.contains('is-valid') && val) {
-					enviarButtonContacto.disabled = false;
-				} else {
-					enviarButtonContacto.disabled = true;
-				}
 			}
+			
 
 
-
-
-			var mascotasUsuario;
-			function verificarFormulario() {
-				asunto.addEventListener('input', validarAsunto);
-				$("select[name=misMascotas]").on('input', function () {
-					var valor = $(this).val();
-					var esValido;
-					var mascotaSeleccion = $(this);
-					if (valor != 'Otra') {
-						mascotaSeleccion.addClass('is-valid');
-						mascotaSeleccion.removeClass('is-invalid');
-						habilitarBotonEnvioContacto();
-					}
-					else {
-						mascotaSeleccion.removeClass('is-valid');
-						$(this).parent().find("div input").on('input', function () {
-							var valorBuscar = $(this).val();
-							var etiqueta = $(this);
-							if (valorBuscar == '') {
-								mascotaSeleccion.removeClass('is-valid');
-								mascotaSeleccion.addClass('is-invalid');
-								etiqueta.removeClass('is-valid');
-								etiqueta.addClass('is-invalid');
-								habilitarBotonEnvioContacto();
-							}
-							else {
-								var encontre = false;
-								$.each(mascotasUsuario, function (index, perro) {
-									if (valorBuscar.toLowerCase() == perro.Nombre.toLowerCase()) {
-
-										mascotaSeleccion.removeClass('is-valid');
-										mascotaSeleccion.addClass('is-invalid');
-										etiqueta.removeClass('is-valid');
-										etiqueta.addClass('is-invalid');
-										encontre = true;
-										return false;
-									}
-
-								});
-								if (!encontre) {
-									mascotaSeleccion.removeClass('is-invalid');
-									mascotaSeleccion.addClass('is-valid');
-									etiqueta.removeClass('is-invalid');
-									etiqueta.addClass('is-valid');
-								}
-								habilitarBotonEnvioContacto();
-							}
-						});
-					}
-				});
-
-
-
-				function validarAsunto() {
-					if (asunto.value.trim() !== '') {
-						asunto.classList.remove('is-invalid');
-						asunto.classList.add('is-valid');
-					} else {
-						asunto.classList.remove('is-valid');
-						asunto.classList.add('is-invalid');
-					}
-
-					habilitarBotonEnvioContacto();
-				}
-				// Habilitar o deshabilitar el botón de envío según la validez del formulario
-				
-
-				$("#cancel-button").click(function () {
-					
-					verificarFechas();
-					document.getElementById('form-turnos').reset();
-					
-				for (var i = $(".mascota").length; i >= 1; i--) {
-						($("#mascota"+i).remove());
-					}
-					
-					
-				
-					asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
-					
-					enviarButtonContacto.disabled = true;
-				agregarCamposMascota();
-					$(".events-container").show();
-				});
-
+			if (asunto.classList.contains('is-valid') && todosValidos) {
+				enviarButtonContacto.disabled = false;
+			} else {
+				enviarButtonContacto.disabled = true;
 			}
-			var previous;
-			function cambiarValor () {
-			$("select[name='misMascotas']").on('focus', function () {
-					previous = this.value;
-				})
-					.change(function () {
-						var actual = this.value;
-					$("select[name='misMascotas']").find('option:contains("' + previous + '")').prop('disabled', false);
-						if (!(actual == "Otra")) {
-							$(this).parent().find('div').addClass("d-none");
-						$("select[name='misMascotas']").find('option:contains("' + actual + '")').prop('disabled', true);
-						} else {
-							$(this).parent().find('div').removeClass("d-none");
+		}
+
+		function verificarOtra() 
+		{
+			$(".otra textarea").on('input', function () {
+				var valorBuscar = $(this).val();
+				
+				
+				var inputOtra=$(this);
+				const regex = /^\s*\w+(?:\s*\w+)*(?:\s*,\s*\w+(?:\s*\w+)*)*\s*$/;
+				var encontre = false;
+				var mascotasOtra = valorBuscar.split(/\s*,\s*/);
+				var mascotasMinus = [];
+
+				mascotasOtra.forEach(word => mascotasMinus.push(word.toLowerCase()));
+				var mayor = mascotasMinus.some(mascota => mascota.length > 20);
+
+				if (!regex.test(valorBuscar) || mayor) {
+					$(inputOtra).removeClass('is-valid');
+					$(inputOtra).addClass('is-invalid');
+					$(".checkOtra").removeClass('is-valid');
+					$(".checkOtra").addClass('is-invalid');
+					
+				}
+				else {
+					
+					$.each(mascotasUsuario, function (index, perro) {
+						if (mascotasMinus.indexOf(perro.Nombre.toLowerCase()) !== -1) {
+							$(inputOtra).removeClass('is-valid');
+							$(inputOtra).addClass('is-invalid');
+							$(".checkOtra").removeClass('is-valid');
+							$(".checkOtra").addClass('is-invalid');
+							encontre = true;
+							return false;
 						}
-						previous = this.value;
-						habilitarBotonEnvioContacto();
 					});
-			};
-			var emailUsuario = $("#form-turnos").data('usuario-mail'); // Obtener el valor del campo de entrada de 
-			$.ajax({
-				url: '@Url.Action("obtenerPerros", "Turnos")',
-				type: 'GET',
-				dataType: 'json',
-				data: { mail: emailUsuario }, // Enviar los datos al controlador
-				success: function (data) {
-				mascotasUsuario=data.slice();	
-				agregarCamposMascota();
-				$("#add-button").prop("disabled",false);
-				cambiarValor();
-				verificarFormulario();
-				habilitarBotonEnvioContacto();
-				},
-				error: function (xhr, status, error) {
-					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: 'Ocurrio un erorr!'
-					})
+					
+					if (!encontre) {
+						$(inputOtra).removeClass('is-invalid');
+						$(inputOtra).addClass('is-valid');
+						$(".checkOtra").removeClass('is-invalid');
+						$(".checkOtra").addClass('is-valid');
+					}
 				}
+				habilitarBotonEnvioContacto();
 			});
+		}
+
+		function limpiarInputYcheck(){
+			$(".checkOtra").removeClass('is-valid');
+			$(".checkOtra").removeClass('is-invalid');
+			$(".otra textarea").removeClass('is-valid');
+			$(".otra textarea").removeClass('is-invalid');
+			$(".otra textarea").val("");
+		}
+
+		function verificarCheckbox(){
+		$("input[type=checkbox]").on('click', function () {
+				
+				var mascotaSeleccion = $(this).parent().find("label");
+				var valor = $(mascotaSeleccion).text();
+				var esValido;
+				
+				if ($("input[type=checkbox]:checked").length) {
+					
+					$("#mascotas-dinamico").removeClass("is-invalid");
+					$("#mascotas-dinamico").addClass("is-valid");
+					
+				} else {
+					
+					$("#mascotas-dinamico").removeClass("is-valid");
+					$("#mascotas-dinamico").addClass("is-invalid");
+					
+				}
+				if (valor != 'Otra/s') {
+					$(this).toggleClass('is-valid');
+				}else{
+					$(".otra").toggleClass('d-none');
+					if($(".otra").hasClass('d-none')){
+						limpiarInputYcheck();
+					}
+				}
+				habilitarBotonEnvioContacto();
+			});
+		}
+
+
+		function validarAsunto() {
+			if (asunto.value.trim() !== '') {
+				asunto.classList.remove('is-invalid');
+				asunto.classList.add('is-valid');
+			} else {
+				asunto.classList.remove('is-valid');
+				asunto.classList.add('is-invalid');
+			}
+			habilitarBotonEnvioContacto();
+		}
+		var mascotasUsuario;
+		function verificarFormulario() {
+			asunto.addEventListener('input', validarAsunto);
+			verificarOtra();	
+			verificarCheckbox();
+			
+			$("#cancel-button").click(function () {
+
+				verificarFechas();
+				document.getElementById('form-turnos').reset();
+				//Queda. Esto para terminar de resetear todas las mascotas
+				($("#mascota1").remove());
+				asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
+
+				enviarButtonContacto.disabled = true;
+				agregarCamposMascota();
+				$(".events-container").show();
+			});
+
+
+			
+
+		}
+
+
+
+
+
+		var emailUsuario = $("#form-turnos").data('usuario-mail'); // Obtener el valor del campo de entrada de
+		$.ajax({
+			url: '@Url.Action("obtenerPerros", "Turnos")',
+			type: 'GET',
+			dataType: 'json',
+			data: { mail: emailUsuario }, // Enviar los datos al controlador
+			success: function (data) {
+				mascotasUsuario = data.slice();
+				agregarCamposMascota();
+				$("#add-button").prop("disabled", false);
+
+
+
+			},
+			error: function (xhr, status, error) {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Ocurrio un erorr!'
+				})
+			}
+		});
 
 	</script>
 
@@ -798,15 +820,16 @@ else
 					return;
 				}
 
-				if (actual.getDay() == 6 && date.getHours()>=8 && date.getDay() == 6) {
+			if (actual.getDay() == 6 && date.getHours() >= 13 && date.getDate() == actual.getDate()) {
 					$("#add-button").addClass("d-none");
+					
 					return;
 				}else
 					if (actual.getDay() == 6){
-
+						
 						$("#franjaTarde").prop("disabled", true);
 					}
-				
+			
 
 				if ((($("#label.year").html() == date.getFullYear())
 					&& (meses[($(".active-month").html())] == date.getMonth()))
@@ -1026,16 +1049,25 @@ else
 						console.log("new event");
 						//Falta ajax. Hay que setear el turno para los que estàn registrados y agregar
 						var nombrePerros = [];
-						var valor = $(".mascota").length;
-						for (i = 1; i <= valor; i++) {
-							var mascota = $("#mascota" + i + " select option:selected").val();
 
-							if (mascota == 'Otra') {
 
-								mascota = $("#mascota" + i + " div input").val();
-							}
-							nombrePerros.push(mascota);
-						}
+						var inputs = document.querySelectorAll(".mascota input:checked");
+						var nombrePerros = []; // Create an array to store the
+
+						$(this).parent().find("label");
+						Array.from(inputs).filter(mascota => $(mascota).parent().find("label").text()!='Otra/s').map(mascota => {
+							
+							var etiqueta = $(mascota).siblings("label").text(); // Get the text content of the sibling label element
+							nombrePerros.push(etiqueta);
+							
+						});
+						Array.from(inputs).filter(mascota => $(mascota).parent().find("label").text() == 'Otra/s').map(mascota => {
+							var separadosPorComa = $(".otra textarea").val().split(/\s*,\s*/);
+							separadosPorComa.map(nombre => {
+								nombrePerros.push(nombre);
+							})
+						});
+						
 
 						var emailUsuario = $("#form-turnos").data('usuario-mail');
 						var motive = document.getElementById('motivo').value;
@@ -1052,11 +1084,7 @@ else
 								
 								document.getElementById('form-turnos').reset();
 								verificarFechas();
-								for (var i = $(".mascota").length; i >= 1; i--) {
-									($("#mascota" + i).remove());
-								}
-
-								
+								($("#mascota1").remove());
 								asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
 								enviarButtonContacto.disabled = true;
 								agregarCamposMascota();
@@ -1727,7 +1755,6 @@ else
 			}
 			validarAceptar();
 
-			
 		});
 		function aceptarTurno() {
 			Swal.fire({
