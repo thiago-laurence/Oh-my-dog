@@ -206,9 +206,11 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult QuitarCandidato(int idPerro)
         {
-            var publicacion = _context.PublicacionTinderdog.FirstOrDefault(p => p.IdPerro == idPerro);
+            var publicacion = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro).Include(p => p.NoMeGustaRecibidos).Include(p => p.MeGustaRecibidos).First(p => p.IdPerro == idPerro);
             if (publicacion != null)
             {
+                _context.PerrosMeGusta.RemoveRange(publicacion.MeGustaRecibidos);
+                _context.PerrosNoMeGusta.RemoveRange(publicacion.NoMeGustaRecibidos);
                 _context.PublicacionTinderdog.Remove(publicacion);
                 _context.SaveChanges();
             }

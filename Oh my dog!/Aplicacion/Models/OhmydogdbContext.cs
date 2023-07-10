@@ -240,7 +240,8 @@ public partial class OhmydogdbContext : DbContext
 
             entity.HasOne(d => d.PerroReceptor).WithMany(p => p.MeGustaRecibidos)
                   .HasPrincipalKey(p => p.IdPerro)
-                  .HasForeignKey(d => d.IdPerroReceptor);
+                  .HasForeignKey(d => d.IdPerroReceptor)
+                  .OnDelete(DeleteBehavior.NoAction);
         });
 
         modelBuilder.Entity<PerrosNoMeGusta>(entity =>
@@ -256,7 +257,8 @@ public partial class OhmydogdbContext : DbContext
 
             entity.HasOne(d => d.PerroReceptor).WithMany(p => p.NoMeGustaRecibidos)
                   .HasPrincipalKey(p => p.IdPerro)
-                  .HasForeignKey(d => d.IdPerroReceptor);
+                  .HasForeignKey(d => d.IdPerroReceptor)
+                  .OnDelete(DeleteBehavior.NoAction);
         });
 
         modelBuilder.Entity<PublicacionTinderdog>(entity =>

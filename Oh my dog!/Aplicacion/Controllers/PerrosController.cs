@@ -167,9 +167,9 @@ namespace Aplicacion.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> ModificarPerro(Perros perro)
+        public JsonResult ModificarPerro(Perros perro)
         {
-            var _perro = await _context.Perros.FirstOrDefaultAsync(p => p.Id == perro.Id);
+            var _perro = _context.Perros.FirstOrDefault(p => p.Id == perro.Id);
             if (_perro?.Nombre != perro.Nombre)
             {
                 if (ExistePerro(perro.Nombre, perro.IdDueno))
@@ -177,9 +177,21 @@ namespace Aplicacion.Controllers
                     return (Json(new { success = false, message = "El nombre del perro ya está registrado para un perro activo al cliente asociado" }));
                 }
             }
+
+            if (!perro.Estado)
+            {
+                var publicacion = _context.PublicacionTinderdog.Where(p => p.IdPerro == perro.Id).Include(p => p.NoMeGustaRecibidos).Include(p => p.MeGustaRecibidos).FirstOrDefault();
+                if (publicacion != null){
+                    _context.PerrosMeGusta.RemoveRange(publicacion.MeGustaRecibidos);
+                    _context.PerrosNoMeGusta.RemoveRange(publicacion.NoMeGustaRecibidos);
+                    _context.PublicacionTinderdog.Remove(publicacion);
+                    _context.SaveChanges();
+                }
+            }
+
             _context.Perros.Remove(_perro);
             _context.Perros.Add(perro);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return (Json(new { success = true, message = "¡El perro ha sido modificado con éxito!" }));
         }
