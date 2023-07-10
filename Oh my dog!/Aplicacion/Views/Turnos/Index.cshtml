@@ -484,7 +484,7 @@ else
 			var nombreInput = $("<textarea>").addClass("form-control").prop("required", true).attr('placeholder',"Ejemplo: Firu, Elvis Presley, George");
 
 			// Crear el div para el mensaje de error
-			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas separadas por ',' que no se encuentren en el listado.");
+			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas separadas por ',' que no se encuentren en el listado y no superen los 20 caracteres.");
 
 			// Agregar los elementos al div "otra"
 			otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);
@@ -549,9 +549,14 @@ else
 				
 				var inputOtra=$(this);
 				const regex = /^\s*\w+(?:\s*\w+)*(?:\s*,\s*\w+(?:\s*\w+)*)*\s*$/;
+				var encontre = false;
+				var mascotasOtra = valorBuscar.split(/\s*,\s*/);
+				var mascotasMinus = [];
 
+				mascotasOtra.forEach(word => mascotasMinus.push(word.toLowerCase()));
+				var mayor = mascotasMinus.some(mascota => mascota.length > 20);
 
-				if (!regex.test(valorBuscar)) {
+				if (!regex.test(valorBuscar) || mayor) {
 					$(inputOtra).removeClass('is-valid');
 					$(inputOtra).addClass('is-invalid');
 					$(".checkOtra").removeClass('is-valid');
@@ -559,10 +564,7 @@ else
 					
 				}
 				else {
-					var encontre = false;
-					var mascotasOtra= valorBuscar.split(/\s*,\s*/);
-					var mascotasMinus=[];
-					mascotasOtra.forEach(word => mascotasMinus.push(word.toLowerCase()));
+					
 					$.each(mascotasUsuario, function (index, perro) {
 						if (mascotasMinus.indexOf(perro.Nombre.toLowerCase()) !== -1) {
 							$(inputOtra).removeClass('is-valid');

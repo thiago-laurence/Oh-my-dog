@@ -78,6 +78,7 @@ namespace Aplicacion.Controllers
             var perro = _context.PublicacionTinderdog.Where(p => p.IdPerro == idPerro)
                            .Include(p => p.Perro).Include(p => p.MeGustaDados).Include(p => p.MeGustaRecibidos).Include(p => p.NoMeGustaDados).First();
             var matches = perro.MeGustaDados.Join(perro.MeGustaRecibidos, e => e.IdPerroReceptor, r => r.IdPerroEmisor, (e, r) => r.IdPerroEmisor);
+            
             var meGustas = _context.PerrosMeGusta.Where(m => m.IdPerroReceptor == perro.IdPerro && !matches.Any(i => i == m.IdPerroEmisor) && !perro.NoMeGustaDados.Select(p => p.IdPerroReceptor).Contains(m.IdPerroEmisor))
                            .Include(p => p.PerroEmisor)
                            .ThenInclude(p => p.Perro).Include(p => p.PerroEmisor.Fotos).Select(p => p.PerroEmisor).ToList();
@@ -209,8 +210,9 @@ namespace Aplicacion.Controllers
             var publicacion = _context.PublicacionTinderdog.FirstOrDefault(p => p.IdPerro == idPerro);
             if (publicacion != null)
             {
+                /*
                 List<FotosPublicacionTinderdog> fotos = _context.FotosPublicacionTinderdog.Where(id => id.IdPublicacion == publicacion.Id).ToList();
-                /*List<PerrosNoMeGusta> noMeGustas=_context.PerrosNoMeGusta.Where(id=>id.IdPerroReceptor==publicacion.IdPerro || id.IdPerroEmisor== publicacion.IdPerro).ToList();
+                List<PerrosNoMeGusta> noMeGustas=_context.PerrosNoMeGusta.Where(id=>id.IdPerroReceptor==publicacion.IdPerro || id.IdPerroEmisor== publicacion.IdPerro).ToList();
                 List<PerrosMeGusta> meGustas= _context.PerrosMeGusta.Where(id => id.IdPerroReceptor == publicacion.IdPerro || id.IdPerroEmisor == publicacion.IdPerro).ToList();
                 _context.FotosPublicacionTinderdog.RemoveRange(fotos);
                 _context.PerrosMeGusta.RemoveRange(meGustas);
