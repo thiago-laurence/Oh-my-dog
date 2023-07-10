@@ -70,6 +70,10 @@ public partial class OhmydogdbContext : DbContext
 
     public virtual DbSet<VacunaPerro> VacunaPerros { get; set; }
 
+    public virtual DbSet<ContactoAdopciones> ContactoAdopciones { get; set; }
+
+    public virtual DbSet<ContactoPerdidas> ContactoPerdidas { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -515,6 +519,26 @@ public partial class OhmydogdbContext : DbContext
             entity.HasOne(d => d.IdVacunaNavigation).WithMany(p => p.VacunaPerros)
                 .HasForeignKey(d => d.IdVacuna)
                 .HasConstraintName("FK_VacunaPerro_Vacunas");
+        });
+
+        modelBuilder.Entity<ContactoAdopciones>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_ContactoAdopciones");
+            entity.Property<int>(e => e.IdAdopcion);
+            entity.Property(e => e.EmailRemitente)
+                .HasMaxLength(300)
+                .IsUnicode(false);
+           
+        });
+
+        modelBuilder.Entity<ContactoPerdidas>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_ContactoPerdidas");
+            entity.Property<int>(e => e.IdPerdida);
+            entity.Property(e => e.EmailRemitente)
+                .HasMaxLength(300)
+                .IsUnicode(false);
+
         });
 
         OnModelCreatingPartial(modelBuilder);

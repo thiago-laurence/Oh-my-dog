@@ -39,13 +39,13 @@ namespace Aplicacion.Controllers
 
             if (hayAdopcionConEmailYNombre(perdida.Email, perdida.Nombre.ToLower()))
             {
-                return (Json(new { success = false, message = "Ya existe una adopción para este usuario con ese nombre de perro, por favor elija otro nombre" }));
+                return (Json(new { success = false, message = "Ya existe una publicacion de perdida para este usuario con ese nombre de perro, por favor elija otro nombre" }));
             }
             perdida.Nombre = perdida.Nombre.ToLower();
             _context.Add(perdida);
             _context.SaveChangesAsync();
 
-            return (Json(new { success = true, message = "El perro ha sido publicado en adopción con éxito" }));
+            return (Json(new { success = true, message = "El perro ha sido publicado en como perdido con éxito" }));
         }
 
         // Variable para indicar la cantida a mostrar por la paginacion
@@ -129,12 +129,27 @@ namespace Aplicacion.Controllers
             }
             return Json(new { success = true });
         }
-        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario)
+        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario, int perdidaId)
         {
             if (contenido == null)
             {
                 return Json(new { error = true, message = "Por favor escriba algun mensaje" });
             }
+
+            if (remitente != null)
+            {
+                ContactoPerdidas contactoPerdidas = _context.ContactoPerdidas.Where(ca => ca.EmailRemitente == remitente && ca.IdPerdida == perdidaId).FirstOrDefault();
+                if (contactoPerdidas != null)
+                {
+                    return (Json(new { success = false, message = "Ya contactaste al dueño de esta publicacion" }));
+                }
+                ContactoPerdidas contactoPerdidaNew = new ContactoPerdidas();
+                contactoPerdidaNew.IdPerdida = perdidaId;
+                contactoPerdidaNew.EmailRemitente = remitente;
+                _context.Add(contactoPerdidaNew);
+                _context.SaveChangesAsync();
+            }
+
             _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
 
             return (Json(new { success = true, message = "El correo fue enviado al dueño de la publicación con éxito!" }));
@@ -185,7 +200,7 @@ namespace Aplicacion.Controllers
 
         }
 
-        public async Task<IActionResult> BajaLogica(int id)
+        public async Task<IActionResult> BajaLogica(int id, string destinatario, string nombrePerro)
         {
             Perdidas perdida;
             perdida = _context.Perdidas.Where(a => a.Id == id).First();
@@ -194,6 +209,10 @@ namespace Aplicacion.Controllers
                 perdida.Baja = 1;
                 _context.Update(perdida);
                 await _context.SaveChangesAsync();
+                if (User.IsInRole("Administrador"))
+                {
+                    _ = EnviarCorreoEliminarPerdida(nombrePerro, destinatario);
+                }
             }
             return Json(new { success = true });
         }
@@ -235,6 +254,39 @@ namespace Aplicacion.Controllers
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
                     message.Subject = "Contacto de " + remitenteNombre + " por la perdida de " + nombrePerro;
                     contenido = contenido + "<br>" + "<br>" + "<br>" + "El email de la persona que se contactó con usted es: " + remitente;
+                    var bodyBuilder = new BodyBuilder();
+                    bodyBuilder.HtmlBody = contenido;
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("sandbox.smtp.mailtrap.io", 587, false);
+                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+
+                    Console.WriteLine("El correo fue enviado exitosamente!");
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores aquí
+                    Console.WriteLine(ex.Message); // Mostrar mensaje de error por consola
+                }
+            });
+        }
+
+        public async Task EnviarCorreoEliminarPerdida(string nombrePerro, string destinatario)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
+                    message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
+                    message.Subject = "Baja de la publicacion de la perdida de " + nombrePerro;
+                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de perdida de " + nombrePerro + " fue dada de baja, cualquier duda envie un mail a ohmydog@gmail.com";
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
                     message.Body = bodyBuilder.ToMessageBody();

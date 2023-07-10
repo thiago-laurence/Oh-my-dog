@@ -132,11 +132,24 @@ namespace Aplicacion.Controllers
             }
             return Json(new { success = true });
         }
-        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario)
+        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario, int adopcionId)
         {
             if (contenido == null)
             {
                 return Json(new { error = true, message = "Por favor escriba algun mensaje" });
+            }
+            if (remitente != null)
+            {
+                ContactoAdopciones contactoAdopcion = _context.ContactoAdopciones.Where(ca => ca.EmailRemitente == remitente && ca.IdAdopcion == adopcionId).FirstOrDefault();
+                if (contactoAdopcion != null) 
+                {                   
+                    return (Json(new { success = false, message = "Ya contactaste al dueño de esta publicacion" }));
+                }
+                ContactoAdopciones contactoAdopcionNew = new ContactoAdopciones();
+                contactoAdopcionNew.IdAdopcion = adopcionId;
+                contactoAdopcionNew.EmailRemitente = remitente;
+                _context.Add(contactoAdopcionNew);
+                _context.SaveChangesAsync();
             }
             _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
 
@@ -184,7 +197,7 @@ namespace Aplicacion.Controllers
 
         }
 
-        public async Task<IActionResult> BajaLogica(int id)
+        public async Task<IActionResult> BajaLogica(int id, string destinatario, string nombrePerro)
         {
             Adopciones adopcion;
             adopcion = _context.Adopciones.Where(a => a.Id == id).First();
@@ -193,6 +206,10 @@ namespace Aplicacion.Controllers
                 adopcion.Baja = 1;
                 _context.Update(adopcion);
                 await _context.SaveChangesAsync();
+                if (User.IsInRole("Administrador"))
+                {
+                    _ = EnviarCorreoEliminarAdopcion(nombrePerro, destinatario);
+                }
             }
             return Json(new { success = true });
         }
@@ -232,6 +249,39 @@ namespace Aplicacion.Controllers
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
                     message.Subject = "Contacto de " + remitenteNombre + " por la adopcion de " + nombrePerro;
                     contenido = contenido + "<br>" + "<br>" + "<br>" + "El email de la persona que se contactó con usted es: " + remitente;
+                    var bodyBuilder = new BodyBuilder();
+                    bodyBuilder.HtmlBody = contenido;
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("sandbox.smtp.mailtrap.io", 587, false);
+                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+
+                    Console.WriteLine("El correo fue enviado exitosamente!");
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores aquí
+                    Console.WriteLine(ex.Message); // Mostrar mensaje de error por consola
+                }
+            });
+        }
+
+        public async Task EnviarCorreoEliminarAdopcion(string nombrePerro, string destinatario)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
+                    message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
+                    message.Subject = "Baja de la publicacion de la adopcion de " + nombrePerro;
+                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de adopcion de " + nombrePerro + " fue dada de baja, cualquier duda envie un mail a ohmydog@gmail.com";
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
                     message.Body = bodyBuilder.ToMessageBody();
