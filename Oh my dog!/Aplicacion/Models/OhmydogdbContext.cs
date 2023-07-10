@@ -532,7 +532,7 @@ public partial class OhmydogdbContext : DbContext
         modelBuilder.Entity<ContactoPerdidas>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_ContactoPerdidas");
-            entity.Property<int>(e => e.IdAdopcion);
+            entity.Property<int>(e => e.IdPerdida);
             entity.Property(e => e.EmailRemitente)
                 .HasMaxLength(300)
                 .IsUnicode(false);

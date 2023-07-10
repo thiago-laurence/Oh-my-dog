@@ -281,7 +281,7 @@ namespace Aplicacion.Controllers
                     message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
                     message.Subject = "Baja de la publicacion de la adopcion de " + nombrePerro;
-                    string contenido = "La veterinaria de OhMyDog se pone en contacto con usted para notificarle que la publicacion de adopcion de " + nombrePerro + " fue dada de baja por incumplir con nuestras normas, cualquier duda envie un mail a ohmydog@gmail.com";
+                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de adopcion de " + nombrePerro + " fue dada de baja, cualquier duda envie un mail a ohmydog@gmail.com";
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
                     message.Body = bodyBuilder.ToMessageBody();

@@ -39,13 +39,13 @@ namespace Aplicacion.Controllers
 
             if (hayAdopcionConEmailYNombre(perdida.Email, perdida.Nombre.ToLower()))
             {
-                return (Json(new { success = false, message = "Ya existe una adopción para este usuario con ese nombre de perro, por favor elija otro nombre" }));
+                return (Json(new { success = false, message = "Ya existe una publicacion de perdida para este usuario con ese nombre de perro, por favor elija otro nombre" }));
             }
             perdida.Nombre = perdida.Nombre.ToLower();
             _context.Add(perdida);
             _context.SaveChangesAsync();
 
-            return (Json(new { success = true, message = "El perro ha sido publicado en adopción con éxito" }));
+            return (Json(new { success = true, message = "El perro ha sido publicado en como perdido con éxito" }));
         }
 
         // Variable para indicar la cantida a mostrar por la paginacion
@@ -138,13 +138,13 @@ namespace Aplicacion.Controllers
 
             if (remitente != null)
             {
-                ContactoPerdidas contactoPerdidas = _context.ContactoPerdidas.Where(ca => ca.EmailRemitente == remitente && ca.IdAdopcion == perdidaId).FirstOrDefault();
+                ContactoPerdidas contactoPerdidas = _context.ContactoPerdidas.Where(ca => ca.EmailRemitente == remitente && ca.IdPerdida == perdidaId).FirstOrDefault();
                 if (contactoPerdidas != null)
                 {
                     return (Json(new { success = false, message = "Ya contactaste al dueño de esta publicacion" }));
                 }
                 ContactoPerdidas contactoPerdidaNew = new ContactoPerdidas();
-                contactoPerdidaNew.IdAdopcion = perdidaId;
+                contactoPerdidaNew.IdPerdida = perdidaId;
                 contactoPerdidaNew.EmailRemitente = remitente;
                 _context.Add(contactoPerdidaNew);
                 _context.SaveChangesAsync();
@@ -286,7 +286,7 @@ namespace Aplicacion.Controllers
                     message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
                     message.Subject = "Baja de la publicacion de la perdida de " + nombrePerro;
-                    string contenido = "La veterinaria de OhMyDog se pone en contacto con usted para notificarle que la publicacion de perdida de " + nombrePerro + " fue dada de baja por incumplir con nuestras normas, cualquier duda envie un mail a ohmydog@gmail.com";
+                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de perdida de " + nombrePerro + " fue dada de baja, cualquier duda envie un mail a ohmydog@gmail.com";
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
                     message.Body = bodyBuilder.ToMessageBody();
