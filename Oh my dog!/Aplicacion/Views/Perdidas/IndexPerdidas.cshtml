@@ -418,9 +418,10 @@
                                         text: data.message,
                                     })
                                     var form = document.getElementById("formContactoPublicador");
+                                    var textarea = document.getElementById("Contenido");
                                     form.reset();
                                     form.classList.remove('was-validated');
-
+                                    textarea.classList.remove('is-valid');
                                 } else {
                                     Swal.fire({
                                         icon: 'warning',
