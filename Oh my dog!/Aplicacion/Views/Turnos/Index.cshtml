@@ -508,6 +508,7 @@ else
 			divPorMascota.append(nodoOpcion);
 			$("#mascota" + $(".mascota").length).append(divPorMascota);
 			divElement.append(otraDiv);
+			verificarFechas();
 			verificarFormulario();
 			habilitarBotonEnvioContacto();
 		}
@@ -637,26 +638,22 @@ else
 			habilitarBotonEnvioContacto();
 		}
 		var mascotasUsuario;
-		function verificarFormulario() {
-			asunto.addEventListener('input', validarAsunto);
+		asunto.addEventListener('input', validarAsunto);
+		$("#cancel-button").click(function () {
+
+
+			document.getElementById('form-turnos').reset();
+
+			($("#mascota1").remove());
+			asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
+
+			enviarButtonContacto.disabled = true;
+			agregarCamposMascota();
+			$(".events-container").show();
+		});
+		function verificarFormulario() {			
 			verificarOtra();	
 			verificarCheckbox();
-			
-			$("#cancel-button").click(function () {
-
-				verificarFechas();
-				document.getElementById('form-turnos').reset();
-				//Queda. Esto para terminar de resetear todas las mascotas
-				($("#mascota1").remove());
-				asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
-
-				enviarButtonContacto.disabled = true;
-				agregarCamposMascota();
-				$(".events-container").show();
-			});
-
-
-			
 
 		}
 
@@ -797,6 +794,7 @@ else
 				actual = new Date(($("#label.year").html()), meses[($(".active-month").html())], parseInt($(".active-date").html()));
 				$("#horario").prop("selectedIndex", 0);
 				$("#franjaMañana").prop("disabled", false);
+
 				$("#franjaTarde").prop("disabled", false);
 				if (($("#label.year").html()) < date.getFullYear()) {
 					$("#add-button").addClass("d-none");
@@ -1083,7 +1081,7 @@ else
 							success: function (data) {
 								
 								document.getElementById('form-turnos').reset();
-								verificarFechas();
+								
 								($("#mascota1").remove());
 								asunto.classList.remove('is-invalid'); asunto.classList.remove('is-valid');
 								enviarButtonContacto.disabled = true;
