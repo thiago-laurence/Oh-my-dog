@@ -116,6 +116,16 @@ namespace Aplicacion.Controllers
             return (View("IndexMisPerdidas", await perdidas.ToListAsync()));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ListarMisPerdidas()
+        {
+            var perdidas = from perdida in _context.Perdidas select perdida;
+
+            perdidas = perdidas.Where(a => a.Email == User.FindFirstValue("Email") && a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+
+            return (PartialView("_ListarMisPerdidas", await perdidas.ToListAsync()));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Recuperar(int id)
         {
@@ -129,7 +139,7 @@ namespace Aplicacion.Controllers
             }
             return Json(new { success = true });
         }
-        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario, int perdidaId)
+        public JsonResult ContactarPublicador(string remitente, string nombrePerro, string contenido, string destinatario, int perdidaId)
         {
             if (contenido == null)
             {
@@ -141,16 +151,16 @@ namespace Aplicacion.Controllers
                 ContactoPerdidas contactoPerdidas = _context.ContactoPerdidas.Where(ca => ca.EmailRemitente == remitente && ca.IdPerdida == perdidaId).FirstOrDefault();
                 if (contactoPerdidas != null)
                 {
-                    return (Json(new { success = false, message = "Ya contactaste al dueño de esta publicacion" }));
+                    return (Json(new { success = false, message = "Ya contactaste al dueño de esta publicación" }));
                 }
                 ContactoPerdidas contactoPerdidaNew = new ContactoPerdidas();
                 contactoPerdidaNew.IdPerdida = perdidaId;
                 contactoPerdidaNew.EmailRemitente = remitente;
-                _context.Add(contactoPerdidaNew);
-                _context.SaveChangesAsync();
+                _context.ContactoPerdidas.Add(contactoPerdidaNew);
+                _context.SaveChanges();
             }
 
-            _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
+            _ = EnviarCorreo(remitente, nombrePerro, contenido, destinatario);
 
             return (Json(new { success = true, message = "El correo fue enviado al dueño de la publicación con éxito!" }));
         }
@@ -200,7 +210,7 @@ namespace Aplicacion.Controllers
 
         }
 
-        public async Task<IActionResult> BajaLogica(int id, string destinatario, string nombrePerro)
+        public async Task<IActionResult> BajaLogica(int id, string destinatario, string nombrePerro, string contenido)
         {
             Perdidas perdida;
             perdida = _context.Perdidas.Where(a => a.Id == id).First();
@@ -211,7 +221,7 @@ namespace Aplicacion.Controllers
                 await _context.SaveChangesAsync();
                 if (User.IsInRole("Administrador"))
                 {
-                    _ = EnviarCorreoEliminarPerdida(nombrePerro, destinatario);
+                    _ = EnviarCorreoEliminarPerdida(nombrePerro, destinatario, contenido);
                 }
             }
             return Json(new { success = true });
@@ -243,7 +253,7 @@ namespace Aplicacion.Controllers
             });
         }
 
-        public async Task EnviarCorreo(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario)
+        public async Task EnviarCorreo(string remitente, string nombrePerro, string contenido, string destinatario)
         {
             await Task.Run(() =>
             {
@@ -252,7 +262,7 @@ namespace Aplicacion.Controllers
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
-                    message.Subject = "Contacto de " + remitenteNombre + " por la perdida de " + nombrePerro;
+                    message.Subject = "Contacto de perdida para " + nombrePerro.ToUpper();
                     contenido = contenido + "<br>" + "<br>" + "<br>" + "El email de la persona que se contactó con usted es: " + remitente;
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
@@ -276,7 +286,7 @@ namespace Aplicacion.Controllers
             });
         }
 
-        public async Task EnviarCorreoEliminarPerdida(string nombrePerro, string destinatario)
+        public async Task EnviarCorreoEliminarPerdida(string nombrePerro, string destinatario, string mensaje)
         {
             await Task.Run(() =>
             {
@@ -285,8 +295,10 @@ namespace Aplicacion.Controllers
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
-                    message.Subject = "Baja de la publicacion de la perdida de " + nombrePerro;
-                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de perdida de " + nombrePerro + " fue dada de baja, cualquier duda envie un mail a ohmydog@gmail.com";
+                    message.Subject = "Baja de la publicacion de la perdida de " + nombrePerro.ToUpper();
+                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de perdida de " + nombrePerro.ToUpper() + " fue dada de baja, " 
+                            + "el motivo es el siguiente: \"" + mensaje + "\". "
+                            + "Cualquier duda envie un mail a ohmydog@gmail.com";
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
                     message.Body = bodyBuilder.ToMessageBody();

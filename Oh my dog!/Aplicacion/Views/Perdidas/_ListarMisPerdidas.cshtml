@@ -4,7 +4,7 @@
 @if (Model.Count() == 0)
 {
     <div class="text-center alert alert-info mt-5 mb-5" role="alert">
-        <h3>¡Todavia no tienes ninguna perdida publicada para visualizar!</h3>
+        <h3>Aún no has publicado de perros perdidos</h3>
     </div>
 }
 else{
@@ -19,26 +19,42 @@ else{
                             {
                                 @if (perdida.Foto != null)
                                 {
-                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                                 else
                                 {
-                                    <img src="~/img/perroRecuperado.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/perroRecuperado.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                             }
                             else
                             {
                                 @if (perdida.Foto != null)
                                 {
-                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                                 else
                                 {
-                                    <img src="~/img/perroPerdido.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/perroPerdido.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                             }
                             <div class="card-body">
-                                <h5 class="card-title text-center nombrePerro" id="nombrePerro">@perdida.Nombre.ToUpper() @(perdida.Estado == 1 ? "(RECUPERADO)" : "")</h5>
+                                <h4 class="card-title text-center nombrePerro" id="nombrePerro">
+                                    @{
+                                        string nombre = perdida.Nombre[0].ToString().ToUpper() + perdida.Nombre.Substring(1).ToLower();
+                                        if (perdida.Estado == 1)
+                                        {
+                                            <p>
+                                                @(nombre + " (RECUPERADO)")
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p>
+                                                @nombre
+                                            </p>
+                                        }
+                                    }
+                                </h4>
                                 <p class="card-text email"><strong>Email del publicador:</strong> @perdida.Email</p>
                                 <p class="card-text fechaPerdida"><strong>Visto última vez:</strong> @perdida.FechaPerdida.ToString("yyyy-MM-dd")</p>
                                 <p class="card-text raza"><strong>Raza:</strong> @perdida.Raza</p>
@@ -51,16 +67,25 @@ else{
                                 <div class="d-flex gap-3">
                                     @if (perdida.Estado == 0)
                                     {
-                                        <button class="btn btn-custom recuperar-btn" data-perdida-id="@perdida.Id" data-toggle="tooltip" data-placement="top" title="Marcar como Recuperado">
+                                        <button class="btn btn-custom recuperar-btn" data-perdida-id="@perdida.Id"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Recuperado"
+                                                data-bs-title="Recuperado">
                                             <i class="bi bi-house-add"></i>
                                         </button>
-                                        <button class="btn btn-warning modificar-btn" value="@perdida.Id" data-toggle="tooltip" data-placement="top" title="Modificar">
+                                        <button class="btn btn-warning modificar-btn" value="@perdida.Id"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Modificar"
+                                                data-bs-title="Modificar">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     }
                                     @if (perdida.Baja == 0)
                                     {
-                                        <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <button class="btn btn-danger eliminar-btn"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Eliminar"
+                                                data-bs-title="Eliminar">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     }

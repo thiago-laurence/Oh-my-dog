@@ -6,27 +6,36 @@
 	ViewData["Title"] = "Calendario de turnos";
 }
 
-
 <style>
-
 	#mascotas-dinamico{
 		margin-bottom: -21px;
-	};
-	
-	
+	}
 
+	.logo-img {
+        width: 3rem;
+        height: 3rem;
+        transform: translateY(-0.4rem);
+    }
 </style>
-<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/estiloCalendario.css">
-<div class="container" style="margin-top: 100px;">
-	<div class="col-lg-7 text-center text-lg-start">
-		<p class="display-6 fw-bold mb-1" style="font-weight: 500!important;">
-			<i class="fa-solid fa-dog fa-md"></i>
-			Calendario de turnos
+
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
+    <h1 class="display-7">Calendario de turnos <img class="logo-img" src="~/img/calendario.png" /></h1>
+    @if (User.IsInRole("Administrador"))
+	{
+		<p style="margin-bottom: 0px;">
+			Visualiza y organiza la agenda de turnos de la veterinaria. Localiza los turnos pendientes solicitados por tus clientes, y aceptalos o rechazalos según tus necesidades.
 		</p>
-	</div>
+	}
+	else
+	{
+		<p style="margin-bottom: 0px;">
+			Visualiza tu agenda de turnos solicitados para con la veterinaria ¡Organizate y no olvides acudir a ellos!
+		</p>
+	}
 </div>
 
 @if (User.Identity!.IsAuthenticated)
@@ -34,9 +43,9 @@
 
 	<section class="ftco-section" id="seccion" data-usuario-mail="@User.FindFirstValue("email")">
 		<div class="container">
-			<div class="row ">
+			<div class="row">
 				<div class="col-xl-12 ">
-					<div class="content w-100">
+					<div class="content w-100 shadow-lg" style="border: 0px; height: 540px; max-width: 850px;">
 						<div class="calendar-container">
 							<div class="calendar">
 								<div class="year-header">
@@ -84,21 +93,25 @@
 								}
 								else
 								{
-									<div class="d-flex justify-content-center">
+									<div class="d-flex justify-content-center" style="margin-top: 50px;">
 										<div>
-											<label class="form-check-label" for="flexCheckDefault" style="font-size: 16px;">Aceptados</label>
-											<input type="checkbox" class=" mb-3 activa estados" checked id="aceptados-check">
+											<label class="form-check-label fw-bolder" for="flexCheckDefault" style="font-size: 16px;">
+												Aceptados
+											</label>
+											<input type="checkbox" class="mb-3 activa estados" checked id="aceptados-check" style="transform: scale(1.5);">
 										</div>
 
 										<div class=" mx-3">
-											<label class="form-check-label" for="flexCheckDefault" style="font-size: 16px;">
+											<label class="form-check-label fw-bolder" for="flexCheckDefault" style="font-size: 16px;">
 												Rechazados
 											</label>
-											<input type="checkbox" class="activa estados" checked id="rechazados-check">
+											<input type="checkbox" class="activa estados" checked id="rechazados-check" style="transform: scale(1.5);">
 										</div>
 										<div>
-											<label class="form-check-label" for="flexCheckDefault" style="font-size: 16px;">Pendientes</label>
-											<input type="checkbox" class=" mb-3 activa estados" checked id="pendientes-check">
+											<label class="form-check-label fw-bolder" for="flexCheckDefault" style="font-size: 16px;">
+												Pendientes
+											</label>
+											<input type="checkbox" class="mb-3 activa estados" checked id="pendientes-check" style="transform: scale(1.5);">
 										</div>
 									</div>
 								}
@@ -109,11 +122,12 @@
 					</div>
 				</div>
 				@if (User.IsInRole("Administrador"))
-				{<div class="col-xl-12 mt-1">
-						<div class="alert alert-info" role="alert" style="    line-height: normal; margin: auto auto; max-width: 790px; height: 140px;">
+				{
+					<div class="col-xl-12 mt-1">
+						<div class="alert alert-info" role="alert" style="line-height: normal; margin: auto auto; max-width: 790px; height: 140px;">
 						<p>
 							<strong>
-								Estado de turnos:
+								Estado de los turnos:
 							</strong>
 							<br>
 							<div style="margin-left:120px;">
@@ -158,12 +172,9 @@ else
 		<div class="modal-content">
 			<div class="modal-header">
 				<h1 class="modal-title fs-5" id="staticBackdropLabel">
-					<i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
+					<i class="fa-solid fa-question fa-xl" style="color: #000000;"></i>
 					Turno pendiente
 				</h1>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
 				<!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
 			</div>
 			<div class="modal-body">
@@ -195,7 +206,7 @@ else
 				
 					
 					<div class="col-md-6">
-						<label class="form-label">Horario final<span class="text-success">* </span></label>
+						<label class="form-label">Horario final<span class="text-success fw-bolder" style="font-size: 20px;">* </span></label>
 						<input type="time" maxlength="20" class="form-control"  id="horarioFinalPendiente" required>
 						<div class="invalid-feedback">
 							Para aceptar el turno debe elegir un horario dentro de la franja horaria
@@ -208,22 +219,25 @@ else
 						
 					</div>
 					<div class="col-md-12">
-						<label class="form-label">Comentarios<span class="text-danger">* </span></label>
+						<label class="form-label">Comentarios<span class="text-danger fw-bolder" style="font-size: 20px;">* </span></label>
 						<textarea class="form-control" autocomplete="false" value="" id="comentario"  maxlength="200"></textarea>
 						<div class="invalid-feedback">
 							Debe ingresar un comentario si desea cancelar el turno(máximo 200 caracteres)
 						</div>
 					</div>
 					<div class="col-md-12">
-						<span class="text-danger">*</span>
+						<span class="text-danger fw-bolder" style="font-size: 20px;">*</span>
 						<span>Obligatorio para rechazar el turno</span>
 					</div>
 					<div class="col-md-12">
-						<span class="text-success">*</span>
+						<span class="text-success fw-bolder" style="font-size: 20px;">*</span>
 						<span>Obligatorio para aceptar el turno</span>
 					</div>
 					<div class="modal-footer">
 							<div class="d-flex justify-content-center">
+								<button type="button" class="close btn btn-primary mb-3" data-bs-dismiss="modal" aria-label="Close">
+									Cancelar
+								</button>
 								<button tpye="button" class="btn btn-danger mx-2 mb-3" onclick="rechazarTurno()" disabled id="rechazar-button">Rechazar</button>
 								<button tpye="button" class="btn btn-success mb-3 activo" onclick="aceptarTurno()" disabled id="aceptar-button">Aceptar</button>
 							</div>
@@ -237,14 +251,13 @@ else
 
 
 
-
 <!--Inicio Modal Ver detalle aceptado-->
 <div class="modal fade" id="detalleAceptado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h1 class="modal-title fs-5" id="staticBackdropLabel">
-					<i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
+					<i class="fa-solid fa-check fa-xl" style="color: #000000;"></i>
 					Turno aceptado
 				</h1>
 				
@@ -301,7 +314,7 @@ else
 					
 					<div class="modal-footer">
 							<div class="d-flex justify-content-center">
-								<button tpye="button" class="btn btn-danger mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
+								<button tpye="button" class="btn btn-primary mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
 							</div>
 					</div>
 				</div>
@@ -318,7 +331,7 @@ else
 		<div class="modal-content">
 			<div class="modal-header">
 				<h1 class="modal-title fs-5" id="staticBackdropLabel">
-					<i class="fa-solid fa-user-plus fa-xl" style="color: #000000;"></i>
+					<i class="fa-solid fa-close fa-xl" style="color: #000000;"></i>
 					Turno rechazado
 				</h1>
 
@@ -375,7 +388,7 @@ else
 
 					<div class="modal-footer">
 						<div class="d-flex justify-content-center">
-							<button tpye="button" class="btn btn-danger mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
+							<button tpye="button" class="btn btn-primary mb-3 activo" id="cerrar-button" data-bs-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
 				</div>
@@ -384,7 +397,6 @@ else
 	</div>
 </div>
 <!--Fin modal Turno rechazado detalle-->
-
 
 
 <!--Inicio Modal Solicitar turno-->
@@ -1030,10 +1042,11 @@ else
 				$("#BtnTurno").unbind().click({ date: event.data.date }, function () {
 						Swal.fire({
 				icon:'warning',
-				title: '¿Está seguro?',
+				title: '¿Desea realizar la solicitud el turno?',
+				text: 'Confirme la acción',
 				
 				showCancelButton: true,
-				confirmButtonText: 'Sí',
+				confirmButtonText: 'Confirmar',
 				cancelButtonText: `Cancelar`,
 				reverseButtons: true,
 				
@@ -1093,7 +1106,8 @@ else
 									event_data["events"].push(turno);
 									let timerInterval;
 									Swal.fire({
-										title: 'Registro de turno exitoso',
+										title: '¡Turno registrado!',
+										text: 'El turno ha sido registrado con éxito',
 										icon: 'success',
 										timer: 5000,
 										timerProgressBar: true,
@@ -1109,8 +1123,8 @@ else
 								else {
 									Swal.fire({
 										icon: 'error',
-										title: 'Error',
-										text: 'Ya tiene un turno para la fecha'
+										title: 'Error...',
+										text: 'Usted ya ha realizado la solicitud de un turno para la fecha indicada, por favor seleccione otro dia'
 									});
 								}
 								date.setDate(day);
@@ -1189,8 +1203,8 @@ else
 			var pendientes = (events.filter(i => i.Estado == 3).sort(ordenarPendientes));
 
 			var event_card = $("<div class='event-card d-flex text-end'></div>");
-			var descripcion = $("<span class='align-self-center'>Eventos pendientes: " + pendientes.length + "</span>")
-			var button = $("<button class='btn  alinearDerecha' style='background-color:#e68a19;color:white' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
+			var descripcion = $("<span class='align-self-center fw-bolder'>Turnos pendientes: " + pendientes.length + "</span>")
+			var button = $("<button class='btn alinearDerecha' style='background-color:#e68a19;color:white' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
 			event_card.append(descripcion);
 			if (pendientes.length > 0) {
 				event_card.append(button);
@@ -1230,8 +1244,8 @@ else
 		function mostrarRechazados(events){
 			var rechazados = (events.filter(i => i.Estado == 2).sort(ordenarPendientes));
 			var event_card = $("<div class='event-card d-flex text-end'></div>");
-			var descripcion = $("<span class='align-self-center'>Eventos rechazados: " + rechazados.length + "</span>")
-			var button = $("<button class='btn btn-secondary alinearDerecha'style='background-color:#e68a19;color:white' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
+			var descripcion = $("<span class='align-self-center fw-bolder'>Turnos rechazados: " + rechazados.length + "</span>")
+			var button = $("<button class='btn btn-danger alinearDerecha' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
 			event_card.append(descripcion);
 			if (rechazados.length > 0) {
 				event_card.append(button);
@@ -1281,8 +1295,8 @@ else
 		function mostrarAceptados(events){
 			var aceptados = (events.filter(i => i.Estado == 1).sort(ordenarPorHorario));
 			var event_card = $("<div class='event-card d-flex text-end'></div>");
-			var descripcion = $("<span class='align-self-center'>Eventos aceptados: " + aceptados.length + "</span>")
-			var button = $("<button class='btn btn-secondary alinearDerecha' type='button' style='background-color:#e68a19;color:white' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
+			var descripcion = $("<span class='align-self-center fw-bolder'>Turnos aceptados: " + aceptados.length + "</span>")
+			var button = $("<button class='btn btn-success alinearDerecha' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Mostrar</button>");
 			event_card.append(descripcion);
 			if (aceptados.length > 0) {
 				event_card.append(button);
@@ -1386,8 +1400,8 @@ else
 
 					// Go through and add each event as a card to the events container
 					var event_card = $("<div class='event-card'></div>");
-					var event_name = $("<div> Motivo del turno: " + events[1].Motivo + "</div>");
-					var perrosAfectados="Perros: "
+					var event_name = $("<div> <strong>Motivo del turno:</strong> " + events[1].Motivo + "</div>");
+					var perrosAfectados="<strong>Perros: </strong>"
 
 					
 						$.each(events[1].PerrosDelTurno, function (index, perroTurno) {
@@ -1405,7 +1419,7 @@ else
 
 					});
 					var event_Perros = $("<div>" + perrosAfectados + "</div>");
-					var event_Horario = $("<div>Horario elegido: " + events[1].Horario + "</div>");
+					var event_Horario = $("<div> <strong>Horario elegido: </strong>" + events[1].Horario + "</div>");
 					var event_count;
 					var contenedorComentario= $("<div></div>");
 					var comentario;
@@ -1413,17 +1427,17 @@ else
 						$(event_card).css({
 							"border-left": "10px solid #FF1744"
 						});
-						event_count = $("<div>Estado: cancelado</div>");
-						var comentario = $("<div>Comentario: " + events[1].Comentario+ "</div>");
+						event_count = $("<div> <strong>Estado: </strong> cancelado</div>");
+						var comentario = $("<div> <strong>Comentario: </strong>" + events[1].Comentario+ "</div>");
 						contenedorComentario.append(comentario);
 					} else {
 						if (events[1].Estado == 1) {
 							$(event_card).css({
 								"border-left": "10px solid #6aa84f"
 							});
-							var event_Horario = $("<div>Horario del turno: " + events[1].HorarioFinal + "</div>");
-							event_count = $("<div>Estado: aceptado</div>");
-							var comentario = $("<div>Comentario: " + events[1].Comentario+ "</div>");
+							var event_Horario = $("<div> <strong>Horario del turno: </strong>" + events[1].HorarioFinal + "</div>");
+							event_count = $("<div> <strong>Estado: </strong> aceptado</div>");
+							var comentario = $("<div> <strong> Comentario: </strong>" + events[1].Comentario+ "</div>");
 							if (events[1].Comentario!=null){
 							contenedorComentario.append(comentario);
 							}
@@ -1432,7 +1446,7 @@ else
 							$(event_card).css({
 								"border-left": "10px solid #f1c232"
 							});
-							event_count = $("<div>Estado: pendiente</div>");
+							event_count = $("<div> <strong>Estado: </strong> pendiente</div>");
 
 						}
 					}
@@ -1578,8 +1592,8 @@ else
 		function rechazarTurno(){
 			Swal.fire({
 				icon: 'warning',
-				title: '¿Está seguro?',
-
+				title: '¿Desea rechazar el turno del cliente?',
+				text: 'Confirme la acción',
 				showCancelButton: true,
 				confirmButtonText: 'Sí',
 				cancelButtonText: `Cancelar`,
@@ -1621,7 +1635,8 @@ else
 							init_calendar(date);
 							let timerInterval;
 							Swal.fire({
-								title: 'Turno rechazado con éxito',
+								title: '¡Turno rechazado!',
+								text: 'El turno solicitado ha sido rechazado y registrado con éxito',
 								icon: 'success',
 								timer: 5000,
 								timerProgressBar: true,
@@ -1757,8 +1772,8 @@ else
 		function aceptarTurno() {
 			Swal.fire({
 				icon:'warning',
-				title: '¿Está seguro?',
-				
+				title: '¿Desea aceptar el turno del cliente?',
+				text: 'Confirme la acción',
 				showCancelButton: true,
 				confirmButtonText: 'Sí',
 				cancelButtonText: `Cancelar`,
@@ -1804,7 +1819,8 @@ else
 							init_calendar(date);
 							let timerInterval;
 							Swal.fire({
-								title: 'Turno aceptado con éxito',
+								title: 'Turno aceptado!',
+								text: 'El turno solicitado ha sido aceptado y registrado con éxito',
 								icon: 'success',
 								timer: 5000,
 								timerProgressBar: true,

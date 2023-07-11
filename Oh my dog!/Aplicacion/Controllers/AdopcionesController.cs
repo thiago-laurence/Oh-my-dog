@@ -119,6 +119,16 @@ namespace Aplicacion.Controllers
             return (View("IndexMisAdopciones", await adopciones.ToListAsync()));
         }
 
+        [HttpGet]
+        public IActionResult ListarMisAdopciones()
+        {
+            var adopciones = from adopcion in _context.Adopciones select adopcion;
+
+            adopciones = adopciones.Where(a => a.Email == User.FindFirstValue("Email") && a.Baja == 0).OrderBy(a => a.Estado).ThenByDescending(a => a.Id).ThenBy(a => a.Nombre);
+
+            return (PartialView("_ListarMisAdopciones", adopciones.ToList()));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Adoptar(int id)
         {
@@ -132,7 +142,7 @@ namespace Aplicacion.Controllers
             }
             return Json(new { success = true });
         }
-        public JsonResult ContactarPublicador(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario, int adopcionId)
+        public JsonResult ContactarPublicador(string remitente, string nombrePerro, string contenido, string destinatario, int adopcionId)
         {
             if (contenido == null)
             {
@@ -148,10 +158,10 @@ namespace Aplicacion.Controllers
                 ContactoAdopciones contactoAdopcionNew = new ContactoAdopciones();
                 contactoAdopcionNew.IdAdopcion = adopcionId;
                 contactoAdopcionNew.EmailRemitente = remitente;
-                _context.Add(contactoAdopcionNew);
-                _context.SaveChangesAsync();
+                _context.ContactoAdopciones.Add(contactoAdopcionNew);
+                _context.SaveChanges();
             }
-            _ = EnviarCorreo(remitente, remitenteNombre, nombrePerro, contenido, destinatario);
+            _ = EnviarCorreo(remitente, nombrePerro, contenido, destinatario);
 
             return (Json(new { success = true, message = "El correo fue enviado al dueño de la publicación con éxito!" }));
         }
@@ -238,7 +248,7 @@ namespace Aplicacion.Controllers
             });
         }
 
-        public async Task EnviarCorreo(string remitente, string remitenteNombre, string nombrePerro, string contenido, string destinatario)
+        public async Task EnviarCorreo(string remitente, string nombrePerro, string contenido, string destinatario)
         {
             await Task.Run(() =>
             {
@@ -247,7 +257,7 @@ namespace Aplicacion.Controllers
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
-                    message.Subject = "Contacto de " + remitenteNombre + " por la adopcion de " + nombrePerro;
+                    message.Subject = "Contacto por adopción para " + nombrePerro.ToUpper();
                     contenido = contenido + "<br>" + "<br>" + "<br>" + "El email de la persona que se contactó con usted es: " + remitente;
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;

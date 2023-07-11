@@ -38,10 +38,20 @@
     .custom-tooltip {
         --bs-tooltip-bg: var(--bs-primary);
     }
+
+    .tooltip-Eliminar {
+        --bs-tooltip-bg: var(--bs-danger);
+    }
+
+
+    .tooltip-Contactar {
+        --bs-tooltip-bg: #59a1ab;
+        --bs-tooltip-color: #FFFFFF;
+    }
 </style>
 
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
-    <h1 class="display-7">Listado de adopciones <img class="huella-img" src="~/img/listadoAdopciones-icon.png" /></h1>
+    <h1 class="display-7">Perros en adopción <img class="huella-img" src="~/img/listadoAdopciones-icon.png" /></h1>
     <p style="margin-bottom: 0px;">
         ¡Encuentra tu compañero perfecto! Explora nuestras adopciones y suma a tu familia un familiar canino. ¡Adopta hoy y cambia una vida para siempre!
     </p>
@@ -82,7 +92,7 @@
                     Buscador de perros por color o raza:
                 </label>
                 <input class="form-control me-2" type="text" name="buscar"
-                       data-bs-toggle="tooltip" data-bs-placement="bottom"
+                       data-bs-toggle="tooltipBusqueda" data-bs-placement="bottom"
                        data-bs-custom-class="custom-tooltip"
                        data-bs-title="El criterio de busqueda es por color o raza del perro publicado"
                        autocomplete="off"
@@ -110,11 +120,11 @@
             </div>
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formContactoPublicador">
-                    <input type="text" class="form-control" id="RemitenteNombre" name="RemitenteNombre" readonly value="@User.Identity!.Name" hidden>
                     <input type="number" id="idAdopcion" hidden value="">
+                    <input type="text" id="NombrePerro" hidden value="">
                     <div class="col-md-12">
                         <label for="remitente" class="form-label">Remitente</label>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity!.IsAuthenticated)
                         {
                             <input type="email" class="form-control" id="Remitente" name="Remitente" readonly>
                         }
@@ -141,7 +151,7 @@
                         <label for="validationCustom02" class="form-label">Mensaje</label>
                         <textarea class="form-control InputText" maxlength="500" id="Contenido" name="Contenido" required></textarea>
                         <div class="invalid-feedback">
-                            Ingresa un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
+                            Ingrese un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -165,8 +175,17 @@
 
     <!-- Constantes de inicializacion de tooltips -->
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        const tooltipBusqueda = document.querySelectorAll('[data-bs-toggle="tooltipBusqueda"]')
+        const tooltipListaBusqueda = [...tooltipBusqueda].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        function InicializarTooltips() {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
     </script>
 
     <!--Validacion de relleno de formulario-->
@@ -317,10 +336,11 @@
 
     <!--Inicializacion de Remitente y Destinatario-->
     <script>
-        function BtnVisualizarContacto(idAdopcion, remitente, destinatario) {
+        function BtnVisualizarContacto(idAdopcion, remitente, destinatario, nombrePerro) {
             document.getElementById("Remitente").value = remitente;
             document.getElementById("Destinatario").value = destinatario;
             document.getElementById("idAdopcion").value = idAdopcion;
+            document.getElementById("NombrePerro").value = nombrePerro;
             $('#ModalContactar').modal('show');
         };
     </script>
@@ -328,9 +348,13 @@
     <!--Elimnar adopcion -->
     <script>
         window.addEventListener('load', function () {
-            capitalizarNombresPerros();
+            //capitalizarNombresPerros();
         });
-        $('.eliminar-btn').click(function () {
+        $(document).ready(function () {
+            InicializacionDeFunciones();
+        });
+        function InicializacionDeFunciones() {
+            $('.eliminar-btn').click(function () {
             var adopcionId = $(this).closest('.card').data('adopcion-id');
             var destinatario = $(this).closest('.card').data('destinatario');
             var nombrePerro = $(this).closest('.card').data('nombreperro');
@@ -353,11 +377,9 @@
                         type: 'POST',
                         data: { id: adopcionId, destinatario: destinatario, nombrePerro: nombrePerro},
                         success: function (response) {
-                            // Eliminar la tarjeta de adopción del DOM
-                            tarjetaAdopcion.parent().parent().remove();
-
                             // Mostrar el mensaje de éxito
-                            Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
+                            Swal.fire('¡Publicación eliminada!', 'La publicación de adopción ha sido eliminada.', 'success');
+                            ListarAdopciones();
                         },
                         error: function (error) {
                             Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
@@ -366,6 +388,7 @@
                 }
             });
         });
+        }
         function capitalizarNombresPerros() {
             var cardsAdopcion = document.querySelectorAll('.card');
 
@@ -411,19 +434,18 @@
                     var card = document.querySelector('.card');                   
                     var mensaje = {
                         remitente: document.getElementById("Remitente").value,
-                        remitenteNombre: document.getElementById("RemitenteNombre").value,
                         destinatario: document.getElementById("Destinatario").value,
                         contenido: document.getElementById("Contenido").value,
-                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent,
+                        nombrePerro: document.getElementById("NombrePerro").value,
                         adopcionId: document.getElementById("idAdopcion").value
                         //asunto: document.getElementById("Asunto").value
                     };
-
+                    
                     $.ajax({
                         url: '@Url.Action("ContactarPublicador", "Adopciones")',
                         type: 'POST',
                         dataType: 'json',
-                        data: { remitente: mensaje.remitente, remitenteNombre: mensaje.remitenteNombre, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido, adopcionId: mensaje.adopcionId },
+                        data: { remitente: mensaje.remitente, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido, adopcionId: mensaje.adopcionId },
                         success: function (data) {
                             if (data.error) {
                                 Swal.fire({
@@ -442,17 +464,15 @@
                                         title: 'Mensaje enviado!',
                                         text: data.message,
                                     })
-                                    var form = document.getElementById("formContactoPublicador");
-                                    var textarea =document.getElementById("Contenido");
-                                    form.reset();
-                                    form.classList.remove('was-validated');
-                                    textarea.classList.remove('is-valid');
                                 } else {
                                     Swal.fire({
                                         icon: 'warning',
+                                        title: 'Lo siento',
                                         text: data.message
                                     })
                                 }
+                                var boton = document.getElementById('BtnCancelarContacto');
+                                boton.click();
                             }
 
                         },
@@ -536,6 +556,7 @@
                             $('#containerListaAdopciones').html(data);
                             //Carga los nuevos numeros de pagina
                             CambiarPagina();
+                            InicializarTooltips();
                         },
                         error: function () {
                             alert('Error al buscar adopciones');
@@ -569,6 +590,9 @@
                     $('#containerListaAdopciones').html(data);
                     //Carga los nuevos numeros de pagina
                     CambiarPagina();
+                    InicializarTooltips();
+                    InicializacionDeFunciones();
+
                 },
                 error: function () {
                     alert('Error al buscar adopciones');

@@ -4,7 +4,7 @@
 @if (Model.Count() == 0)
 {
     <div class="text-center alert alert-info mt-5 mb-5" role="alert">
-        <h3>¡Todavia no tienes ninguna adopción publicada para visualizar!</h3>
+        <h3>Aún no has publicado perros en adopción</h3>
     </div>
 }
 else{
@@ -17,14 +17,30 @@ else{
                         <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id">
                             @if(adopcion.Estado == 1)
                             {
-                                <img src="~/img/publicarAdopcion-icon.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                <img src="~/img/publicarAdopcion-icon.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                             }
                             else
                             {
-                                <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                                <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem; border-radius: 10%;">
                             }
                             <div class="card-body">
-                                <h5 class="card-title text-center nombre">@adopcion.Nombre.ToUpper() @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
+                                <h4 class="card-title text-center nombre">
+                                    @{
+                                        string nombre = adopcion.Nombre[0].ToString().ToUpper() + adopcion.Nombre.Substring(1).ToLower();
+                                        if (adopcion.Estado == 1)
+                                        {
+                                            <p>
+                                                @(nombre + " (ADOPTADO)")
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p>
+                                                @nombre
+                                            </p>
+                                        }
+                                    }
+                                </h4>
                                 <p class="card-text"><strong>Email del publicador:</strong> @adopcion.Email</p>
                                 <p class="card-text tamano"><strong>Tamaño:</strong> @adopcion.Tamano</p>
                                 <p class="card-text raza"><strong>Raza:</strong> @adopcion.Raza</p>
@@ -36,16 +52,25 @@ else{
                                 <div class="d-flex gap-3">
                                     @if (adopcion.Estado == 0)
                                     {
-                                        <button class="btn btn-custom adoptar-btn" data-adopcion-id="@adopcion.Id" data-toggle="tooltip" data-placement="top" title="Marcar como Adoptado">
+                                        <button class="btn btn-custom adoptar-btn" data-adopcion-id="@adopcion.Id"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Adoptado"
+                                                data-bs-title="Adoptado">
                                             <i class="bi bi-house-add"></i>
                                         </button>
-                                        <button class="btn btn-warning modificar-btn" data-toggle="tooltip" data-placement="top" title="Modificar">
+                                        <button class="btn btn-warning modificar-btn"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Modificar"
+                                                data-bs-title="Modificar">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     }
                                     @if (adopcion.Baja == 0)
                                     {
-                                        <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <button class="btn btn-danger eliminar-btn"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Eliminar"
+                                                data-bs-title="Eliminar">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     }

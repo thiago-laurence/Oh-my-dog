@@ -28,29 +28,45 @@ else
             {
                 <div class="col-md-3">
                     <div class="container-card">
-                        <div class="card mt-4 mb-4 @(perdida.Estado == 1 ? "card-perdida" : "" )" data-perdida-id="@perdida.Id" data-destinatario="@perdida.Email" data-nombreperro="@perdida.Nombre">
+                        <div class="card shadow-lg mt-4 mb-4 @(perdida.Estado == 1 ? "card-perdida" : "" )" data-perdida-id="@perdida.Id" data-destinatario="@perdida.Email" data-nombreperro="@perdida.Nombre">
                             @if (perdida.Estado == 1)
                             {
                                 @if(perdida.Foto != null)
                                 {
-                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }else{
-                                    <img src="~/img/perroRecuperado.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/perroRecuperado.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                             }
                             else
                             {
                                 @if (perdida.Foto != null)
                                 {
-                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/@perdida.Foto" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                                 else
                                 {
-                                    <img src="~/img/perroPerdido.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                    <img src="~/img/perroPerdido.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                                 }
                             }
                             <div class="card-body">
-                                <h5 class="card-title text-center nombrePerro" id="nombrePerro">@perdida.Nombre.ToUpper() @(perdida.Estado == 1 ? "(RECUPERADO)" : "")</h5>
+                                <h4 class="card-title text-center nombrePerro" id="nombrePerro">
+                                    @{
+                                        string nombre = perdida.Nombre[0].ToString().ToUpper() + perdida.Nombre.Substring(1).ToLower();
+                                        if (perdida.Estado == 1)
+                                        {
+                                            <p>
+                                                @(nombre + " (RECUPERADO)")
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p>
+                                                @nombre
+                                            </p>
+                                        }
+                                    }
+                                </h4>
                                 <p class="card-text"><strong>Email del publicador:</strong> @perdida.Email</p>
                                 <p class="card-text"><strong>Visto última vez:</strong> @perdida.FechaPerdida.ToShortDateString()</p>
                                 <p class="card-text"><strong>Raza:</strong> @perdida.Raza</p>
@@ -63,13 +79,19 @@ else
                                 <div class="d-flex gap-3">
                                     @if (perdida.Estado == 0)
                                     {
-                                        <button class="btn btn-custom BtnVisualizarContacto" onclick="BtnVisualizarContacto('@perdida.Id', '@User.FindFirstValue("Email")', '@perdida.Email')" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@perdida.Email">
+                                        <button class="btn btn-custom BtnVisualizarContacto" onclick="BtnVisualizarContacto('@perdida.Id', '@User.FindFirstValue("Email")', '@perdida.Email', '@perdida.Nombre')" data-remitente="@User.FindFirstValue("Email")" data-destinatario="@perdida.Email"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Contactar"
+                                                data-bs-title="Contactar">
                                             <i class="bi bi-send"></i>
                                         </button>
                                     }
                                     @if (User.IsInRole("Administrador"))
                                     {
-                                        <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <button class="btn btn-danger eliminar-btn"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Eliminar"
+                                                data-bs-title="Eliminar" onclick="BtnVisualizarEliminar('@perdida.Id', '@perdida.Email', '@perdida.Nombre')">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     }
