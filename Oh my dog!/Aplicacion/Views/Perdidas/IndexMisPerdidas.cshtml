@@ -364,14 +364,14 @@
                         else {
                             // Actualizar los datos en la tarjeta de adopción
                             var card = $('.card[data-perdida-id="' + response.perdida.id + '"]');
-                            card.find('.card-body .nombre').text(response.perdida.nombre.toUpperCase());
+                            card.find('.card-body .nombrePerro').text(response.perdida.nombre.toUpperCase());
                             card.find('.card-body .sexo').html('<strong>Sexo:</strong> ' + response.perdida.sexo);
                             card.find('.card-body .raza').html('<strong>Raza:</strong> ' + response.perdida.raza);
-                            card.find('.card-body .peso').html('<strong>Peso:</strong> ' + response.perdida.peso);
+                            card.find('.card-body .peso').html('<strong>Peso:</strong> ' + response.perdida.peso + ' (en Kg.)');
                             card.find('.card-body .fechaPerdida').html('<strong>Visto última vez:</strong> ' + new Date(response.perdida.fechaPerdida).toISOString().split("T")[0]);
                             card.find('.card-body .color').html('<strong>Color:</strong> ' + response.perdida.color);
                             card.find('.card-body .descripcion').html('<strong>Descripcion:</strong> ' + response.perdida.descripcion);
-                            card.find('img').html('<img src="/img/' + response.perdida.foto + '" class="img-fluid mx-auto mt-2 foto" style="width:8rem; height:8rem">');
+                            card.find('img').attr('src', '/img/' + response.perdida.foto).addClass('img-fluid mx-auto mt-2 foto').css({ 'width': '8rem', 'height': '8rem' });
                             // Mostrar el mensaje de éxito
                             Swal.fire('¡Publicación actualizada!', 'Los cambios han sido guardados correctamente', 'success');
                             // Ocultar el formulario
