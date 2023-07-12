@@ -17,16 +17,18 @@
     }
 </style>
 
-<div class="b-example-divider"></div>
+<div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px; margin-bottom: 50px;">
+    <h1 class="display-7">
+        Clientes
+        <i class="fa-solid fa-circle-user fa-lg" style="color: #0b357f;"></i>
+    </h1>
+    <p style="margin-bottom: 0px;">
+        Visualiza a tus clientes registrados junto a sus perros asociados
+    </p>
+</div>
 
 <!-- Inicio Clientes -->
 <div class="container" style="margin-top: 50px; margin-bottom: 100px;">
-    <div class="col-lg-7 text-center text-lg-start">
-        <p class="display-6 fw-bold mb-3" style="font-weight: 500!important;">
-            <i class="fa-solid fa-users fa-md"></i>
-            Clientes
-        </p>
-    </div>
     <div class="container">
         <div class="row justify-content-end">
             <div class="col-md-4 col-sm-12">
@@ -35,7 +37,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <input class="form-control me-2" type="text" name="buscar"
-                                       data-bs-toggle="tooltip" data-bs-placement="right"
+                                       data-bs-toggle="tooltip" data-bs-placement="left"
                                        data-bs-custom-class="custom-tooltip"
                                        data-bs-title="El criterio de busqueda es por apellido"
                                        autocomplete="off"
@@ -245,8 +247,13 @@
 @section Scripts{
     <!-- Constantes de inicializacion de tooltips -->
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        function InicializarTooltips() {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
     </script>
 
     <!-- Validacion de relleno de formulario -->

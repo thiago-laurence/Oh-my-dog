@@ -1255,7 +1255,7 @@ else
 				var event_card = $("<div class='event-card d-none tarjeta-rechazado'></div>");
 				
 				var event_name = $("<div class='event-name'>El cliente " + rechazados[i].Cliente + " tiene un turno rechazado en la franja " + rechazados[i].Horario 
-+"<br>Comentario: "+rechazados[i].Comentario+"</div>");
++"<br>Comentario: "+ ((rechazados[i].Comentario == null) ? "el turno se ha vencido" : rechazados[i].Comentario) +"</div>");
 				
 				$(event_card).css({
 					"border-left": "10px solid #FF1744"

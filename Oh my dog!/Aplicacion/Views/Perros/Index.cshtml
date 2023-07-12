@@ -12,9 +12,32 @@
         border-width: 1px 0;
         box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
     }
+
+    .btn-publicarPerro {
+        background-color: #f1965b;
+        color: #000000;
+        border-color: #f1965b;
+    }
+
+        .btn-publicarPerro:hover {
+            background-color: #d98752;
+            color: #000000;
+            border-color: #d98752;
+        }
 </style>
 
-<div class="b-example-divider"></div>
+<div class="text-center" style="background-color: #f5b68c; padding-top: 16px; padding-bottom: 16px; margin-bottom: 50px;">
+    <h1 class="display-7">
+        <i class="fa-solid fa-user fa-md" style="margin-right: 5px;"></i><i class="fa-solid fa-dog fa-md"></i>
+        @Model.Apellido @Model.Nombre - Perros
+    </h1>
+</div>
+<div class="container" style="margin-bottom: 20px;">
+    <button class="btn btn-publicarPerro" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevoPerro">
+        <i class="fa-solid fa-paw fa-xl" style="color: #000000;"></i>
+        Nuevo perro
+    </button>
+</div>
 
 <!-- Inicio de visualizacion de Perros -->
 <div class="container-fluid" id="ContainerListarPerros">
@@ -41,21 +64,21 @@
                         <label class="form-label">Nombre</label>
                         <input type="text" maxlength="20" class="form-control InputText" id="Nombre" required>
                         <div class="invalid-feedback">
-                            Ingrese un nombre!
+                            Ingrese un nombre
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Raza</label>
                         <input type="text" maxlength="20" class="form-control InputText" id="Raza" required>
                         <div class="invalid-feedback">
-                            Ingrese una raza!
+                            Ingrese una raza
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Color</label>
                         <input type="text" maxlength="30" class="form-control InputText" id="Color" required>
                         <div class="invalid-feedback">
-                            Ingrese una raza!
+                            Ingrese una raza
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -66,35 +89,35 @@
                             <option value="Hembra">Hembra</option>
                         </select>
                         <div class="invalid-feedback">
-                            ¡Seleccione un sexo!
+                            Seleccione un sexo
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Peso (en Kg)</label>
                         <input type="text" class="form-control InputNumber" id="Peso" pattern="[0-9]+([.][0-9]+)?" required>
                         <div class="invalid-feedback">
-                            ¡Ingrese un peso válido! (no puede empezar ni finalizar en '.', y no puede ser negativo) <!--Preguntar cuantas validaciones indico-->
+                            Ingrese un peso válido (no puede empezar ni finalizar en '.', y no puede ser negativo)
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Fecha de nacimiento</label>
                         <input type="date" class="form-control InputDate" id="FechaNacimiento" max="" required>
                         <div class="invalid-feedback">
-                            ¡Ingrese una fecha válida! (la fecha no puede ser futura)
+                            Ingrese una fecha válida (la fecha no puede ser futura)
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="" value="">Foto (opcional)</label>
                         <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="Foto">
                         <div class="invalid-feedback">
-                            ¡La foto ingresada no es válida!
+                            La foto ingresada no es válida
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom02" class="form-label">Observaciones</label>
                         <textarea class="form-control InputText" maxlength="500" id="Observaciones" name="" required></textarea>
                         <div class="invalid-feedback">
-                            ¡Ingrese info. relacionada al estado de ingreso del perro!
+                            Ingrese info. relacionada al estado de ingreso del perro
                         </div>
                     </div>
                     <input type="hidden" value="@Model.Id" id="idDueno" />
@@ -126,21 +149,21 @@
                         <label class="form-label">Nombre</label>
                         <input type="text" maxlength="20" class="form-control InputText" id="NombreModificar" required>
                         <div class="invalid-feedback">
-                            Ingrese un nombre!
+                            Ingrese un nombre
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Raza</label>
                         <input type="text" maxlength="20" class="form-control InputText" id="RazaModificar" required>
                         <div class="invalid-feedback">
-                            Ingrese una raza!
+                            Ingrese una raza
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Color</label>
                         <input type="text" maxlength="30" class="form-control InputText" id="ColorModificar" required>
                         <div class="invalid-feedback">
-                            Ingrese una raza!
+                            Ingrese un color
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -151,28 +174,28 @@
                             <option value="Hembra">Hembra</option>
                         </select>
                         <div class="invalid-feedback">
-                            Seleccione un sexo!
+                            Seleccione un sexo
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Peso (en Kg)</label>
                         <input type="text" class="form-control InputNumber" id="PesoModificar" pattern="[0-9]+([.][0-9]+)?" required>
                         <div class="invalid-feedback">
-                            Ingrese un peso válido! (no puede empezar ni finalizar en '.', y no puede ser negativo) <!--Preguntar cuantas validaciones indico-->
+                            Ingrese un peso válido (no puede empezar ni finalizar en '.', y no puede ser negativo)
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Fecha de nacimiento</label>
                         <input type="date" class="form-control InputDate" id="FechaNacimientoModificar" max="" required>
                         <div class="invalid-feedback">
-                            Ingrese una fecha válida! (la fecha no puede ser futura)
+                            Ingrese una fecha válida (la fecha no puede ser futura)
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="" value="">Foto (opcional)</label>
                         <input type="file" class="form-control InputFoto" accept=".jpg,.jpeg,.png" id="FotoModificar">
                         <div class="invalid-feedback">
-                            La foto ingresada no es válida!
+                            La foto ingresada no es válida
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -183,14 +206,14 @@
                             <option value="false">Inactivo</option>
                         </select>
                         <div class="invalid-feedback">
-                            Seleccione un sexo!
+                            Seleccione un sexo
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom02" class="form-label">Observaciones</label>
                         <textarea class="form-control InputText" maxlength="500" id="ObservacionesModificar" name="" required></textarea>
                         <div class="invalid-feedback">
-                            Ingrese info. relacionada al estado de ingreso del perro!
+                            Ingrese info. relacionada al estado de ingreso del perro
                         </div>
                     </div>
                     <input type="hidden" id="idDuenoModificar" />

@@ -75,7 +75,7 @@
                 @if (item.Foto != null)
                 {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Foto" class="align-self-center" alt="@item.Nombre" height="60">
+                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre" style="border-radius: 10%;">
                     </div>
                 }
                 else
@@ -141,7 +141,7 @@
                 @if (item.Foto != null)
                 {
                     <div class="d-flex justify-content-center">
-                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre">
+                        <img src="@item.Foto" class="align-self-center w-75 h-50" alt="@item.Nombre" style="border-radius: 10%;">
                     </div>
                 }
                 else
@@ -160,7 +160,7 @@
                         <ul class="list-group list-group-flush">
                             @foreach (var modalidad in item.ModalidadCuidadors)
                             {
-                                <li class="list-group-item">@modalidad.IdModalidadNavigation.Nombre</li>
+                                <li class="list-group-item">@modalidad?.IdModalidadNavigation?.Nombre</li>
                             }
                         </ul>
                     }
@@ -252,7 +252,7 @@ else
                             <span class="input-group-text" id="inputGroupPrepend">@@</span>
                             <input type="email" maxlength="50" class="form-control" id="modificarEmail" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
-                                Ingrese un email válido (con @@)!
+                                Ingrese un email válido (con @@)
                             </div>
                         </div>
                     </div>
@@ -260,21 +260,21 @@ else
                         <label class="form-label">Nombre</label>
                         <input type="text" maxlength="20" class="form-control" id="modificarNombre" required>
                         <div class="invalid-feedback">
-                            Ingrese un nombre!
+                            Ingrese un nombre
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Apellido</label>
                         <input type="text" maxlength="20" class="form-control" id="modificarApellido" required>
                         <div class="invalid-feedback">
-                            Ingresa un apellido!
+                            Ingresa un apellido
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label">Ubicación</label>
                         <input class="form-control" autocomplete="false" id="modificarUbicacion" maxlength="300" required placeholder="Por ejemplo, calle 64 1544">
                         <div class="invalid-feedback">
-                            Ingresa una dirección!
+                            Ingresa una dirección o ubicación especial
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -291,7 +291,7 @@ else
                                 En el hogar
                             </label>
                             <div class="invalid-feedback">
-                                Ingrese al menos una modalidad de trabajo!
+                                Ingrese al menos una modalidad de trabajo
                             </div>
                         </div>
                     </div>
@@ -299,7 +299,7 @@ else
                         <label class="form-label">Horario de comienzo</label>
                         <input type="time" class="form-control" id="modificarHorarioIN" required>
                         <div class="invalid-feedback">
-                            Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)!
+                            Ingrese horas válidas (el horario de fin debe ser mayor al de comienzo)
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -310,7 +310,7 @@ else
                         <label class="form-label" for="modificarUpload" value="">Foto (opcional)</label>
                         <input type="file" class="form-control" accept=".jpg,.jpeg,.png" id="modificarUpload" onchange="validateFileTypeModificar()">
                         <div class="invalid-feedback">
-                            La foto ingresada no es válida!
+                            La foto ingresada no es válida
                         </div>
                     </div>
                     <div style="display: none;">
