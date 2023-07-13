@@ -1,5 +1,15 @@
 ﻿@model Aplicacion.Models.Perros
 
+@if (Model.Estado)
+{
+    <div class="container" style="margin-bottom: 20px;">
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevoTratamiento">
+            <i class="fa-solid fa-file-medical fa-xl" style="color: #FFFFFF;"></i>
+            Nuevo tratamiento
+        </button>
+    </div>
+}
+
 @if(Model.TratamientoPerros.Count != 0)
 {
     <div class="container" style="margin-bottom: 100px;">
