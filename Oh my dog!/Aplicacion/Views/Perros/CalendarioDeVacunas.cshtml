@@ -22,13 +22,15 @@
         @Model.Perro.Nombre - Libreta sanitaria
     </h1>
 </div>
-<div class="container" style="margin-bottom: 20px;">
-    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevaVacuna">
-        <i class="fa-solid fa-syringe fa-xl" style="color: #FFFFFF;"></i>
-        Nueva vacuna
-    </button>
-</div>
-
+@if (@Model.Perro.Estado)
+{
+    <div class="container" style="margin-bottom: 20px;">
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevaVacuna">
+            <i class="fa-solid fa-syringe fa-xl" style="color: #FFFFFF;"></i>
+            Nueva vacuna
+        </button>
+    </div>
+}
 
 <!-- Inicio de visualizacion de Vacunas-->
 <div class="container-fluid" id="ContainerListarVacunas">

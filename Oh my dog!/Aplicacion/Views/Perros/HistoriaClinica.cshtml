@@ -21,13 +21,17 @@
         @Model.Perro.Nombre - Historia clínica
     </h1>
 </div>
+@if(@Model.Perro.Estado){
 <div class="container" style="margin-bottom: 20px;">
+
+    
     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevoTratamiento">
         <i class="fa-solid fa-file-medical fa-xl" style="color: #FFFFFF;"></i>
         Nuevo tratamiento
     </button>
+    
 </div>
-
+}
 <!-- Inicio de visualizacion de Tratamientos-->
 <div class="container-fluid" id="ContainerListarTratamientos">
     @await Html.PartialAsync("_ListarTratamientos", Model.Perro)
