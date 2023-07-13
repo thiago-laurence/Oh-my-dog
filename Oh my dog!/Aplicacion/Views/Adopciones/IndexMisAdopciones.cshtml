@@ -37,6 +37,18 @@
         background-color: #D9F7F4;
     }
 
+    .tooltip-Eliminar {
+        --bs-tooltip-bg: var(--bs-danger);
+    }
+
+    .tooltip-Adoptado {
+        --bs-tooltip-bg: #59a1ab;
+        --bs-tooltip-color: #FFFFFF;
+    }
+
+    .tooltip-Modificar {
+        --bs-tooltip-bg: var(--bs-warning);
+    }
 </style>
 
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
@@ -204,10 +216,21 @@
 
     <!-- Scripts Section -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/bootstrap.bundle.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Constantes de inicializacion de tooltips -->
+    <script>
+        function InicializarTooltips() {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
+    </script>
+
     <script>
         function InicializarInputs(idFormulario, idBotonAceptar) {
             var formulario = document.getElementById(idFormulario);
@@ -219,58 +242,11 @@
 
             document.getElementById(idBotonAceptar).disabled = false;
         }
-
         $(document).ready(function () {
-            /*
-            window.addEventListener('load', function () {
-                capitalizarNombresPerros();
-            });
-            // Validacion de solo letras en el campo
-            var dogNameInput = document.getElementById("nombre");
-            var dogColorInput = document.getElementById("color");
-            var dogRazaInput = document.getElementById("raza");
+            InicializacionDeFunciones();
+        });
 
-            dogNameInput.addEventListener("input", function () {
-                var regex = /[^a-zA-Z]/g;
-                var cleanedValue = dogNameInput.value.replace(regex, '');
-                dogNameInput.value = cleanedValue;
-            });
-            dogColorInput.addEventListener("input", function () {
-                var regex = /[^a-zA-Z]/g;
-                var cleanedValue = dogColorInput.value.replace(regex, '');
-                dogColorInput.value = cleanedValue;
-            });
-            dogRazaInput.addEventListener("input", function () {
-                var regex = /[^a-zA-Z]/g;
-                var cleanedValue = dogRazaInput.value.replace(regex, '');
-                dogRazaInput.value = cleanedValue;
-            });
-            //Fin validacion
-
-            function capitalizarNombresPerros() {
-                var cardsAdopcion = document.querySelectorAll('.card');
-
-                cardsAdopcion.forEach(function (card) {
-                    var nombrePerroElemento = card.querySelector('.card-body .nombre');
-
-                    var nombrePerro = nombrePerroElemento.textContent;
-
-                    if (!nombrePerro.includes('ADOPTADO')) {
-                        var palabras = nombrePerro.split(' ');
-
-                        for (var i = 0; i < palabras.length; i++) {
-                            var palabra = palabras[i];
-
-                            palabras[i] = palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
-                        }
-
-                        nombrePerro = palabras.join(' ');
-                    }
-
-                    nombrePerroElemento.textContent = nombrePerro;
-                });
-            }
-            */
+        function InicializacionDeFunciones() {
             // Manejo del evento clic en el botón "Adoptar"
             $('.adoptar-btn').click(function () {
                 var adopcionId = $(this).data('adopcion-id');
@@ -291,18 +267,9 @@
                             type: 'POST',
                             data: { id: adopcionId },
                             success: function (response) {
-                                // Actualizar el estado en la tarjeta de adopción
-                                tarjetaAdopcion.find('.card-title').text("(ADOPTADO)");
-                                tarjetaAdopcion.find('img').attr('src', '/img/publicarAdopcion-icon.png').addClass('img-fluid mx-auto mt-2 foto').css({ 'width': '8rem', 'height': '8rem' });
-                                // Agregar una clase CSS para resaltar el cambio de estado
-                                tarjetaAdopcion.addClass('card-adoptado');
-
-                                // Quitar el boton Adoptar
-                                tarjetaAdopcion.find('.adoptar-btn').remove();
-                                tarjetaAdopcion.find('.modificar-btn').remove();
-
                                 // Mostrar el mensaje de éxito
                                 Swal.fire('¡Adopción realizada!', 'La mascota ha sido dada en adopción', 'success');
+                                ListarAdopciones();
                             },
                             error: function (error) {
                                 Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
@@ -333,11 +300,9 @@
                             type: 'POST',
                             data: { id: adopcionId },
                             success: function (response) {
-                                // Eliminar la tarjeta de adopción del DOM
-                                tarjetaAdopcion.parent().parent().remove();
-
                                 // Mostrar el mensaje de éxito
                                 Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
+                                ListarAdopciones();
                             },
                             error: function (error) {
                                 Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
@@ -409,30 +374,17 @@
                     type: 'POST',
                     data: data,
                     success: function (response) {
-                        //tarjetaAdopcion.find('.card-body .nombre').text(nombre);
-                        //tarjetaAdopcion.find('.card-body .sexo').text(response.adopcion.sexo);
-                        //tarjetaAdopcion.find('.raza').text(raza);
-                        //tarjetaAdopcion.find('.tamaño').text(tamano);
-                        //tarjetaAdopcion.find('.color').text(color);
-                        //tarjetaAdopcion.find('.descripcion').text(descripcion);
-
                         if (response.error) {
                             Swal.fire('No se pudo guardar los cambios', response.mensaje, 'warning');
                         }
                         else {
-                            // Actualizar los datos en la tarjeta de adopción
-                            var card = $('.card[data-adopcion-id="' + response.adopcion.id + '"]');
-                            card.find('.card-body .nombre').text(response.adopcion.nombre.toUpperCase());
-                            card.find('.card-body .sexo').html('<strong>Sexo:</strong> ' + response.adopcion.sexo);
-                            card.find('.card-body .raza').html('<strong>Raza:</strong> ' + response.adopcion.raza);
-                            card.find('.card-body .tamano').html('<strong>Tamaño:</strong> ' + response.adopcion.tamano);
-                            card.find('.card-body .color').html('<strong>Color:</strong> ' + response.adopcion.color);
-                            card.find('.card-body .descripcion').html('<strong>Descripcion:</strong> ' + response.adopcion.descripcion);
-                            
                             // Mostrar el mensaje de éxito
                             Swal.fire('¡Publicación actualizada!', 'Los cambios han sido guardados correctamente', 'success');
                             // Ocultar el formulario
                             $('#ModalModificarAdopcion').modal('hide');
+                            var boton = document.getElementById('BotonCancelarModificar');
+                            boton.click();
+                            ListarAdopciones();
                         }
 
                     },
@@ -441,7 +393,7 @@
                     }
                 });
             });
-        });
+        }
     </script>
 
     <!--Validacion de relleno de formulario-->
@@ -574,5 +526,25 @@
                 });
             });
         });
+    </script>
+
+    <!--Listar adopciones-->
+    <script>
+        function ListarAdopciones() {
+            $.ajax({
+                url: '@Url.Action("ListarMisAdopciones", "Adopciones")',
+                type: 'GET',
+                success: function (data) {
+                    $('#containerListaMisAdopciones').html(data);
+                    InicializarTooltips();
+                    InicializacionDeFunciones();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
     </script>
 }

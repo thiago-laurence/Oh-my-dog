@@ -1,28 +1,5 @@
 ﻿@model Aplicacion.Models.Perros
 
-<div class="container" style="margin-top: 50px; margin-bottom: 100px;">
-    <div class="col-lg-7 text-center text-lg-start">
-        <p class="display-6 fw-bold mb-3" style="font-weight: 500!important;">
-            <i class="fa-solid fa-paw fa-md"></i>
-            @Model.Nombre - Historia clínica
-        </p>
-    </div>
-    @if (Model.TratamientoPerros.Count == 0)
-    {
-        <div class="text-center alert alert-info" role="alert">
-            <h3>
-                Aún no se han registrado tratamientos para el perro
-            </h3>
-        </div>
-    }
-    @if (Model.Estado)
-    {
-        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#ModalNuevoTratamiento">
-            <i class="fa-solid fa-file-medical fa-xl" style="color: #FFFFFF;"></i>
-            Nuevo tratamiento
-        </button>
-    }
-</div>
 @if(Model.TratamientoPerros.Count != 0)
 {
     <div class="container" style="margin-bottom: 100px;">
@@ -48,5 +25,13 @@
                 </div>
             }
         </div>
+    </div>
+}
+else
+{
+    <div class="text-center alert alert-info" role="alert">
+        <h3>
+            Aún no se han registrado tratamientos para el perro
+        </h3>
     </div>
 }

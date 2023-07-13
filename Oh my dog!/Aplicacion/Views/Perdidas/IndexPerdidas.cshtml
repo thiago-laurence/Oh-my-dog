@@ -38,10 +38,20 @@
     .custom-tooltip {
         --bs-tooltip-bg: var(--bs-primary);
     }
+
+    .tooltip-Eliminar {
+        --bs-tooltip-bg: var(--bs-danger);
+    }
+
+
+    .tooltip-Contactar {
+        --bs-tooltip-bg: #59a1ab;
+        --bs-tooltip-color: #FFFFFF;
+    }
 </style>
 
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
-    <h1 class="display-7">Listado de perdidas <img class="huella-img" src="~/img/perroPerdido.png" /></h1>
+    <h1 class="display-7">Perros perdidos <img class="huella-img" src="~/img/perroPerdido.png" /></h1>
     <p style="margin-bottom: 0px;">
         ¡Recupera a un familiar canino! Explora las publicaciones de perros perdidos para informar a sus dueños que viste o tienes a su perro, o mismo publica el tuyo para poder recuperarlo lo antes posible
     </p>
@@ -56,7 +66,7 @@
                     Buscador de perros por nombre:
                 </label>
                 <input class="form-control me-2" type="text" name="buscar"
-                       data-bs-toggle="tooltip" data-bs-placement="bottom"
+                       data-bs-toggle="tooltipBusqueda" data-bs-placement="bottom"
                        data-bs-custom-class="custom-tooltip"
                        data-bs-title="El criterio de busqueda es por el nombre del perro publicado"
                        autocomplete="off"
@@ -78,17 +88,17 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
                     <i class="fa-solid fa-envelope fa-xl"></i>
-                    Contactar publicación de adopción
+                    Contactar publicación de perdida
                 </h1>
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formContactoPublicador">
-                    <input type="text" class="form-control" id="RemitenteNombre" name="RemitenteNombre" readonly value="@User.Identity!.Name" hidden>
                     <input type="number" id="idPerdida" hidden value="">
+                    <input type="text" id="NombrePerro" hidden value="">
                     <div class="col-md-12">
                         <label for="remitente" class="form-label">Remitente</label>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity!.IsAuthenticated)
                         {
                             <input type="email" class="form-control" id="Remitente" name="Remitente" readonly>
                         }
@@ -115,12 +125,48 @@
                         <label for="validationCustom02" class="form-label">Mensaje</label>
                         <textarea class="form-control InputText" maxlength="500" id="Contenido" name="Contenido" required></textarea>
                         <div class="invalid-feedback">
-                            Ingresa un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
+                            Ingrese un mensaje a incluir en el cuerpo del correo! (máximo 500 caracteres)
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BtnCancelarContacto">Cancelar</button>
                         <button type="button" class="btn btn-custom BtnEnvioForm" onclick="enviarCorreoPublicador()" id="BtnContacto" disabled>Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Inicio Modal para eliminar publicacion del publicador-->
+<div class="modal fade" id="ModalEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-trash fa-xl"></i>
+                    Eliminar publicación de perdida
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formEliminarPublicador">
+                    <input type="number" id="idPerdidaEliminar" hidden value="">
+                    <input type="text" id="nombrePerroEliminar" hidden value="">
+                    <div class="col-md-12">
+                        <label for="destinatario" class="form-label">Destinatario</label>
+                        <input type="email" class="form-control" id="DestinatarioEliminar" name="Destinatario" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Motivo de eliminación</label>
+                        <textarea class="form-control InputText" maxlength="500" id="ContenidoEliminar" name="Contenido" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingrese un mensaje a incluir en el cuerpo del correo (máximo 500 caracteres)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BtnCancelarEliminar">Cancelar</button>
+                        <button type="button" class="btn btn-custom BtnEnvioForm" onclick="EliminarPublicacion()" id="BtnEliminar" disabled>Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -139,8 +185,17 @@
 
     <!-- Constantes de inicializacion de tooltips -->
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        const tooltipBusqueda = document.querySelectorAll('[data-bs-toggle="tooltipBusqueda"]')
+        const tooltipListaBusqueda = [...tooltipBusqueda].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        function InicializarTooltips(){
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
     </script>
 
     <!--Validacion de relleno de formulario-->
@@ -291,10 +346,11 @@
 
     <!--Inicializacion de Remitente y Destinatario-->
     <script>
-        function BtnVisualizarContacto(idPerdida, remitente, destinatario) {
+        function BtnVisualizarContacto(idPerdida, remitente, destinatario, nombrePerro) {
             document.getElementById("Remitente").value = remitente;
             document.getElementById("Destinatario").value = destinatario;
-            document.getElementById("idPerdida").value = idPerdida;;
+            document.getElementById("idPerdida").value = idPerdida;
+            document.getElementById("NombrePerro").value = nombrePerro;
 
             $('#ModalContactar').modal('show');
         };
@@ -303,13 +359,19 @@
     <!--Envio de formulario de contacto-->
     <script>
         window.addEventListener('load', function () {
-            capitalizarNombresPerros();
+            //capitalizarNombresPerros();
         });
-        $('.eliminar-btn').click(function () {
-            var perdidaId = $(this).closest('.card').data('perdida-id');
-            var destinatario = $(this).closest('.card').data('destinatario');
-            var nombrePerro = $(this).closest('.card').data('nombreperro');
-            var tarjetaPerdida = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
+        function BtnVisualizarEliminar(idPerdida, destinatario, nombrePerro){
+            document.getElementById("DestinatarioEliminar").value = destinatario;
+            document.getElementById("idPerdidaEliminar").value = idPerdida;
+            document.getElementById("nombrePerroEliminar").value = nombrePerro;
+            $('#ModalEliminar').modal('show');
+        }
+        function EliminarPublicacion(){
+            var perdidaId = document.getElementById("idPerdidaEliminar").value;
+            var destinatario = document.getElementById("DestinatarioEliminar").value;
+            var nombrePerro = document.getElementById("nombrePerroEliminar").value;
+            var contenido = document.getElementById("ContenidoEliminar").value;
 
             Swal.fire({
                 title: '¿Estás seguro de que deseas eliminar esta publicación?',
@@ -326,11 +388,10 @@
                     $.ajax({
                         url: '/Perdidas/BajaLogica',
                         type: 'POST',
-                        data: { id: perdidaId, destinatario: destinatario, nombrePerro: nombrePerro },
+                        data: { id: perdidaId, destinatario: destinatario, nombrePerro: nombrePerro, contenido: contenido },
                         success: function (response) {
-                            // Eliminar la tarjeta de adopción del DOM
-                            tarjetaPerdida.parent().parent().remove();
-
+                            $('#ModalEliminar').modal('hide');
+                            ListarPerdidas();
                             // Mostrar el mensaje de éxito
                             Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
                         },
@@ -340,7 +401,7 @@
                     });
                 }
             });
-        });
+        }
         function capitalizarNombresPerros() {
             var cardsPerdida = document.querySelectorAll('.card');
 
@@ -386,10 +447,9 @@
                     var card = document.querySelector('.card');
                     var mensaje = {
                         remitente: document.getElementById("Remitente").value,
-                        remitenteNombre: document.getElementById("RemitenteNombre").value,
                         destinatario: document.getElementById("Destinatario").value,
                         contenido: document.getElementById("Contenido").value,
-                        nombrePerro: card.querySelector('.card-body .nombrePerro').textContent,
+                        nombrePerro: document.getElementById("NombrePerro").value,
                         perdidaId: document.getElementById("idPerdida").value
                         //asunto: document.getElementById("Asunto").value
                     };
@@ -398,7 +458,7 @@
                         url: '@Url.Action("ContactarPublicador", "Perdidas")',
                         type: 'POST',
                         dataType: 'json',
-                        data: { remitente: mensaje.remitente, remitenteNombre: mensaje.remitenteNombre, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido },
+                        data: { remitente: mensaje.remitente, destinatario: mensaje.destinatario, nombrePerro: mensaje.nombrePerro, contenido: mensaje.contenido, perdidaId: mensaje.perdidaId },
                         success: function (data) {
                             if (data.error) {
                                 Swal.fire({
@@ -417,17 +477,15 @@
                                         title: 'Mensaje enviado!',
                                         text: data.message,
                                     })
-                                    var form = document.getElementById("formContactoPublicador");
-                                    var textarea = document.getElementById("Contenido");
-                                    form.reset();
-                                    form.classList.remove('was-validated');
-                                    textarea.classList.remove('is-valid');
                                 } else {
                                     Swal.fire({
                                         icon: 'warning',
+                                        title: 'Lo siento',
                                         text: data.message
                                     })
                                 }
+                                var boton = document.getElementById('BtnCancelarContacto');
+                                boton.click();
                             }
 
                         },
@@ -479,6 +537,7 @@
                             $('#containerListaPerdidas').html(data);
                             //Carga los nuevos numeros de pagina
                             CambiarPagina();
+                            InicializarTooltips();
                         },
                         error: function () {
                             alert('Error al buscar perdidas');
@@ -505,6 +564,7 @@
                     $('#containerListaPerdidas').html(data);
                     //Carga los nuevos numeros de pagina
                     CambiarPagina();
+                    InicializarTooltips();
                 },
                 error: function () {
                     alert('Error al buscar perdidas');

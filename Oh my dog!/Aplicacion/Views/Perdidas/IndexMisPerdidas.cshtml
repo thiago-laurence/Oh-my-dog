@@ -37,6 +37,17 @@
         background-color: #D9F7F4;
     }
 
+    .tooltip-Eliminar {
+        --bs-tooltip-bg: var(--bs-danger);
+    }
+    .tooltip-Recuperado {
+        --bs-tooltip-bg: #59a1ab;
+        --bs-tooltip-color: #FFFFFF;
+    }
+
+    .tooltip-Modificar{
+        --bs-tooltip-bg: var(--bs-warning);
+    }
 </style>
 
 <div class="text-center" style="background-color: #c2dee2; padding-top: 16px; padding-bottom: 16px;">
@@ -63,21 +74,21 @@
             </div>
             <div class="modal-body">
                 <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formEditarPerdida">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control InputText" id="Nombre" maxlength="50" required>
                         <div class="invalid-feedback">
                             Ingrese el nombre del perro
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">Raza</label>
                         <input type="text" maxlength="50" class="form-control InputText" id="Raza" required>
                         <div class="invalid-feedback">
                             Ingrese una raza
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="validationCustom04" class="form-label">Sexo</label>
                         <select class="form-select InputSelect" id="Sexo" required>
                             <option selected disabled value="">Elige...</option>
@@ -88,21 +99,21 @@
                             Seleccione un sexo
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">Color</label>
                         <input type="text" maxlength="50" class="form-control InputText" id="Color" required>
                         <div class="invalid-feedback">
                             Ingrese un color
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">Peso (en Kg)</label>
                         <input type="text" class="form-control InputNumber" id="Peso" pattern="[0-9]+([.][0-9]+)?" required>
                         <div class="invalid-feedback">
                             Ingrese un peso válido (no puede empezar ni finalizar en '.', y no puede ser negativo)
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label">Fecha de la perdida</label>
                         <input type="date" class="form-control InputDate" id="FechaPerdida" max="" required>
                         <div class="invalid-feedback">
@@ -126,6 +137,7 @@
                     <div class="modal-footer">
                         <input type="hidden" id="perdida-id" />
                         <input type="hidden" id="email" value="@User.FindFirstValue("Email")" />
+                        <input type="hidden" id="fotoOriginal" />
                         <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BotonCancelarModificar">Cancelar</button>
                         <button type="submit" class="btn btn-primary BtnEnvioForm" id="BotonEnvioModificar" disabled>Aceptar</button>
                     </div>
@@ -142,9 +154,22 @@
     <!-- Scripts Section -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/js/bootstrap.bundle.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Constantes de inicializacion de tooltips -->
+    <script>
+        function InicializarTooltips() {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+
+        $(document).ready(function () {
+            InicializarTooltips();
+        });
+    </script>
+
     <script>
         function InicializarInputs(idFormulario, idBotonAceptar) {
             var formulario = document.getElementById(idFormulario);
@@ -156,58 +181,10 @@
 
             document.getElementById(idBotonAceptar).disabled = false;
         }
-
         $(document).ready(function () {
-            /*
-            window.addEventListener('load', function () {
-                capitalizarNombresPerros();
-            });
-            // Validacion de solo letras en el campo
-            var dogNameInput = document.getElementById("nombre");
-            var dogColorInput = document.getElementById("color");
-            var dogRazaInput = document.getElementById("raza");
-
-            dogNameInput.addEventListener("input", function () {
-                var regex = /[^a-zA-Z]/g;
-                var cleanedValue = dogNameInput.value.replace(regex, '');
-                dogNameInput.value = cleanedValue;
-            });
-            dogColorInput.addEventListener("input", function () {
-                var regex = /[^a-zA-Z]/g;
-                var cleanedValue = dogColorInput.value.replace(regex, '');
-                dogColorInput.value = cleanedValue;
-            });
-            dogRazaInput.addEventListener("input", function () {
-                var regex = /[^a-zA-Z]/g;
-                var cleanedValue = dogRazaInput.value.replace(regex, '');
-                dogRazaInput.value = cleanedValue;
-            });
-            //Fin validacion
-
-            function capitalizarNombresPerros() {
-                var cardsPerdida = document.querySelectorAll('.card');
-
-                cardsPerdida.forEach(function (card) {
-                    var nombrePerroElemento = card.querySelector('.card-body .nombre');
-
-                    var nombrePerro = nombrePerroElemento.textContent;
-
-                    if (!nombrePerro.includes('ADOPTADO')) {
-                        var palabras = nombrePerro.split(' ');
-
-                        for (var i = 0; i < palabras.length; i++) {
-                            var palabra = palabras[i];
-
-                            palabras[i] = palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
-                        }
-
-                        nombrePerro = palabras.join(' ');
-                    }
-
-                    nombrePerroElemento.textContent = nombrePerro;
-                });
-            }
-            */
+            InicializacionDeFunciones();
+        });
+        function InicializacionDeFunciones(){
             // Manejo del evento clic en el botón "Adoptar"
             $('.recuperar-btn').click(function () {
                 var perdidaId = $(this).data('perdida-id');
@@ -228,18 +205,9 @@
                             type: 'POST',
                             data: { id: perdidaId },
                             success: function (response) {
-                                // Actualizar el estado en la tarjeta de adopción
-                                tarjetaPerdida.find('.card-title').text("(RECUPERADO)");
-
-                                // Agregar una clase CSS para resaltar el cambio de estado
-                                tarjetaPerdida.addClass('card-recuperado');
-
-                                // Quitar el boton Adoptar
-                                tarjetaPerdida.find('.recuperar-btn').remove();
-                                tarjetaPerdida.find('.modificar-btn').remove();
-
                                 // Mostrar el mensaje de éxito
                                 Swal.fire('¡Recuperación lograda!', 'La mascota ha sido recuperada', 'success');
+                                ListarPerdidas();
                             },
                             error: function (error) {
                                 Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
@@ -270,11 +238,9 @@
                             type: 'POST',
                             data: { id: perdidaId },
                             success: function (response) {
-                                // Eliminar la tarjeta de adopción del DOM
-                                tarjetaPerdida.parent().parent().remove();
-
                                 // Mostrar el mensaje de éxito
                                 Swal.fire('¡Publicación eliminada!', 'La publicación de la adopción ha sido eliminada.', 'success');
+                                ListarPerdidas();
                             },
                             error: function (error) {
                                 Swal.fire('Error', 'Hubo un problema al procesar la solicitud.', 'error');
@@ -296,6 +262,7 @@
 
                         // Rellenar el formulario con los datos de la adopción
                         $('#perdida-id').val(response.id);
+                        $('#fotoOriginal').val(response.foto);
                         $('#Nombre').val(response.nombre);
                         $('#Sexo').val(response.sexo);
                         $('#Raza').val(response.raza);
@@ -327,7 +294,8 @@
                 var peso = $('#Peso').val();
                 var raza = $('#Raza').val();
                 var color = $('#Color').val();
-                var foto = RegistrarFoto('Foto');
+                var nombreFoto = RegistrarFoto('Foto');
+                var foto = (nombreFoto == null) ? document.getElementById("fotoOriginal").value : nombreFoto;
                 var fechaPerdida = $('#FechaPerdida').val();
                 var descripcion = $('#Descripcion').val();
 
@@ -351,31 +319,17 @@
                     type: 'POST',
                     data: data,
                     success: function (response) {
-                        //tarjetaPerdida.find('.card-body .nombre').text(nombre);
-                        //tarjetaPerdida.find('.card-body .sexo').text(response.perdida.sexo);
-                        //tarjetaPerdida.find('.raza').text(raza);
-                        //tarjetaPerdida.find('.tamaño').text(tamano);
-                        //tarjetaPerdida.find('.color').text(color);
-                        //tarjetaPerdida.find('.descripcion').text(descripcion);
-
                         if (response.error) {
                             Swal.fire('No se pudo guardar los cambios', response.mensaje, 'warning');
                         }
                         else {
-                            // Actualizar los datos en la tarjeta de adopción
-                            var card = $('.card[data-perdida-id="' + response.perdida.id + '"]');
-                            card.find('.card-body .nombrePerro').text(response.perdida.nombre.toUpperCase());
-                            card.find('.card-body .sexo').html('<strong>Sexo:</strong> ' + response.perdida.sexo);
-                            card.find('.card-body .raza').html('<strong>Raza:</strong> ' + response.perdida.raza);
-                            card.find('.card-body .peso').html('<strong>Peso:</strong> ' + response.perdida.peso + ' (en Kg.)');
-                            card.find('.card-body .fechaPerdida').html('<strong>Visto última vez:</strong> ' + new Date(response.perdida.fechaPerdida).toISOString().split("T")[0]);
-                            card.find('.card-body .color').html('<strong>Color:</strong> ' + response.perdida.color);
-                            card.find('.card-body .descripcion').html('<strong>Descripcion:</strong> ' + response.perdida.descripcion);
-                            card.find('img').attr('src', '/img/' + response.perdida.foto).addClass('img-fluid mx-auto mt-2 foto').css({ 'width': '8rem', 'height': '8rem' });
                             // Mostrar el mensaje de éxito
                             Swal.fire('¡Publicación actualizada!', 'Los cambios han sido guardados correctamente', 'success');
                             // Ocultar el formulario
                             $('#ModalModificarPerdida').modal('hide');
+                            var boton = document.getElementById('BotonCancelarModificar');
+                            boton.click();
+                            ListarPerdidas();
                         }
 
                     },
@@ -384,7 +338,7 @@
                     }
                 });
             });
-        });
+        }
     </script>
 
     <!--Validacion de relleno de formulario-->
@@ -582,6 +536,26 @@
             }
 
             return (filename);
+        }
+    </script>
+
+    <!--Listar perdidas-->
+    <script>
+        function ListarPerdidas() {
+            $.ajax({
+                url: '@Url.Action("ListarMisPerdidas", "Perdidas")',
+                type: 'GET',
+                success: function (data) {
+                    $('#containerListaMisPerdidas').html(data);
+                    InicializarTooltips();
+                    InicializacionDeFunciones();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
         }
     </script>
 }

@@ -66,7 +66,7 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public async Task<JsonResult> RegistrarPerro([FromBody] Perros perro)
         {
-            if (ExistePerro(perro.Nombre, perro.IdDueno))
+            if (ExistePerro(perro.Id, perro.Nombre, perro.IdDueno))
             {
                 return (Json(new { success = false, message = "El nombre del perro ya está registrado para un perro activo al cliente asociado" } ));
             }
@@ -153,10 +153,10 @@ namespace Aplicacion.Controllers
             return Path.Combine(Path.GetFullPath("wwwroot") + "\\img", filename);
         }
 
-        public bool ExistePerro(string nombrePerro, int idDueno)
+        public bool ExistePerro(int idPerro, string nombrePerro, int idDueno)
         {
             return (
-                    _context.Perros.Any(p => (p.IdDueno == idDueno) && (p.Estado == true) && (p.Nombre == nombrePerro))
+                    _context.Perros.Any(p => (p.IdDueno == idDueno) && (p.Id != idPerro) && (p.Estado == true) && (p.Nombre == nombrePerro))
                    );
         }
 
@@ -170,12 +170,9 @@ namespace Aplicacion.Controllers
         public JsonResult ModificarPerro(Perros perro)
         {
             var _perro = _context.Perros.FirstOrDefault(p => p.Id == perro.Id);
-            if (_perro?.Nombre != perro.Nombre)
+            if (ExistePerro(perro.Id, perro.Nombre, perro.IdDueno))
             {
-                if (ExistePerro(perro.Nombre, perro.IdDueno))
-                {
-                    return (Json(new { success = false, message = "El nombre del perro ya está registrado para un perro activo al cliente asociado" }));
-                }
+                return (Json(new { success = false, message = "El nombre del perro ya está registrado para un perro activo al cliente asociado" }));
             }
 
             if (!perro.Estado)
@@ -352,7 +349,7 @@ namespace Aplicacion.Controllers
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
                         client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+                        client.Authenticate("d57c3b71f0c9fd", "40cce72119e038");
                         client.Send(message);
                         client.Disconnect(true);
                     }

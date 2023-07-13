@@ -32,14 +32,30 @@ else
                         <div class="card mt-4 mb-4 @(adopcion.Estado == 1 ? "card-adoptado" : "" )" data-adopcion-id="@adopcion.Id" data-destinatario="@adopcion.Email" data-nombreperro="@adopcion.Nombre">
                             @if (adopcion.Estado == 1)
                             {
-                                <img src="~/img/publicarAdopcion-icon.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem">
+                                <img src="~/img/publicarAdopcion-icon.png" class="img-fluid mx-auto mt-2" style="width:8rem; height:8rem; border-radius: 10%;">
                             }
                             else
                             {
-                                <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem">
+                                <img src="~/img/icon-adopcion-card.png" class="img-fluid mx-auto mt-2" alt="..." style="width:8rem; height:8rem; border-radius: 10%;">
                             }
                             <div class="card-body">
-                                <h5 class="card-title text-center nombrePerro" id="nombrePerro">@adopcion.Nombre.ToUpper() @(adopcion.Estado == 1 ? "(ADOPTADO)" : "")</h5>
+                                <h4 class="card-title text-center nombrePerro" id="nombrePerro">
+                                    @{
+                                        string nombre = adopcion.Nombre[0].ToString().ToUpper() + adopcion.Nombre.Substring(1).ToLower();
+                                        if (adopcion.Estado == 1)
+                                        {
+                                            <p>
+                                                @(nombre + " (ADOPTADO)")
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p>
+                                                @nombre
+                                            </p>
+                                        }
+                                    }
+                                </h4>
                                 <p class="card-text"><strong>Email del publicador:</strong> @adopcion.Email</p>
                                 <p class="card-text"><strong>Tamaño:</strong> @adopcion.Tamano</p>
                                 <p class="card-text"><strong>Raza:</strong> @adopcion.Raza</p>
@@ -51,13 +67,19 @@ else
                                 <div class="d-flex gap-3">
                                     @if (adopcion.Estado == 0)
                                     {
-                                        <button class="btn btn-custom BtnVisualizarContacto" onclick="BtnVisualizarContacto('@adopcion.Id', '@User.FindFirstValue("Email")', '@adopcion.Email')" data-toggle="tooltip" data-placement="top" title="Contactar" data-remitente='@User.FindFirstValue("Email")' data-destinatario='@adopcion.Email'>
+                                        <button class="btn btn-custom BtnVisualizarContacto" onclick="BtnVisualizarContacto('@adopcion.Id', '@User.FindFirstValue("Email")', '@adopcion.Email', '@adopcion.Nombre')" data-remitente='@User.FindFirstValue("Email")' data-destinatario='@adopcion.Email'
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Contactar"
+                                                data-bs-title="Contactar">
                                             <i class="bi bi-send"></i>
                                         </button>
                                     }
                                     @if (User.IsInRole("Administrador"))
                                     {
-                                        <button class="btn btn-danger eliminar-btn" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <button class="btn btn-danger eliminar-btn"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-bs-custom-class="tooltip-Eliminar"
+                                                data-bs-title="Eliminar">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     }
