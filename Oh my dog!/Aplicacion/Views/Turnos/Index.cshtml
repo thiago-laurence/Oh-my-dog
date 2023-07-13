@@ -484,7 +484,7 @@ else
 			var nombreInput = $("<textarea>").addClass("form-control").prop("required", true).attr('placeholder',"Ejemplo: Firu, Elvis Presley, George");
 
 			// Crear el div para el mensaje de error
-			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas separadas por ',' que no se encuentren en el listado y no superen los 20 caracteres.");
+			var invalidFeedbackDiv = $("<div>").addClass("invalid-feedback").text("Ingrese mascotas separadas por ',' que no se encuentren en el listado. Máximo 20 caracteres por mascota.");
 
 			// Agregar los elementos al div "otra"
 			otraDiv.append(nombreLabel, nombreInput, invalidFeedbackDiv);

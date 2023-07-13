@@ -293,7 +293,7 @@
                             success: function (response) {
                                 // Actualizar el estado en la tarjeta de adopción
                                 tarjetaAdopcion.find('.card-title').text("(ADOPTADO)");
-
+                                tarjetaAdopcion.find('img').attr('src', '/img/publicarAdopcion-icon.png').addClass('img-fluid mx-auto mt-2 foto').css({ 'width': '8rem', 'height': '8rem' });
                                 // Agregar una clase CSS para resaltar el cambio de estado
                                 tarjetaAdopcion.addClass('card-adoptado');
 
@@ -428,6 +428,7 @@
                             card.find('.card-body .tamano').html('<strong>Tamaño:</strong> ' + response.adopcion.tamano);
                             card.find('.card-body .color').html('<strong>Color:</strong> ' + response.adopcion.color);
                             card.find('.card-body .descripcion').html('<strong>Descripcion:</strong> ' + response.adopcion.descripcion);
+                            
                             // Mostrar el mensaje de éxito
                             Swal.fire('¡Publicación actualizada!', 'Los cambios han sido guardados correctamente', 'success');
                             // Ocultar el formulario
