@@ -326,7 +326,8 @@ select option[value=""], select:invalid{
 
 
 .event-date.active-date {
-  background:#add8e6 }
+  background: #0d6efd;
+  }
 
 /* input dialog */
 .dialog {

@@ -308,8 +308,8 @@ namespace Aplicacion.Controllers
         [HttpPost]
         public JsonResult ProgramarRecordatorio(DateTime fechaRecordatorio, string idDueno, int idVacuna, int idPerro)
         {
-           //DateTime fechaHardcoding = new DateTime(2023, 06, 23, 11, 15, 0);
-           //fechaHardcoding = fechaHardcoding.AddMinutes(1);
+            //DateTime fechaHardcoding = new DateTime(2023, 07, 14, 11, 10, 0);
+           
 
             var query = _context.Perros.Where(p => p.Id == idPerro)
                 .Join(_context.VacunaPerros, p => p.Id, vp => vp.IdPerro, (p, vp) => new { Perro = p.Nombre, Dueno = p.IdDueno, Vacuna = vp.IdVacuna })
@@ -321,14 +321,24 @@ namespace Aplicacion.Controllers
             string remitente = "ohmydog@gmail.com",
                 destinatario = obj.Email,
                 asunto = "Recordatorio de vacunación",
-                contenido = "Hola " + obj.Dueno + ",  este mensaje es para informar que el dia " + fechaRecordatorio.ToShortDateString() 
+                contenido = "Hola " + obj.Dueno + ",  este mensaje es para informar que el dia " + fechaRecordatorio.ToShortDateString()
                 + " se vence la vacuna " + obj.Vacuna + " para su perro " + obj.Perro + ", por lo que se le recomienda realizar una solicitud para un nuevo turno.<br>" +
                 "Saludos del equipo de <strong>OhMyDog!</strong>";
 
-            // Programar el método para ejecutarse en la fecha y hora específica utilizando Hangfire            
-            BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaRecordatorio);
-            //BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaHardcoding);
-
+            /*
+            string contenidoMoquillo = "Hola Lautaro Moller" + ",  este mensaje es para informar que el dia " + fechaHardcoding.AddDays(30).ToShortDateString()
+                + " se vence la vacuna Moquillo para su perro Rocky, por lo que se le recomienda realizar una solicitud para un nuevo turno.<br>" +
+                "Saludos del equipo de <strong>OhMyDog!</strong>";
+            string contenidoAntirrabica= "Hola Lautaro Moller" + ",  este mensaje es para informar que el dia " + fechaHardcoding.AddDays(30).ToShortDateString()
+                + " se vence la vacuna Antirrábica para su perro Rocky, por lo que se le recomienda realizar una solicitud para un nuevo turno.<br>" +
+                "Saludos del equipo de <strong>OhMyDog!</strong>";
+            */ 
+            //Programar el método para ejecutarse en la fecha y hora específica utilizando Hangfire            
+            BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenido, destinatario), fechaRecordatorio.AddDays(-30));
+            /*
+            BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenidoMoquillo, "lautaro@gmail.com"), fechaHardcoding);
+            BackgroundJob.Schedule(() => EnviarRecordatorio(remitente, asunto, contenidoAntirrabica, "lautaro@gmail.com"), fechaHardcoding);
+            */
             return (Json(new { success = true }));
         }
 

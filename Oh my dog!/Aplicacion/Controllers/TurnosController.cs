@@ -406,7 +406,7 @@ namespace Aplicacion.Controllers
             if (turnoAux.Fecha.AddDays(-3).Date > DateTime.Now.Date)
             {
                 Console.WriteLine("Se agendo el recordatorio");
-                BackgroundJob.Schedule(() => EnviarCorreo(turnoAux, true), turnoAux.Fecha.AddDays(-3).AddHours(11).AddMinutes(30));
+                BackgroundJob.Schedule(() => EnviarCorreo(turnoAux, true), turnoAux.Fecha.AddDays(-3).AddHours(11).AddMinutes(15));
             }
 			EnviarCorreo(turnoAux,false);
 			return Json(new { turno= JsonSerializer.Serialize(turnoAux)});
