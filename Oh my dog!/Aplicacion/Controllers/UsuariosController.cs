@@ -201,7 +201,7 @@ namespace Aplicacion.Controllers
             user.Estado = 1;
             user.IdRol = 2;
             user.Pass = GeneradorRandomContrasena();
-			await EnviarCorreoUsuario(user);
+			_ = EnviarCorreoUsuario(user);
             _context.Usuarios.Add(user);
             await _context.SaveChangesAsync();
 
@@ -384,7 +384,7 @@ namespace Aplicacion.Controllers
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
 						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-                        client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+                        client.Authenticate("d57c3b71f0c9fd", "40cce72119e038");
                         client.Send(message);
                         client.Disconnect(true);
                     }
@@ -395,7 +395,7 @@ namespace Aplicacion.Controllers
                     // Manejo de errores aquí
                     Console.WriteLine(ex.Message);
                 }
-           });
+            });
         }
 
 		private bool UsuarioExists(int id)

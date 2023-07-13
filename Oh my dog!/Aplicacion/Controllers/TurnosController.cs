@@ -526,7 +526,7 @@ namespace Aplicacion.Controllers
 					{
 
 						client.Connect("sandbox.smtp.mailtrap.io", 587, false);
-						client.Authenticate("c2bc0d934273d1", "51d937a6997fcb");
+						client.Authenticate("d57c3b71f0c9fd", "40cce72119e038");
 						client.Send(message);
 						client.Disconnect(true);
 					}
