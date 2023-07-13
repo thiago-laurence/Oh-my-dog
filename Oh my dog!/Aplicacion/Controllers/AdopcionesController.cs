@@ -38,7 +38,7 @@ namespace Aplicacion.Controllers
             }
             adopcion.Nombre = adopcion.Nombre.ToLower();
             _context.Add(adopcion);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return (Json(new { success = true, message = "El perro ha sido publicado en adopción con éxito" }));
         }

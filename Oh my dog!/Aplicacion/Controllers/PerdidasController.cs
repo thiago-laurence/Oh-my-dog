@@ -43,7 +43,7 @@ namespace Aplicacion.Controllers
             }
             perdida.Nombre = perdida.Nombre.ToLower();
             _context.Add(perdida);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return (Json(new { success = true, message = "El perro ha sido publicado en como perdido con éxito" }));
         }
