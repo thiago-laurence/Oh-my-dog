@@ -9,7 +9,7 @@ public partial class Perros
 
     public string Nombre { get; set; } = null!;
 
-    public float Peso { get; set; }
+    public string Peso { get; set; }
 
     public DateTime? Celo { get; set; }
 
