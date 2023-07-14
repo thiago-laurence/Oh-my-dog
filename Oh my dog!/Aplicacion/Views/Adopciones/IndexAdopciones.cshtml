@@ -164,6 +164,49 @@
     </div>
 </div>
 
+
+
+
+<!--Inicio Modal para eliminar publicacion del publicador-->
+<div class="modal fade" id="ModalEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    <i class="fa-solid fa-trash fa-xl"></i>
+                    Eliminar publicación de adopción
+                </h1>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" class="row g-3 needs-validation Formulario" novalidate id="formEliminarPublicador">
+                    <input type="number" id="idAdopcionEliminar" hidden value="">
+                    <input type="text" id="nombrePerroEliminar" hidden value="">
+                    <div class="col-md-12">
+                        <label for="destinatario" class="form-label">Destinatario</label>
+                        <input type="email" class="form-control" id="DestinatarioEliminar" name="Destinatario" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom02" class="form-label">Motivo de eliminación</label>
+                        <textarea class="form-control InputText" maxlength="500" id="ContenidoEliminar" name="Contenido" required></textarea>
+                        <div class="invalid-feedback">
+                            Ingrese un mensaje a incluir en el cuerpo del correo (máximo 500 caracteres)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary BtnCancelarForm" data-bs-dismiss="modal" id="BtnCancelarEliminar">Cancelar</button>
+                        <button type="button" class="btn btn-custom BtnEnvioForm" onclick="EliminarPublicacion()" id="BtnEliminar" disabled>Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <div class="b-example-divider"></div>
 
 @section Scripts{
@@ -353,13 +396,13 @@
         $(document).ready(function () {
             InicializacionDeFunciones();
         });
-        function InicializacionDeFunciones() {
-            $('.eliminar-btn').click(function () {
-            var adopcionId = $(this).closest('.card').data('adopcion-id');
-            var destinatario = $(this).closest('.card').data('destinatario');
-            var nombrePerro = $(this).closest('.card').data('nombreperro');
-            var tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual
 
+        var adopcionId;
+        var destinatario;
+        var nombrePerro;
+        var tarjetaAdopcion; // Obtener la tarjeta de adopción actual
+        function EliminarPublicacion() {
+            var mensaje= document.getElementById("ContenidoEliminar").value;
             Swal.fire({
                 title: '¿Estás seguro de que deseas eliminar esta publicación?',
                 text: 'Esta acción no se puede deshacer.',
@@ -375,10 +418,11 @@
                     $.ajax({
                         url: '/Adopciones/BajaLogica',
                         type: 'POST',
-                        data: { id: adopcionId, destinatario: destinatario, nombrePerro: nombrePerro},
+                        data: { id: adopcionId, destinatario: destinatario, nombrePerro: nombrePerro, mensaje: mensaje },
                         success: function (response) {
                             // Mostrar el mensaje de éxito
                             Swal.fire('¡Publicación eliminada!', 'La publicación de adopción ha sido eliminada.', 'success');
+                            $('#ModalEliminar').modal('hide');
                             ListarAdopciones();
                         },
                         error: function (error) {
@@ -387,6 +431,19 @@
                     });
                 }
             });
+        }
+
+
+        function InicializacionDeFunciones() {
+           $('.eliminar-btn').click(function () {
+             adopcionId = $(this).closest('.card').data('adopcion-id');
+             destinatario = $(this).closest('.card').data('destinatario');
+             nombrePerro = $(this).closest('.card').data('nombreperro');
+             tarjetaAdopcion = $(this).closest('.card'); // Obtener la tarjeta de adopción actual     
+			document.getElementById("DestinatarioEliminar").value = destinatario;
+			document.getElementById("idAdopcionEliminar").value = adopcionId;
+			document.getElementById("nombrePerroEliminar").value = nombrePerro;
+			$('#ModalEliminar').modal('show');
         });
         }
         function capitalizarNombresPerros() {

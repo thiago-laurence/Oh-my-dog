@@ -207,7 +207,7 @@ namespace Aplicacion.Controllers
 
         }
 
-        public async Task<IActionResult> BajaLogica(int id, string destinatario, string nombrePerro)
+        public async Task<IActionResult> BajaLogica(int id, string destinatario, string nombrePerro, string mensaje)
         {
             Adopciones adopcion;
             adopcion = _context.Adopciones.Where(a => a.Id == id).First();
@@ -218,7 +218,7 @@ namespace Aplicacion.Controllers
                 await _context.SaveChangesAsync();
                 if (User.IsInRole("Administrador"))
                 {
-                    _ = EnviarCorreoEliminarAdopcion(nombrePerro, destinatario);
+                    _ = EnviarCorreoEliminarAdopcion(nombrePerro, destinatario, mensaje);
                 }
             }
             return Json(new { success = true });
@@ -281,7 +281,7 @@ namespace Aplicacion.Controllers
             });
         }
 
-        public async Task EnviarCorreoEliminarAdopcion(string nombrePerro, string destinatario)
+        public async Task EnviarCorreoEliminarAdopcion(string nombrePerro, string destinatario, string mensaje)
         {
             await Task.Run(() =>
             {
@@ -290,8 +290,10 @@ namespace Aplicacion.Controllers
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("", "ohmydoglem@gmail.com")); // Correo de origen, tiene que estar configurado en el metodo client.Authenticate()
                     message.To.Add(new MailboxAddress("", destinatario)); // Correo de destino
-                    message.Subject = "Baja de la publicacion de la adopcion de " + nombrePerro;
-                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de adopcion de " + nombrePerro + " fue dada de baja, cualquier duda envie un mail a ohmydog@gmail.com";
+                    message.Subject = "Baja de la publicacion de adopción de " + nombrePerro.ToUpper();
+                    string contenido = "La veterinaria OhMyDog se pone en contacto con usted para notificarle que la publicacion de adopción de " + nombrePerro.ToUpper() + " fue dada de baja, "
+                            + "el motivo es el siguiente: \"" + mensaje + "\". "
+                            + "Cualquier duda envie un mail a ohmydog@gmail.com";
                     var bodyBuilder = new BodyBuilder();
                     bodyBuilder.HtmlBody = contenido;
                     message.Body = bodyBuilder.ToMessageBody();
