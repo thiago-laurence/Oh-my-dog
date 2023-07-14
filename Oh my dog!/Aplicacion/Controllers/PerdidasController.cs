@@ -106,7 +106,7 @@ namespace Aplicacion.Controllers
 
             PerdidasViewModel modelo = new PerdidasViewModel
             {
-                Origen = (query != null) ? true : false,
+                Origen = (query != null || (filtro != null)) ? true : false,
                 Paginacion = await Paginacion<Perdidas>.CrearPaginacion(perdidas.AsNoTracking(), numeroPagina ?? 1, cantidadDeRegistros)
             };
             return (PartialView("_ListarPerdidas", modelo));
