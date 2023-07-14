@@ -107,10 +107,15 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Peso (en Kg)</label>
-                        <input type="text" class="form-control InputNumber" id="Peso" pattern="[0-9]+([.][0-9]+)?" required>
+                        <label for="validationCustom04" class="form-label">Tamaño</label>
+                        <select class="form-select InputSelect" id="Peso" required>
+                            <option selected disabled value="">Elige...</option>
+                            <option value="Pequeño">Pequeño</option>
+                            <option value="Mediano">Mediano</option>
+                            <option value="Grande">Grande</option>
+                        </select>
                         <div class="invalid-feedback">
-                            Ingrese un peso válido (no puede empezar ni finalizar en '.', y no puede ser negativo)
+                            Seleccione un tamaño
                         </div>
                     </div>
                     <div class="col-md-6">
