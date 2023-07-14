@@ -63,12 +63,38 @@
         <div class="col-6">
             <form>
                 <label class="form-label fw-bold">
-                    Buscador de perros por nombre:
+                    Buscador de perros por tamaño:
+                </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="FiltroTamano" id="TamanoPequeno" value="Pequeño">
+                    <label class="form-check-label" for="TamanoPequeno">
+                        Pequeño
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="FiltroTamano" id="TamanoMediano" value="Mediano">
+                    <label class="form-check-label" for="TamanoMediano">
+                        Mediano
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="FiltroTamano" id="TamanoGrande" value="Grande">
+                    <label class="form-check-label" for="TamanoGrande">
+                        Grande
+                    </label>
+                </div>
+            </form>
+            <button class="btn btn-primary" type="button" id="btnBuscar" style="margin-top: 20px;" onclick="ListarPerdidas()">Buscar</button>
+        </div>
+        <div class="col-6">
+            <form>
+                <label class="form-label fw-bold">
+                    Buscador de perros por nombre, color o raza:
                 </label>
                 <input class="form-control me-2" type="text" name="buscar"
                        data-bs-toggle="tooltipBusqueda" data-bs-placement="bottom"
                        data-bs-custom-class="custom-tooltip"
-                       data-bs-title="El criterio de busqueda es por el nombre del perro publicado"
+                       data-bs-title="El criterio de busqueda es por nombre, color o raza del perro publicado"
                        autocomplete="off"
                        placeholder="Buscar..." id="BuscadorPerdidas">
             </form>
@@ -361,12 +387,16 @@
         window.addEventListener('load', function () {
             //capitalizarNombresPerros();
         });
+
+        
         function BtnVisualizarEliminar(idPerdida, destinatario, nombrePerro){
             document.getElementById("DestinatarioEliminar").value = destinatario;
             document.getElementById("idPerdidaEliminar").value = idPerdida;
             document.getElementById("nombrePerroEliminar").value = nombrePerro;
             $('#ModalEliminar').modal('show');
         }
+
+        
         function EliminarPublicacion(){
             var perdidaId = document.getElementById("idPerdidaEliminar").value;
             var destinatario = document.getElementById("DestinatarioEliminar").value;
@@ -402,6 +432,7 @@
                 }
             });
         }
+        
         function capitalizarNombresPerros() {
             var cardsPerdida = document.querySelectorAll('.card');
 
@@ -516,6 +547,29 @@
 
         });
 
+        function RadioSeleccionado() {
+            var radioActual = document.getElementById('TamanoPequeno');
+            var radio = null;
+
+            if (radioActual.checked) {
+                return (radioActual);
+            }
+
+            radioActual = document.getElementById('TamanoMediano');
+            if (radioActual.checked) {
+                return (radioActual);
+            }
+
+            radioActual = document.getElementById('TamanoGrande');
+            if (radioActual.checked) {
+                return (radioActual);
+            }
+
+            return (radio);
+        }
+
+
+
         function CambiarPagina() {
             // Obtener todos los elementos <a> con la clase "numero-pagina"
             const elementosPagina = document.querySelectorAll('.page-link');
@@ -527,11 +581,12 @@
                     const numeroPagina = this.getAttribute('data-numeroPagina');
                     //Tomar el texto ingresado en la busqueda
                     filtroActual = document.getElementById('BuscadorPerdidas').value;
-
+                    var radioActual = RadioSeleccionado();
+                    var valorFiltro = (radioActual != null) ? radioActual.value : "";
                     $.ajax({
                         url: '@Url.Action("ListarPerdidas", "Perdidas")',
                         type: 'GET',
-                        data: { query: filtroActual, numeroPagina: numeroPagina },
+                        data: { query: filtroActual, numeroPagina: numeroPagina, filtro:valorFiltro },
                         success: function (data) {
                             // Actualizar el contenido del contenedor de la lista de usuarios
                             $('#containerListaPerdidas').html(data);
@@ -549,22 +604,28 @@
 
         function ListarPerdidas(busquedaIngresada) {
             var filtroActual = document.getElementById('BuscadorPerdidas').value;
+            var radioActual = RadioSeleccionado();
             if (busquedaIngresada == "reset") {
                 filtroActual = null;
+                if (radioActual != null) {
+                    radioActual.checked = false;
+                    radioActual = null;
+                }
                 document.getElementById('BuscadorPerdidas').value = "";
             }
-
+            var valorFiltro = (radioActual != null) ? radioActual.value : "";
             // Realizar la petición Ajax
             $.ajax({
                 url: '@Url.Action("ListarPerdidas", "Perdidas")', // Ruta de la acción del controlador para buscar usuarios
                 type: 'GET',
-                data: { query: filtroActual }, // Envía el valor del buscador como parámetro de la búsqueda
+                data: { query: filtroActual, filtro: valorFiltro }, // Envía el valor del buscador como parámetro de la búsqueda
                 success: function (data) {
                     // Actualizar el contenido del contenedor de la lista de usuarios
                     $('#containerListaPerdidas').html(data);
                     //Carga los nuevos numeros de pagina
                     CambiarPagina();
                     InicializarTooltips();
+                    
                 },
                 error: function () {
                     alert('Error al buscar perdidas');

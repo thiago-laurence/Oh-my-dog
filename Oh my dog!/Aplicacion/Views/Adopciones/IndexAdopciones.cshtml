@@ -546,7 +546,6 @@
                     filtroActual = document.getElementById('BuscadorAdopciones').value;
                     var radioActual = RadioSeleccionado();
                     var valorFiltro = (radioActual != null) ? radioActual.value : "";
-
                     $.ajax({
                         url: '@Url.Action("ListarAdopciones", "Adopciones")',
                         type: 'GET',
@@ -577,9 +576,7 @@
                 }
                 document.getElementById('BuscadorAdopciones').value = "";
             }
-
             var valorFiltro = (radioActual != null) ? radioActual.value : "";
-
             // Realizar la petición Ajax
             $.ajax({
                 url: '@Url.Action("ListarAdopciones", "Adopciones")', // Ruta de la acción del controlador para buscar usuarios
@@ -592,7 +589,6 @@
                     CambiarPagina();
                     InicializarTooltips();
                     InicializacionDeFunciones();
-
                 },
                 error: function () {
                     alert('Error al buscar adopciones');

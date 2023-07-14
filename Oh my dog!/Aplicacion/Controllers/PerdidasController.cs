@@ -73,7 +73,7 @@ namespace Aplicacion.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListarPerdidas(string query, int? numeroPagina)
+        public async Task<IActionResult> ListarPerdidas(string query, int? numeroPagina, string filtro)
         {
             var perdidas = from perdida in _context.Perdidas select perdida;
 
@@ -82,9 +82,17 @@ namespace Aplicacion.Controllers
                 numeroPagina = 1;
             }
 
-            if (!String.IsNullOrEmpty(query))
+            if (!String.IsNullOrEmpty(query) && !String.IsNullOrEmpty(filtro))
+                {
+                perdidas = perdidas.Where(a => a.Peso == filtro && (a.Nombre.Contains(query) || a.Raza.Contains(query) || a.Color.Contains(query)));
+            }
+            else if (!String.IsNullOrEmpty(query))
             {
-                perdidas = perdidas.Where(a => a.Nombre.Contains(query));
+                perdidas = perdidas.Where(a=> a.Nombre.Contains(query) || a.Raza.Contains(query) || a.Color.Contains(query));
+            }
+            else if (!String.IsNullOrEmpty(filtro))
+            {
+                perdidas = perdidas.Where(a => a.Peso == filtro);
             }
 
             if (User.Identity!.IsAuthenticated)
